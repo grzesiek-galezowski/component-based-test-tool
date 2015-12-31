@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace ComponentBasedTestTool.UserControls
+namespace ComponentBasedTestTool.Views
 {
   /// <summary>
   /// Interaction logic for VerticalGridSplitter.xaml

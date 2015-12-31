@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Input;
-using ComponentBasedTestTool.Annotations;
 
 namespace ComponentBasedTestTool.ViewModels.Commands
 {

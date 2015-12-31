@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using ComponentBasedTestTool.ViewModels;
 
-namespace ComponentBasedTestTool.UserControls
+namespace ComponentBasedTestTool.Views
 {
   /// <summary>
   /// Interaction logic for OperationsOutputView.xaml

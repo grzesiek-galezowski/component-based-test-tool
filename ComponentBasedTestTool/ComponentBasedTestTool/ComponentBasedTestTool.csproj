@@ -56,13 +56,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserControls\OperationsOutputView.xaml.cs">
+    <Compile Include="Views\OperationsOutputView.xaml.cs">
       <DependentUpon>OperationsOutputView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\OperationsOutputViewModel.cs" />
     <Compile Include="ViewModels\OperationsViewModel.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="UserControls\HorizontalGridSplitterView.xaml.cs">
+    <Compile Include="Views\HorizontalGridSplitterView.xaml.cs">
       <DependentUpon>HorizontalGridSplitterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Commands\OperationCommand.cs" />
@@ -70,16 +70,16 @@
     <Compile Include="ViewModels\OperationStates\NotExecutableOperationState.cs" />
     <Compile Include="ViewModels\OperationStates\ExecutableOperationState.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
-    <Compile Include="UserControls\VerticalGridSplitterView.xaml.cs">
+    <Compile Include="Views\VerticalGridSplitterView.xaml.cs">
       <DependentUpon>VerticalGridSplitterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\CancelOperationCommand.cs" />
-    <Page Include="UserControls\OperationsOutputView.xaml">
+    <Page Include="Views\OperationsOutputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\OperationsView.xaml">
+    <Page Include="Views\OperationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,18 +91,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UserControls\OperationsView.xaml.cs">
+    <Compile Include="Views\OperationsView.xaml.cs">
       <DependentUpon>OperationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UserControls\HorizontalGridSplitterView.xaml">
+    <Page Include="Views\HorizontalGridSplitterView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\VerticalGridSplitterView.xaml">
+    <Page Include="Views\VerticalGridSplitterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

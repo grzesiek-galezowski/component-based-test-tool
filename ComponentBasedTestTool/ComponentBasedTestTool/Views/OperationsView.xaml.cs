@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
-using ComponentBasedTestTool.ViewModels;
+﻿using System.Windows.Controls;
 
-namespace ComponentBasedTestTool.UserControls
+namespace ComponentBasedTestTool.Views
 {
   /// <summary>
   /// Interaction logic for CommandsView.xaml

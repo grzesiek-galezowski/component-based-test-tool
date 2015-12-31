@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ComponentBasedTestTool"
-        xmlns:userControls="clr-namespace:ComponentBasedTestTool.UserControls"
+        xmlns:views="clr-namespace:ComponentBasedTestTool.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
   <Grid>
@@ -21,9 +21,9 @@
         <ColumnDefinition Width="5"></ColumnDefinition>
         <ColumnDefinition Width="1*"></ColumnDefinition>
       </Grid.ColumnDefinitions>
-      <userControls:VerticalGridSplitterView Grid.Column="1" />
-      <userControls:OperationsView x:Name="OperationsView"  Grid.Column="2" />
-      <userControls:VerticalGridSplitterView Grid.Column="3" />
+      <views:VerticalGridSplitterView Grid.Column="1" />
+      <views:OperationsView x:Name="OperationsView"  Grid.Column="2" />
+      <views:VerticalGridSplitterView Grid.Column="3" />
       <ListView Grid.Column="4">
         <ListView.View>
           <GridView>
@@ -37,7 +37,7 @@
         </ListViewItem>
       </ListView>
     </Grid>
-    <userControls:HorizontalGridSplitter Grid.Row="1"/>
-    <userControls:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
+    <views:HorizontalGridSplitter Grid.Row="1"/>
+    <views:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
   </Grid>
 </Window>
