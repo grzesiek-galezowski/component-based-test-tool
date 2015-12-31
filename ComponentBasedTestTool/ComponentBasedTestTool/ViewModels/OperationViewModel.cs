@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.ViewModels.Commands;
@@ -102,8 +101,8 @@ namespace ComponentBasedTestTool.ViewModels
 
     public void Success()
     {
-      CanRun = false;
-      CanStop = true;
+      CanRun = true;
+      CanStop = false;
       State = "Success";
       LastErrorFullText = LastError = string.Empty;
       _operationState = new ExecutableOperationState();
@@ -111,8 +110,8 @@ namespace ComponentBasedTestTool.ViewModels
 
     public void Failure(Exception exception)
     {
-      CanRun = false;
-      CanStop = true;
+      CanRun = true;
+      CanStop = false;
       State = "Failure";
       LastErrorFullText = exception.ToString();
       LastError = exception.ToString().Split(
@@ -133,11 +132,6 @@ namespace ComponentBasedTestTool.ViewModels
     }
     #endregion
 
-  }
-
-  public class BadOperation : Operation
-  {
-    public Task RunAsync() => Task.Run(() => { throw new Exception("Lolokimono"); });
   }
 }
 

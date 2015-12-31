@@ -11,7 +11,7 @@ namespace ComponentBasedTestTool.ViewModels
 {
   public class OperationsOutputViewModel : INotifyPropertyChanged
   {
-    private string _content = "Lolokimono";
+    private string _content = string.Empty;
 
     public string Content
     {

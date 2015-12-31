@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -32,25 +33,48 @@ namespace ComponentBasedTestTool.ViewModels
 
   public class CatOperation : Operation
   {
-    public Task RunAsync()
+    private readonly OperationsOutputViewModel _operationsOutputViewModel;
+
+    public CatOperation(OperationsOutputViewModel operationsOutputViewModel)
     {
-      throw new System.NotImplementedException();
+      _operationsOutputViewModel = operationsOutputViewModel;
+    }
+
+    public async Task RunAsync()
+    {
+      _operationsOutputViewModel.Content += "cat Folder" + Environment.NewLine;
     }
   }
 
   public class CdOperation : Operation
   {
-    public Task RunAsync()
+    private readonly OperationsOutputViewModel _operationsOutputViewModel;
+
+    public CdOperation(OperationsOutputViewModel operationsOutputViewModel)
     {
-      throw new System.NotImplementedException();
+      _operationsOutputViewModel = operationsOutputViewModel;
+    }
+
+    public async Task RunAsync()
+    {
+      _operationsOutputViewModel.Content += "cd lolek" + Environment.NewLine;
     }
   }
 
   public class LsOperation : Operation
   {
-    public Task RunAsync()
+    private readonly OperationsOutputViewModel _operationsOutputViewModel;
+
+    public LsOperation(OperationsOutputViewModel operationsOutputViewModel)
     {
-      throw new System.NotImplementedException();
+      _operationsOutputViewModel = operationsOutputViewModel;
+    }
+
+    public async Task RunAsync()
+    {
+      _operationsOutputViewModel.Content += "lolki2" + Environment.NewLine;
+      await Task.Delay(2000);
+      _operationsOutputViewModel.Content += "123123123" + Environment.NewLine;
     }
   }
 }

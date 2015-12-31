@@ -22,9 +22,9 @@ namespace ComponentBasedTestTool
 
       var operationsViewModel = new OperationsViewModel();
 
-      operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation()));
-      operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation()));
-      operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation()));
+      operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation(operationsOutputViewModel)));
+      operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation(operationsOutputViewModel)));
+      operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation(operationsOutputViewModel)));
 
       new MainWindow(
         operationsViewModel,
