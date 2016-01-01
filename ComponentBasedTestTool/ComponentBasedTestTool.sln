@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool", "ComponentBasedTestTool\ComponentBasedTestTool.csproj", "{4D0C948F-D021-4BB3-8A00-64494AA85D39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionPoints", "ExtensionPoints\ExtensionPoints.csproj", "{FED701D5-6B0E-4997-AF97-B84D00CA222C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components\Components.csproj", "{900B3434-FA01-4CF2-B78E-CFA8944989D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4D0C948F-D021-4BB3-8A00-64494AA85D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D0C948F-D021-4BB3-8A00-64494AA85D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D0C948F-D021-4BB3-8A00-64494AA85D39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FED701D5-6B0E-4997-AF97-B84D00CA222C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FED701D5-6B0E-4997-AF97-B84D00CA222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FED701D5-6B0E-4997-AF97-B84D00CA222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FED701D5-6B0E-4997-AF97-B84D00CA222C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{900B3434-FA01-4CF2-B78E-CFA8944989D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{900B3434-FA01-4CF2-B78E-CFA8944989D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{900B3434-FA01-4CF2-B78E-CFA8944989D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{900B3434-FA01-4CF2-B78E-CFA8944989D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

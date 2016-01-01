@@ -134,7 +134,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{900b3434-fa01-4cf2-b78e-cfa8944989d1}</Project>
+      <Name>Components</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
+      <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
+      <Name>ExtensionPoints</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

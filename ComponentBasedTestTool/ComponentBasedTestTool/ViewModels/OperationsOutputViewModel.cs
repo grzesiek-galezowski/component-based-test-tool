@@ -6,10 +6,11 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ComponentBasedTestTool.Annotations;
+using ExtensionPoints;
 
 namespace ComponentBasedTestTool.ViewModels
 {
-  public class OperationsOutputViewModel : INotifyPropertyChanged
+  public class OperationsOutputViewModel : INotifyPropertyChanged, OperationsOutput
   {
     private string _content = string.Empty;
 
@@ -32,5 +33,10 @@ namespace ComponentBasedTestTool.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
+    public void Write(string str)
+    {
+      Content += str;
+    }
   }
 }
