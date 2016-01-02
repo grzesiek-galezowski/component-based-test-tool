@@ -25,4 +25,21 @@ namespace ComponentBasedTestTool.Views
       InitializeComponent();
     }
   }
+
+  public class SettingsTemplateSelector : DataTemplateSelector
+  {
+    public DataTemplate CheckBoxTemplate { get; set; }
+    public DataTemplate TextBoxTemplate { get; set; }
+
+    public override DataTemplate SelectTemplate(object item, DependencyObject container)
+    {
+      /*
+      Setting setting = item as Setting;
+      if (setting.IsCheckBox)
+      {
+        return CheckBoxTemplate;
+      }*/
+      return TextBoxTemplate;
+    }
+  }
 }

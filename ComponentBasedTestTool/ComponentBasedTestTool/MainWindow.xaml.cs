@@ -9,12 +9,14 @@ namespace ComponentBasedTestTool
   public partial class MainWindow : Window
   {
     public MainWindow(
-      OperationsViewModel operationsViewModel,
-      OperationsOutputViewModel operationsOutputViewModel)
+      OperationsViewModel operationsViewModel, 
+      OperationsOutputViewModel operationsOutputViewModel, 
+      OperationParametersViewModel operationParametersViewModel)
     {
       InitializeComponent();
       OperationsView.DataContext = operationsViewModel;
       OperationsOutputView.DataContext = operationsOutputViewModel;
+      OperationParametersView.DataContext = operationParametersViewModel;
     }
   }
 }

@@ -27,9 +27,14 @@ namespace ComponentBasedTestTool
       operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation(operationsOutputViewModel)));
       operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation(operationsOutputViewModel)));
 
+      var operationParametersViewModel = new OperationParametersViewModel();
+      operationParametersViewModel.OperationParameters
+        .Add(new OperationParameterViewModel() { Option="IP", Value = "127.0.0.1" });
+
       new MainWindow(
         operationsViewModel,
-        operationsOutputViewModel).Show();
+        operationsOutputViewModel,
+        operationParametersViewModel).Show();
     }
   }
 }

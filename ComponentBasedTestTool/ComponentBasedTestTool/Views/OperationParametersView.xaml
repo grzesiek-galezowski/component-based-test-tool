@@ -6,17 +6,33 @@
              xmlns:local="clr-namespace:ComponentBasedTestTool.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <ListView>
+  <ListView ItemsSource="{Binding OperationParameters}">
+
+    <ListView.Resources>
+      <DataTemplate x:Key="TextBoxTemplate">
+        <TextBox Text="{Binding Path=Value}" Width="100"></TextBox>
+      </DataTemplate>
+
+      <DataTemplate x:Key="CheckBoxTemplate">
+        <CheckBox IsChecked="{Binding Path=Value}" IsThreeState="False"></CheckBox>
+      </DataTemplate>
+
+      <local:SettingsTemplateSelector 
+            x:Key="SettingsTemplateSelector" 
+            TextBoxTemplate="{StaticResource TextBoxTemplate}" 
+            CheckBoxTemplate="{StaticResource CheckBoxTemplate}" />
+    </ListView.Resources>
+
+
     <ListView.View>
       <GridView>
-        <GridViewColumn Header="Option" Width="auto" />
-        <GridViewColumn Header="Value" Width="auto" />
+        <GridViewColumn Header="Option" Width="auto" DisplayMemberBinding="{Binding Option}" />
+        <GridViewColumn Header="Value" 
+                        Width="auto" 
+                        CellTemplateSelector="{StaticResource SettingsTemplateSelector}"
+                        />
       </GridView>
     </ListView.View>
-    <ListViewItem>asdasd</ListViewItem>
-    <ListViewItem >
-      <Label>asas</Label>
-    </ListViewItem>
   </ListView>
 
 </UserControl>

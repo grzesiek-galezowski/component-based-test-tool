@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\OperationParametersViewModel.cs" />
     <Compile Include="Views\OperationParametersView.xaml.cs">
       <DependentUpon>OperationParametersView.xaml</DependentUpon>
     </Compile>
