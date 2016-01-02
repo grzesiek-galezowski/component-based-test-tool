@@ -8,6 +8,7 @@ namespace Components
   public class CdOperation : Operation
   {
     private readonly OperationsOutput _out;
+    private OperationParameter<string> _path;
 
     public CdOperation(OperationsOutput @out)
     {
@@ -16,7 +17,12 @@ namespace Components
 
     public async Task RunAsync()
     {
-      _out.Write("cd lolek" + Environment.NewLine);
+      _out.WriteLine("cd " + _path.Value);
+    }
+
+    public void FillParameters(OperationParametersListBuilder parameters)
+    {
+      _path = parameters.Path("Path", @"C:\");
     }
   }
 }

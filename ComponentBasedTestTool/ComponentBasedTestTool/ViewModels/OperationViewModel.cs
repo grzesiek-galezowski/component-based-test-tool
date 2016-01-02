@@ -5,8 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
+using ComponentBasedTestTool.GlueCode;
 using ComponentBasedTestTool.ViewModels.Commands;
 using ComponentBasedTestTool.ViewModels.OperationStates;
+using ExtensionPoints;
 
 namespace ComponentBasedTestTool.ViewModels
 {
@@ -19,12 +21,16 @@ namespace ComponentBasedTestTool.ViewModels
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
     private readonly Operation _operation;
+    private OperationParametersViewModelListBuilder _parametersListBuilder;
 
     public OperationViewModel(string name, Operation operation)
     {
       Name = name;
       this.Ready();
       _operation = operation;
+      _parametersListBuilder = new OperationParametersViewModelListBuilder();
+      _operation.FillParameters(_parametersListBuilder);
+
     }
 
     public OperationCommand RunOperationCommand 
@@ -123,11 +129,7 @@ namespace ComponentBasedTestTool.ViewModels
     }
     public void SetOperationsOn(OperationParametersViewModel operationParametersViewModel)
     {
-      operationParametersViewModel.OperationParameters = new List<OperationParameterViewModel>()
-      {
-        new OperationParameterViewModel {Option = "IP", Value = "127.0.0.1"},
-        new OperationParameterViewModel {Option = "IP2", Value = "127.0.0.2"},
-      };
+      operationParametersViewModel.OperationParameters = _parametersListBuilder.BuildList();
     }
 
     #region Boilerplate
@@ -142,6 +144,37 @@ namespace ComponentBasedTestTool.ViewModels
 
 
   }
+
+  public class OperationParametersViewModelListBuilder : OperationParametersListBuilder
+  {
+    private readonly List<OperationParameterViewModel> _operationParameterViewModels;
+
+    public OperationParametersViewModelListBuilder()
+    {
+      _operationParameterViewModels = new List<OperationParameterViewModel>();
+    }
+
+    public IList<OperationParameterViewModel> BuildList()
+    {
+      return _operationParameterViewModels;
+    }
+
+    public OperationParameter<string> Path(string name, string defaultValue)
+    {
+      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = defaultValue };
+      _operationParameterViewModels.Add(operationParameterViewModel);
+      return ViewModelBasedPathParameter.Containing(operationParameterViewModel);
+    }
+
+    public OperationParameter<bool> Flag(string name, bool defaultValue)
+    {
+      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = defaultValue.ToString() };
+      _operationParameterViewModels.Add(operationParameterViewModel);
+      return ViewModelBasedFlagParameter.Containing(operationParameterViewModel);
+    }
+  }
+
+  //TODO consider making this and above a generic class
 }
 
 //TODO dependent operations

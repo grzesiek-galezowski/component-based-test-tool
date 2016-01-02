@@ -8,6 +8,9 @@ namespace Components
   public class LsOperation : Operation
   {
     private readonly OperationsOutput _out;
+    private OperationParameter<string> _directory;
+    private OperationParameter<bool> _displayAll;
+    private OperationParameter<bool> _recursive;
 
     public LsOperation(OperationsOutput @out)
     {
@@ -16,9 +19,17 @@ namespace Components
 
     public async Task RunAsync()
     {
-      _out.Write("lolki2" + Environment.NewLine);
-      await Task.Delay(2000);
-      _out.Write("123123123" + Environment.NewLine);
+      _out.WriteLine("ls" + 
+        (_displayAll.Value ? " -l" : "") + 
+        (_recursive.Value ? " -R" : "") +
+         " " + _directory.Value);
+    }
+
+    public void FillParameters(OperationParametersListBuilder parameters)
+    {
+      _directory = parameters.Path("Directory", @"C:\");
+      _displayAll = parameters.Flag("Display all", true);
+      _recursive = parameters.Flag("Recursive", true);
     }
   }
 }

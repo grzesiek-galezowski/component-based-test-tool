@@ -56,7 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlueCode\ViewModelBasedParameter.cs" />
     <Compile Include="ViewModels\OperationParametersViewModel.cs" />
+    <Compile Include="GlueCode\ViewModelBasedFlagParameter.cs" />
+    <Compile Include="GlueCode\ViewModelBasedPathParameter.cs" />
     <Compile Include="Views\OperationParametersView.xaml.cs">
       <DependentUpon>OperationParametersView.xaml</DependentUpon>
     </Compile>
@@ -152,6 +155,7 @@
       <Name>ExtensionPoints</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

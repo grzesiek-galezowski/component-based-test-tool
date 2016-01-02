@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
@@ -32,6 +33,11 @@ namespace ComponentBasedTestTool.ViewModels
     public void Write(string str)
     {
       Content += str;
+    }
+
+    public void WriteLine(string text)
+    {
+      Content += text + Environment.NewLine;
     }
   }
 }

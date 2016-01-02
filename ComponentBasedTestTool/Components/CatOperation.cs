@@ -8,6 +8,7 @@ namespace Components
   public class CatOperation : Operation
   {
     private readonly OperationsOutput _out;
+    private OperationParameter<string> _filename;
 
     public CatOperation(OperationsOutput @out)
     {
@@ -16,7 +17,12 @@ namespace Components
 
     public async Task RunAsync()
     {
-      _out.Write("cat Folder" + Environment.NewLine);
+      _out.WriteLine("cat " + _filename.Value);
+    }
+
+    public void FillParameters(OperationParametersListBuilder parameters)
+    {
+      _filename = parameters.Path("Filename", "File.txt");
     }
   }
 }
