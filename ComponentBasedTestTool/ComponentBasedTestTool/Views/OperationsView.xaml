@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ComponentBasedTestTool"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <ListView x:Name="CommandsList" ItemsSource="{Binding Operations}" >
+  <ListView x:Name="CommandsList" ItemsSource="{Binding Operations}" SelectedItem="{Binding SelectedOperation}">
     <ListView.View>
       <GridView>
         <GridViewColumn Header="Name" Width="auto" DisplayMemberBinding="{Binding Name}" />

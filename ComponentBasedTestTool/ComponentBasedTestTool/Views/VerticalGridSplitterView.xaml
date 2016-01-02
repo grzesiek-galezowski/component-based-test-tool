@@ -5,5 +5,5 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ComponentBasedTestTool"
              mc:Ignorable="d">
-  <GridSplitter HorizontalAlignment="Center" Height="100" VerticalAlignment="Top" Width="5"/>
+  <GridSplitter HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="5"/>
 </UserControl>

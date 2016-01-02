@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -120,7 +121,14 @@ namespace ComponentBasedTestTool.ViewModels
 
       _operationState = new ExecutableOperationState();
     }
-
+    public void SetOperationsOn(OperationParametersViewModel operationParametersViewModel)
+    {
+      operationParametersViewModel.OperationParameters = new List<OperationParameterViewModel>()
+      {
+        new OperationParameterViewModel {Option = "IP", Value = "127.0.0.1"},
+        new OperationParameterViewModel {Option = "IP2", Value = "127.0.0.2"},
+      };
+    }
 
     #region Boilerplate
     public event PropertyChangedEventHandler PropertyChanged;
@@ -131,6 +139,7 @@ namespace ComponentBasedTestTool.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
 
   }
 }

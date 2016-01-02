@@ -8,14 +8,22 @@ namespace ComponentBasedTestTool.ViewModels
 {
   public class OperationParametersViewModel : INotifyPropertyChanged
   {
-    private readonly List<OperationParameterViewModel> _operationParametersViewModels;
+    private IList<OperationParameterViewModel> _operationParametersViewModels;
 
     public OperationParametersViewModel()
     {
       _operationParametersViewModels = new List<OperationParameterViewModel>();
     }
 
-    public IList<OperationParameterViewModel> OperationParameters => _operationParametersViewModels;
+    public IList<OperationParameterViewModel> OperationParameters
+    {
+      get { return _operationParametersViewModels; }
+      set
+      {
+        _operationParametersViewModels = value;
+        OnPropertyChanged();
+      }
+    }
 
     #region boilerplate
     public event PropertyChangedEventHandler PropertyChanged;

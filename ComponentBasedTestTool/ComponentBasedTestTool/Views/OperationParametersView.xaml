@@ -10,17 +10,17 @@
 
     <ListView.Resources>
       <DataTemplate x:Key="TextBoxTemplate">
-        <TextBox Text="{Binding Path=Value}" Width="100"></TextBox>
+        <TextBox Text="{Binding Path=Value}" Width="100" />
       </DataTemplate>
 
-      <DataTemplate x:Key="CheckBoxTemplate">
-        <CheckBox IsChecked="{Binding Path=Value}" IsThreeState="False"></CheckBox>
+      <DataTemplate x:Key="ComboBoxTemplate">
+        <ComboBox SelectedItem="{Binding Path=Value}" />
       </DataTemplate>
 
-      <local:SettingsTemplateSelector 
+      <local:OperationParameterValueTemplateSelector 
             x:Key="SettingsTemplateSelector" 
             TextBoxTemplate="{StaticResource TextBoxTemplate}" 
-            CheckBoxTemplate="{StaticResource CheckBoxTemplate}" />
+            ComboBoxTemplate="{StaticResource ComboBoxTemplate}" />
     </ListView.Resources>
 
 
