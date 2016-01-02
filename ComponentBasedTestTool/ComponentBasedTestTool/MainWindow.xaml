@@ -24,18 +24,7 @@
       <views:VerticalGridSplitterView Grid.Column="1" />
       <views:OperationsView x:Name="OperationsView"  Grid.Column="2" />
       <views:VerticalGridSplitterView Grid.Column="3" />
-      <ListView Grid.Column="4">
-        <ListView.View>
-          <GridView>
-            <GridViewColumn Header="Option" Width="auto" />
-            <GridViewColumn Header="Value" Width="auto" />
-          </GridView>
-        </ListView.View>
-        <ListViewItem>asdasd</ListViewItem>
-        <ListViewItem >
-          <Label>asas</Label>
-        </ListViewItem>
-      </ListView>
+      <views:OperationParametersView x:Name="OperationParametersView" Grid.Column="4" />    
     </Grid>
     <views:HorizontalGridSplitter Grid.Row="1"/>
     <views:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />

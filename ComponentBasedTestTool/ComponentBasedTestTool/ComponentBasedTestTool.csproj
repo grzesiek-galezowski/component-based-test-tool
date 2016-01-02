@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\OperationParametersView.xaml.cs">
+      <DependentUpon>OperationParametersView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OperationsOutputView.xaml.cs">
       <DependentUpon>OperationsOutputView.xaml</DependentUpon>
     </Compile>
@@ -75,6 +78,10 @@
     </Compile>
     <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\CancelOperationCommand.cs" />
+    <Page Include="Views\OperationParametersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OperationsOutputView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
