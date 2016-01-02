@@ -27,6 +27,7 @@ namespace ComponentBasedTestTool
       operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation(operationsOutputViewModel)));
       operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation(operationsOutputViewModel)));
       operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation(operationsOutputViewModel)));
+      operationsViewModel.Operations.Add(new OperationViewModel("sleep", new WaitOperation(operationsOutputViewModel)));
 
       new MainWindow(
         operationsViewModel,

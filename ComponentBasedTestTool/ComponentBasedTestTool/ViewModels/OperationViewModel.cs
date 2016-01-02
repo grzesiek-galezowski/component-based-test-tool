@@ -172,6 +172,13 @@ namespace ComponentBasedTestTool.ViewModels
       _operationParameterViewModels.Add(operationParameterViewModel);
       return ViewModelBasedFlagParameter.Containing(operationParameterViewModel);
     }
+
+    public OperationParameter<TimeSpan> Seconds(string name, int amount)
+    {
+      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = amount.ToString() };
+      _operationParameterViewModels.Add(operationParameterViewModel);
+      return new ViewModelBasedParameter<TimeSpan>(operationParameterViewModel, s => TimeSpan.FromSeconds(int.Parse(s)));
+    }
   }
 
   //TODO consider making this and above a generic class
