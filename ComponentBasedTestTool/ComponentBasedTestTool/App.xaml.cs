@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ComponentBasedTestTool.ViewModels;
 using Components;
+using ExtensionPoints;
 
 namespace ComponentBasedTestTool
 {
@@ -24,15 +25,37 @@ namespace ComponentBasedTestTool
       var operationParametersViewModel = new OperationParametersViewModel();
       var operationsViewModel = new OperationsViewModel(operationParametersViewModel);
 
-      operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation(operationsOutputViewModel)));
-      operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation(operationsOutputViewModel)));
-      operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation(operationsOutputViewModel)));
-      operationsViewModel.Operations.Add(new OperationViewModel("sleep", new WaitOperation(operationsOutputViewModel)));
+      operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation(Out("ls", operationsOutputViewModel))));
+      operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation     (Out("cd", operationsOutputViewModel))));
+      operationsViewModel.Operations.Add(new OperationViewModel("cat", new CatOperation   (Out("cat", operationsOutputViewModel))));
+      operationsViewModel.Operations.Add(new OperationViewModel("sleep", new WaitOperation(Out("sleep", operationsOutputViewModel))));
 
       new MainWindow(
         operationsViewModel,
         operationsOutputViewModel,
         operationParametersViewModel).Show();
+    }
+
+    private OperationsOutput Out(string operationName, OperationsOutput output)
+    {
+      return new FormattingOperationOutput(operationName, output);
+    }
+  }
+
+  class FormattingOperationOutput : OperationsOutput
+  {
+    private readonly string _operationName;
+    private readonly OperationsOutput _output;
+
+    public FormattingOperationOutput(string operationName, OperationsOutput output)
+    {
+      _operationName = operationName;
+      _output = output;
+    }
+
+    public void WriteLine(string text)
+    {
+      _output.WriteLine($"[{_operationName}]" + ": " + text);
     }
   }
 }

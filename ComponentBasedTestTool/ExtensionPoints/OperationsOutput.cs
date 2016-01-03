@@ -9,7 +9,6 @@ namespace ExtensionPoints
 {
   public interface OperationsOutput
   {
-    void Write(string str);
     void WriteLine(string text);
   }
 }

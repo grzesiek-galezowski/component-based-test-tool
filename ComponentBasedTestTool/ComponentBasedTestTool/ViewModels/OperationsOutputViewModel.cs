@@ -30,11 +30,6 @@ namespace ComponentBasedTestTool.ViewModels
     }
     #endregion
 
-    public void Write(string str)
-    {
-      Content += str;
-    }
-
     public void WriteLine(string text)
     {
       Content += text + Environment.NewLine;
