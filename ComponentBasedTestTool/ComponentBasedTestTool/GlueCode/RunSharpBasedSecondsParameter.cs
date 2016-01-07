@@ -12,6 +12,6 @@ namespace ComponentBasedTestTool.ViewModels
       _prop = prop;
     }
 
-    public TimeSpan Value => TimeSpan.FromSeconds(_prop.GetValue());
+    public TimeSpan Value => TimeSpan.FromSeconds(_prop.Value);
   }
 }

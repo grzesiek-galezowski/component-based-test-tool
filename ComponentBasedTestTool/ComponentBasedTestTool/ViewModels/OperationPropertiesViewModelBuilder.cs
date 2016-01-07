@@ -8,10 +8,10 @@ namespace ComponentBasedTestTool.ViewModels
     readonly PropertySetBuilder _propertySetBuilder;
     private object _cachedObject = null;
 
-    public OperationPropertiesViewModelBuilder()
+    public OperationPropertiesViewModelBuilder(string name)
     {
       var scope = new PropertyObjectBuilderScope();
-      _propertySetBuilder = scope.NewPropertySet();
+      _propertySetBuilder = scope.NewPropertySet(name);
     }
 
     public OperationParameter<string> Path(string name, string defaultValue)

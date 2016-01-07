@@ -26,7 +26,7 @@ namespace ComponentBasedTestTool.ViewModels
       Name = name;
       this.Ready();
       _operation = operation;
-      _propertyListBuilder = new OperationPropertiesViewModelBuilder();
+      _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
       _operation.FillParameters(_propertyListBuilder);
 
     }

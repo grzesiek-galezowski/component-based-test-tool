@@ -51,7 +51,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -92,12 +91,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FormattingOperationOutput.cs" />
+    <Compile Include="PropertySetBuilder.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModel.cs" />
     <Compile Include="PropertyObjectBuilderScope.cs" />
     <Compile Include="ViewModels\OperationParametersViewModel.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />
     <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
+    <Compile Include="ViewModels\OutputFactory.cs" />
     <Compile Include="Views\OperationPropertiesView.xaml.cs">
       <DependentUpon>OperationPropertiesView.xaml</DependentUpon>
     </Compile>

@@ -11,6 +11,6 @@ namespace ComponentBasedTestTool.ViewModels
       _prop = prop;
     }
 
-    public T Value => _prop.GetValue();
+    public T Value => _prop.Value;
   }
 }

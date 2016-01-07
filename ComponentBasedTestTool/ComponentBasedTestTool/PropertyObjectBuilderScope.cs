@@ -1,9 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Security.RightsManagement;
-using System.Windows;
-using CallMeMaybe;
 using TriAxis.RunSharp;
 
 namespace ComponentBasedTestTool
@@ -17,46 +13,16 @@ namespace ComponentBasedTestTool
       _assembly = new AssemblyGen("Whatever", new CompilerOptions());
     }
 
-    public PropertySetBuilder NewPropertySet()
+    public PropertySetBuilder NewPropertySet(string name)
     {
       return new PropertySetBuilder(
-        _assembly.Public.Class("PropertySet" + Guid.NewGuid().ToString("N"))
+        _assembly.Public.Class(DebugName(name))
       );
     }
-  }
 
-  public class PropertySetBuilder : CreatedPropertySetObjectContainer
-  {
-    private readonly TypeGen _typeGen;
-    private object _object;
-
-    public PropertySetBuilder(TypeGen typeGen)
+    private static string DebugName(string name)
     {
-      _typeGen = typeGen;
-    }
-
-    public PropertyValuesBuilder<T> Property<T>(string name)
-    {
-      return new PropertyValuesBuilder<T>(name, _typeGen, this);
-    }
-
-    public object Build()
-    {
-      _typeGen.Complete();
-      var type = _typeGen.GetCompletedType();
-      return _object = Activator.CreateInstance(type);
-    }
-
-    public object Object
-    {
-      get
-      {
-        if (_object == null)
-        {
-          throw new TypeNotCompletedYetException();
-        }
-        return _object;
-      }
+      return name + $" ({Guid.NewGuid().ToString("N")})";
     }
   }
 
@@ -130,10 +96,13 @@ namespace ComponentBasedTestTool
       _container = container;
     }
 
-    public T GetValue()
+    public T Value
     {
-      var completedType = _typeGen.GetCompletedType();
-      return (T)(completedType.GetProperty(_propertyName).GetValue(_container.Object));
+      get
+      {
+        var completedType = _typeGen.GetCompletedType();
+        return (T)(completedType.GetProperty(_propertyName).GetValue(_container.Object));
+      }
     }
   }
 }
