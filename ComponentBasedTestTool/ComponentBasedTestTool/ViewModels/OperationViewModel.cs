@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
-using ComponentBasedTestTool.GlueCode;
 using ComponentBasedTestTool.ViewModels.Commands;
 using ComponentBasedTestTool.ViewModels.OperationStates;
 using ExtensionPoints;
@@ -21,15 +18,16 @@ namespace ComponentBasedTestTool.ViewModels
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
     private readonly Operation _operation;
-    private OperationParametersViewModelListBuilder _parametersListBuilder;
+    private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
+    private object _cachedObject = null;
 
     public OperationViewModel(string name, Operation operation)
     {
       Name = name;
       this.Ready();
       _operation = operation;
-      _parametersListBuilder = new OperationParametersViewModelListBuilder();
-      _operation.FillParameters(_parametersListBuilder);
+      _propertyListBuilder = new OperationPropertiesViewModelBuilder();
+      _operation.FillParameters(_propertyListBuilder);
 
     }
 
@@ -127,9 +125,11 @@ namespace ComponentBasedTestTool.ViewModels
 
       _operationState = new ExecutableOperationState();
     }
-    public void SetOperationsOn(OperationParametersViewModel operationParametersViewModel)
+
+    public void SetOperationsOn(OperationPropertiesViewModel operationPropertiesViewModel)
     {
-      operationParametersViewModel.OperationParameters = _parametersListBuilder.BuildList();
+      operationPropertiesViewModel.Properties = 
+        _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
     }
 
     #region Boilerplate
@@ -141,47 +141,7 @@ namespace ComponentBasedTestTool.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
-
-
   }
-
-  public class OperationParametersViewModelListBuilder : OperationParametersListBuilder
-  {
-    private readonly List<OperationParameterViewModel> _operationParameterViewModels;
-
-    public OperationParametersViewModelListBuilder()
-    {
-      _operationParameterViewModels = new List<OperationParameterViewModel>();
-    }
-
-    public IList<OperationParameterViewModel> BuildList()
-    {
-      return _operationParameterViewModels;
-    }
-
-    public OperationParameter<string> Path(string name, string defaultValue)
-    {
-      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = defaultValue };
-      _operationParameterViewModels.Add(operationParameterViewModel);
-      return ViewModelBasedPathParameter.Containing(operationParameterViewModel);
-    }
-
-    public OperationParameter<bool> Flag(string name, bool defaultValue)
-    {
-      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = defaultValue.ToString() };
-      _operationParameterViewModels.Add(operationParameterViewModel);
-      return ViewModelBasedFlagParameter.Containing(operationParameterViewModel);
-    }
-
-    public OperationParameter<TimeSpan> Seconds(string name, int amount)
-    {
-      var operationParameterViewModel = new OperationParameterViewModel { Option = name, Value = amount.ToString() };
-      _operationParameterViewModels.Add(operationParameterViewModel);
-      return new ViewModelBasedParameter<TimeSpan>(operationParameterViewModel, s => TimeSpan.FromSeconds(int.Parse(s)));
-    }
-  }
-
-  //TODO consider making this and above a generic class
 }
 
 //TODO dependent operations

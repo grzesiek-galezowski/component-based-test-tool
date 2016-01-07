@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
-using ExtensionPoints;
 
-namespace ComponentBasedTestTool.ViewModels.OperationStates
+namespace ExtensionPoints
 {
   public interface Operation
   {

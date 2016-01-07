@@ -1,5 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Reflection;
+using System.Windows;
 using ComponentBasedTestTool.ViewModels;
+using ComponentBasedTestTool.Views;
+using TriAxis.RunSharp;
 
 namespace ComponentBasedTestTool
 {
@@ -11,12 +17,13 @@ namespace ComponentBasedTestTool
     public MainWindow(
       OperationsViewModel operationsViewModel, 
       OperationsOutputViewModel operationsOutputViewModel, 
-      OperationParametersViewModel operationParametersViewModel)
+      OperationPropertiesViewModel operationPropertiesViewModel)
     {
       InitializeComponent();
+
+      OperationPropertiesView.DataContext = operationPropertiesViewModel;
       OperationsView.DataContext = operationsViewModel;
       OperationsOutputView.DataContext = operationsOutputViewModel;
-      OperationParametersView.DataContext = operationParametersViewModel;
     }
   }
 }

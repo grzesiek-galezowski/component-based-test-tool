@@ -1,4 +1,5 @@
 using System;
+using ExtensionPoints;
 
 namespace ComponentBasedTestTool.ViewModels.OperationStates
 {

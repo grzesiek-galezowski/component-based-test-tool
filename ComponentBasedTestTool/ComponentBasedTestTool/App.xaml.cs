@@ -21,9 +21,8 @@ namespace ComponentBasedTestTool
       base.OnStartup(e);
 
       var operationsOutputViewModel = new OperationsOutputViewModel();
-
-      var operationParametersViewModel = new OperationParametersViewModel();
-      var operationsViewModel = new OperationsViewModel(operationParametersViewModel);
+      var operationPropertiesViewModel = new OperationPropertiesViewModel();
+      var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
 
       operationsViewModel.Operations.Add(new OperationViewModel("ls", new LsOperation(Out("ls", operationsOutputViewModel))));
       operationsViewModel.Operations.Add(new OperationViewModel("cd", new CdOperation     (Out("cd", operationsOutputViewModel))));
@@ -32,8 +31,8 @@ namespace ComponentBasedTestTool
 
       new MainWindow(
         operationsViewModel,
-        operationsOutputViewModel,
-        operationParametersViewModel).Show();
+        operationsOutputViewModel, 
+        operationPropertiesViewModel).Show();
     }
 
     private OperationsOutput Out(string operationName, OperationsOutput output)

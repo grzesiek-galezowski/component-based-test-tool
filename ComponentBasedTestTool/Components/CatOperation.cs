@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ComponentBasedTestTool.ViewModels.OperationStates;
 using ExtensionPoints;
 
 namespace Components

@@ -9,13 +9,13 @@ namespace ComponentBasedTestTool.ViewModels
   
   public class OperationsViewModel : INotifyPropertyChanged
   {
-    private readonly OperationParametersViewModel _operationParametersViewModel;
+    private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
     private readonly List<OperationViewModel> _operationViewModels;
     private OperationViewModel _selectedOperation;
 
-    public OperationsViewModel(OperationParametersViewModel operationParametersViewModel)
+    public OperationsViewModel(OperationPropertiesViewModel operationPropertiesViewModel)
     {
-      _operationParametersViewModel = operationParametersViewModel;
+      _operationPropertiesViewModel = operationPropertiesViewModel;
       _operationViewModels = new List<OperationViewModel>();
     }
 
@@ -26,7 +26,7 @@ namespace ComponentBasedTestTool.ViewModels
       set
       {
         _selectedOperation = value;
-        _selectedOperation.SetOperationsOn(_operationParametersViewModel);
+        _selectedOperation.SetOperationsOn(_operationPropertiesViewModel);
       }
     }
 
