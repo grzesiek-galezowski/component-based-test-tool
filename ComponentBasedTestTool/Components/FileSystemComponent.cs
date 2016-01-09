@@ -13,4 +13,11 @@ namespace Components
     }
   }
 
+  public class FileSystemComponentFactory : TestComponentFactory
+  {
+    public TestComponent Create()
+    {
+      return new FileSystemComponent();
+    }
+  }
 }

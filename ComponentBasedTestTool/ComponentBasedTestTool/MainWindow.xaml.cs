@@ -17,13 +17,15 @@ namespace ComponentBasedTestTool
     public MainWindow(
       OperationsViewModel operationsViewModel, 
       OperationsOutputViewModel operationsOutputViewModel, 
-      OperationPropertiesViewModel operationPropertiesViewModel)
+      OperationPropertiesViewModel operationPropertiesViewModel, 
+      ComponentsViewModel componentsViewModel)
     {
       InitializeComponent();
 
       OperationPropertiesView.DataContext = operationPropertiesViewModel;
       OperationsView.DataContext = operationsViewModel;
       OperationsOutputView.DataContext = operationsOutputViewModel;
+      ComponentsView.DataContext = componentsViewModel;
     }
   }
 }

@@ -145,3 +145,4 @@ namespace ComponentBasedTestTool.ViewModels
 }
 
 //TODO dependent operations
+//TODO what happens when we remove operation while it is in progress?

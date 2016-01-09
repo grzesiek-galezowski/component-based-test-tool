@@ -24,12 +24,16 @@ namespace ComponentBasedTestTool
       var outputFactory = new OutputFactory(operationsOutputViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel, outputFactory);
 
-      new FileSystemComponent().PopulateOperations(operationsViewModel);
+      var fileSystemComponentFactory = new FileSystemComponentFactory();
 
+      fileSystemComponentFactory.Create().PopulateOperations(operationsViewModel);
+
+      var componentsViewModel = new ComponentsViewModel();
       new MainWindow(
         operationsViewModel,
         operationsOutputViewModel, 
-        operationPropertiesViewModel).Show();
+        operationPropertiesViewModel,
+        componentsViewModel).Show();
     }
   }
 }
