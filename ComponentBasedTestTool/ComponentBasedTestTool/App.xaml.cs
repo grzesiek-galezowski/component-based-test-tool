@@ -22,18 +22,21 @@ namespace ComponentBasedTestTool
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
       var outputFactory = new OutputFactory(operationsOutputViewModel);
-      var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel, outputFactory);
+      var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
+      var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel);
+      var testComponentViewModelFactory = 
+        new TestComponentViewModelFactory(componentInstancesViewModel, outputFactory);
+      var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
-      var fileSystemComponentFactory = new FileSystemComponentFactory();
+      var fileSystemComponentFactory = new FileSystemComponentInstanceFactory();
+      fileSystemComponentFactory.AddTo(componentsViewModel);
 
-      fileSystemComponentFactory.Create().PopulateOperations(operationsViewModel);
-
-      var componentsViewModel = new ComponentsViewModel();
       new MainWindow(
         operationsViewModel,
         operationsOutputViewModel, 
         operationPropertiesViewModel,
-        componentsViewModel).Show();
+        componentsViewModel, 
+        componentInstancesViewModel).Show();
     }
   }
 }

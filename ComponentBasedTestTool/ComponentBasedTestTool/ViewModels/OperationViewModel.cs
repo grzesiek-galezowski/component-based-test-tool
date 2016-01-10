@@ -126,7 +126,7 @@ namespace ComponentBasedTestTool.ViewModels
       _operationState = new ExecutableOperationState();
     }
 
-    public void SetOperationsOn(OperationPropertiesViewModel operationPropertiesViewModel)
+    public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
     {
       operationPropertiesViewModel.Properties = 
         _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
@@ -146,3 +146,6 @@ namespace ComponentBasedTestTool.ViewModels
 
 //TODO dependent operations
 //TODO what happens when we remove operation while it is in progress?
+//TODO component view and script view
+//TODO communication view like wireshark
+//TODO in component addition, create button called "Add Selected"

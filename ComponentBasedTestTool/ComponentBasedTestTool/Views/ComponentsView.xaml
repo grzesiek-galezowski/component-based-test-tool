@@ -51,8 +51,6 @@
       </xctk:DropDownButton.DropDownContent>
     </xctk:DropDownButton>
 
-    <ListView Grid.Row="1">
-
-    </ListView>
+    <local:ComponentInstancesView Grid.Row="1" x:Name="ComponentInstancesView"/>
   </Grid>
 </UserControl>

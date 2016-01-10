@@ -1,37 +1,50 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using ComponentBasedTestTool.Annotations;
 using Components;
-using ExtensionPoints;
 
 namespace ComponentBasedTestTool.ViewModels
 {
   
-  public class OperationsViewModel : INotifyPropertyChanged, TestComponentContext
+  public class OperationsViewModel : INotifyPropertyChanged
   {
     private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
-    private readonly OutputFactory _outputFactory;
-    private readonly List<OperationViewModel> _operationViewModels;
+    private ObservableCollection<OperationViewModel> _operationViewModels;
     private OperationViewModel _selectedOperation;
 
-    public OperationsViewModel(OperationPropertiesViewModel operationPropertiesViewModel, OutputFactory outputFactory)
+    public OperationsViewModel(
+      OperationPropertiesViewModel operationPropertiesViewModel)
     {
       _operationPropertiesViewModel = operationPropertiesViewModel;
-      _outputFactory = outputFactory;
-      _operationViewModels = new List<OperationViewModel>();
+      _operationViewModels = new ObservableCollection<OperationViewModel>();
     }
 
-    public IList<OperationViewModel> Operations => _operationViewModels;
+    public ObservableCollection<OperationViewModel> Operations
+    {
+      get { return _operationViewModels; }
+      set
+      {
+        _operationViewModels = value;
+        OnPropertyChanged();
+      }
+    }
 
     public OperationViewModel SelectedOperation {
       get { return _selectedOperation; }
       set
       {
         _selectedOperation = value;
-        _selectedOperation.SetOperationsOn(_operationPropertiesViewModel);
+        _selectedOperation.SetPropertiesOn(_operationPropertiesViewModel);
       }
+    }
+
+    public void AddOperations(List<OperationViewModel> operationViewModels)
+    {
+      _operationPropertiesViewModel.ClearPropertiesList();
+      Operations = new ObservableCollection<OperationViewModel>(operationViewModels);
     }
 
     #region boilerplate
@@ -44,14 +57,5 @@ namespace ComponentBasedTestTool.ViewModels
     }
     #endregion
 
-    public void AddOperation(string operationName, Operation operation)
-    {
-      Operations.Add(new OperationViewModel(operationName, operation));
-    }
-
-    public OperationsOutput CreateOutFor(string operationName)
-    {
-      return _outputFactory.CreateOutFor(operationName);
-    }
   }
 }

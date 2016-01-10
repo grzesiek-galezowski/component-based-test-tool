@@ -1,30 +1,74 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.ViewModels.Commands;
+using Components;
+using ExtensionPoints;
 
 namespace ComponentBasedTestTool.ViewModels
 {
-  public class ComponentsViewModel
+  public class ComponentsViewModel : INotifyPropertyChanged, ComponentsList
   {
-    public IEnumerable<TestComponentViewModel> TestComponents
+    private List<TestComponentViewModel> _testComponentViewModels;
+    private readonly TestComponentViewModelFactory _testComponentViewModelFactory;
+
+    public ComponentsViewModel(TestComponentViewModelFactory testComponentViewModelFactory)
+    {
+      _testComponentViewModels = new List<TestComponentViewModel>();
+      _testComponentViewModelFactory = testComponentViewModelFactory;
+    }
+
+    public List<TestComponentViewModel> TestComponents
     {
       get
       {
-        return new List<TestComponentViewModel>()
-        {
-          new TestComponentViewModel() { Name = "Filesystem"},
-          new TestComponentViewModel() { Name = "LRRP"},
-          new TestComponentViewModel() { Name = "SNMP"},
-          new TestComponentViewModel() { Name = "REST"},
-          new TestComponentViewModel() { Name = "Very very long name that would fit?"}
-        };
+        return _testComponentViewModels;
       }
+      set
+      {
+        _testComponentViewModels = value;
+        OnPropertyChanged();
+      }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    [NotifyPropertyChangedInvocator]
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public void Add(string name, TestComponentInstanceFactory instanceFactory)
+    {
+      TestComponents.Add(
+        _testComponentViewModelFactory.Create(name, instanceFactory)
+      );
     }
   }
 
-  public class TestComponentViewModel
+  public class TestComponentViewModelFactory
   {
-    public ICommand AddComponentCommand => new AddComponentCommand();
-    public string Name { get; set; }
+    private readonly ComponentInstancesViewModel _componentInstancesViewModel;
+    private readonly OutputFactory _outputFactory;
+
+    public TestComponentViewModelFactory(ComponentInstancesViewModel componentInstancesViewModel, OutputFactory outputFactory)
+    {
+      _componentInstancesViewModel = componentInstancesViewModel;
+      _outputFactory = outputFactory;
+    }
+
+    public TestComponentViewModel Create(
+      string name, 
+      TestComponentInstanceFactory instanceFactory)
+    {
+      return new TestComponentViewModel(
+        name, 
+        _componentInstancesViewModel, 
+        new ComponentInstanceViewModelFactory(
+          instanceFactory, 
+          _outputFactory));
+    }
   }
 }

@@ -92,6 +92,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
+    <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
+    <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
+    <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
     <Compile Include="FormattingOperationOutput.cs" />
     <Compile Include="PropertySetBuilder.cs" />
@@ -102,6 +105,10 @@
     <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
     <Compile Include="ViewModels\OutputFactory.cs" />
+    <Compile Include="ViewModels\TestComponentViewModel.cs" />
+    <Compile Include="Views\ComponentInstancesView.xaml.cs">
+      <DependentUpon>ComponentInstancesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ComponentsView.xaml.cs">
       <DependentUpon>ComponentsView.xaml</DependentUpon>
     </Compile>
@@ -127,6 +134,10 @@
     </Compile>
     <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\CancelOperationCommand.cs" />
+    <Page Include="Views\ComponentInstancesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ComponentsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

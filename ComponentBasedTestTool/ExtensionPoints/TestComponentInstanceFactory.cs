@@ -1,6 +1,6 @@
 ﻿namespace ExtensionPoints
 {
-  public interface TestComponentFactory
+  public interface TestComponentInstanceFactory
   {
     TestComponent Create();
   }

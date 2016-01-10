@@ -18,7 +18,8 @@ namespace ComponentBasedTestTool
       OperationsViewModel operationsViewModel, 
       OperationsOutputViewModel operationsOutputViewModel, 
       OperationPropertiesViewModel operationPropertiesViewModel, 
-      ComponentsViewModel componentsViewModel)
+      ComponentsViewModel componentsViewModel, 
+      ComponentInstancesViewModel componentInstancesViewModel)
     {
       InitializeComponent();
 
@@ -26,6 +27,7 @@ namespace ComponentBasedTestTool
       OperationsView.DataContext = operationsViewModel;
       OperationsOutputView.DataContext = operationsOutputViewModel;
       ComponentsView.DataContext = componentsViewModel;
+      ComponentsView.ComponentInstancesView.DataContext = componentInstancesViewModel;
     }
   }
 }

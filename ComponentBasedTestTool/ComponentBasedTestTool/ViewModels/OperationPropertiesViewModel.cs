@@ -44,5 +44,10 @@ namespace ComponentBasedTestTool.ViewModels
         .End();
       return propertySetBuilder.Build();
     }*/
+
+    public void ClearPropertiesList()
+    {
+      this.Properties = null;
+    }
   }
 }
