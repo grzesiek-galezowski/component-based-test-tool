@@ -14,6 +14,7 @@ namespace ViewModels.ViewModels.Commands
 
     public override void Execute(object parameter)
     {
+      //bug this is a bogus implementation
       _executionCount++;
       if (_executionCount % 2 == 0)
       {
