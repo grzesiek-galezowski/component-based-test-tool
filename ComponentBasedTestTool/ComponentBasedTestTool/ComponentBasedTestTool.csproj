@@ -91,49 +91,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
-    <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
-    <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
-    <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
-    <Compile Include="ViewModels\ComponentsViewModel.cs" />
-    <Compile Include="FormattingOperationOutput.cs" />
-    <Compile Include="PropertySetBuilder.cs" />
-    <Compile Include="ViewModels\OperationPropertiesViewModel.cs" />
-    <Compile Include="GlueCode\PropertyObjectBuilderScope.cs" />
-    <Compile Include="ViewModels\OperationParametersViewModel.cs" />
-    <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />
-    <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
-    <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
-    <Compile Include="ViewModels\OutputFactory.cs" />
-    <Compile Include="ViewModels\TestComponentViewModel.cs" />
-    <Compile Include="Views\ComponentInstancesView.xaml.cs">
+    <Compile Include="Views\ComponentInstancesView.cs">
       <DependentUpon>ComponentInstancesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ComponentsView.xaml.cs">
+    <Compile Include="Views\ComponentsView.cs">
       <DependentUpon>ComponentsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OperationPropertiesView.xaml.cs">
+    <Compile Include="Views\OperationPropertiesView.cs">
       <DependentUpon>OperationPropertiesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OperationsOutputView.xaml.cs">
+    <Compile Include="Views\OperationsOutputView.cs">
       <DependentUpon>OperationsOutputView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\OperationsOutputViewModel.cs" />
-    <Compile Include="ViewModels\OperationsViewModel.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Views\HorizontalGridSplitterView.xaml.cs">
+    <Compile Include="Views\HorizontalGridSplitter.cs">
       <DependentUpon>HorizontalGridSplitterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Commands\OperationCommand.cs" />
-    <Compile Include="ViewModels\OperationState.cs" />
-    <Compile Include="ViewModels\OperationStates\NotExecutableOperationState.cs" />
-    <Compile Include="ViewModels\OperationStates\ExecutableOperationState.cs" />
-    <Compile Include="ViewModels\OperationViewModel.cs" />
-    <Compile Include="Views\VerticalGridSplitterView.xaml.cs">
+    <Compile Include="Views\VerticalGridSplitterView.cs">
       <DependentUpon>VerticalGridSplitterView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
-    <Compile Include="ViewModels\Commands\CancelOperationCommand.cs" />
+    <Compile Include="WpfApplicationContext.cs" />
     <Page Include="Views\ComponentInstancesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -162,7 +138,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\OperationsView.xaml.cs">
+    <Compile Include="Views\OperationsView.cs">
       <DependentUpon>OperationsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
@@ -214,6 +190,10 @@
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
       <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
       <Name>ExtensionPoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj">
+      <Project>{622f36f8-6cb1-466e-abf1-4705fc3afe9f}</Project>
+      <Name>ComponentBasedTestTool.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
