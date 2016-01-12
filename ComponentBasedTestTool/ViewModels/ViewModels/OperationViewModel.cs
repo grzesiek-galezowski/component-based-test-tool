@@ -22,15 +22,17 @@ namespace ViewModels.ViewModels
     private object _cachedObject = null;
     private readonly OperationCommandFactory _operationCommandFactory;
 
-    public OperationViewModel(string name, Operation operation, OperationCommandFactory operationCommandFactory)
+    public OperationViewModel(
+      string name, 
+      Operation operation, 
+      OperationCommandFactory operationCommandFactory)
     {
       Name = name;
-      this.Ready();
       _operation = operation;
       _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
-      _operation.FillParameters(_propertyListBuilder);
-
       _operationCommandFactory = operationCommandFactory;
+      _operation.FillParameters(_propertyListBuilder);
+      this.Ready();
     }
 
     public OperationCommand RunOperationCommand 

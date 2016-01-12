@@ -42,9 +42,10 @@ namespace ViewModels.ViewModels
 
     public void AddOperationsTo(OperationsViewModel operationsViewModel)
     {
-      operationsViewModel.AddOperations(_operations.Select(o => 
-      _operationViewModelFactory.CreateOperationViewModel(o)
-      ).ToList());
+      var operationViewModels = _operations.Select(o => 
+        _operationViewModelFactory.CreateOperationViewModel(o)
+        ).ToList();
+      operationsViewModel.AddOperations(operationViewModels);
     }
 
     public void AddOperation(string name, Operation operation)
