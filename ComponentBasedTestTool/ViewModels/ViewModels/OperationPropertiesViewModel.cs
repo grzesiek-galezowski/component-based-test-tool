@@ -26,24 +26,6 @@ namespace ViewModels.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    //bug remove
-    /*
-    private static object GenerateProperties()
-    {
-      var scope = new PropertyObjectBuilderScope();
-      var propertySetBuilder = scope.NewPropertySet();
-      propertySetBuilder
-        .Property<int>("Lolek")
-        .With<CategoryAttribute>("Options")
-        .InitialValue(0)
-        .End()
-        .Property<string>("Zenek")
-        .With<CategoryAttribute>("Options")
-        .InitialValue("Jadowity")
-        .End();
-      return propertySetBuilder.Build();
-    }*/
-
     public void ClearPropertiesList()
     {
       this.Properties = null;

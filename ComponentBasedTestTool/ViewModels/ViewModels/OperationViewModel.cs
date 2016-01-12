@@ -19,7 +19,7 @@ namespace ViewModels.ViewModels
     private string _lastErrorFullText = "lolokimono";
     private readonly Operation _operation;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
-    private object _cachedObject = null;
+    private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
 
     public OperationViewModel(

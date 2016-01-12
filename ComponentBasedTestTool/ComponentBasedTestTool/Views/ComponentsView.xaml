@@ -20,34 +20,43 @@
     </Grid.RowDefinitions>
     <xctk:DropDownButton Grid.Row="0" Content="Test Component Types" >
       <xctk:DropDownButton.DropDownContent>
-        <ListView ItemsSource="{Binding TestComponents}">
-          <ListView.View>
-            <GridView>
-              <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
-              <GridViewColumn Header="Add"  Width="Auto">
-                <GridViewColumn.CellTemplate>
-                  <DataTemplate>
-                    <Button x:Name="AddTestComponentInstanceButton" 
-                            Command="{Binding AddComponentCommand}"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Width="100"
-                            Height="20"
-                            >
-                      +
-                    </Button>
-                  </DataTemplate>
-                </GridViewColumn.CellTemplate>
-              </GridViewColumn>
-              <GridView.ColumnHeaderContainerStyle>
-                <Style TargetType="GridViewColumnHeader">
-                  <Setter Property="Visibility" Value="Collapsed" />
-                </Style>
-              </GridView.ColumnHeaderContainerStyle>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+          </Grid.RowDefinitions>
 
-            </GridView>
-          </ListView.View>
-        </ListView>
+          <Button Grid.Row="0">Add All Selected</Button>
+
+          <ListView Grid.Row="1" ItemsSource="{Binding TestComponents}">
+            <ListView.View>
+              <GridView>
+                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
+                <GridViewColumn Header="Add"  Width="Auto">
+                  <GridViewColumn.CellTemplate>
+                    <DataTemplate>
+                      <Button x:Name="AddTestComponentInstanceButton" 
+                              Command="{Binding AddComponentCommand}"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Width="100"
+                              Height="20"
+                              >
+                        +
+                      </Button>
+                    </DataTemplate>
+                  </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+                <GridView.ColumnHeaderContainerStyle>
+                  <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                  </Style>
+                </GridView.ColumnHeaderContainerStyle>
+
+              </GridView>
+            </ListView.View>
+          </ListView>
+        </Grid>
       </xctk:DropDownButton.DropDownContent>
     </xctk:DropDownButton>
 

@@ -42,6 +42,7 @@
     <Compile Include="CatOperation.cs" />
     <Compile Include="CdOperation.cs" />
     <Compile Include="FileSystemComponent.cs" />
+    <Compile Include="FileSystemComponentInstanceFactory.cs" />
     <Compile Include="WaitOperation.cs" />
     <Compile Include="LsOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

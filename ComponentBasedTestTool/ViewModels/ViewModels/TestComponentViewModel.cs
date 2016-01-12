@@ -15,9 +15,7 @@ namespace ViewModels.ViewModels
     {
       Name = name;
       _componentInstancesViewModel = componentInstancesViewModel;
-      //bug bind it differently:
-      _componentInstanceViewModelFactory = 
-        componentInstanceViewModelFactory;
+      _componentInstanceViewModelFactory = componentInstanceViewModelFactory;
     }
 
     public ICommand AddComponentCommand => 

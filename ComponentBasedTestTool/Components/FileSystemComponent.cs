@@ -6,24 +6,10 @@ namespace Components
   {
     public void PopulateOperations(TestComponentContext ctx)
     {
-      //bug problem - context should be created earlier
       ctx.AddOperation("ls", new LsOperation(ctx.CreateOutFor("ls")));
       ctx.AddOperation("cd", new CdOperation(ctx.CreateOutFor("cd")));
       ctx.AddOperation("cat", new CatOperation(ctx.CreateOutFor("cat")));
       ctx.AddOperation("sleep", new WaitOperation(ctx.CreateOutFor("sleep")));
-    }
-  }
-
-  public class FileSystemComponentInstanceFactory : TestComponentInstanceFactory
-  {
-    public TestComponent Create()
-    {
-      return new FileSystemComponent();
-    }
-
-    public void AddTo(ComponentsList components)
-    {
-      components.Add("Filesystem", this);
     }
   }
 }
