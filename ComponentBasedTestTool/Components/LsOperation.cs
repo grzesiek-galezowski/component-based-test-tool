@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ExtensionPoints;
 
@@ -16,7 +17,7 @@ namespace Components
       _out = @out;
     }
 
-    public async Task RunAsync()
+    public async Task RunAsync(CancellationToken token)
     {
       _out.WriteLine("ls" + 
         (_displayAll.Value ? " -l" : "") + 

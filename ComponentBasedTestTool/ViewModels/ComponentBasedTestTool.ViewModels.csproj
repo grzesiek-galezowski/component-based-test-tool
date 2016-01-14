@@ -56,7 +56,7 @@
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
     <Compile Include="ViewModels\Commands\ApplicationContext.cs" />
-    <Compile Include="ViewModels\Commands\CancelOperationCommand.cs" />
+    <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
     <Compile Include="ViewModels\Commands\OperationCommand.cs" />
     <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />

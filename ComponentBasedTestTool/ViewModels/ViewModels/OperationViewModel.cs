@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
 using ViewModels.ViewModels.Commands;
@@ -14,23 +15,26 @@ namespace ViewModels.ViewModels
     private string _stateString;
     private OperationState _operationState;
     private OperationCommand _runCommand;
-    private OperationCommand _cancelCommand;
+    private OperationCommand _stopCommand;
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
     private readonly Operation _operation;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
+    private readonly CancellationTokenSource _cancellationTokenSource;
 
     public OperationViewModel(
       string name, 
       Operation operation, 
       OperationCommandFactory operationCommandFactory)
     {
+      _cancellationTokenSource = new CancellationTokenSource();
       Name = name;
       _operation = operation;
       _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
       _operationCommandFactory = operationCommandFactory;
+
       _operation.FillParameters(_propertyListBuilder);
       this.Ready();
     }
@@ -38,8 +42,9 @@ namespace ViewModels.ViewModels
     public OperationCommand RunOperationCommand 
       => _runCommand ?? (_runCommand = _operationCommandFactory.CreateRunCommand(this));
 
-    public OperationCommand CancelOperationCommand
-      => _cancelCommand ?? (_cancelCommand = _operationCommandFactory.CreateCancelCommand());
+    public OperationCommand StopOperationCommand
+      => _stopCommand ?? (_stopCommand = 
+      _operationCommandFactory.CreateStopCommand(_cancellationTokenSource));
 
 
     public string Name { get; }
@@ -83,8 +88,8 @@ namespace ViewModels.ViewModels
 
     public bool CanStop
     {
-      get { return CancelOperationCommand.CanExecuteValue; }
-      set { CancelOperationCommand.CanExecuteValue = value; }
+      get { return StopOperationCommand.CanExecuteValue; }
+      set { StopOperationCommand.CanExecuteValue = value; }
     }
 
     public void Run()
@@ -92,32 +97,9 @@ namespace ViewModels.ViewModels
       _operationState.Run(this, _operation);
     }
 
-    public void Ready()
-    {
-      CanRun = true;
-      CanStop = false;
-      State = "Ready";
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = new ExecutableOperationState();
-    }
-
-    public void InProgress()
-    {
-      CanRun = false;
-      CanStop = true;
-      State = "In Progress";
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = new NotExecutableOperationState();
-    }
-
-    public void Success()
-    {
-      CanRun = true;
-      CanStop = false;
-      State = "Success";
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = new ExecutableOperationState();
-    }
+    public void Ready() { NormalExecutable("Ready"); }
+    public void Success() { NormalExecutable("Success"); }
+    public void Stopped() { NormalExecutable("Stopped"); }
 
     public void Failure(Exception exception)
     {
@@ -129,7 +111,25 @@ namespace ViewModels.ViewModels
         new[] { Environment.NewLine },
         StringSplitOptions.RemoveEmptyEntries).First();
 
-      _operationState = new ExecutableOperationState();
+      _operationState = new ExecutableOperationState(_cancellationTokenSource);
+    }
+
+    public void InProgress()
+    {
+      CanRun = false;
+      CanStop = true;
+      State = "In Progress";
+      LastErrorFullText = LastError = string.Empty;
+      _operationState = new NotExecutableOperationState();
+    }
+
+    private void NormalExecutable(string statusText)
+    {
+      CanRun = true;
+      CanStop = false;
+      State = statusText;
+      LastErrorFullText = LastError = string.Empty;
+      _operationState = new ExecutableOperationState(_cancellationTokenSource);
     }
 
     public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
@@ -147,6 +147,8 @@ namespace ViewModels.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
+
   }
 }
 

@@ -1,3 +1,4 @@
+using System.Threading;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
@@ -16,9 +17,10 @@ namespace ViewModels.ViewModels
       return new RunOperationCommand(operationViewModel, _applicationContext);
     }
 
-    public CancelOperationCommand CreateCancelCommand()
+    public StopOperationCommand CreateStopCommand(
+      CancellationTokenSource cancellationTokenSource)
     {
-      return new CancelOperationCommand(_applicationContext);
+      return new StopOperationCommand(_applicationContext, cancellationTokenSource);
     }
   }
 }

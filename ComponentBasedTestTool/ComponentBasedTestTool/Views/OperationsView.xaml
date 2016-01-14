@@ -6,6 +6,12 @@
              xmlns:local="clr-namespace:ComponentBasedTestTool"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+  <UserControl.Resources>
+    <!-- To enable autofit of list items! -->
+    <Style TargetType="ListViewItem">
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+  </UserControl.Resources>
   <ListView x:Name="CommandsList" ItemsSource="{Binding Operations}" SelectedItem="{Binding SelectedOperation}">
     <ListView.View>
       <GridView>
@@ -18,7 +24,7 @@
     <ListView.Resources>
       <ContextMenu x:Key="ItemContextMenu">
         <MenuItem Header="Run" Command="{Binding Path=RunOperationCommand}" Background="WhiteSmoke" />
-        <MenuItem Header="Cancel" Command="{Binding Path=CancelOperationCommand}" Background="WhiteSmoke" />
+        <MenuItem Header="Stop" Command="{Binding Path=StopOperationCommand}" Background="WhiteSmoke" />
       </ContextMenu>
     </ListView.Resources>
 

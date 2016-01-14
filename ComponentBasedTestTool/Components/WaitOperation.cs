@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using ExtensionPoints;
 
@@ -14,11 +15,12 @@ namespace Components
       _out = @out;
     }
 
-    public async Task RunAsync()
+    public async Task RunAsync(CancellationToken token)
     {
       var seconds = _time.Value.Seconds;
       while (seconds > 0)
       {
+        token.ThrowIfCancellationRequested();
         _out.WriteLine(seconds.ToString());
         await Task.Delay(1000);
         seconds--;
