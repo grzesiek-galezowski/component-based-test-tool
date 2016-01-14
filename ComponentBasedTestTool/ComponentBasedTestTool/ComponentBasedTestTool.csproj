@@ -103,7 +103,7 @@
     <Compile Include="Views\OperationsOutputView.cs">
       <DependentUpon>OperationsOutputView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HorizontalGridSplitter.cs">
+    <Compile Include="Views\HorizontalGridSplitterView.cs">
       <DependentUpon>HorizontalGridSplitterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\VerticalGridSplitterView.cs">

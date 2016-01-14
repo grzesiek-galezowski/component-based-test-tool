@@ -1,9 +1,12 @@
-﻿<UserControl x:Class="ComponentBasedTestTool.Views.HorizontalGridSplitter"
+﻿ <UserControl
+  x:Class="ComponentBasedTestTool.Views.HorizontalGridSplitterView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ComponentBasedTestTool"
              mc:Ignorable="d">
-  <GridSplitter HorizontalAlignment="Stretch" Height="5" VerticalAlignment="Top" Width="100"/>
+  <GridSplitter
+    HorizontalAlignment="Stretch" Height="5" VerticalAlignment="Top" Width="400" />
 </UserControl>
+

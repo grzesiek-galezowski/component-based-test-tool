@@ -27,7 +27,7 @@
       <views:VerticalGridSplitterView Grid.Column="3" />
       <views:OperationPropertiesView x:Name="OperationPropertiesView"  Grid.Column="4" />
     </Grid>
-    <views:HorizontalGridSplitter Grid.Row="1"/>
+    <views:HorizontalGridSplitterView Grid.Row="1"/>
     <views:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
   </Grid>
 </Window>
