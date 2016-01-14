@@ -20,9 +20,14 @@ namespace ViewModels.ViewModels.Commands
 
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
     {
-      return new ComponentInstanceViewModel(
-        testComponentViewModel.Name, 
-        _instanceFactory.Create(), _outputFactory, _operationViewModelFactory);
+      var testComponentInstance = _instanceFactory.Create();
+      var componentInstanceViewModel 
+        = new ComponentInstanceViewModel(testComponentViewModel.Name, _outputFactory);
+
+      testComponentInstance.PopulateOperations(componentInstanceViewModel);
+      componentInstanceViewModel.Initialize(_operationViewModelFactory);
+
+      return componentInstanceViewModel;
     }
   }
 }

@@ -10,16 +10,21 @@ namespace ViewModels.ViewModels
   public class ComponentInstanceViewModel : INotifyPropertyChanged, TestComponentContext
   {
     private string _instanceName;
-    readonly List<KeyValuePair<string, Operation>> _operations = new List<KeyValuePair<string, Operation>>();
+    readonly List<KeyValuePair<string, Operation>> _operations = 
+      new List<KeyValuePair<string, Operation>>();
     private readonly OutputFactory _outputFactory;
-    private readonly OperationViewModelFactory _operationViewModelFactory;
+    private List<OperationViewModel> _operationViewModels;
 
-    public ComponentInstanceViewModel(string instanceName, TestComponent testComponentInstance, OutputFactory outputFactory, OperationViewModelFactory operationViewModelFactory)
+    public ComponentInstanceViewModel(string instanceName, OutputFactory outputFactory)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
-      testComponentInstance.PopulateOperations(this);
-      _operationViewModelFactory = operationViewModelFactory;
+    }
+
+    public void Initialize(OperationViewModelFactory operationViewModelFactory)
+    {
+      _operationViewModels = _operations.Select(
+        operationViewModelFactory.CreateOperationViewModel).ToList();
     }
 
     public string InstanceName
@@ -42,10 +47,7 @@ namespace ViewModels.ViewModels
 
     public void AddOperationsTo(OperationsViewModel operationsViewModel)
     {
-      var operationViewModels = _operations.Select(o => 
-        _operationViewModelFactory.CreateOperationViewModel(o)
-        ).ToList();
-      operationsViewModel.AddOperations(operationViewModels);
+      operationsViewModel.AddOperations(_operationViewModels);
     }
 
     public void AddOperation(string name, Operation operation)

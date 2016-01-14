@@ -28,5 +28,10 @@ namespace ViewModels.ViewModels
 
       }
     }
+
+    public void Add(ComponentInstanceViewModel componentInstanceViewModel)
+    {
+      ComponentInstances.Add(componentInstanceViewModel);
+    }
   }
 }

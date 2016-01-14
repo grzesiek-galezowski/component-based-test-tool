@@ -26,10 +26,8 @@
             <RowDefinition Height="30"></RowDefinition>
           </Grid.RowDefinitions>
 
-          <Button Grid.Row="0">Add All Selected</Button>
-
-          <ListView Grid.Row="1" ItemsSource="{Binding TestComponents}">
-            <ListView.View>
+          <ListView x:Name="ComponentsList" SelectionMode="Multiple"  Grid.Row="1" ItemsSource="{Binding TestComponents}">
+            <ListView.View >
               <GridView>
                 <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
                 <GridViewColumn Header="Add"  Width="Auto">
@@ -39,7 +37,7 @@
                               Command="{Binding AddComponentCommand}"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
-                              Width="100"
+                              Width="40"
                               Height="20"
                               >
                         +
@@ -56,6 +54,7 @@
               </GridView>
             </ListView.View>
           </ListView>
+          <Button Grid.Row="0" CommandParameter="{Binding ElementName=ComponentsList, Path=SelectedItems}"  Command="{Binding AddAllSelectedCommand}">Add All Selected</Button>
         </Grid>
       </xctk:DropDownButton.DropDownContent>
     </xctk:DropDownButton>

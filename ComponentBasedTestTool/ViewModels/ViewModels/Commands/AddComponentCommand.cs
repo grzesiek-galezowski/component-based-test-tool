@@ -30,7 +30,7 @@ namespace ViewModels.ViewModels.Commands
     {
       var componentInstanceViewModel = _componentInstanceViewModelFactory
         .CreateComponentInstanceViewModel(_testComponentViewModel);
-      _componentInstancesViewModel.ComponentInstances.Add(componentInstanceViewModel);
+      _componentInstancesViewModel.Add(componentInstanceViewModel);
     }
 
     private void OnCanExecuteChanged()
