@@ -13,11 +13,13 @@ namespace ViewModels.ViewModels
       _applicationContext = applicationContext;
     }
 
-    public OperationViewModel CreateOperationViewModel(KeyValuePair<string, Operation> o)
+    public OperationViewModel CreateOperationViewModel(OperationEntry o)
     {
       return new OperationViewModel(
-        o.Key, 
-        o.Value, new OperationCommandFactory(_applicationContext));
+        o.Name, 
+        o.Operation,
+        o.DependencyName, 
+        new OperationCommandFactory(_applicationContext));
     }
   }
 }

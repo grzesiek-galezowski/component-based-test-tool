@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using ExtensionPoints;
 
 namespace ViewModels.ViewModels.Commands
@@ -22,7 +23,10 @@ namespace ViewModels.ViewModels.Commands
     {
       var testComponentInstance = _instanceFactory.Create();
       var componentInstanceViewModel 
-        = new ComponentInstanceViewModel(testComponentViewModel.Name, _outputFactory);
+        = new ComponentInstanceViewModel(
+          testComponentViewModel.Name, 
+          _outputFactory, 
+          new OperationEntries());
 
       testComponentInstance.PopulateOperations(componentInstanceViewModel);
       componentInstanceViewModel.Initialize(_operationViewModelFactory);

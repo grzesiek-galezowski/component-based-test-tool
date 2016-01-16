@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ComponentsList.cs" />
     <Compile Include="Operation.cs" />
+    <Compile Include="OperationContext.cs" />
     <Compile Include="OperationParametersListBuilder.cs" />
     <Compile Include="OperationsOutput.cs" />
     <Compile Include="Properties\Annotations.cs" />

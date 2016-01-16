@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
 using ViewModels.ViewModels.Commands;
@@ -10,7 +12,9 @@ using ViewModels.ViewModels.OperationStates;
 
 namespace ViewModels.ViewModels
 {
-  public class OperationViewModel  : INotifyPropertyChanged
+
+
+  public class OperationViewModel  : INotifyPropertyChanged, OperationContext
   {
     private string _stateString;
     private OperationState _operationState;
@@ -19,25 +23,33 @@ namespace ViewModels.ViewModels
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
     private readonly Operation _operation;
+    private readonly Maybe<string> _maybeDependencyName;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly CancellationTokenSource _cancellationTokenSource;
+    private readonly List<OperationViewModel> _observers = new List<OperationViewModel>();
 
-    public OperationViewModel(
-      string name, 
-      Operation operation, 
-      OperationCommandFactory operationCommandFactory)
+    public OperationViewModel(string name, Operation operation, Maybe<string> maybeDependencyName, OperationCommandFactory operationCommandFactory)
     {
       _cancellationTokenSource = new CancellationTokenSource();
       Name = name;
       _operation = operation;
+      _maybeDependencyName = maybeDependencyName;
       _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
       _operationCommandFactory = operationCommandFactory;
 
       _operation.FillParameters(_propertyListBuilder);
-      this.Ready();
+      if (_maybeDependencyName.HasValue)
+      {
+        this.Initial();
+      }
+      else
+      {
+        this.Ready();
+      }
     }
+
 
     public OperationCommand RunOperationCommand 
       => _runCommand ?? (_runCommand = _operationCommandFactory.CreateRunCommand(this));
@@ -97,8 +109,31 @@ namespace ViewModels.ViewModels
       _operationState.Run(this, _operation);
     }
 
+    public void Initial()
+    {
+      CanRun = false;
+      CanStop = false;
+      State = "Initial";
+      LastErrorFullText = LastError = string.Empty;
+      _operationState = new NotExecutableOperationState();
+    }
+
     public void Ready() { NormalExecutable("Ready"); }
-    public void Success() { NormalExecutable("Success"); }
+
+    public void Success()
+    {
+      NormalExecutable("Success");
+      foreach (var observer in _observers)
+      {
+        observer.DependencyFulfilled();
+      }
+    }
+
+    public void DependencyFulfilled()
+    {
+      _operationState.DependencyFulfilled(this);
+    }
+
     public void Stopped() { NormalExecutable("Stopped"); }
 
     public void Failure(Exception exception)
@@ -111,8 +146,9 @@ namespace ViewModels.ViewModels
         new[] { Environment.NewLine },
         StringSplitOptions.RemoveEmptyEntries).First();
 
-      _operationState = new ExecutableOperationState(_cancellationTokenSource);
+      _operationState = ExecutableState();
     }
+
 
     public void InProgress()
     {
@@ -120,7 +156,18 @@ namespace ViewModels.ViewModels
       CanStop = true;
       State = "In Progress";
       LastErrorFullText = LastError = string.Empty;
-      _operationState = new NotExecutableOperationState();
+      _operationState = new InProgressOperationState();
+    }
+
+    public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
+    {
+      operationPropertiesViewModel.Properties = 
+        _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
+    }
+
+    private ExecutableOperationState ExecutableState()
+    {
+      return new ExecutableOperationState(_cancellationTokenSource);
     }
 
     private void NormalExecutable(string statusText)
@@ -129,13 +176,7 @@ namespace ViewModels.ViewModels
       CanStop = false;
       State = statusText;
       LastErrorFullText = LastError = string.Empty;
-      _operationState = new ExecutableOperationState(_cancellationTokenSource);
-    }
-
-    public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
-    {
-      operationPropertiesViewModel.Properties = 
-        _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
+      _operationState = ExecutableState();
     }
 
     #region Boilerplate
@@ -148,7 +189,27 @@ namespace ViewModels.ViewModels
     }
     #endregion
 
+    public void ObserveMatching(IEnumerable<OperationViewModel> operationViewModel)
+    {
+      if (_maybeDependencyName.HasValue)
+      {
+        var dependencyName = _maybeDependencyName.Single();
+        var observedOperation = FindOperationWith(dependencyName, operationViewModel);
+        observedOperation.FromNowOnReportSuccessfulExecutionTo(this);
+      }
+    }
 
+    private static OperationViewModel FindOperationWith(string dependencyName, IEnumerable<OperationViewModel> operationViewModel)
+    {
+      return operationViewModel.First(o => o.IsKnownAs(dependencyName));
+    }
+
+    private void FromNowOnReportSuccessfulExecutionTo(OperationViewModel observer)
+    {
+      _observers.Add(observer);
+    }
+
+    private bool IsKnownAs(string name) => Name == name;
   }
 }
 

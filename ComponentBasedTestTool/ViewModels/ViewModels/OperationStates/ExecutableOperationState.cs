@@ -34,5 +34,10 @@ namespace ViewModels.ViewModels.OperationStates
         }
       });
     }
+
+    public void DependencyFulfilled(OperationViewModel operationViewModel)
+    {
+      
+    }
   }
 }

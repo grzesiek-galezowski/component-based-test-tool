@@ -2,6 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
+using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
 
@@ -10,21 +13,23 @@ namespace ViewModels.ViewModels
   public class ComponentInstanceViewModel : INotifyPropertyChanged, TestComponentContext
   {
     private string _instanceName;
-    readonly List<KeyValuePair<string, Operation>> _operations = 
-      new List<KeyValuePair<string, Operation>>();
     private readonly OutputFactory _outputFactory;
-    private List<OperationViewModel> _operationViewModels;
+    private OperationViewModels _operationViewModels;
+    private readonly OperationEntries _operationEntries;
 
-    public ComponentInstanceViewModel(string instanceName, OutputFactory outputFactory)
+    public ComponentInstanceViewModel(
+      string instanceName, 
+      OutputFactory outputFactory, 
+      OperationEntries operationEntries)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
+      _operationEntries = operationEntries;
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
     {
-      _operationViewModels = _operations.Select(
-        operationViewModelFactory.CreateOperationViewModel).ToList();
+      _operationViewModels = _operationEntries.ConvertUsing(operationViewModelFactory);
     }
 
     public string InstanceName
@@ -47,12 +52,17 @@ namespace ViewModels.ViewModels
 
     public void AddOperationsTo(OperationsViewModel operationsViewModel)
     {
-      operationsViewModel.AddOperations(_operationViewModels);
+      _operationViewModels.AddTo(operationsViewModel);
+    }
+
+    public void AddOperation(string name, Operation operation, string dependencyName)
+    {
+      _operationEntries.Add(name, operation, Maybe.From(dependencyName));
     }
 
     public void AddOperation(string name, Operation operation)
     {
-      _operations.Add(new KeyValuePair<string, Operation>(name, operation));
+      _operationEntries.Add(name, operation, Maybe.Not);
     }
 
     public OperationsOutput CreateOutFor(string operationName)
@@ -61,4 +71,5 @@ namespace ViewModels.ViewModels
     }
 
   }
+
 }
