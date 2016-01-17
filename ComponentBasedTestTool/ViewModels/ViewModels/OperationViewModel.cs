@@ -213,10 +213,15 @@ namespace ViewModels.ViewModels
   }
 }
 
-//TODO dependent operations
+//VTODO dependent operations
+//TODO persistence
 //TODO script view
-//TODO removing components TODO what happens when we remove operation while it is in progress?
+//TODO removing components 
+//TODO what happens when we remove operation while it is in progress?
 //TODO component view and script view
 //TODO communication view like wireshark
 //TODO in component addition, create button called "Add All Selected"
-//TODO persistence
+//TODO plugin mechanism
+//TODO output formatting plugins
+//TODO Saving  layout
+

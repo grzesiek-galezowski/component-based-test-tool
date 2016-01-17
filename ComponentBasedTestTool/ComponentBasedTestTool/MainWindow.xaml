@@ -6,7 +6,8 @@
         xmlns:views="clr-namespace:ComponentBasedTestTool.Views"
         x:Class="ComponentBasedTestTool.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="825">
+        Title="MainWindow" Height="550" Width="825"
+        views:WindowSettings.Save="True">
   <Window.Resources>
     <Style x:Key="HorizontalGridSplitter" TargetType="{x:Type GridSplitter}">
       <Setter Property="Height" Value="5" />

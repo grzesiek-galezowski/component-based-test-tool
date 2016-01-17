@@ -7,12 +7,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources>
+   
     <!-- To enable autofit of list items! -->
     <Style TargetType="ListViewItem">
       <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     </Style>
+
   </UserControl.Resources>
   <ListView ItemsSource="{Binding ComponentInstances}" SelectedItem="{Binding SelectedInstance}">
+    <ListView.Resources>
+      <ContextMenu x:Key="ItemContextMenu">
+        <MenuItem Header="Save Settings" Command="{Binding Path=SaveComponentInstanceSettingsCommand}" Background="WhiteSmoke" />
+        <MenuItem Header="Delete" Command="{Binding Path=DeleteComponentInstanceCommand}" Background="WhiteSmoke" />
+      </ContextMenu>
+    </ListView.Resources>
+    <ListView.ItemContainerStyle>
+      <Style TargetType="{x:Type ListViewItem}" >
+        <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}" />
+      </Style>
+    </ListView.ItemContainerStyle>
     <ListView.View>
       <GridView>
         <GridViewColumn 
