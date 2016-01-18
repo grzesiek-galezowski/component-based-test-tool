@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels.OperationStates
 {

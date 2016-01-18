@@ -40,16 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentsList.cs" />
-    <Compile Include="Operation.cs" />
-    <Compile Include="OperationContext.cs" />
-    <Compile Include="OperationParametersListBuilder.cs" />
-    <Compile Include="OperationsOutput.cs" />
+    <Compile Include="ImplementedByContext\ComponentsList.cs" />
+    <Compile Include="ImplementedByComponents\Operation.cs" />
+    <Compile Include="ImplementedByContext\OperationContext.cs" />
+    <Compile Include="ImplementedByContext\OperationParametersListBuilder.cs" />
+    <Compile Include="ImplementedByContext\OperationsOutput.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestComponent.cs" />
-    <Compile Include="TestComponentContext.cs" />
-    <Compile Include="TestComponentInstanceFactory.cs" />
+    <Compile Include="ImplementedByComponents\TestComponent.cs" />
+    <Compile Include="ImplementedByContext\TestComponentContext.cs" />
+    <Compile Include="ImplementedByComponents\TestComponentInstanceFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

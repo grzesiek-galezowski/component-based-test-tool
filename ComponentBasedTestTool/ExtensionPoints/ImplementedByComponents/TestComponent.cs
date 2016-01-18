@@ -1,6 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using ExtensionPoints.ImplementedByContext;
 
-namespace ExtensionPoints
+namespace ExtensionPoints.ImplementedByComponents
 {
   public interface TestComponent
   {

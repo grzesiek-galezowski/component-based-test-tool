@@ -1,5 +1,5 @@
-using ComponentBasedTestTool.Annotations;
 using System;
+using ComponentBasedTestTool.Annotations;
 
 namespace ViewModels.ViewModels.Commands
 {

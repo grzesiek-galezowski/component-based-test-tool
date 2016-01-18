@@ -1,4 +1,4 @@
-﻿namespace ExtensionPoints
+﻿namespace ExtensionPoints.ImplementedByComponents
 {
   public interface TestComponentInstanceFactory
   {

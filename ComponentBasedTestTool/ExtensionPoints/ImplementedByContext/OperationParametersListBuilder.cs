@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExtensionPoints
+namespace ExtensionPoints.ImplementedByContext
 {
   public interface OperationParametersListBuilder
   {

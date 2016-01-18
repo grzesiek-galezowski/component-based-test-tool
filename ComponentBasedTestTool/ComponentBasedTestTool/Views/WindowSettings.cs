@@ -132,10 +132,11 @@ namespace ComponentBasedTestTool.Views
       {
         get
         {
-          if (this["WindowState"] != null) return (WindowState)this["WindowState"];
+          if (this[nameof(WindowState)] != null)
+            return (WindowState)this[nameof(WindowState)];
           return WindowState.Normal;
         }
-        set { this["WindowState"] = value; }
+        set { this[nameof(WindowState)] = value; }
       }
 
       #endregion Properties

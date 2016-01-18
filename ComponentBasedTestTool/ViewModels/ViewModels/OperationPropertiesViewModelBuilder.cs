@@ -1,5 +1,6 @@
 using System;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.GlueCode;
 
 namespace ViewModels.ViewModels

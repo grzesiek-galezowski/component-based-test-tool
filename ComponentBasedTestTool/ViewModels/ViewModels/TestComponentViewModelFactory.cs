@@ -1,4 +1,5 @@
 ﻿using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels.Commands
 {

@@ -1,7 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
+using ExtensionPoints.ImplementedByContext;
 
-namespace ExtensionPoints
+namespace ExtensionPoints.ImplementedByComponents
 {
   public interface Operation
   {

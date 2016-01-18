@@ -7,6 +7,8 @@ using System.Threading;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels.Commands;
 using ViewModels.ViewModels.OperationStates;
 

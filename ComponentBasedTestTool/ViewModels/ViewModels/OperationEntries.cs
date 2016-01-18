@@ -3,6 +3,7 @@ using System.Data.Odbc;
 using System.Linq;
 using CallMeMaybe;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels
 {

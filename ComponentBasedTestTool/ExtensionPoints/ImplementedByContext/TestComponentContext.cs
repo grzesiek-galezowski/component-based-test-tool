@@ -1,4 +1,6 @@
-namespace ExtensionPoints
+using ExtensionPoints.ImplementedByComponents;
+
+namespace ExtensionPoints.ImplementedByContext
 {
   public interface TestComponentContext
   {

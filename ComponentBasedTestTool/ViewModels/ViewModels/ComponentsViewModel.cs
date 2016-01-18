@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels
 {
