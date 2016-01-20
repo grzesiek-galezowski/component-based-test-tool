@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool.Views
 {
@@ -23,6 +24,11 @@ namespace ComponentBasedTestTool.Views
     public ComponentsView()
     {
       InitializeComponent();
+    }
+
+    public void SetComponentInstancesViewDataContext(ComponentInstancesViewModel componentInstancesViewModel)
+    {
+      ComponentInstancesView.DataContext = componentInstancesViewModel;
     }
   }
 }

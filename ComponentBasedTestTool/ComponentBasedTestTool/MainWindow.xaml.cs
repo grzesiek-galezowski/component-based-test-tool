@@ -27,7 +27,7 @@ namespace ComponentBasedTestTool
       OperationsView.DataContext = operationsViewModel;
       OperationsOutputView.DataContext = operationsOutputViewModel;
       ComponentsView.DataContext = componentsViewModel;
-      ComponentsView.ComponentInstancesView.DataContext = componentInstancesViewModel;
+      ComponentsView.SetComponentInstancesViewDataContext(componentInstancesViewModel);
     }
   }
 }
