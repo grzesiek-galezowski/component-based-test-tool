@@ -33,10 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="IKVM.Reflection, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\IKVM.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RunSharp, Version=0.2.0.5, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
+      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\RunSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RunSharpIKVM, Version=0.2.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\RunSharpIKVM.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,6 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -101,6 +115,8 @@
     <Compile Include="Views\OperationsView.cs">
       <DependentUpon>OperationsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WindowSettings.cs" />
+    <Compile Include="WpfApplicationContext.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -113,6 +129,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ComponentInstancesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +155,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
+      <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
+      <Name>ExtensionPoints</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj">
       <Project>{622f36f8-6cb1-466e-abf1-4705fc3afe9f}</Project>
       <Name>ComponentBasedTestTool.ViewModels</Name>

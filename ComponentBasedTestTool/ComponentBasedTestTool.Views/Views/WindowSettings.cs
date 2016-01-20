@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Windows;
 
-namespace ComponentBasedTestTool.Views
+namespace ComponentBasedTestTool.Views.Views
 {
   public class WindowSettings
   {

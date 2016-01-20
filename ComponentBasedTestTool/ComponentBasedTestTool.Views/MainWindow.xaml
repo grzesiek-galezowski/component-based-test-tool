@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views1="clr-namespace:ComponentBasedTestTool.Views;assembly=ComponentBasedTestTool.Views"
         xmlns:views="clr-namespace:ComponentBasedTestTool.Views"
+        xmlns:views1="clr-namespace:ComponentBasedTestTool.Views.Views"
         x:Class="ComponentBasedTestTool.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="825"
-        views:WindowSettings.Save="True">
+        views1:WindowSettings.Save="True">
   <Window.Resources>
     <Style x:Key="HorizontalGridSplitter" TargetType="{x:Type GridSplitter}">
       <Setter Property="Height" Value="5" />
@@ -37,13 +37,13 @@
         <ColumnDefinition Width="10"/>
         <ColumnDefinition Width="3*"/>
       </Grid.ColumnDefinitions>
-      <views1:ComponentsView x:Name="ComponentsView" Grid.Column="0" />
+      <views:ComponentsView x:Name="ComponentsView" Grid.Column="0" />
       <GridSplitter Style="{StaticResource VerticalGridSplitter}" Grid.Column="1" />
-      <views1:OperationsView x:Name="OperationsView"  Grid.Column="2" />
+      <views:OperationsView x:Name="OperationsView"  Grid.Column="2" />
       <GridSplitter Style="{StaticResource VerticalGridSplitter}"  Grid.Column="3" />
-      <views1:OperationPropertiesView x:Name="OperationPropertiesView"  Grid.Column="4" />
+      <views:OperationPropertiesView x:Name="OperationPropertiesView"  Grid.Column="4" />
     </Grid>
     <GridSplitter Grid.Row="1" Style="{StaticResource HorizontalGridSplitter}"/>
-    <views1:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
+    <views:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
   </Grid>
 </Window>

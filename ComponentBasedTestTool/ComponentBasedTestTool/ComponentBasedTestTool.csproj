@@ -40,11 +40,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IKVM.Reflection, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.0.2.0.2\lib\net20\IKVM.Reflection.dll</HintPath>
+      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\IKVM.Reflection.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RunSharp, Version=0.2.0.0, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.0.2.0.2\lib\net20\RunSharp.dll</HintPath>
+    <Reference Include="RunSharp, Version=0.2.0.5, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
+      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\RunSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -92,18 +92,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="WindowSettings.cs" />
-    <Compile Include="WpfApplicationContext.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
