@@ -16,7 +16,7 @@ namespace ViewModels.ViewModels.OperationStates
       _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public void Run(OperationContext context, Operation operation)
+    public void Start(OperationContext context, Operation operation)
     {
       Task.Run(async () =>
       {

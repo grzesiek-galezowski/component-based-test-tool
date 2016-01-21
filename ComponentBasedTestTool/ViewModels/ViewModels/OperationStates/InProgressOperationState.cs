@@ -7,7 +7,7 @@ namespace ViewModels.ViewModels.OperationStates
 {
   public class InProgressOperationState : OperationState
   {
-    public void Run(OperationContext context, Operation operation)
+    public void Start(OperationContext context, Operation operation)
     {
       
     }

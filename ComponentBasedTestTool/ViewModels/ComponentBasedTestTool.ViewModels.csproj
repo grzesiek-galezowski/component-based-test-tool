@@ -72,7 +72,8 @@
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
-    <Compile Include="ViewModels\OperationStateMachine.cs" />
+    <Compile Include="ViewModels\OperationDependencyObserver.cs" />
+    <Compile Include="ViewModels\DefaultOperationStateMachine.cs" />
     <Compile Include="ViewModels\OperationStates\InProgressOperationState.cs" />
     <Compile Include="ViewModels\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />

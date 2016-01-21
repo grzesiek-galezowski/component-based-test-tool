@@ -18,9 +18,9 @@ namespace ViewModels.ViewModels
     }
 
     public StopOperationCommand CreateStopCommand(
-      CancellationTokenSource cancellationTokenSource)
+      OperationStateMachine operation)
     {
-      return new StopOperationCommand(_applicationContext, cancellationTokenSource);
+      return new StopOperationCommand(_applicationContext, operation);
     }
   }
 }

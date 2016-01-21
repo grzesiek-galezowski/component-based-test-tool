@@ -5,19 +5,19 @@ namespace ViewModels.ViewModels.Commands
 {
   public class StopOperationCommand : OperationCommand
   {
-    private readonly CancellationTokenSource _cancellationTokenSource;
+    private readonly OperationStateMachine _operation;
 
     public StopOperationCommand(
       ApplicationContext applicationContext, 
-      CancellationTokenSource cancellationTokenSource) 
+      OperationStateMachine operation) 
       : base(false, applicationContext)
     {
-      _cancellationTokenSource = cancellationTokenSource;
+      _operation = operation;
     }
 
     public override void Execute(object parameter)
     {
-      _cancellationTokenSource.Cancel();
+      _operation.Stop();
     }
 
   }

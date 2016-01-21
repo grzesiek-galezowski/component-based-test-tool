@@ -7,22 +7,15 @@ using System.Threading;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
-using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels.Commands;
 using ViewModels.ViewModels.OperationStates;
 
 namespace ViewModels.ViewModels
 {
-  public interface OperationExecutionObserver
-  {
-    void DependencyFulfilled();
-  }
-
-  public class OperationViewModel  : INotifyPropertyChanged, OperationContext, OperationExecutionObserver
+  public class OperationViewModel  : INotifyPropertyChanged, OperationContext, OperationDependencyObserver
   {
     private string _stateString;
-    private OperationState _operationState;
     private OperationCommand _runCommand;
     private OperationCommand _stopCommand;
     private string _lastError = string.Empty;
@@ -31,36 +24,29 @@ namespace ViewModels.ViewModels
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
-    private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly OperationStateMachine _operationStateMachine;
 
-    public OperationViewModel(string name, Operation operation, Maybe<string> maybeDependencyName, OperationCommandFactory operationCommandFactory)
+    public OperationViewModel(
+      string name, 
+      Maybe<string> maybeDependencyName, 
+      OperationCommandFactory operationCommandFactory, 
+      OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
+      OperationStateMachine operationStateMachine)
     {
-      _cancellationTokenSource = new CancellationTokenSource();
       Name = name;
+      _propertyListBuilder = operationPropertiesViewModelBuilder;
       _maybeDependencyName = maybeDependencyName;
-      _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
       _operationCommandFactory = operationCommandFactory;
+      _operationStateMachine = operationStateMachine;
 
-      operation.FillParameters(_propertyListBuilder);
-
-      _operationStateMachine = CreateOperationStateMachine(operation);
       if (_maybeDependencyName.HasValue)
       {
         _operationStateMachine.Initial(this);
       }
       else
       {
-        _operationStateMachine.Ready(this, _cancellationTokenSource);
+        _operationStateMachine.Ready(this);
       }
-    }
-
-    private static OperationStateMachine CreateOperationStateMachine(Operation operation)
-    {
-      return new OperationStateMachine(
-        operation,
-        new NotExecutableOperationState(),
-        new List<OperationExecutionObserver>());
     }
 
 
@@ -69,7 +55,7 @@ namespace ViewModels.ViewModels
 
     public OperationCommand StopOperationCommand
       => _stopCommand ?? (_stopCommand = 
-      _operationCommandFactory.CreateStopCommand(_cancellationTokenSource));
+      _operationCommandFactory.CreateStopCommand(_operationStateMachine));
 
 
     public string Name { get; }
@@ -117,9 +103,9 @@ namespace ViewModels.ViewModels
       set { StopOperationCommand.CanExecuteValue = value; }
     }
 
-    public void Run()
+    public void Start()
     {
-      _operationStateMachine.Run(this);
+      _operationStateMachine.Start(this);
     }
 
     public void Initial()
@@ -143,12 +129,12 @@ namespace ViewModels.ViewModels
 
     public void Ready()
     {
-      _operationStateMachine.Ready(this, _cancellationTokenSource);
+      _operationStateMachine.Ready(this);
     }
 
     public void Success()
     {
-      _operationStateMachine.Success(this, _cancellationTokenSource);
+      _operationStateMachine.Success(this);
     }
 
     public void DependencyFulfilled()
@@ -158,12 +144,12 @@ namespace ViewModels.ViewModels
 
     public void Stopped()
     {
-      _operationStateMachine.Stopped(this, _cancellationTokenSource);
+      _operationStateMachine.Stopped(this);
     }
 
     public void Failure(Exception exception)
     {
-      _operationStateMachine.Failure(exception, this, _cancellationTokenSource);
+      _operationStateMachine.Failure(exception, this);
     }
 
     public void InProgress()

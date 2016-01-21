@@ -12,7 +12,7 @@ namespace ViewModels.ViewModels.Commands
 
     public override void Execute(object parameter)
     {
-      _selectedOperation.Run();
+      _selectedOperation.Start();
     }
   }
 }

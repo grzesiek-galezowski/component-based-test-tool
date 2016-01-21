@@ -8,7 +8,7 @@ namespace ViewModels.ViewModels.OperationStates
 {
   public class NotExecutableOperationState : OperationState
   {
-    public void Run(OperationContext context, Operation operation)
+    public void Start(OperationContext context, Operation operation)
     {
       throw new NotSupportedException("The operation cannot be invoked right now");
     }

@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Threading;
 using ExtensionPoints;
+using ExtensionPoints.ImplementedByComponents;
 using ViewModels.ViewModels.Commands;
+using ViewModels.ViewModels.OperationStates;
 
 namespace ViewModels.ViewModels
 {
@@ -15,11 +18,20 @@ namespace ViewModels.ViewModels
 
     public OperationViewModel CreateOperationViewModel(OperationEntry o)
     {
-      return new OperationViewModel(
-        o.Name, 
-        o.Operation,
+      var operationPropertiesViewModelBuilder = 
+        new OperationPropertiesViewModelBuilder(o.Name);
+      o.Operation.FillParameters(operationPropertiesViewModelBuilder);
+      Operation operation = o.Operation;
+      var operationViewModel = new OperationViewModel(
+        o.Name,
         o.DependencyName, 
-        new OperationCommandFactory(_applicationContext));
+        new OperationCommandFactory(_applicationContext), 
+        operationPropertiesViewModelBuilder, new DefaultOperationStateMachine(
+          operation,
+          new NotExecutableOperationState(),
+          new List<OperationDependencyObserver>(),
+          new CancellationTokenSource()));
+      return operationViewModel;
     }
   }
 }

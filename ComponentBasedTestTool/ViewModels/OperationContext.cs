@@ -1,6 +1,6 @@
 using System;
 
-namespace ExtensionPoints.ImplementedByContext
+namespace ViewModels
 {
   public interface OperationContext
   {
