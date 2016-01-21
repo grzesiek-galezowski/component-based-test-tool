@@ -1,11 +1,11 @@
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels
 {
   public interface OperationState
   {
-    void Run(OperationViewModel operationViewModel, Operation operation);
-    void DependencyFulfilled(OperationViewModel operationViewModel);
+    void Run(OperationContext context, Operation operation);
+    void DependencyFulfilled(OperationContext operationViewModel);
   }
 }

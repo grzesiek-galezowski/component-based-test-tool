@@ -14,9 +14,12 @@ using ViewModels.ViewModels.OperationStates;
 
 namespace ViewModels.ViewModels
 {
+  public interface OperationExecutionObserver
+  {
+    void DependencyFulfilled();
+  }
 
-
-  public class OperationViewModel  : INotifyPropertyChanged, OperationContext
+  public class OperationViewModel  : INotifyPropertyChanged, OperationContext, OperationExecutionObserver
   {
     private string _stateString;
     private OperationState _operationState;
@@ -24,32 +27,40 @@ namespace ViewModels.ViewModels
     private OperationCommand _stopCommand;
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
-    private readonly Operation _operation;
     private readonly Maybe<string> _maybeDependencyName;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly CancellationTokenSource _cancellationTokenSource;
-    private readonly List<OperationViewModel> _observers = new List<OperationViewModel>();
+    private readonly OperationStateMachine _operationStateMachine;
 
     public OperationViewModel(string name, Operation operation, Maybe<string> maybeDependencyName, OperationCommandFactory operationCommandFactory)
     {
       _cancellationTokenSource = new CancellationTokenSource();
       Name = name;
-      _operation = operation;
       _maybeDependencyName = maybeDependencyName;
       _propertyListBuilder = new OperationPropertiesViewModelBuilder(name);
       _operationCommandFactory = operationCommandFactory;
 
-      _operation.FillParameters(_propertyListBuilder);
+      operation.FillParameters(_propertyListBuilder);
+
+      _operationStateMachine = CreateOperationStateMachine(operation);
       if (_maybeDependencyName.HasValue)
       {
-        this.Initial();
+        _operationStateMachine.Initial(this);
       }
       else
       {
-        this.Ready();
+        _operationStateMachine.Ready(this, _cancellationTokenSource);
       }
+    }
+
+    private static OperationStateMachine CreateOperationStateMachine(Operation operation)
+    {
+      return new OperationStateMachine(
+        operation,
+        new NotExecutableOperationState(),
+        new List<OperationExecutionObserver>());
     }
 
 
@@ -108,77 +119,62 @@ namespace ViewModels.ViewModels
 
     public void Run()
     {
-      _operationState.Run(this, _operation);
+      _operationStateMachine.Run(this);
     }
 
     public void Initial()
     {
-      CanRun = false;
-      CanStop = false;
-      State = "Initial";
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = new NotExecutableOperationState();
+      _operationStateMachine.Initial(this);
     }
 
-    public void Ready() { NormalExecutable("Ready"); }
+    public void NotifyonCurrentState(
+      bool canRun, 
+      bool canStop, 
+      string initial, 
+      string lastErrorFullText, 
+      string lastError)
+    {
+      CanRun = canRun;
+      CanStop = canStop;
+      State = initial;
+      LastErrorFullText = lastErrorFullText;
+      LastError = lastError;
+    }
+
+    public void Ready()
+    {
+      _operationStateMachine.Ready(this, _cancellationTokenSource);
+    }
 
     public void Success()
     {
-      NormalExecutable("Success");
-      foreach (var observer in _observers)
-      {
-        observer.DependencyFulfilled();
-      }
+      _operationStateMachine.Success(this, _cancellationTokenSource);
     }
 
     public void DependencyFulfilled()
     {
-      _operationState.DependencyFulfilled(this);
+      _operationStateMachine.DependencyFulfilled(this);
     }
 
-    public void Stopped() { NormalExecutable("Stopped"); }
+    public void Stopped()
+    {
+      _operationStateMachine.Stopped(this, _cancellationTokenSource);
+    }
 
     public void Failure(Exception exception)
     {
-      CanRun = true;
-      CanStop = false;
-      State = "Failure";
-      LastErrorFullText = exception.ToString();
-      LastError = exception.ToString().Split(
-        new[] { Environment.NewLine },
-        StringSplitOptions.RemoveEmptyEntries).First();
-
-      _operationState = ExecutableState();
+      _operationStateMachine.Failure(exception, this, _cancellationTokenSource);
     }
-
 
     public void InProgress()
     {
-      CanRun = false;
-      CanStop = true;
-      State = "In Progress";
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = new InProgressOperationState();
+      _operationStateMachine.InProgress(this);
     }
 
     public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
     {
       operationPropertiesViewModel.Properties = 
         _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
-    }
-
-    private ExecutableOperationState ExecutableState()
-    {
-      return new ExecutableOperationState(_cancellationTokenSource);
-    }
-
-    private void NormalExecutable(string statusText)
-    {
-      CanRun = true;
-      CanStop = false;
-      State = statusText;
-      LastErrorFullText = LastError = string.Empty;
-      _operationState = ExecutableState();
     }
 
     #region Boilerplate
@@ -197,18 +193,13 @@ namespace ViewModels.ViewModels
       {
         var dependencyName = _maybeDependencyName.Single();
         var observedOperation = FindOperationWith(dependencyName, operationViewModel);
-        observedOperation.FromNowOnReportSuccessfulExecutionTo(this);
+        observedOperation._operationStateMachine.FromNowOnReportSuccessfulExecutionTo(this);
       }
     }
 
     private static OperationViewModel FindOperationWith(string dependencyName, IEnumerable<OperationViewModel> operationViewModel)
     {
       return operationViewModel.First(o => o.IsKnownAs(dependencyName));
-    }
-
-    private void FromNowOnReportSuccessfulExecutionTo(OperationViewModel observer)
-    {
-      _observers.Add(observer);
     }
 
     private bool IsKnownAs(string name) => Name == name;

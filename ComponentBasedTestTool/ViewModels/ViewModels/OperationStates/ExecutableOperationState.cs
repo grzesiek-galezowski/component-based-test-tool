@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels.OperationStates
 {
@@ -15,28 +16,28 @@ namespace ViewModels.ViewModels.OperationStates
       _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public void Run(OperationViewModel operationViewModel, Operation operation)
+    public void Run(OperationContext context, Operation operation)
     {
       Task.Run(async () =>
       {
         try
         {
-          operationViewModel.InProgress();
+          context.InProgress();
           await operation.RunAsync(_cancellationTokenSource.Token).ConfigureAwait(false);
-          operationViewModel.Success();
+          context.Success();
         }
         catch (OperationCanceledException ex)
         {
-          operationViewModel.Stopped();
+          context.Stopped();
         }
         catch (Exception e)
         {
-          operationViewModel.Failure(e);
+          context.Failure(e);
         }
       });
     }
 
-    public void DependencyFulfilled(OperationViewModel operationViewModel)
+    public void DependencyFulfilled(OperationContext operationViewModel)
     {
       
     }

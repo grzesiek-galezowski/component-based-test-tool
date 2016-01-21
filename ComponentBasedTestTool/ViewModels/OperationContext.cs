@@ -10,5 +10,12 @@ namespace ExtensionPoints.ImplementedByContext
     void Failure(Exception exception);
     void InProgress();
     void Initial();
+
+    void NotifyonCurrentState(
+      bool canRun, 
+      bool canStop, 
+      string initial, 
+      string lastErrorFullText, 
+      string lastError);
   }
 }

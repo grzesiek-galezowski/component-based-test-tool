@@ -8,7 +8,6 @@ namespace ViewModels.ViewModels
   public class OperationPropertiesViewModelBuilder : OperationParametersListBuilder
   {
     readonly PropertySetBuilder _propertySetBuilder;
-    private object _cachedObject = null;
 
     public OperationPropertiesViewModelBuilder(string name)
     {

@@ -60,6 +60,7 @@
     <Compile Include="GlueCode\PropertyObjectBuilderScope.cs" />
     <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
+    <Compile Include="OperationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
+    <Compile Include="ViewModels\OperationStateMachine.cs" />
     <Compile Include="ViewModels\OperationStates\InProgressOperationState.cs" />
     <Compile Include="ViewModels\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />
