@@ -96,6 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WpfOperationViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -126,6 +127,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj">
+      <Project>{6083d4ff-e00c-4b2d-b090-63183a46d371}</Project>
+      <Name>ComponentBasedTestTool.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj">
       <Project>{6b163f9d-4ec0-4f1c-9bb1-d028645e196b}</Project>
       <Name>ComponentBasedTestTool.Views</Name>

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Reflection;
-using System.Windows;
-using ComponentBasedTestTool.Views;
-using TriAxis.RunSharp;
+﻿using System.Windows;
 using ViewModels.ViewModels;
 
-namespace ComponentBasedTestTool
+namespace ComponentBasedTestTool.Views
 {
   /// <summary>
   /// Interaction logic for MainWindow.xaml

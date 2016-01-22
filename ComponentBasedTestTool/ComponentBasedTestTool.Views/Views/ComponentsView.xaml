@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="ComponentBasedTestTool.Views.ComponentsView"
+﻿<UserControl x:Class="ComponentBasedTestTool.Views.Views.ComponentsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ComponentBasedTestTool.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:views="clr-namespace:ComponentBasedTestTool.Views.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources> <!-- To enable autofit of list items! -->
@@ -59,6 +60,6 @@
       </xctk:DropDownButton.DropDownContent>
     </xctk:DropDownButton>
 
-    <local:ComponentInstancesView Grid.Row="1" x:Name="ComponentInstancesView"/>
+    <views:ComponentInstancesView Grid.Row="1" x:Name="ComponentInstancesView"/>
   </Grid>
 </UserControl>

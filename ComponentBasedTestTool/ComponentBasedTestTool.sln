@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.Views", "ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj", "{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.Domain", "ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj", "{6083D4FF-E00C-4B2D-B090-63183A46D371}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6083D4FF-E00C-4B2D-B090-63183A46D371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6083D4FF-E00C-4B2D-B090-63183A46D371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6083D4FF-E00C-4B2D-B090-63183A46D371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6083D4FF-E00C-4B2D-B090-63183A46D371}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -63,6 +63,7 @@
     <Compile Include="OperationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
+    <Compile Include="ViewModels\AddAllSelectedCommand.cs" />
     <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
     <Compile Include="ViewModels\Commands\ApplicationContext.cs" />
     <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
@@ -73,8 +74,6 @@
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
     <Compile Include="ViewModels\OperationDependencyObserver.cs" />
-    <Compile Include="ViewModels\DefaultOperationStateMachine.cs" />
-    <Compile Include="ViewModels\OperationStates\InProgressOperationState.cs" />
     <Compile Include="ViewModels\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />
     <Compile Include="ViewModels\OperationParameterViewModel.cs" />
@@ -82,8 +81,7 @@
     <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />
     <Compile Include="ViewModels\OperationsOutputViewModel.cs" />
     <Compile Include="ViewModels\OperationState.cs" />
-    <Compile Include="ViewModels\OperationStates\ExecutableOperationState.cs" />
-    <Compile Include="ViewModels\OperationStates\NotExecutableOperationState.cs" />
+    <Compile Include="ViewModels\OperationStateMachine.cs" />
     <Compile Include="ViewModels\OperationsViewModel.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
     <Compile Include="ViewModels\OperationViewModelFactory.cs" />

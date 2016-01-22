@@ -1,37 +1,15 @@
+﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using ExtensionPoints;
-using ExtensionPoints.ImplementedByComponents;
-using ViewModels.ViewModels.Commands;
-using ViewModels.ViewModels.OperationStates;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ViewModels.ViewModels
 {
-  public class OperationViewModelFactory
+  public interface OperationViewModelFactory
   {
-    private readonly ApplicationContext _applicationContext;
-
-    public OperationViewModelFactory(ApplicationContext applicationContext)
-    {
-      _applicationContext = applicationContext;
-    }
-
-    public OperationViewModel CreateOperationViewModel(OperationEntry o)
-    {
-      var operationPropertiesViewModelBuilder = 
-        new OperationPropertiesViewModelBuilder(o.Name);
-      o.Operation.FillParameters(operationPropertiesViewModelBuilder);
-      Operation operation = o.Operation;
-      var operationViewModel = new OperationViewModel(
-        o.Name,
-        o.DependencyName, 
-        new OperationCommandFactory(_applicationContext), 
-        operationPropertiesViewModelBuilder, new DefaultOperationStateMachine(
-          operation,
-          new NotExecutableOperationState(),
-          new List<OperationDependencyObserver>(),
-          new CancellationTokenSource()));
-      return operationViewModel;
-    }
+    OperationViewModel CreateOperationViewModel(OperationEntry o);
   }
+
+
 }

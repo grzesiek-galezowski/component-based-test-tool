@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -51,22 +49,5 @@ namespace ViewModels.ViewModels
         _testComponentViewModelFactory.Create(name, instanceFactory)
       );
     }
-  }
-
-  public class AddAllSelectedCommand : ICommand
-  {
-    public bool CanExecute(object parameter) => true;
-
-    public void Execute(object parameter)
-    {
-      var selectedComponents = (IEnumerable<TestComponentViewModel>) parameter;
-      foreach (var testComponentViewModel in selectedComponents)
-      {
-        testComponentViewModel.AddComponentCommand.Execute(new object());
-      }
-      
-    }
-
-    public event EventHandler CanExecuteChanged;
   }
 }

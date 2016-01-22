@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ComponentBasedTestTool.Views;
 using Components;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
@@ -29,13 +30,13 @@ namespace ComponentBasedTestTool
         new TestComponentViewModelFactory(
           componentInstancesViewModel, 
           outputFactory, 
-          new OperationViewModelFactory(new WpfApplicationContext()));
+          new WpfOperationViewModelFactory(new WpfApplicationContext()));
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var fileSystemComponentFactory = new FileSystemComponentInstanceFactory();
       fileSystemComponentFactory.AddTo(componentsViewModel);
 
-      new MainWindow(
+      new Views.MainWindow(
         operationsViewModel,
         operationsOutputViewModel, 
         operationPropertiesViewModel,

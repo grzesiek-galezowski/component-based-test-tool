@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
-using ExtensionPoints.ImplementedByContext;
+using ViewModels;
+using ViewModels.ViewModels;
 
-namespace ViewModels.ViewModels.OperationStates
+namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public sealed class ExecutableOperationState : OperationState
   {

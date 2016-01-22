@@ -3,7 +3,7 @@ using System.Windows;
 using ComponentBasedTestTool.Annotations;
 using ViewModels.ViewModels.Commands;
 
-namespace ComponentBasedTestTool
+namespace ComponentBasedTestTool.Views
 {
   public class WpfApplicationContext : ApplicationContext
   {

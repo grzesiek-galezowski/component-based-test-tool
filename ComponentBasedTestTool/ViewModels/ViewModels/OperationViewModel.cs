@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
-using ExtensionPoints;
-using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels.Commands;
-using ViewModels.ViewModels.OperationStates;
 
 namespace ViewModels.ViewModels
 {
