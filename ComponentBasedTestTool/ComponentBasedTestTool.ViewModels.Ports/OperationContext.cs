@@ -1,6 +1,6 @@
 using System;
 
-namespace ViewModels
+namespace ComponentBasedTestTool.ViewModels.Ports
 {
   public interface OperationContext
   {

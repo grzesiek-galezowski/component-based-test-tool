@@ -1,7 +1,7 @@
+using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
-using ExtensionPoints.ImplementedByContext;
 
-namespace ViewModels.ViewModels
+namespace ComponentBasedTestTool.Domain
 {
   public interface OperationState
   {

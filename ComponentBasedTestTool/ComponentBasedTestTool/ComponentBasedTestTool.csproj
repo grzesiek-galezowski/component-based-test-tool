@@ -131,6 +131,14 @@
       <Project>{6083d4ff-e00c-4b2d-b090-63183a46d371}</Project>
       <Name>ComponentBasedTestTool.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">
+      <Project>{ef47f4e3-07b5-44a8-9d69-2d83013716b7}</Project>
+      <Name>ComponentBasedTestTool.ViewModels.Ports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj">
+      <Project>{a3d624ea-bc40-4b42-bc65-0d4bde154901}</Project>
+      <Name>ComponentBasedTestTool.Views.Ports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj">
       <Project>{6b163f9d-4ec0-4f1c-9bb1-d028645e196b}</Project>
       <Name>ComponentBasedTestTool.Views</Name>

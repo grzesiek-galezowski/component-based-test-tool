@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

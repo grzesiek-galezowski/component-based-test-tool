@@ -1,7 +1,6 @@
 using System;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
-using ViewModels;
-using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool.Domain.OperationStates
 {

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool.Views
@@ -8,20 +10,34 @@ namespace ComponentBasedTestTool.Views
   /// </summary>
   public partial class MainWindow : Window
   {
-    public MainWindow(
-      OperationsViewModel operationsViewModel, 
-      OperationsOutputViewModel operationsOutputViewModel, 
-      OperationPropertiesViewModel operationPropertiesViewModel, 
-      ComponentsViewModel componentsViewModel, 
-      ComponentInstancesViewModel componentInstancesViewModel)
+    public MainWindow()
     {
       InitializeComponent();
+    }
 
-      OperationPropertiesView.DataContext = operationPropertiesViewModel;
-      OperationsView.DataContext = operationsViewModel;
-      OperationsOutputView.DataContext = operationsOutputViewModel;
-      ComponentsView.DataContext = componentsViewModel;
+    public void SetComponentInstancesViewDataContext(object componentInstancesViewModel)
+    {
       ComponentsView.SetComponentInstancesViewDataContext(componentInstancesViewModel);
+    }
+
+    public void SetComponentsViewDataContext(object componentsViewModel)
+    {
+      ComponentsView.DataContext = componentsViewModel;
+    }
+
+    public void SetOperationsOutputViewDataContext(object operationsOutputViewModel)
+    {
+      OperationsOutputView.DataContext = operationsOutputViewModel;
+    }
+
+    public void SetOperationsViewDataContext(object operationsViewModel)
+    {
+      OperationsView.DataContext = operationsViewModel;
+    }
+
+    public void SetOperationPropertiesViewDataContext(object operationPropertiesViewModel)
+    {
+      OperationPropertiesView.DataContext = operationPropertiesViewModel;
     }
   }
 }

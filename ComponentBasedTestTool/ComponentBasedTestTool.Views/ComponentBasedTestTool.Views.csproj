@@ -155,13 +155,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj">
+      <Project>{a3d624ea-bc40-4b42-bc65-0d4bde154901}</Project>
+      <Name>ComponentBasedTestTool.Views.Ports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
       <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
       <Name>ExtensionPoints</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj">
-      <Project>{622f36f8-6cb1-466e-abf1-4705fc3afe9f}</Project>
-      <Name>ComponentBasedTestTool.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

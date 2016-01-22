@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
@@ -22,15 +21,13 @@ namespace ComponentBasedTestTool
       var operationPropertiesViewModelBuilder = 
         new OperationPropertiesViewModelBuilder(o.Name);
       o.Operation.FillParameters(operationPropertiesViewModelBuilder);
-      Operation operation = o.Operation;
       var operationViewModel = new OperationViewModel(
         o.Name,
         o.DependencyName, 
         new OperationCommandFactory(_applicationContext), 
         operationPropertiesViewModelBuilder, new DefaultOperationStateMachine(
-          operation,
+          o.Operation,
           new NotExecutableOperationState(),
-          new List<OperationDependencyObserver>(),
           new CancellationTokenSource()));
       return operationViewModel;
     }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using ComponentBasedTestTool.Domain.OperationStates;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
-using ViewModels;
-using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool.Domain
 {
@@ -21,12 +20,11 @@ namespace ComponentBasedTestTool.Domain
     public DefaultOperationStateMachine(
       Operation operation, 
       OperationState operationState, 
-      List<OperationDependencyObserver> observers, 
       CancellationTokenSource cancellationTokenSource)
     {
       _operation = operation;
       _operationState = operationState;
-      _observers = observers;
+      _observers = new List<OperationDependencyObserver>();
       _cancellationTokenSource = cancellationTokenSource;
     }
 
@@ -38,7 +36,7 @@ namespace ComponentBasedTestTool.Domain
     public void Failure(Exception exception, OperationContext operationViewModel)
     {
       var lastError = Format(exception);
-      operationViewModel.NotifyonCurrentState(true, false, "Failure", exception.ToString(), lastError);
+      operationViewModel.NotifyonCurrentState(true, false, nameof(Failure), exception.ToString(), lastError);
 
       _operationState = ExecutableState(_cancellationTokenSource);
     }
@@ -53,7 +51,7 @@ namespace ComponentBasedTestTool.Domain
       observer.NotifyonCurrentState(
         false,
         false,
-        "Initial",
+        nameof(Initial),
         string.Empty,
         string.Empty);
 
@@ -74,7 +72,7 @@ namespace ComponentBasedTestTool.Domain
 
     public void Ready(OperationContext context)
     {
-      NormalExecutable(context, "Ready", _cancellationTokenSource);
+      NormalExecutable(context, nameof(Ready), _cancellationTokenSource);
     }
 
     public void Start(OperationContext context)
@@ -84,12 +82,12 @@ namespace ComponentBasedTestTool.Domain
 
     public void Stopped(OperationContext operationViewModel)
     {
-      NormalExecutable(operationViewModel, "Stopped", _cancellationTokenSource);
+      NormalExecutable(operationViewModel, nameof(Stopped), _cancellationTokenSource);
     }
 
     public void Success(OperationContext operationViewModel)
     {
-      NormalExecutable(operationViewModel, "Success", _cancellationTokenSource);
+      NormalExecutable(operationViewModel, nameof(Success), _cancellationTokenSource);
       foreach (var observer in _observers)
       {
         observer.DependencyFulfilled();

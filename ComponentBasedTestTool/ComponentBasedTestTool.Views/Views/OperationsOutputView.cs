@@ -10,7 +10,6 @@ namespace ComponentBasedTestTool.Views.Views
   {
     public OperationsOutputView()
     {
-      DataContext = new OperationsOutputViewModel();
       InitializeComponent();
     }
   }

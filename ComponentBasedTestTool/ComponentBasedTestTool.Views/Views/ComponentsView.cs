@@ -13,9 +13,9 @@ namespace ComponentBasedTestTool.Views.Views
       InitializeComponent();
     }
 
-    public void SetComponentInstancesViewDataContext(ComponentInstancesViewModel componentInstancesViewModel)
+    public void SetComponentInstancesViewDataContext(object dataContext)
     {
-      ComponentInstancesView.DataContext = componentInstancesViewModel;
+      ComponentInstancesView.DataContext = dataContext;
     }
   }
 }

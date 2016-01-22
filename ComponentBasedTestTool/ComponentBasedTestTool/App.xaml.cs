@@ -36,12 +36,14 @@ namespace ComponentBasedTestTool
       var fileSystemComponentFactory = new FileSystemComponentInstanceFactory();
       fileSystemComponentFactory.AddTo(componentsViewModel);
 
-      new Views.MainWindow(
-        operationsViewModel,
-        operationsOutputViewModel, 
-        operationPropertiesViewModel,
-        componentsViewModel, 
-        componentInstancesViewModel).Show();
+      var mainWindow = new MainWindow();
+      mainWindow.SetOperationPropertiesViewDataContext(operationPropertiesViewModel);
+      mainWindow.SetOperationsViewDataContext(operationsViewModel);
+      mainWindow.SetOperationsOutputViewDataContext(operationsOutputViewModel);
+      mainWindow.SetComponentsViewDataContext(componentsViewModel);
+      mainWindow.SetComponentInstancesViewDataContext(componentInstancesViewModel);
+
+      mainWindow.Show();
     }
   }
 }

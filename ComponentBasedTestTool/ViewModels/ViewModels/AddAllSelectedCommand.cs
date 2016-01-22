@@ -15,7 +15,6 @@ namespace ViewModels.ViewModels
       {
         testComponentViewModel.AddComponentCommand.Execute(new object());
       }
-      
     }
 
     public event EventHandler CanExecuteChanged;

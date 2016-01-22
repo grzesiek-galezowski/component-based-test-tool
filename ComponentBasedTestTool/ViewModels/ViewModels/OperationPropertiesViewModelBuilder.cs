@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
 using ViewModels.GlueCode;
@@ -7,6 +8,7 @@ namespace ViewModels.ViewModels
 {
   public class OperationPropertiesViewModelBuilder : OperationParametersListBuilder
   {
+    private const string GenericProperties = "Generic properties";
     readonly PropertySetBuilder _propertySetBuilder;
 
     public OperationPropertiesViewModelBuilder(string name)
@@ -20,6 +22,7 @@ namespace ViewModels.ViewModels
       var prop = _propertySetBuilder
         .Property<string>(name)
         .InitialValue(defaultValue)
+        .With<CategoryAttribute>(GenericProperties)
         .End();
       return new RunSharpBasedParameter<string>(prop);
     }
@@ -29,6 +32,7 @@ namespace ViewModels.ViewModels
       var prop = _propertySetBuilder
         .Property<bool>(name)
         .InitialValue(defaultValue)
+        .With<CategoryAttribute>(GenericProperties)
         .End();
       return new RunSharpBasedParameter<bool>(prop);
     }
@@ -38,6 +42,7 @@ namespace ViewModels.ViewModels
       var prop = _propertySetBuilder
         .Property<int>(name)
         .InitialValue(amount)
+        .With<CategoryAttribute>(GenericProperties)
         .End();
       return new RunSharpBasedSecondsParameter(prop);
     }

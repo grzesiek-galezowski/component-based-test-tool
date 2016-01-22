@@ -1,4 +1,4 @@
-﻿namespace ViewModels.ViewModels
+﻿namespace ComponentBasedTestTool.ViewModels.Ports
 {
   public interface OperationDependencyObserver
   {
