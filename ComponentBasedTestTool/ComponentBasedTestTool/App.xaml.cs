@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Composition.Hosting;
 using System.Windows;
 using ComponentBasedTestTool.Views;
-using Components;
+using ExtensionPoints.ImplementedByComponents;
+using Jal.AssemblyFinder.Impl;
 using ViewModels.ViewModels;
-using ViewModels.ViewModels.Commands;
 
 namespace ComponentBasedTestTool
 {
@@ -21,20 +18,54 @@ namespace ComponentBasedTestTool
     {
       base.OnStartup(e);
 
+      LoadComponentFactories();
+
+      var mainWindow = CreateMainWindow();
+      mainWindow.Show();
+    }
+
+    private static IEnumerable<TestComponentInstanceFactory> LoadComponentFactories()
+    {
+      var configuration = LoadPluginAssemblies();
+
+      using (var container = configuration.CreateContainer())
+      {
+        return container.GetExports<TestComponentInstanceFactory>();
+      }
+    }
+
+    private static ContainerConfiguration LoadPluginAssemblies()
+    {
+      var directory = AppDomain.CurrentDomain.BaseDirectory;
+      AssemblyFinder.Current = new AssemblyFinder(directory);
+
+      var assemblies = AssemblyFinder.Current.GetAssemblies("CBTS-PLUGIN");
+
+      var configuration =
+        new ContainerConfiguration()
+          .WithAssemblies(assemblies);
+      return configuration;
+    }
+
+    private static MainWindow CreateMainWindow()
+    {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
       var outputFactory = new OutputFactory(operationsOutputViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
       var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel);
-      var testComponentViewModelFactory = 
+      var testComponentViewModelFactory =
         new TestComponentViewModelFactory(
-          componentInstancesViewModel, 
-          outputFactory, 
+          componentInstancesViewModel,
+          outputFactory,
           new WpfOperationViewModelFactory(new WpfApplicationContext()));
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
-      var fileSystemComponentFactory = new FileSystemComponentInstanceFactory();
-      fileSystemComponentFactory.AddTo(componentsViewModel);
+      var factories = LoadComponentFactories();
+      foreach (var testComponentInstanceFactory in factories)
+      {
+        testComponentInstanceFactory.AddTo(componentsViewModel);
+      }
 
       var mainWindow = new MainWindow();
       mainWindow.SetOperationPropertiesViewDataContext(operationPropertiesViewModel);
@@ -42,8 +73,7 @@ namespace ComponentBasedTestTool
       mainWindow.SetOperationsOutputViewDataContext(operationsOutputViewModel);
       mainWindow.SetComponentsViewDataContext(componentsViewModel);
       mainWindow.SetComponentInstancesViewDataContext(componentInstancesViewModel);
-
-      mainWindow.Show();
+      return mainWindow;
     }
   }
 }

@@ -1,7 +1,6 @@
 using System.Threading;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
-using ExtensionPoints.ImplementedByComponents;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
