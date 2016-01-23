@@ -1,14 +1,14 @@
-﻿using System;
-using System.Windows;
-using ExtensionPoints.ImplementedByContext;
-using ViewModels.ViewModels;
+﻿using System.Windows;
+using ComponentBasedTestTool.Views.Ports;
 
 namespace ComponentBasedTestTool.Views
 {
+
+
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class MainWindow : Window
+  public partial class MainWindow : Window, ApplicationBootstrap
   {
     public MainWindow()
     {
@@ -38,6 +38,11 @@ namespace ComponentBasedTestTool.Views
     public void SetOperationPropertiesViewDataContext(object operationPropertiesViewModel)
     {
       OperationPropertiesView.DataContext = operationPropertiesViewModel;
+    }
+
+    public void Start()
+    {
+      Show();
     }
   }
 }

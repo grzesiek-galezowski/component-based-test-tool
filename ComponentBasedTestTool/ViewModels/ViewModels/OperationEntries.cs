@@ -48,5 +48,9 @@ namespace ViewModels.ViewModels
       return new OperationEntry(name, operation, dependencyName);
     }
 
+    public void FillParameters(OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder)
+    {
+      Operation.FillParameters(operationPropertiesViewModelBuilder);
+    }
   }
 }

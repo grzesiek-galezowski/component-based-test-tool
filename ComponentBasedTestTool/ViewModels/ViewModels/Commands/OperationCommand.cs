@@ -2,6 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
+using ComponentBasedTestTool.Views.Ports;
 
 namespace ViewModels.ViewModels.Commands
 {

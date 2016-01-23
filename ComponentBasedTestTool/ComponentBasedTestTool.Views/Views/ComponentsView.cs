@@ -1,5 +1,4 @@
 ﻿using System.Windows.Controls;
-using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool.Views.Views
 {

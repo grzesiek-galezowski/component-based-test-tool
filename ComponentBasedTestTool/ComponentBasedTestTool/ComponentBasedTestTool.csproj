@@ -120,6 +120,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DefaultApplicationBootstrap.cs" />
+    <Compile Include="ExecutingAssemblyFolder.cs" />
     <Compile Include="WpfOperationViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +168,10 @@
     <ProjectReference Include="..\ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj">
       <Project>{6b163f9d-4ec0-4f1c-9bb1-d028645e196b}</Project>
       <Name>ComponentBasedTestTool.Views</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{900b3434-fa01-4cf2-b78e-cfa8944989d1}</Project>
+      <Name>Components</Name>
     </ProjectReference>
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
       <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>

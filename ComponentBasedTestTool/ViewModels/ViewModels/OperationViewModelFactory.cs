@@ -8,7 +8,7 @@ namespace ViewModels.ViewModels
 {
   public interface OperationViewModelFactory
   {
-    OperationViewModel CreateOperationViewModel(OperationEntry o);
+    OperationViewModel CreateOperationViewModel(OperationEntry operationEntry);
   }
 
 

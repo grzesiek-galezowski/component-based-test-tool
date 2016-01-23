@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 using ComponentBasedTestTool.Annotations;
-using ViewModels.ViewModels.Commands;
+using ComponentBasedTestTool.Views.Ports;
 
 namespace ComponentBasedTestTool.Views
 {

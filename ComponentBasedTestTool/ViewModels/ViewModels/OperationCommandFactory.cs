@@ -1,5 +1,6 @@
 using System.Threading;
 using ComponentBasedTestTool.ViewModels.Ports;
+using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

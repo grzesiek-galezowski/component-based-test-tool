@@ -1,6 +1,8 @@
 using System.Threading;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
+using ComponentBasedTestTool.ViewModels.Ports;
+using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
@@ -15,20 +17,38 @@ namespace ComponentBasedTestTool
       _applicationContext = applicationContext;
     }
 
-    public OperationViewModel CreateOperationViewModel(OperationEntry o)
+    public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry)
     {
       var operationPropertiesViewModelBuilder = 
-        new OperationPropertiesViewModelBuilder(o.Name);
-      o.Operation.FillParameters(operationPropertiesViewModelBuilder);
-      var operationViewModel = new OperationViewModel(
-        o.Name,
-        o.DependencyName, 
-        new OperationCommandFactory(_applicationContext), 
-        operationPropertiesViewModelBuilder, new DefaultOperationStateMachine(
-          o.Operation,
-          new NotExecutableOperationState(),
-          new CancellationTokenSource()));
+        new OperationPropertiesViewModelBuilder(operationEntry.Name);
+
+      operationEntry.FillParameters(operationPropertiesViewModelBuilder);
+
+      var operationViewModel = OperationViewModelFor(
+        operationEntry, 
+        operationPropertiesViewModelBuilder, 
+        StateMachineFor(operationEntry));
       return operationViewModel;
     }
+
+    private OperationViewModel OperationViewModelFor(
+      OperationEntry operationEntry, 
+      OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
+      OperationStateMachine defaultOperationStateMachine) => 
+        new OperationViewModel(
+          operationEntry.Name,
+          operationEntry.DependencyName, 
+          AllowingCommandExecution(), 
+          operationPropertiesViewModelBuilder, 
+          defaultOperationStateMachine);
+
+    private OperationCommandFactory AllowingCommandExecution() => 
+      new OperationCommandFactory(_applicationContext);
+
+    private static DefaultOperationStateMachine StateMachineFor(OperationEntry o) 
+      => new DefaultOperationStateMachine(
+            o.Operation,
+            new NotExecutableOperationState(),
+            new CancellationTokenSource());
   }
 }

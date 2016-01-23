@@ -5,8 +5,8 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
-  [Export(typeof(TestComponentInstanceFactory))]
-  public class FileSystemComponentInstanceFactory : TestComponentInstanceFactory
+  [Export(typeof(TestComponentSourceRoot))]
+  public class FileSystemComponentInstanceFactory : TestComponentInstanceFactory, TestComponentSourceRoot
   {
     public TestComponent Create()
     {
@@ -18,4 +18,5 @@ namespace Components
       components.Add("Filesystem", this);
     }
   }
+
 }
