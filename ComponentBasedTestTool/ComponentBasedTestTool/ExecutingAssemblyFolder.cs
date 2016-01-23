@@ -13,7 +13,7 @@ namespace ComponentBasedTestTool
     IEnumerable<TestComponentSourceRoot> LoadComponentRoots();
   }
 
-  public class ExecutingAssemblyFolder : PluginLocation
+  public class ExecutingAssemblyFolder : PluginLocation //bug move this to a separate assembly - this is an adapter
   {
     public IEnumerable<TestComponentSourceRoot> LoadComponentRoots()
     {

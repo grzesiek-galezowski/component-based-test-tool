@@ -120,7 +120,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DefaultApplicationBootstrap.cs" />
+    <Compile Include="DefaultApplicationLoop.cs" />
     <Compile Include="ExecutingAssemblyFolder.cs" />
     <Compile Include="WpfOperationViewModelFactory.cs" />
   </ItemGroup>

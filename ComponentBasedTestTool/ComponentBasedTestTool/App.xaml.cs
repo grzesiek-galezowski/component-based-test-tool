@@ -21,7 +21,7 @@ namespace ComponentBasedTestTool
     {
       base.OnStartup(e);
 
-      DefaultApplicationBootstrap.Start(new MainWindow(), new ExecutingAssemblyFolder());
+      DefaultApplicationLoop.Start(new MainWindow(), new ExecutingAssemblyFolder());
     }
   }
 }

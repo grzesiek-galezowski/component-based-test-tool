@@ -4,7 +4,7 @@ using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool
 {
-  public static class DefaultApplicationBootstrap
+  public static class DefaultApplicationLoop
   {
     public static void Start(ApplicationBootstrap bootstrap, PluginLocation pluginLocation)
     {
@@ -12,7 +12,7 @@ namespace ComponentBasedTestTool
       bootstrap.Start();
     }
 
-    private static void Configure(PluginLocation pluginLocation, ApplicationBootstrap mainWindow)
+    private static void Configure(PluginLocation pluginLocation, ApplicationBootstrap bootstrap)
     {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
@@ -33,7 +33,6 @@ namespace ComponentBasedTestTool
         testComponentInstanceFactoryRepository.AddTo(componentsViewModel);
       }
 
-      ApplicationBootstrap bootstrap = mainWindow;
       bootstrap.SetOperationPropertiesViewDataContext(operationPropertiesViewModel);
       bootstrap.SetOperationsViewDataContext(operationsViewModel);
       bootstrap.SetOperationsOutputViewDataContext(operationsOutputViewModel);
