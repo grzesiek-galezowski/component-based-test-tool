@@ -169,6 +169,14 @@
       <Project>{6b163f9d-4ec0-4f1c-9bb1-d028645e196b}</Project>
       <Name>ComponentBasedTestTool.Views</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ComponentLoading.Ports\ComponentLoading.Ports.csproj">
+      <Project>{1dc811ee-84df-4bf9-8393-9dfdaf4dc489}</Project>
+      <Name>ComponentLoading.Ports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ComponentLoading\ComponentLoading.csproj">
+      <Project>{f98235ea-8e2f-471b-82aa-3edf29c25e52}</Project>
+      <Name>ComponentLoading</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Components\Components.csproj">
       <Project>{900b3434-fa01-4cf2-b78e-cfa8944989d1}</Project>
       <Name>Components</Name>

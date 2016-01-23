@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.View
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentSpecification", "ComponentSpecification\ComponentSpecification.csproj", "{166B7720-BD43-4F56-A486-3939CF723BF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentLoading.Ports", "ComponentLoading.Ports\ComponentLoading.Ports.csproj", "{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentLoading", "ComponentLoading\ComponentLoading.csproj", "{F98235EA-8E2F-471B-82AA-3EDF29C25E52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +67,14 @@ Global
 		{166B7720-BD43-4F56-A486-3939CF723BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{166B7720-BD43-4F56-A486-3939CF723BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{166B7720-BD43-4F56-A486-3939CF723BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98235EA-8E2F-471B-82AA-3EDF29C25E52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98235EA-8E2F-471B-82AA-3EDF29C25E52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98235EA-8E2F-471B-82AA-3EDF29C25E52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98235EA-8E2F-471B-82AA-3EDF29C25E52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

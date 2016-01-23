@@ -6,13 +6,13 @@ namespace ComponentBasedTestTool
 {
   public static class DefaultApplicationLoop
   {
-    public static void Start(ApplicationBootstrap bootstrap, PluginLocation pluginLocation)
+    public static void Start(ApplicationBootstrap bootstrap, ComponentLocation componentLocation)
     {
-      Configure(pluginLocation, bootstrap);
+      Configure(componentLocation, bootstrap);
       bootstrap.Start();
     }
 
-    private static void Configure(PluginLocation pluginLocation, ApplicationBootstrap bootstrap)
+    private static void Configure(ComponentLocation componentLocation, ApplicationBootstrap bootstrap)
     {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
@@ -26,7 +26,7 @@ namespace ComponentBasedTestTool
           new WpfOperationViewModelFactory(new WpfApplicationContext()));
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
-      var factoryRepositories = pluginLocation.LoadComponentRoots();
+      var factoryRepositories = componentLocation.LoadComponentRoots();
       
       foreach (var testComponentInstanceFactoryRepository in factoryRepositories)
       {

@@ -59,7 +59,7 @@ namespace ComponentSpecification
     public void StartApplication()
     {
       var bootstrap = this;
-      var pluginLocation = Substitute.For<PluginLocation>();
+      var pluginLocation = Substitute.For<ComponentLocation>();
       var componentRoot = Substitute.For<TestComponentSourceRoot>();
 
       componentRoot.When(m => m.AddTo(Arg.Any<ComponentsList>())).Do(AddConfiguredComponents());
@@ -106,7 +106,7 @@ namespace ComponentSpecification
 
     void ApplicationBootstrap.Start()
     {
-
+      // Method intentionally left empty.
     }
   }
 }

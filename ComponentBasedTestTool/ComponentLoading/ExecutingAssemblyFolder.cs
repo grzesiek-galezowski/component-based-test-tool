@@ -27,10 +27,9 @@ namespace ComponentBasedTestTool
 
       var assemblies = AssemblyFinder.Current.GetAssemblies("CBTS-PLUGIN");
 
-      if (assemblies.Count() == 0)
+      if (!assemblies.Any())
       {
-        MessageBox.Show("No plugins found, exiting");
-        Environment.Exit(0);
+        throw new Exception("No plugins found, exiting");
       }
 
       var configuration =

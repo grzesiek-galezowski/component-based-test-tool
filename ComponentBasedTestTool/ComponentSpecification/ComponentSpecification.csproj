@@ -85,6 +85,10 @@
       <Project>{4d0c948f-d021-4bb3-8a00-64494aa85d39}</Project>
       <Name>ComponentBasedTestTool</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ComponentLoading.Ports\ComponentLoading.Ports.csproj">
+      <Project>{1dc811ee-84df-4bf9-8393-9dfdaf4dc489}</Project>
+      <Name>ComponentLoading.Ports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Components\Components.csproj">
       <Project>{900b3434-fa01-4cf2-b78e-cfa8944989d1}</Project>
       <Name>Components</Name>
