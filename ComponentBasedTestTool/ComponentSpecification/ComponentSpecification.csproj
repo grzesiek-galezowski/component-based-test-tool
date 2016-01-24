@@ -55,9 +55,14 @@
   <ItemGroup>
     <Compile Include="ComponentBasedTestToolDriver.cs" />
     <Compile Include="DisplayingSpecification.cs" />
+    <Compile Include="FakeComponentInstance.cs" />
     <Compile Include="FakeComponentsView.cs" />
     <Compile Include="FakeInstancesView.cs" />
+    <Compile Include="FakeOperation.cs" />
+    <Compile Include="FakeOperationsView.cs" />
+    <Compile Include="FakePropertiesView.cs" />
     <Compile Include="FakeTestComponent.cs" />
+    <Compile Include="FakeTestComponentSource.cs" />
     <Compile Include="FakeTestComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

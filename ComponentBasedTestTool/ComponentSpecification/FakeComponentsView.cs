@@ -13,7 +13,7 @@ namespace ComponentSpecification
       _componentsViewModel = componentsViewModel;
     }
 
-    public void AssertExactlyTheFollowingComponentsAreLoaded2(string[] names)
+    public void AssertExactlyTheFollowingAreLoaded(params string[] names)
     {
       Assert.AreEqual(names.Count(), _componentsViewModel.TestComponents.Count);
       foreach (var name in names)
@@ -21,6 +21,12 @@ namespace ComponentSpecification
         Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name == name),
           "could not find any component by the name " + name);
       }
+    }
+
+    public void AddInstanceOf(string componentName)
+    {
+      var fakeTestComponent = FakeTestComponent.GetByName(componentName, _componentsViewModel);
+      fakeTestComponent.AddInstance();
     }
   }
 }

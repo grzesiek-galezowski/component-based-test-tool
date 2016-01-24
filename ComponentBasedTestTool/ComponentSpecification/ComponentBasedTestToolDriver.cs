@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Reflection;
 using ComponentBasedTestTool;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
@@ -16,7 +17,7 @@ namespace ComponentSpecification
   {
     private ComponentInstancesViewModel _componentInstancesViewModel;
 
-    private readonly FakeTestComponents _components = new FakeTestComponents();
+    public FakeTestComponents ComponentsSetup { get; } = new FakeTestComponents();
     private ComponentsViewModel _componentsViewModel;
     private readonly TestComponentInstanceFactory _instanceFactory;
     private OperationPropertiesViewModel _operationPropertiesViewModel;
@@ -30,27 +31,8 @@ namespace ComponentSpecification
 
     public FakeComponentsView ComponentsView => new FakeComponentsView(_componentsViewModel);
     public FakeInstancesView InstancesView => new FakeInstancesView(_componentInstancesViewModel);
-
-    public void AddComponentsWithNames(params string[] names)
-    {
-      foreach (var name in names)
-      {
-        AddPluginWithName(name);
-      }
-    }
-
-    public void AddInstanceOf(string componentName)
-    {
-      _componentsViewModel
-        .TestComponents
-        .First(c => c.Name == componentName)
-        .AddComponentCommand.Execute(null);
-    }
-
-    public void AddPluginWithName(string name)
-    {
-      _components.Add(name);
-    }
+    public FakeOperationsView OperationsView => new FakeOperationsView(_operationsViewModel);
+    public FakePropertiesView PropertiesView => new FakePropertiesView(_operationPropertiesViewModel);
 
     public void AssertNoComponentsAreLoaded()
     {
@@ -75,7 +57,7 @@ namespace ComponentSpecification
       return ci =>
       {
         var componentsList = ((ComponentsList) ci[0]);
-        _components.AddTo(componentsList);
+        ComponentsSetup.AddTo(componentsList);
 
       };
     }

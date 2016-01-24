@@ -1,26 +1,30 @@
-using ExtensionPoints.ImplementedByComponents;
-using ExtensionPoints.ImplementedByContext;
-using NSubstitute;
+using System.Linq;
+using ViewModels.ViewModels;
 
 namespace ComponentSpecification
 {
   public class FakeTestComponent
   {
-    private readonly string _name;
-    private readonly TestComponentInstanceFactory _factory;
-    private readonly TestComponent _componentInstance;
+    private readonly TestComponentViewModel _testComponentViewModel;
 
-    public FakeTestComponent(string name)
+    public FakeTestComponent(TestComponentViewModel testComponentViewModel)
     {
-      _name = name;
-      _factory = Substitute.For<TestComponentInstanceFactory>();
-      _componentInstance = Substitute.For<TestComponent>();
-      _factory.Create().Returns(_componentInstance);
+      _testComponentViewModel = testComponentViewModel;
     }
 
-    public void AddTo(ComponentsList components)
+    public void AddInstance()
     {
-      components.Add(_name, _factory);
+      _testComponentViewModel
+        .AddComponentCommand.Execute(null);
+    }
+
+    public static FakeTestComponent GetByName(string componentName, ComponentsViewModel componentsViewModel)
+    {
+      var testComponentViewModel = componentsViewModel
+        .TestComponents
+        .First(c => c.Name == componentName);
+      var fakeTestComponent = new FakeTestComponent(testComponentViewModel);
+      return fakeTestComponent;
     }
   }
 }

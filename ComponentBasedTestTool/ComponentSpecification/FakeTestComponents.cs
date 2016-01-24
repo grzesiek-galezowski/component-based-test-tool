@@ -5,11 +5,13 @@ namespace ComponentSpecification
 {
   public class FakeTestComponents
   {
-    private readonly List<FakeTestComponent> _components = new List<FakeTestComponent>();
+    private readonly List<FakeTestComponentSource> _components = new List<FakeTestComponentSource>();
 
-    public void Add(string name)
+    public FakeTestComponentSource Add(string name)
     {
-      _components.Add(new FakeTestComponent(name));
+      var fakeTestComponentSource = new FakeTestComponentSource(name);
+      _components.Add(fakeTestComponentSource);
+      return fakeTestComponentSource;
     }
 
     public void AddTo(ComponentsList componentsList)
@@ -17,6 +19,14 @@ namespace ComponentSpecification
       foreach (var fakeTestComponent in _components)
       {
         fakeTestComponent.AddTo(componentsList);
+      }
+    }
+
+    public void AddWithNames(params string[] names)
+    {
+      foreach (var name in names)
+      {
+        Add(name);
       }
     }
   }

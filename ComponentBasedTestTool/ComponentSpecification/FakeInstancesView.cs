@@ -21,5 +21,11 @@ namespace ComponentSpecification
         expectedCount,
         count, $"Instances count of component {componentName} is not as expected");
     }
+
+    public void Select(string name)
+    {
+      _componentInstancesViewModel.SelectedInstance =
+        _componentInstancesViewModel.ComponentInstances.First(i => i.InstanceName == name);
+    }
   }
 }

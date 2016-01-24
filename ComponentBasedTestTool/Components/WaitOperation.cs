@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
@@ -24,7 +23,7 @@ namespace Components
       {
         token.ThrowIfCancellationRequested();
         _out.WriteLine(seconds.ToString());
-        await Task.Delay(1000);
+        await Task.Delay(1000, token).ConfigureAwait(false);
         seconds--;
       }
       _out.WriteLine(seconds.ToString());

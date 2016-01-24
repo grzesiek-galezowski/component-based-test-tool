@@ -20,6 +20,7 @@ namespace Components
     public async Task RunAsync(CancellationToken token)
     {
       _out.WriteLine("cd " + _path.Value);
+
     }
 
     public void FillParameters(OperationParametersListBuilder parameters)

@@ -27,6 +27,17 @@ namespace ViewModels.ViewModels
       return new RunSharpBasedParameter<string>(prop);
     }
 
+    public OperationParameter<string> Text(string name, string defaultValue)
+    {
+      var prop = _propertySetBuilder
+        .Property<string>(name)
+        .InitialValue(defaultValue)
+        .With<CategoryAttribute>(GenericProperties)
+        .End();
+      return new RunSharpBasedParameter<string>(prop);
+    }
+
+
     public OperationParameter<bool> Flag(string name, bool defaultValue)
     {
       var prop = _propertySetBuilder
@@ -46,6 +57,7 @@ namespace ViewModels.ViewModels
         .End();
       return new RunSharpBasedSecondsParameter(prop);
     }
+
 
     public object Build()
     {
