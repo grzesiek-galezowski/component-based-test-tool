@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Composition.Hosting;
 using System.Linq;
 using System.Windows;
+using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using Jal.AssemblyFinder.Impl;
 

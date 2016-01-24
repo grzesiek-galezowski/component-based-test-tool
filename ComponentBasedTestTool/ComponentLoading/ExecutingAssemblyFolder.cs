@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Composition.Hosting;
 using System.Linq;
-using System.Windows;
+using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using Jal.AssemblyFinder.Impl;
 
-namespace ComponentBasedTestTool
+namespace ComponentLoading
 {
   public class ExecutingAssemblyFolder : ComponentLocation //bug move this to a separate assembly - this is an adapter
   {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using ExtensionPoints.ImplementedByComponents;
 
-namespace ComponentBasedTestTool
+namespace ComponentLoading.Ports
 {
   public interface ComponentLocation
   {

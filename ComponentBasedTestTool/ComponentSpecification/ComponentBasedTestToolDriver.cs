@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using ComponentBasedTestTool;
 using ComponentBasedTestTool.Views.Ports;
+using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using NSubstitute;
