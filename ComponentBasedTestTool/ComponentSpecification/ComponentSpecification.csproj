@@ -47,8 +47,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TddToolkit, Version=1.0.5858.15457, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tdd-Toolkit.1.0.33\lib\net40\TddToolkit.dll</HintPath>
+    <Reference Include="TddToolkit, Version=1.0.5868.14148, Culture=neutral, PublicKeyToken=7b96bed4fdcd799b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tdd-Toolkit.1.0.35\lib\net40\TddToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>

@@ -6,6 +6,11 @@ namespace ComponentSpecification
 {
   public class DisplayingSpecification
   {
+    private const string ComponentNameSeed = "Component";
+    private const string OperationNameSeed = "Operation";
+    private const string ParameterNameSeed = "ParameterName";
+    private const string ParameterValueSeed = "ParameterValue";
+
     [Test]
     public void ShouldShowNoComponentWhenNoComponentWasLoaded()
     {
@@ -25,9 +30,9 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String();
-      var componentName2 = Any.String();
-      var componentName3 = Any.String();
+      var componentName1 = Any.String(ComponentNameSeed);
+      var componentName2 = Any.String(ComponentNameSeed);
+      var componentName3 = Any.String(ComponentNameSeed);
       context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
       //WHEN
@@ -44,22 +49,22 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var pluginName1 = Any.String();
-      var pluginName2 = Any.String();
-      var pluginName3 = Any.String();
-      context.ComponentsSetup.AddWithNames(pluginName1, pluginName2, pluginName3);
+      var componentName1 = Any.String(ComponentNameSeed);
+      var componentName2 = Any.String(ComponentNameSeed);
+      var componentName3 = Any.String(ComponentNameSeed);
+      context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
       context.StartApplication();
 
       //WHEN
-      context.ComponentsView.AddInstanceOf(pluginName1);
-      context.ComponentsView.AddInstanceOf(pluginName1);
-      context.ComponentsView.AddInstanceOf(pluginName2);
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.ComponentsView.AddInstanceOf(componentName2);
 
       //THEN
-      context.InstancesView.AssertShowsExactlyTheFollowingInstances(pluginName1, 2);
-      context.InstancesView.AssertShowsExactlyTheFollowingInstances(pluginName2, 1);
-      context.InstancesView.AssertShowsExactlyTheFollowingInstances(pluginName3, 0);
+      context.InstancesView.AssertShowsExactlyTheFollowingInstances(componentName1, 2);
+      context.InstancesView.AssertShowsExactlyTheFollowingInstances(componentName2, 1);
+      context.InstancesView.AssertShowsExactlyTheFollowingInstances(componentName3, 0);
     }
 
     [Test]
@@ -68,9 +73,9 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String();
-      var operationName11 = Any.String();
-      var operationName12 = Any.String();
+      var componentName1 = Any.String(ComponentNameSeed);
+      var operationName11 = Any.String(OperationNameSeed);
+      var operationName12 = Any.String(OperationNameSeed);
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -92,12 +97,12 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String();
-      var operationName11 = Any.String();
-      var operationName12 = Any.String();
-      var componentName2 = Any.String();
-      var component2Operation1 = Any.String();
-      var component2Operation2 = Any.String();
+      var componentName1 = Any.String(ComponentNameSeed);
+      var operationName11 = Any.String(OperationNameSeed);
+      var operationName12 = Any.String(OperationNameSeed);
+      var componentName2 = Any.String(ComponentNameSeed);
+      var component2Operation1 = Any.String(OperationNameSeed);
+      var component2Operation2 = Any.String(OperationNameSeed);
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -124,12 +129,12 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String();
-      var operationName11 = Any.String();
-      var parameterName1  = Any.String();
-      var parameterValue1 = Any.String();
-      var parameterName2  = Any.String();
-      var parameterValue2 = Any.String();
+      var componentName1 = Any.String(ComponentNameSeed);
+      var operationName11 = Any.String(OperationNameSeed);
+      var parameterName1  = Any.String(ParameterNameSeed);
+      var parameterValue1 = Any.String(ParameterValueSeed);
+      var parameterName2  = Any.String(ParameterNameSeed);
+      var parameterValue2 = Any.String(ParameterValueSeed);
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
