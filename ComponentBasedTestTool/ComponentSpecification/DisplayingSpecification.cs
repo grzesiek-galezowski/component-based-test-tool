@@ -118,38 +118,38 @@ namespace ComponentSpecification
       context.OperationsView.AssertShowsExactly(component2Operation1, component2Operation2);
     }
 
-    [Test]
-    public void ShouldShowNamesOfOperationsOfTheLastSelectedComponentInstance123443()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
+[Test]
+public void ShouldShowPropertiesOfSelectedOperations()
+{
+  //GIVEN
+  var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String();
-      var operationName11 = Any.String();
-      var parameterName1  = Any.String();
-      var parameterValue1 = Any.String();
-      var parameterName2  = Any.String();
-      var parameterValue2 = Any.String();
+  var componentName1 = Any.String();
+  var operationName11 = Any.String();
+  var parameterName1  = Any.String();
+  var parameterValue1 = Any.String();
+  var parameterName2  = Any.String();
+  var parameterValue2 = Any.String();
 
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName11)
-          .WithParameter(parameterName1, parameterValue1)
-          .WithParameter(parameterName2, parameterValue2);
+  context.ComponentsSetup.Add(componentName1)
+    .WithOperation(operationName11)
+      .WithParameter(parameterName1, parameterValue1)
+      .WithParameter(parameterName2, parameterValue2);
 
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
+  context.StartApplication();
+  context.ComponentsView.AddInstanceOf(componentName1);
+  context.InstancesView.Select(componentName1);
 
-      //WHEN
-      context.OperationsView.Select(operationName11);
+  //WHEN
+  context.OperationsView.Select(operationName11);
 
-      //THEN
-      context.OperationsView.AssertShowsExactly(operationName11);
-      context.PropertiesView.AssertShowsExactly(
-        Property(parameterName1, parameterValue1),
-        Property(parameterName2, parameterValue2)
-      );
-    }
+  //THEN
+  context.OperationsView.AssertShowsExactly(operationName11);
+  context.PropertiesView.AssertShowsExactly(
+    Property(parameterName1, parameterValue1),
+    Property(parameterName2, parameterValue2)
+  );
+}
 
     private static Tuple<string, string> Property(string parameterName1, string parameterValue1)
     {
