@@ -126,11 +126,15 @@ namespace ComponentSpecification
 
       var componentName1 = Any.String();
       var operationName11 = Any.String();
+      var parameterName1  = Any.String();
+      var parameterValue1 = Any.String();
+      var parameterName2  = Any.String();
+      var parameterValue2 = Any.String();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
-          .WithParameter("param1", "value1")
-          .WithParameter("param2", "value2");
+          .WithParameter(parameterName1, parameterValue1)
+          .WithParameter(parameterName2, parameterValue2);
 
       context.StartApplication();
       context.ComponentsView.AddInstanceOf(componentName1);
@@ -142,10 +146,14 @@ namespace ComponentSpecification
       //THEN
       context.OperationsView.AssertShowsExactly(operationName11);
       context.PropertiesView.AssertShowsExactly(
-        Tuple.Create("param1", "value1"),
-        Tuple.Create("param2", "value2")
-        );
+        Property(parameterName1, parameterValue1),
+        Property(parameterName2, parameterValue2)
+      );
     }
 
+    private static Tuple<string, string> Property(string parameterName1, string parameterValue1)
+    {
+      return Tuple.Create(parameterName1, parameterValue1);
+    }
   }
 }
