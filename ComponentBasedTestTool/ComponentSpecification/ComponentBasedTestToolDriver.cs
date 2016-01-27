@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using ComponentBasedTestTool;
+using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
@@ -17,7 +18,6 @@ namespace ComponentSpecification
   {
     private ComponentInstancesViewModel _componentInstancesViewModel;
 
-    public FakeTestComponents ComponentsSetup { get; } = new FakeTestComponents();
     private ComponentsViewModel _componentsViewModel;
     private readonly TestComponentInstanceFactory _instanceFactory;
     private OperationPropertiesViewModel _operationPropertiesViewModel;
@@ -29,10 +29,15 @@ namespace ComponentSpecification
       _instanceFactory = Substitute.For<TestComponentInstanceFactory>();
     }
 
+    public FakeTestComponents ComponentsSetup { get; } = new FakeTestComponents();
     public FakeComponentsView ComponentsView => new FakeComponentsView(_componentsViewModel);
     public FakeInstancesView InstancesView => new FakeInstancesView(_componentInstancesViewModel);
     public FakeOperationsView OperationsView => new FakeOperationsView(_operationsViewModel);
     public FakePropertiesView PropertiesView => new FakePropertiesView(_operationPropertiesViewModel);
+    public FakeOperationAssertions Operations => new FakeOperationAssertions(
+      _componentInstancesViewModel.SelectedInstance.InstanceName,
+      _operationsViewModel.SelectedOperation.Name,
+      ComponentsSetup);
 
     public void AssertNoComponentsAreLoaded()
     {
@@ -49,7 +54,7 @@ namespace ComponentSpecification
 
       pluginLocation.LoadComponentRoots().Returns(new[] {componentRoot});
 
-      DefaultApplicationLoop.Start(bootstrap, pluginLocation);
+      DefaultApplicationLoop.Start(bootstrap, pluginLocation, new FakeApplicationContext());
     }
 
     private Action<CallInfo> AddConfiguredComponents()
@@ -90,6 +95,43 @@ namespace ComponentSpecification
     void ApplicationBootstrap.Start()
     {
       // Method intentionally left empty.
+    }
+
+    public void SetTopMenuBarContext(object topMenuBarContextViewModel)
+    {
+      
+    }
+  }
+
+  public class FakeApplicationContext : ApplicationContext
+  {
+    public void Invoke(EventHandler eventHandler, object sender)
+    {
+      //for now left blank
+    }
+  }
+
+  public class FakeOperationAssertions
+  {
+    private readonly string _instanceName;
+    private readonly string _operationName;
+    private readonly FakeTestComponents _componentsSetup;
+
+    public FakeOperationAssertions(
+      string instanceName, 
+      string operationName, 
+      FakeTestComponents componentsSetup)
+    {
+      _instanceName = instanceName;
+      _operationName = operationName;
+      _componentsSetup = componentsSetup;
+    }
+
+    public void AssertWasRun(string operationName)
+    {
+      _componentsSetup
+        .RetrieveOperation(_instanceName, operationName)
+        .AssertWasRun();
     }
   }
 }

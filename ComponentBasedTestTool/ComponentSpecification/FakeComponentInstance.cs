@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
@@ -7,7 +8,13 @@ namespace ComponentSpecification
 {
   public class FakeComponentInstance : TestComponent
   {
+    public string Name { get; }
     private readonly List<Tuple<string, FakeOperation>> _operations = new List<Tuple<string, FakeOperation>>();
+
+    public FakeComponentInstance(string name)
+    {
+      Name = name;
+    }
 
     public void PopulateOperations(TestComponentContext ctx)
     {
@@ -25,6 +32,16 @@ namespace ComponentSpecification
     public void SetLastOperationParameter(string parameterName, string parameterValue)
     {
       _operations[_operations.Count - 1].Item2.AddParameter(parameterName, parameterValue);
+    }
+
+    public bool HasName(string instanceName)
+    {
+      return Name == instanceName;
+    }
+
+    public FakeOperation Get(string operationName)
+    {
+      return _operations.First(o => o.Item1 == operationName).Item2;
     }
   }
 }

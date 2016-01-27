@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 
@@ -80,7 +81,7 @@ namespace ComponentSpecification
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
         .WithOperation(operationName12);
-      
+
       context.StartApplication();
       context.ComponentsView.AddInstanceOf(componentName1);
 
@@ -123,42 +124,102 @@ namespace ComponentSpecification
       context.OperationsView.AssertShowsExactly(component2Operation1, component2Operation2);
     }
 
-  [Test]
-  public void ShouldShowPropertiesOfSelectedOperations()
-  {
-    //GIVEN
-    var context = new ComponentBasedTestToolDriver();
+    [Test]
+    public void ShouldShowPropertiesOfInitialSelectedOperations()
+    {
+      //GIVEN
+      var context = new ComponentBasedTestToolDriver();
 
       var componentName1 = Any.String(ComponentNameSeed);
       var operationName11 = Any.String(OperationNameSeed);
-      var parameterName1  = Any.String(ParameterNameSeed);
+      var parameterName1 = Any.String(ParameterNameSeed);
       var parameterValue1 = Any.String(ParameterValueSeed);
-      var parameterName2  = Any.String(ParameterNameSeed);
+      var parameterName2 = Any.String(ParameterNameSeed);
       var parameterValue2 = Any.String(ParameterValueSeed);
 
-    context.ComponentsSetup.Add(componentName1)
-      .WithOperation(operationName11)
-        .WithParameter(parameterName1, parameterValue1)
-        .WithParameter(parameterName2, parameterValue2);
+      context.ComponentsSetup.Add(componentName1)
+        .WithOperation(operationName11)
+          .WithParameter(parameterName1, parameterValue1)
+          .WithParameter(parameterName2, parameterValue2);
 
-    context.StartApplication();
-    context.ComponentsView.AddInstanceOf(componentName1);
-    context.InstancesView.Select(componentName1);
+      context.StartApplication();
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.InstancesView.Select(componentName1);
 
-    //WHEN
-    context.OperationsView.Select(operationName11);
+      //WHEN
+      context.OperationsView.Select(operationName11);
 
-    //THEN
-    context.OperationsView.AssertShowsExactly(operationName11);
-    context.PropertiesView.AssertShowsExactly(
-      Property(parameterName1, parameterValue1),
-      Property(parameterName2, parameterValue2)
-    );
-  }
+      //THEN
+      context.PropertiesView.AssertShowsExactly(
+        Property(parameterName1, parameterValue1),
+        Property(parameterName2, parameterValue2)
+      );
+    }
 
-    private static Tuple<string, string> Property(string parameterName1, string parameterValue1)
+    [Test]
+    public void ShouldShowPropertiesOfLastSelectedOperations()
     {
-      return Tuple.Create(parameterName1, parameterValue1);
+      //GIVEN
+      var context = new ComponentBasedTestToolDriver();
+
+      var componentName1 = Any.String(ComponentNameSeed);
+      var operationName11 = Any.String(OperationNameSeed);
+      var operationName12 = Any.String(OperationNameSeed);
+      var parameterName1 = Any.String(ParameterNameSeed);
+      var parameterValue1 = Any.String(ParameterValueSeed);
+      var parameterName2 = Any.String(ParameterNameSeed);
+      var parameterValue2 = Any.String(ParameterValueSeed);
+
+      context.ComponentsSetup.Add(componentName1)
+        .WithOperation(operationName11)
+          .WithParameter(Any.String(), Any.String())
+          .WithParameter(Any.String(), Any.String())
+        .WithOperation(operationName12)
+          .WithParameter(parameterName1, parameterValue1)
+          .WithParameter(parameterName2, parameterValue2);
+
+      context.StartApplication();
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.InstancesView.Select(componentName1);
+      context.OperationsView.Select(operationName11);
+
+      //WHEN
+      context.OperationsView.Select(operationName12);
+
+      //THEN
+      context.PropertiesView.AssertShowsExactly(
+        Property(parameterName1, parameterValue1),
+        Property(parameterName2, parameterValue2)
+      );
+    }
+
+    [Test]
+    public void ShouldExecuteLoadedOperationWhenTriggeredFromView()
+    {
+      //GIVEN
+      var context = new ComponentBasedTestToolDriver();
+      var componentName1 = Any.String(ComponentNameSeed);
+      var operationName11 = Any.String(OperationNameSeed);
+
+      context.ComponentsSetup.Add(componentName1)
+        .WithOperation(operationName11);
+
+      context.StartApplication();
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.InstancesView.Select(componentName1);
+      context.OperationsView.Select(operationName11);
+
+      //WHEN
+      context.OperationsView.ExecuteSelectedOperation();
+
+      //THEN
+      context.Operations.AssertWasRun(operationName11);
+    }
+
+
+    private static KeyValuePair<string, string> Property(string parameterName1, string parameterValue1)
+    {
+      return new KeyValuePair<string, string>(parameterName1, parameterValue1);
     }
   }
 }

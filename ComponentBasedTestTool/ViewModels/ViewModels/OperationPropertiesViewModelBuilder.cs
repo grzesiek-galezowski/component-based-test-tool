@@ -61,6 +61,7 @@ namespace ViewModels.ViewModels
 
     public object Build()
     {
+      //bug add persistence here?
       return _propertySetBuilder.Build();
     }
   }

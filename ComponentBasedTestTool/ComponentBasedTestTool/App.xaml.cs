@@ -6,6 +6,7 @@ using System.Windows;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
+using ComponentLoading;
 using ExtensionPoints.ImplementedByComponents;
 using Jal.AssemblyFinder.Impl;
 using ViewModels.ViewModels;
@@ -21,7 +22,7 @@ namespace ComponentBasedTestTool
     {
       base.OnStartup(e);
 
-      DefaultApplicationLoop.Start(new MainWindow(), new ExecutingAssemblyFolder());
+      DefaultApplicationLoop.Start(new MainWindow(), new ExecutingAssemblyFolder(), new WpfApplicationContext());
     }
   }
 }

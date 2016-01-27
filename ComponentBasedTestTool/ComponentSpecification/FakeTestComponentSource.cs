@@ -10,11 +10,11 @@ namespace ComponentSpecification
     private readonly TestComponentInstanceFactory _factory;
     private readonly FakeComponentInstance _componentInstance;
 
-    public FakeTestComponentSource(string name)
+    public FakeTestComponentSource(FakeComponentInstance fakeComponentInstance)
     {
-      _name = name;
+      _name = fakeComponentInstance.Name;
       _factory = Substitute.For<TestComponentInstanceFactory>();
-      _componentInstance = new FakeComponentInstance();
+      _componentInstance = fakeComponentInstance;
       _factory.Create().Returns(_componentInstance);
     }
 

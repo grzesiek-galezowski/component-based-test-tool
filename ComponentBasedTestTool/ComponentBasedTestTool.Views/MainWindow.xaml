@@ -7,7 +7,7 @@
         xmlns:views1="clr-namespace:ComponentBasedTestTool.Views.Views"
         x:Class="ComponentBasedTestTool.Views.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="825"
+        Title="Component Based Test Tool" Height="550" Width="825"
         views1:WindowSettings.Save="True">
   <Window.Resources>
     <Style x:Key="HorizontalGridSplitter" TargetType="{x:Type GridSplitter}">
@@ -25,11 +25,13 @@
   </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="18"/>
       <RowDefinition Height="2*"/>
       <RowDefinition Height="5"/>
       <RowDefinition Height="1*"/>
     </Grid.RowDefinitions>
-    <Grid Grid.Row="0">
+    <views1:TopMenuBar Grid.Row="0" x:Name="TopMenuBar"/>
+    <Grid Grid.Row="1">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="2*"/>
         <ColumnDefinition Width="10"/>
@@ -43,7 +45,7 @@
       <GridSplitter Style="{StaticResource VerticalGridSplitter}"  Grid.Column="3" />
       <views1:OperationPropertiesView x:Name="OperationPropertiesView"  Grid.Column="4" />
     </Grid>
-    <GridSplitter Grid.Row="1" Style="{StaticResource HorizontalGridSplitter}"/>
-    <views1:OperationsOutputView x:Name="OperationsOutputView" Grid.Row="2" />
+    <GridSplitter Grid.Row="2" Style="{StaticResource HorizontalGridSplitter}"/>
+    <views1:OperationsOutputView Grid.Row="3" x:Name="OperationsOutputView" />
   </Grid>
 </Window>

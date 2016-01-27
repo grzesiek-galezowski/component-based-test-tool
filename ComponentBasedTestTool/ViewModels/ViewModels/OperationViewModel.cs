@@ -200,4 +200,5 @@ namespace ViewModels.ViewModels
 //TODO plugin mechanism
 //TODO output formatting plugins
 //TODO Saving  layout
+//TODO component settings
 

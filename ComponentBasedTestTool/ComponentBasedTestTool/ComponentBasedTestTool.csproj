@@ -121,7 +121,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DefaultApplicationLoop.cs" />
-    <Compile Include="ExecutingAssemblyFolder.cs" />
     <Compile Include="WpfOperationViewModelFactory.cs" />
   </ItemGroup>
   <ItemGroup>

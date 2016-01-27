@@ -115,6 +115,9 @@
     <Compile Include="Views\OperationsView.cs">
       <DependentUpon>OperationsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TopMenuBar.xaml.cs">
+      <DependentUpon>TopMenuBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WindowSettings.cs" />
     <Compile Include="WpfApplicationContext.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -152,6 +155,10 @@
     <Page Include="Views\OperationsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TopMenuBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

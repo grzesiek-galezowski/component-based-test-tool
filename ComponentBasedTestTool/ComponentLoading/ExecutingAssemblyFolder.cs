@@ -8,7 +8,7 @@ using Jal.AssemblyFinder.Impl;
 
 namespace ComponentLoading
 {
-  public class ExecutingAssemblyFolder : ComponentLocation //bug move this to a separate assembly - this is an adapter
+  public class ExecutingAssemblyFolder : ComponentLocation
   {
     public IEnumerable<TestComponentSourceRoot> LoadComponentRoots()
     {

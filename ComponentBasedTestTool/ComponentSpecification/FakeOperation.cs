@@ -4,16 +4,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using NSubstitute;
 
 namespace ComponentSpecification
 {
   public class FakeOperation : Operation
   {
     private readonly List<Tuple<string, string>> _parameters = new List<Tuple<string, string>>();
+    private Operation _mock = Substitute.For<Operation>();
 
     public Task RunAsync(CancellationToken token)
     {
-      return Task.CompletedTask;
+      return _mock.RunAsync(token);
     }
 
     public FakeOperation AddParameter(string name, string defaultValue)
@@ -28,6 +30,11 @@ namespace ComponentSpecification
       {
         parameters.Text(parameter.Item1, parameter.Item2);
       }
+    }
+
+    public void AssertWasRun()
+    {
+      _mock.Received(1).RunAsync(Arg.Any<CancellationToken>());
     }
   }
 }

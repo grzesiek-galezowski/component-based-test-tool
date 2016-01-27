@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using ComponentBasedTestTool.Views.Ports;
+using ComponentBasedTestTool.Views.Views;
 
 namespace ComponentBasedTestTool.Views
 {
@@ -43,6 +44,11 @@ namespace ComponentBasedTestTool.Views
     public void Start()
     {
       Show();
+    }
+
+    public void SetTopMenuBarContext(object topMenuBarContextViewModel)
+    {
+      TopMenuBar.DataContext = topMenuBarContextViewModel;
     }
   }
 }
