@@ -29,10 +29,15 @@ namespace Components
       _out.WriteLine(seconds.ToString());
     }
 
-    public void FillParameters(OperationParametersListBuilder parameters)
+    public void InitializeParameters(OperationParametersListBuilder parameters)
     {
       _time = parameters.Seconds("Time (s)", 5);
       
+    }
+
+    public void StoreParameters(PersistentStorage destination)
+    {
+      destination.Store(_time);
     }
   }
 }

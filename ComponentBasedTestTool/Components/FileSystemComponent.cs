@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using ExtensionPoints;
+﻿using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
@@ -8,46 +6,33 @@ namespace Components
 {
   public class FileSystemComponent : TestComponent
   {
+    private LsOperation _ls;
+    private CdOperation _cs;
+    private CatOperation _cat;
+    private WaitOperation _wait;
+    private string _configureName = "configure";
+    private ConfigureOperation _configure;
     private const string SleepName = "sleep";
     private const string CatName = "cat";
     private const string CdName = "cd";
     private const string LsName = "ls";
 
-    public void PopulateOperations(TestComponentContext ctx)
+    public void PopulateOperations(TestComponentOperationDestination ctx)
     {
-      var ls = new LsOperation(ctx.CreateOutFor(LsName));
-      var cd = new CdOperation(ctx.CreateOutFor(CdName));
-      var cat = new CatOperation(ctx.CreateOutFor(CatName));
-      var wait = new WaitOperation(ctx.CreateOutFor(SleepName));
-
-      var configureName = "configure";
-      var configureOperation = new ConfigureOperation(ctx.CreateOutFor(configureName));
-
-      ctx.AddOperation(configureName, configureOperation);
-      ctx.AddOperation(LsName, ls, configureName);
-      ctx.AddOperation(CdName, cd, configureName);
-      ctx.AddOperation(CatName, cat, configureName);
-      ctx.AddOperation(SleepName, wait, configureName);
-    }
-  }
-
-  public class ConfigureOperation : Operation
-  {
-    private readonly OperationsOutput _output;
-
-    public ConfigureOperation(OperationsOutput output)
-    {
-      _output = output;
+      ctx.AddOperation(_configureName, _configure);
+      ctx.AddOperation(LsName, _ls, _configureName);
+      ctx.AddOperation(CdName, _cs, _configureName);
+      ctx.AddOperation(CatName, _cat, _configureName);
+      ctx.AddOperation(SleepName, _wait, _configureName);
     }
 
-    public Task RunAsync(CancellationToken token)
+    public void CreateOperations(TestComponentContext ctx)
     {
-      return Task.CompletedTask;
-    }
-
-    public void FillParameters(OperationParametersListBuilder parameters)
-    {
-      
+      _ls = new LsOperation(ctx.CreateOutFor(LsName));
+      _cs = new CdOperation(ctx.CreateOutFor(CdName));
+      _cat = new CatOperation(ctx.CreateOutFor(CatName));
+      _wait = new WaitOperation(ctx.CreateOutFor(SleepName));
+      _configure = new ConfigureOperation(ctx.CreateOutFor(_configureName));
     }
   }
 }

@@ -22,9 +22,15 @@ namespace Components
       _out.WriteLine("cat " + _filename.Value);
     }
 
-    public void FillParameters(OperationParametersListBuilder parameters)
+    public void InitializeParameters(OperationParametersListBuilder parameters)
     {
       _filename = parameters.Path("Filename", "File.txt");
+    }
+
+    public void StoreParameters(
+      PersistentStorage destination)
+    {
+      destination.Store(_filename);
     }
   }
 }

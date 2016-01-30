@@ -1,36 +1,41 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels
 {
-  public class ComponentInstanceViewModel : INotifyPropertyChanged, TestComponentContext
+  public class ComponentInstanceViewModel : 
+    INotifyPropertyChanged, 
+    TestComponentContext, 
+    TestComponentOperationDestination
   {
     private string _instanceName;
     private readonly OutputFactory _outputFactory;
     private OperationViewModels _operationViewModels;
     private readonly OperationEntries _operationEntries;
+    private readonly TestComponent _testComponentInstance;
 
     public ComponentInstanceViewModel(
       string instanceName, 
       OutputFactory outputFactory, 
-      OperationEntries operationEntries)
+      OperationEntries operationEntries, 
+      TestComponent testComponentInstance)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
       _operationEntries = operationEntries;
+      _testComponentInstance = testComponentInstance;
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
     {
+      _testComponentInstance.CreateOperations(this);
+      _testComponentInstance.PopulateOperations(this);
       _operationViewModels = _operationEntries.ConvertUsing(operationViewModelFactory);
     }
 
@@ -72,6 +77,10 @@ namespace ViewModels.ViewModels
       return _outputFactory.CreateOutFor(operationName);
     }
 
+    public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
+    {
+      fileBasedPersistentStorage.BeginComponentInstance(this.InstanceName, _testComponentInstance);
+      _testComponentInstance.PopulateOperations(fileBasedPersistentStorage);
+    }
   }
-
 }

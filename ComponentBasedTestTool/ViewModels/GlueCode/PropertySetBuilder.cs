@@ -18,11 +18,18 @@ namespace ViewModels.GlueCode
       return new PropertyValuesBuilder<T>(name, _typeGen, this);
     }
 
-    public object Build()
+    public object Retrieve()
     {
-      _typeGen.Complete();
-      var type = _typeGen.GetCompletedType();
-      return _object = Activator.CreateInstance(type);
+      if (_typeGen.IsCompleted)
+      {
+        return _object;
+      }
+      else
+      {
+        _typeGen.Complete();
+        var type = _typeGen.GetCompletedType();
+        return _object = Activator.CreateInstance(type);
+      }
     }
 
     public object Object

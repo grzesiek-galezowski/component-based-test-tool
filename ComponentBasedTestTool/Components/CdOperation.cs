@@ -23,9 +23,14 @@ namespace Components
 
     }
 
-    public void FillParameters(OperationParametersListBuilder parameters)
+    public void InitializeParameters(OperationParametersListBuilder parameters)
     {
       _path = parameters.Path("Path", @"C:\");
+    }
+
+    public void StoreParameters(PersistentStorage destination)
+    {
+      destination.Store(_path);
     }
   }
 }

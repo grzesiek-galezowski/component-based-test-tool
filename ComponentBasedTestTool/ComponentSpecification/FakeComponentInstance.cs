@@ -16,12 +16,17 @@ namespace ComponentSpecification
       Name = name;
     }
 
-    public void PopulateOperations(TestComponentContext ctx)
+    public void PopulateOperations(TestComponentOperationDestination ctx)
     {
       foreach (var operation in _operations)
       {
         ctx.AddOperation(operation.Item1, operation.Item2);
       }
+    }
+
+    public void CreateOperations(TestComponentContext testComponentContext)
+    {
+      
     }
 
     public void ConfigureOperationWithName(string operationName)

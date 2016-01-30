@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -66,8 +68,10 @@
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
+    <Compile Include="ViewModels\FileBasedPersistentStorage.cs" />
     <Compile Include="ViewModels\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />
+    <Compile Include="ViewModels\OperationEntry.cs" />
     <Compile Include="ViewModels\OperationParameterViewModel.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModel.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="ViewModels\OutputFactory.cs" />
     <Compile Include="ViewModels\TestComponentViewModel.cs" />
     <Compile Include="ViewModels\TestComponentViewModelFactory.cs" />
+    <Compile Include="ViewModels\XmlConfigurationBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">

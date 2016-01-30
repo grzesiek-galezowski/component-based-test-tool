@@ -14,5 +14,9 @@ namespace ViewModels.GlueCode
     }
 
     public TimeSpan Value => TimeSpan.FromSeconds(_prop.Value);
+    public void StoreIn(PersistentStorage persistentStorage)
+    {
+      persistentStorage.StoreValue(_prop.Name, _prop.Value);
+    }
   }
 }

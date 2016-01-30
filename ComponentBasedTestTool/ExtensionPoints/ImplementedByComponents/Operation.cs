@@ -7,6 +7,7 @@ namespace ExtensionPoints.ImplementedByComponents
   public interface Operation
   {
     Task RunAsync(CancellationToken token);
-    void FillParameters(OperationParametersListBuilder parameters);
+    void InitializeParameters(OperationParametersListBuilder parameters);
+    void StoreParameters(PersistentStorage destination);
   }
 }

@@ -33,5 +33,14 @@ namespace ViewModels.ViewModels
     {
       ComponentInstances.Add(componentInstanceViewModel);
     }
+
+    public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
+    {
+      foreach (var componentInstanceViewModel in ComponentInstances)
+      {
+        componentInstanceViewModel.SaveTo(fileBasedPersistentStorage);
+      }
+      fileBasedPersistentStorage.Save();
+    }
   }
 }

@@ -27,11 +27,19 @@ namespace Components
          " " + _directory.Value);
     }
 
-    public void FillParameters(OperationParametersListBuilder parameters)
+    public void InitializeParameters(OperationParametersListBuilder parameters)
     {
       _directory = parameters.Path("Directory", @"C:\");
       _displayAll = parameters.Flag("Display all", true);
       _recursive = parameters.Flag("Recursive", true);
+    }
+
+    public void StoreParameters(PersistentStorage destination)
+    {
+      destination.Store(
+        _directory, 
+        _displayAll, 
+        _recursive);
     }
   }
 }

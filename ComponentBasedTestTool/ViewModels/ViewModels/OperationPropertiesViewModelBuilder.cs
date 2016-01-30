@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
@@ -59,10 +60,11 @@ namespace ViewModels.ViewModels
     }
 
 
-    public object Build()
+    public object RetrieveList()
     {
       //bug add persistence here?
-      return _propertySetBuilder.Build();
+      return _propertySetBuilder.Retrieve();
     }
+
   }
 }

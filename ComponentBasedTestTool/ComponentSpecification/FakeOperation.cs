@@ -24,12 +24,22 @@ namespace ComponentSpecification
       return this;
     }
 
-    public void FillParameters(OperationParametersListBuilder parameters)
+    public void InitializeParameters(OperationParametersListBuilder parameters)
     {
       foreach (var parameter in _parameters)
       {
         parameters.Text(parameter.Item1, parameter.Item2);
       }
+    }
+
+    public void StoreParameters(PersistentStorage destination)
+    {
+      
+    }
+
+    public void StoreParameters(TestComponentOperationDestination destination)
+    {
+      
     }
 
     public void AssertWasRun()

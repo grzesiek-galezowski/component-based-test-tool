@@ -1,4 +1,5 @@
-﻿using ExtensionPoints;
+﻿using System;
+using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.GlueCode
@@ -13,5 +14,9 @@ namespace ViewModels.GlueCode
     }
 
     public T Value => _prop.Value;
+    public void StoreIn(PersistentStorage persistentStorage)
+    {
+      persistentStorage.StoreValue(_prop.Name, Value.ToString());
+    }
   }
 }

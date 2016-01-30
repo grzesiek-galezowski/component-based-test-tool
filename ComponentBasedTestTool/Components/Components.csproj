@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="CatOperation.cs" />
     <Compile Include="CdOperation.cs" />
+    <Compile Include="ConfigureOperation.cs" />
     <Compile Include="FileSystemComponent.cs" />
     <Compile Include="FileSystemComponentInstanceFactory.cs" />
     <Compile Include="WaitOperation.cs" />

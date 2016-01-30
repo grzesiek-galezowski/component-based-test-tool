@@ -101,8 +101,13 @@ namespace ViewModels.GlueCode
       get
       {
         var completedType = _typeGen.GetCompletedType();
-        return (T)(completedType.GetProperty(_propertyName).GetValue(_container.Object));
+        return (T)(completedType.GetProperty(Name).GetValue(_container.Object));
       }
+    }
+
+    public string Name
+    {
+      get { return _propertyName; }
     }
   }
 }

@@ -156,8 +156,7 @@ namespace ViewModels.ViewModels
 
     public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)
     {
-      operationPropertiesViewModel.Properties = 
-        _cachedObject ?? (_cachedObject = _propertyListBuilder.Build());
+      operationPropertiesViewModel.Properties = _propertyListBuilder.RetrieveList();
     }
 
     #region Boilerplate

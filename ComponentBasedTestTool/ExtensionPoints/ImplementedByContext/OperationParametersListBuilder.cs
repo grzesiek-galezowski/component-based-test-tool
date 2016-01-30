@@ -10,7 +10,7 @@ namespace ExtensionPoints.ImplementedByContext
     OperationParameter<string> Text(string name, string defaultValue);
   }
 
-  public interface OperationParameter<T>
+  public interface OperationParameter<out T> : Persistable
   {
     T Value { get; }
   }

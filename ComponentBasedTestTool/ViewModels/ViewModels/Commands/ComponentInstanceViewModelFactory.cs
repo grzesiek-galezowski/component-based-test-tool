@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
@@ -27,9 +28,9 @@ namespace ViewModels.ViewModels.Commands
         = new ComponentInstanceViewModel(
           testComponentViewModel.Name, 
           _outputFactory, 
-          new OperationEntries());
+          new OperationEntries(),
+          testComponentInstance);
 
-      testComponentInstance.PopulateOperations(componentInstanceViewModel);
       componentInstanceViewModel.Initialize(_operationViewModelFactory);
 
       return componentInstanceViewModel;

@@ -4,6 +4,7 @@ namespace ExtensionPoints.ImplementedByComponents
 {
   public interface TestComponent
   {
-    void PopulateOperations(TestComponentContext ctx);
+    void PopulateOperations(TestComponentOperationDestination ctx);
+    void CreateOperations(TestComponentContext testComponentContext);
   }
 }
