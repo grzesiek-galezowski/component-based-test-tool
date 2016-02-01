@@ -3,14 +3,14 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels
 {
-  public class XmlConfigurationBuilder
+  public class XmlConfigurationOutputBuilder
   {
-    public XDocument _doc;
-    public XElement _components;
+    private XDocument _doc;
+    private XElement _components;
     private XElement _currentOperation;
-    public XElement _currentComponentInstance;
+    private XElement _currentComponentInstance;
 
-    public XmlConfigurationBuilder()
+    public XmlConfigurationOutputBuilder()
     {
       InitializeXml();
     }
@@ -22,7 +22,7 @@ namespace ViewModels.ViewModels
       _doc.Add(_components);
     }
 
-    public void AddOperationXml(string name, Operation operation)
+    public void AppendOperationNode(string name, Operation operation)
     {
       _currentOperation = new XElement("Operation",
         new XAttribute("name", name),
@@ -30,7 +30,7 @@ namespace ViewModels.ViewModels
       _currentComponentInstance.Add(_currentOperation);
     }
 
-    public void StoreValueXml<T>(string name, T value)
+    public void AppendProperty<T>(string name, T value)
     {
       _currentOperation.Add(new XElement("Parameter",
         new XAttribute("name", name),
@@ -42,7 +42,7 @@ namespace ViewModels.ViewModels
       _doc.Save("Save.xml");
     }
 
-    public void AddComponentInstance2Xml(string instanceName, TestComponent testComponentInstance)
+    public void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance)
     {
       _currentComponentInstance = new XElement("Component",
         new XAttribute("name", instanceName),

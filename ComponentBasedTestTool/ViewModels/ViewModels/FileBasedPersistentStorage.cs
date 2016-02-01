@@ -7,23 +7,23 @@ namespace ViewModels.ViewModels
   public class FileBasedPersistentStorage : TestComponentOperationDestination, PersistentStorage
   {
     private readonly OperationsOutputViewModel _operationsOutputViewModel;
-    private readonly XmlConfigurationBuilder _xmlConfigurationBuilder;
+    private readonly XmlConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
     public FileBasedPersistentStorage(OperationsOutputViewModel operationsOutputViewModel)
     {
       _operationsOutputViewModel = operationsOutputViewModel;
-      _xmlConfigurationBuilder = new XmlConfigurationBuilder();
+      _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
     }
 
     public void AddOperation(string name, Operation operation, string dependencyName)
     {
-      _xmlConfigurationBuilder.AddOperationXml(name, operation);
+      _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
       operation.StoreParameters(this);
     }
 
     public void AddOperation(string name, Operation operation)
     {
-      _xmlConfigurationBuilder.AddOperationXml(name, operation);
+      _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
       operation.StoreParameters(this);
     }
 
@@ -38,18 +38,18 @@ namespace ViewModels.ViewModels
 
     public void StoreValue<T>(string name, T value)
     {
-      _xmlConfigurationBuilder.StoreValueXml(name, value);
+      _xmlConfigurationOutputBuilder.AppendProperty(name, value);
     }
 
-    public void BeginComponentInstance(string instanceName, TestComponent testComponentInstance)
+    public void NewComponentInstance(string instanceName, TestComponent testComponentInstance)
     {
-      _xmlConfigurationBuilder.AddComponentInstance2Xml(instanceName, testComponentInstance);
+      _xmlConfigurationOutputBuilder.AppendComponentInstanceNode(instanceName, testComponentInstance);
     }
 
     public void Save()
     {
-      _operationsOutputViewModel.WriteLine("Saving XML: " + _xmlConfigurationBuilder.ToString());
-      _xmlConfigurationBuilder.Save();
+      _operationsOutputViewModel.WriteLine("Saving XML: " + _xmlConfigurationOutputBuilder.ToString());
+      _xmlConfigurationOutputBuilder.Save();
     }
   }
 }

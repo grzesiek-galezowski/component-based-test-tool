@@ -79,7 +79,7 @@ namespace ViewModels.ViewModels
 
     public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
     {
-      fileBasedPersistentStorage.BeginComponentInstance(this.InstanceName, _testComponentInstance);
+      fileBasedPersistentStorage.NewComponentInstance(this.InstanceName, _testComponentInstance);
       _testComponentInstance.PopulateOperations(fileBasedPersistentStorage);
     }
   }

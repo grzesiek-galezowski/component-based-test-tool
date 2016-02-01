@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Input;
+using System.Xml.Linq;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
@@ -68,8 +71,83 @@ namespace ComponentBasedTestTool
     }
 
     public ICommand SaveWorkspaceCommand => new SaveWorkspaceCommand(
-      _componentInstancesViewModel, _operationsOutputViewModel);
+      _componentInstancesViewModel, 
+      _operationsOutputViewModel);
+    public ICommand RestoreWorkspaceCommand => new RestoreWorkspaceCommand(
+      _componentInstancesViewModel, 
+      _operationsOutputViewModel,
+      new RestoringOfSavedComponentsObserver(_operationsOutputViewModel));
   }
+
+  public class RestoringOfSavedComponentsObserver
+  {
+    private readonly OperationsOutputViewModel _operationsOutputViewModel;
+
+    public RestoringOfSavedComponentsObserver(OperationsOutputViewModel operationsOutputViewModel)
+    {
+      _operationsOutputViewModel = operationsOutputViewModel;
+    }
+
+    public void NotifyOnNewComponent(string name)
+    {
+      _operationsOutputViewModel.WriteLine(name);
+    }
+
+    public void NotifyOnNextOperation(string name)
+    {
+      _operationsOutputViewModel.WriteLine(name);
+    }
+
+    public void NotifyOnProperty(string name, string value)
+    {
+      _operationsOutputViewModel.WriteLine(name);
+      _operationsOutputViewModel.WriteLine(value);
+    }
+  }
+
+  public class RestoreWorkspaceCommand : ICommand
+  {
+    private readonly ComponentInstancesViewModel _componentInstancesViewModel;
+    private readonly OperationsOutputViewModel _operationsOutputViewModel;
+    private readonly RestoringOfSavedComponentsObserver _restoringOfSavedComponentsObserver;
+
+    public RestoreWorkspaceCommand(
+      ComponentInstancesViewModel componentInstancesViewModel, 
+      OperationsOutputViewModel operationsOutputViewModel, 
+      RestoringOfSavedComponentsObserver restoringOfSavedComponentsObserver)
+    {
+      _componentInstancesViewModel = componentInstancesViewModel;
+      _operationsOutputViewModel = operationsOutputViewModel;
+      _restoringOfSavedComponentsObserver = restoringOfSavedComponentsObserver;
+    }
+
+    public bool CanExecute(object parameter)
+    {
+      return true;
+    }
+
+    public void Execute(object parameter)
+    {
+      var xDoc = XDocument.Load("Save.xml"); //bug redundancy
+      foreach (var componentInstance in xDoc.Root.Elements("Component"))
+      {
+        _restoringOfSavedComponentsObserver.NotifyOnNewComponent(componentInstance.Attribute("name").ToString());
+        foreach (var operation in componentInstance.Elements("Operation"))
+        {
+          _restoringOfSavedComponentsObserver.NotifyOnNextOperation(operation.Attribute("name").ToString());
+          foreach (var property in operation.Elements("Parameter"))
+          {
+            _restoringOfSavedComponentsObserver.NotifyOnProperty(
+              property.Attribute("name").ToString(), 
+              property.Attribute("value").ToString());
+          }
+        }
+      }
+    }
+
+    public event EventHandler CanExecuteChanged;
+  }
+
   public class SaveWorkspaceCommand : ICommand
   {
     private readonly ComponentInstancesViewModel _componentInstancesViewModel;

@@ -83,7 +83,7 @@
     <Compile Include="ViewModels\OutputFactory.cs" />
     <Compile Include="ViewModels\TestComponentViewModel.cs" />
     <Compile Include="ViewModels\TestComponentViewModelFactory.cs" />
-    <Compile Include="ViewModels\XmlConfigurationBuilder.cs" />
+    <Compile Include="ViewModels\XmlConfigurationOutputBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">
