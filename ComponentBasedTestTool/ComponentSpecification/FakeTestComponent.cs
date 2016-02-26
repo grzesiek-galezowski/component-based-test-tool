@@ -15,7 +15,7 @@ namespace ComponentSpecification
     public void AddInstance()
     {
       _testComponentViewModel
-        .AddComponentCommand.Execute(null);
+        .AddComponentInstanceCommand.Execute(null);
     }
 
     public static FakeTestComponent GetByName(string componentName, ComponentsViewModel componentsViewModel)

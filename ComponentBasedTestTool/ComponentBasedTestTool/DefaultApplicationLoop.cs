@@ -7,6 +7,8 @@ using System.Xml.Linq;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
+using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool
@@ -40,14 +42,12 @@ namespace ComponentBasedTestTool
 
       var topMenuBarViewModel = new TopMenuBarViewModel(
         componentInstancesViewModel,
-        operationsOutputViewModel);
+        operationsOutputViewModel,
+        componentsViewModel);
 
       var factoryRepositories = componentLocation.LoadComponentRoots();
       
-      foreach (var testComponentInstanceFactoryRepository in factoryRepositories)
-      {
-        testComponentInstanceFactoryRepository.AddTo(componentsViewModel);
-      }
+      AddAllInstanceFactories(factoryRepositories, componentsViewModel);
 
       bootstrap.SetOperationPropertiesViewDataContext(operationPropertiesViewModel);
       bootstrap.SetTopMenuBarContext(topMenuBarViewModel);
@@ -57,17 +57,32 @@ namespace ComponentBasedTestTool
       bootstrap.SetComponentInstancesViewDataContext(componentInstancesViewModel);
       return;
     }
+
+    private static void AddAllInstanceFactories(
+      IEnumerable<TestComponentSourceRoot> factoryRepositories, 
+      ComponentsList componentsViewModel)
+    {
+      foreach (var testComponentInstanceFactoryRepository in factoryRepositories)
+      {
+        testComponentInstanceFactoryRepository.AddTo(componentsViewModel);
+      }
+    }
   }
 
   public class TopMenuBarViewModel
   {
     private readonly ComponentInstancesViewModel _componentInstancesViewModel;
     private readonly OperationsOutputViewModel _operationsOutputViewModel;
+    private readonly ComponentsViewModel _componentsViewModel;
 
-    public TopMenuBarViewModel(ComponentInstancesViewModel componentInstancesViewModel, OperationsOutputViewModel operationsOutputViewModel)
+    public TopMenuBarViewModel(
+      ComponentInstancesViewModel componentInstancesViewModel, 
+      OperationsOutputViewModel operationsOutputViewModel, 
+      ComponentsViewModel componentsViewModel)
     {
       _componentInstancesViewModel = componentInstancesViewModel;
       _operationsOutputViewModel = operationsOutputViewModel;
+      _componentsViewModel = componentsViewModel;
     }
 
     public ICommand SaveWorkspaceCommand => new SaveWorkspaceCommand(
@@ -88,20 +103,19 @@ namespace ComponentBasedTestTool
       _operationsOutputViewModel = operationsOutputViewModel;
     }
 
-    public void NotifyOnNewComponent(string name)
+    public void NotifyOnNewComponentWith(string name, string type)
     {
-      _operationsOutputViewModel.WriteLine(name);
+      _operationsOutputViewModel.WriteLine(name + ", " + type);
     }
 
-    public void NotifyOnNextOperation(string name)
+    public void NotifyOnNextOperationWith(string name, string type)
     {
-      _operationsOutputViewModel.WriteLine(name);
+      _operationsOutputViewModel.WriteLine(" " + name + ", " + type);
     }
 
-    public void NotifyOnProperty(string name, string value)
+    public void NotifyOnPropertyWith(string name, string value)
     {
-      _operationsOutputViewModel.WriteLine(name);
-      _operationsOutputViewModel.WriteLine(value);
+      _operationsOutputViewModel.WriteLine("  " + name + " --> " + value);
     }
   }
 
@@ -129,20 +143,61 @@ namespace ComponentBasedTestTool
     public void Execute(object parameter)
     {
       var xDoc = XDocument.Load("Save.xml"); //bug redundancy
-      foreach (var componentInstance in xDoc.Root.Elements("Component"))
+      foreach (var componentInstance in ComponentInstancesIn(xDoc))
       {
-        _restoringOfSavedComponentsObserver.NotifyOnNewComponent(componentInstance.Attribute("name").ToString());
-        foreach (var operation in componentInstance.Elements("Operation"))
-        {
-          _restoringOfSavedComponentsObserver.NotifyOnNextOperation(operation.Attribute("name").ToString());
-          foreach (var property in operation.Elements("Parameter"))
-          {
-            _restoringOfSavedComponentsObserver.NotifyOnProperty(
-              property.Attribute("name").ToString(), 
-              property.Attribute("value").ToString());
-          }
-        }
+        _restoringOfSavedComponentsObserver.NotifyOnNewComponentWith(
+          NameOf(componentInstance), TypeOf(componentInstance));
+        ParseOperationsOf(componentInstance);
       }
+    }
+
+    private void ParseOperationsOf(XElement componentInstance)
+    {
+      foreach (var operation in OperationsOf(componentInstance))
+      {
+        _restoringOfSavedComponentsObserver.NotifyOnNextOperationWith(
+          NameOf(operation), TypeOf(componentInstance));
+        ParsePropertiesOf(operation);
+      }
+    }
+
+    private void ParsePropertiesOf(XElement operation)
+    {
+      foreach (var property in ParametersOf(operation))
+      {
+        _restoringOfSavedComponentsObserver
+          .NotifyOnPropertyWith(NameOf(property), ValueOf(property));
+      }
+    }
+
+    private static IEnumerable<XElement> ParametersOf(XElement operation)
+    {
+      return operation.Elements("Parameter");
+    }
+
+    private static IEnumerable<XElement> ComponentInstancesIn(XDocument xDoc)
+    {
+      return xDoc.Root.Elements("Component");
+    }
+
+    private static IEnumerable<XElement> OperationsOf(XElement componentInstance)
+    {
+      return componentInstance.Elements("Operation");
+    }
+
+    private static string ValueOf(XElement property)
+    {
+      return property.Attribute("value").Value;
+    }
+
+    private static string NameOf(XElement property)
+    {
+      return property.Attribute("name").Value;
+    }
+
+    private string TypeOf(XElement componentInstance)
+    {
+      return componentInstance.Attribute("type").Value;
     }
 
     public event EventHandler CanExecuteChanged;

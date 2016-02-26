@@ -35,7 +35,7 @@
                   <GridViewColumn.CellTemplate>
                     <DataTemplate>
                       <Button x:Name="AddTestComponentInstanceButton" 
-                              Command="{Binding AddComponentCommand}"
+                              Command="{Binding AddComponentInstanceCommand}"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Stretch"
                               Width="40"

@@ -24,6 +24,7 @@ namespace ViewModels.ViewModels.Commands
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
     {
       var testComponentInstance = _instanceFactory.Create();
+
       var componentInstanceViewModel 
         = new ComponentInstanceViewModel(
           testComponentViewModel.Name, 

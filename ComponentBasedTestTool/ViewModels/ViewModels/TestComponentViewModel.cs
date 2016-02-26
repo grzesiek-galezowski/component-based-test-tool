@@ -18,8 +18,8 @@ namespace ViewModels.ViewModels
       _componentInstanceViewModelFactory = componentInstanceViewModelFactory;
     }
 
-    public ICommand AddComponentCommand => 
-      new AddComponentCommand(
+    public ICommand AddComponentInstanceCommand => 
+      new AddComponentInstanceCommand(
         _componentInstancesViewModel, 
         _componentInstanceViewModelFactory, this);
 

@@ -1,15 +1,16 @@
 using System;
 using System.Windows.Input;
+using ComponentBasedTestTool.Annotations;
 
 namespace ViewModels.ViewModels.Commands
 {
-  public sealed class AddComponentCommand : ICommand
+  public sealed class AddComponentInstanceCommand : ICommand
   {
     private readonly ComponentInstancesViewModel _componentInstancesViewModel;
     private readonly ComponentInstanceViewModelFactory _componentInstanceViewModelFactory;
     private readonly TestComponentViewModel _testComponentViewModel;
 
-    public AddComponentCommand(
+    public AddComponentInstanceCommand(
       ComponentInstancesViewModel componentInstancesViewModel, 
       ComponentInstanceViewModelFactory componentInstanceViewModelFactory, 
       TestComponentViewModel testComponentViewModel)
@@ -26,6 +27,7 @@ namespace ViewModels.ViewModels.Commands
       return true;
     }
 
+    [UsedImplicitly]
     public void Execute(object parameter)
     {
       var componentInstanceViewModel = _componentInstanceViewModelFactory

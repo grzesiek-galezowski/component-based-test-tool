@@ -13,7 +13,7 @@ namespace ViewModels.ViewModels
       var selectedComponents = (IEnumerable<TestComponentViewModel>) parameter;
       foreach (var testComponentViewModel in selectedComponents)
       {
-        testComponentViewModel.AddComponentCommand.Execute(new object());
+        testComponentViewModel.AddComponentInstanceCommand.Execute(new object());
       }
     }
 

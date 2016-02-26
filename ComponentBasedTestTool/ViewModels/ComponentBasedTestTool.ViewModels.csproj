@@ -60,7 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\AddAllSelectedCommand.cs" />
-    <Compile Include="ViewModels\Commands\AddComponentCommand.cs" />
+    <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
     <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
     <Compile Include="ViewModels\Commands\OperationCommand.cs" />
