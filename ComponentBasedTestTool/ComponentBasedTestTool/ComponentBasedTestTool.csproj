@@ -35,20 +35,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CallMeMaybe, Version=0.5.5600.29724, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CallMeMaybe.0.6.1\lib\CallMeMaybe.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="IKVM.Reflection, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\IKVM.Reflection.dll</HintPath>
+    <Reference Include="CallMeMaybe, Version=0.5.5975.28944, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CallMeMaybe.0.6.2\lib\CallMeMaybe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Jal.AssemblyFinder, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Jal.AssemblyFinder.1.1.0.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RunSharp, Version=0.2.0.5, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.0.2.0.5\lib\net35\RunSharp.dll</HintPath>
+    <Reference Include="RunSharp, Version=1.0.0.19, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
+      <HintPath>..\packages\aqla.runsharp.1.0.0.19\lib\net35\RunSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -86,28 +82,28 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xceed.Wpf.DataGrid, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=2.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.2.6\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
