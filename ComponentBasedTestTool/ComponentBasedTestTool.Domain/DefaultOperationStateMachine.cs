@@ -16,29 +16,31 @@ namespace ComponentBasedTestTool.Domain
     private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly Operation _operation;
     private OperationState _operationState;
+    private readonly OperationStatesFactory _operationStatesFactory;
 
     public DefaultOperationStateMachine(
       Operation operation, 
       OperationState operationState, 
-      CancellationTokenSource cancellationTokenSource)
+      CancellationTokenSource cancellationTokenSource, 
+      OperationStatesFactory operationStatesFactory)
     {
       _operation = operation;
       _operationState = operationState;
       _observers = new List<OperationDependencyObserver>();
       _cancellationTokenSource = cancellationTokenSource;
+      _operationStatesFactory = operationStatesFactory;
     }
 
-    public void DependencyFulfilled(OperationContext operationViewModel)
+    public void DependencyFulfilled(OperationContext context)
     {
-      _operationState.DependencyFulfilled(operationViewModel);
+      _operationState.DependencyFulfilled(context);
     }
 
-    public void Failure(Exception exception, OperationContext operationViewModel)
+    public void Failure(Exception exception, OperationContext context)
     {
-      var lastError = Format(exception);
-      operationViewModel.NotifyonCurrentState(true, false, nameof(Failure), exception.ToString(), lastError);
+      context.NotifyonCurrentState(nameof(Failure), Runnability.Runnable(), ErrorInfo.From(exception));
 
-      _operationState = ExecutableState(_cancellationTokenSource);
+      _operationState = _operationStatesFactory.ExecutableState();
     }
 
     public void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer)
@@ -46,33 +48,29 @@ namespace ComponentBasedTestTool.Domain
       _observers.Add(observer);
     }
 
-    public void Initial(OperationContext observer)
+    public void Initial(OperationContext context)
     {
-      observer.NotifyonCurrentState(
-        false,
-        false,
-        nameof(Initial),
-        string.Empty,
-        string.Empty);
+      context.NotifyonCurrentState(
+        nameof(Initial), 
+        Runnability.Unavailable(), 
+        ErrorInfo.None());
 
-      _operationState = new NotExecutableOperationState();
+      _operationState = _operationStatesFactory.NotExecutable();
     }
 
-    public void InProgress(OperationContext operationViewModel)
+    public void InProgress(OperationContext context)
     {
-      operationViewModel.NotifyonCurrentState(
-        false,
-        true,
-        "In Progress",
-        string.Empty,
-        string.Empty);
+      context.NotifyonCurrentState(
+        "In Progress", 
+        Runnability.InProgress(), 
+        ErrorInfo.None());
 
-      _operationState = new InProgressOperationState();
+      _operationState = _operationStatesFactory.InProgress();
     }
 
     public void Ready(OperationContext context)
     {
-      NormalExecutable(context, nameof(Ready), _cancellationTokenSource);
+      NormalExecutable(context, nameof(Ready));
     }
 
     public void Start(OperationContext context)
@@ -80,14 +78,14 @@ namespace ComponentBasedTestTool.Domain
       _operationState.Start(context, _operation);
     }
 
-    public void Stopped(OperationContext operationViewModel)
+    public void Stopped(OperationContext context)
     {
-      NormalExecutable(operationViewModel, nameof(Stopped), _cancellationTokenSource);
+      NormalExecutable(context, nameof(Stopped));
     }
 
-    public void Success(OperationContext operationViewModel)
+    public void Success(OperationContext context)
     {
-      NormalExecutable(operationViewModel, nameof(Success), _cancellationTokenSource);
+      NormalExecutable(context, nameof(Success));
       foreach (var observer in _observers)
       {
         observer.DependencyFulfilled();
@@ -99,27 +97,10 @@ namespace ComponentBasedTestTool.Domain
       _cancellationTokenSource.Cancel();
     }
 
-    private static ExecutableOperationState ExecutableState(CancellationTokenSource cancellationTokenSource)
+    private void NormalExecutable(OperationContext context, string statusText)
     {
-      return new ExecutableOperationState(cancellationTokenSource);
-    }
-
-    private static string Format(Exception exception)
-    {
-      return exception.ToString().Split(
-        new[] { Environment.NewLine },
-        StringSplitOptions.RemoveEmptyEntries).First();
-    }
-
-    private void NormalExecutable(OperationContext context, string statusText, CancellationTokenSource cancellationTokenSource)
-    {
-      context.NotifyonCurrentState(
-        true,
-        false,
-        statusText,
-        string.Empty,
-        string.Empty);
-      _operationState = ExecutableState(cancellationTokenSource);
+      context.NotifyonCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
+      _operationState = _operationStatesFactory.ExecutableState();
     }
   }
 

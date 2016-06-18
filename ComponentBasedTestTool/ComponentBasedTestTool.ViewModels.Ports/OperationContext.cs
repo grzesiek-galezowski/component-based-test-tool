@@ -11,11 +11,6 @@ namespace ComponentBasedTestTool.ViewModels.Ports
     void InProgress();
     void Initial();
 
-    void NotifyonCurrentState(
-      bool canRun, 
-      bool canStop, 
-      string initial, 
-      string lastErrorFullText, 
-      string lastError);
+    void NotifyonCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo);
   }
 }

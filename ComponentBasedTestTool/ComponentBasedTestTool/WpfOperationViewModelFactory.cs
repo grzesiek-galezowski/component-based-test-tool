@@ -46,10 +46,13 @@ namespace ComponentBasedTestTool
     private OperationCommandFactory AllowingCommandExecution() => 
       new OperationCommandFactory(_applicationContext);
 
-    private static DefaultOperationStateMachine StateMachineFor(OperationEntry o) 
-      => new DefaultOperationStateMachine(
-            o.Operation,
-            new NotExecutableOperationState(),
-            new CancellationTokenSource());
+    private static DefaultOperationStateMachine StateMachineFor(OperationEntry o)
+    {
+      var cancellationTokenSource = new CancellationTokenSource();
+      return new DefaultOperationStateMachine(
+        o.Operation,
+        new NotExecutableOperationState(),
+        cancellationTokenSource, new OperationStatesFactory(cancellationTokenSource));
+    }
   }
 }

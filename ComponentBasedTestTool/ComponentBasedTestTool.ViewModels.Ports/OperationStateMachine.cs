@@ -4,15 +4,15 @@ namespace ComponentBasedTestTool.ViewModels.Ports
 {
   public interface OperationStateMachine
   {
-    void DependencyFulfilled(OperationContext operationViewModel);
-    void Failure(Exception exception, OperationContext operationViewModel);
+    void DependencyFulfilled(OperationContext context);
+    void Failure(Exception exception, OperationContext context);
     void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer);
-    void Initial(OperationContext observer);
-    void InProgress(OperationContext operationViewModel);
+    void Initial(OperationContext context);
+    void InProgress(OperationContext context);
     void Ready(OperationContext context);
     void Start(OperationContext context);
-    void Stopped(OperationContext operationViewModel);
-    void Success(OperationContext operationViewModel);
+    void Stopped(OperationContext context);
+    void Success(OperationContext context);
     void Stop();
   }
 }

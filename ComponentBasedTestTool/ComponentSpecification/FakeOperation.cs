@@ -11,7 +11,7 @@ namespace ComponentSpecification
   public class FakeOperation : Operation
   {
     private readonly List<Tuple<string, string>> _parameters = new List<Tuple<string, string>>();
-    private Operation _mock = Substitute.For<Operation>();
+    private readonly Operation _mock = Substitute.For<Operation>();
 
     public Task RunAsync(CancellationToken token)
     {

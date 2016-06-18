@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DefaultOperationStateMachine.cs" />
     <Compile Include="OperationState.cs" />
+    <Compile Include="OperationStatesFactory.cs" />
     <Compile Include="OperationStates\ExecutableOperationState.cs" />
     <Compile Include="OperationStates\InProgressOperationState.cs" />
     <Compile Include="OperationStates\NotExecutableOperationState.cs" />

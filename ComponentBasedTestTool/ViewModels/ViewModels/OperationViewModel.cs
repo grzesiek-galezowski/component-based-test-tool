@@ -110,18 +110,13 @@ namespace ViewModels.ViewModels
       _operationStateMachine.Initial(this);
     }
 
-    public void NotifyonCurrentState(
-      bool canRun, 
-      bool canStop, 
-      string initial, 
-      string lastErrorFullText, 
-      string lastError)
+    public void NotifyonCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
     {
-      CanRun = canRun;
-      CanStop = canStop;
-      State = initial;
-      LastErrorFullText = lastErrorFullText;
-      LastError = lastError;
+      CanRun = runnability.CanRun;
+      CanStop = runnability.CanStop;
+      State = stateName;
+      LastErrorFullText = errorInfo.LastErrorFullText;
+      LastError = errorInfo.LastError;
     }
 
     public void Ready()
