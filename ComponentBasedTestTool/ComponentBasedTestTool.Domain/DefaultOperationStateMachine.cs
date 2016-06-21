@@ -10,10 +10,9 @@ namespace ComponentBasedTestTool.Domain
 {
   
 
-  public class DefaultOperationStateMachine : OperationStateMachine
+  public class DefaultOperationStateMachine : OperationSignals
   {
     private readonly List<OperationDependencyObserver> _observers;
-    private readonly CancellationTokenSource _cancellationTokenSource;
     private readonly Runnable _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
@@ -21,24 +20,22 @@ namespace ComponentBasedTestTool.Domain
     public DefaultOperationStateMachine(
       Runnable operation, 
       OperationState operationState, 
-      CancellationTokenSource cancellationTokenSource, 
       OperationStatesFactory operationStatesFactory)
     {
       _operation = operation;
       _operationState = operationState;
       _observers = new List<OperationDependencyObserver>();
-      _cancellationTokenSource = cancellationTokenSource;
       _operationStatesFactory = operationStatesFactory;
     }
 
-    public void DependencyFulfilled(OperationContext context)
+    void OperationSignals.DependencyFulfilled(OperationContext context)
     {
       _operationState.DependencyFulfilled(context);
     }
 
-    public void Failure(Exception exception, OperationContext context)
+    void OperationStateObserver.Failure(Exception exception, OperationContext context)
     {
-      context.NotifyonCurrentState(nameof(Failure), Runnability.Runnable(), ErrorInfo.From(exception));
+      context.NotifyonCurrentState("Failure", Runnability.Runnable(), ErrorInfo.From(exception));
 
       _operationState = _operationStatesFactory.RunnableState();
     }
@@ -48,53 +45,53 @@ namespace ComponentBasedTestTool.Domain
       _observers.Add(observer);
     }
 
-    public void Initial(OperationContext context)
+    void OperationStateObserver.Initial(OperationContext context)
     {
       context.NotifyonCurrentState(
-        nameof(Initial), 
+        "Initial", 
         Runnability.Unavailable(), 
         ErrorInfo.None());
 
       _operationState = _operationStatesFactory.Unavailable();
     }
 
-    public void InProgress(OperationContext context)
+    void OperationStateObserver.InProgress(OperationContext context, CancellationTokenSource cancellationTokenSource)
     {
       context.NotifyonCurrentState(
         "In Progress", 
         Runnability.InProgress(), 
         ErrorInfo.None());
 
-      _operationState = _operationStatesFactory.InProgress();
+      _operationState = _operationStatesFactory.InProgress(cancellationTokenSource);
     }
-
-    public void Ready(OperationContext context)
-    {
-      NormalRunnable(context, nameof(Ready));
-    }
-
-    public void Start(OperationContext context)
+    void OperationSignals.Start(OperationContext context)
     {
       _operationState.Start(context, _operation);
     }
 
-    public void Stopped(OperationContext context)
+    void OperationStateObserver.Ready(OperationContext context)
     {
-      NormalRunnable(context, nameof(Stopped));
+      NormalRunnable(context, "Ready");
     }
 
-    public void Success(OperationContext context)
+
+    void OperationStateObserver.Stopped(OperationContext context)
     {
-      NormalRunnable(context, nameof(Success));
+      NormalRunnable(context, "Stopped");
+    }
+
+    void OperationStateObserver.Success(OperationContext context)
+    {
+      NormalRunnable(context, "Success");
       foreach (var observer in _observers)
       {
         observer.DependencyFulfilled();
       }
     }
 
-    public void Stop()
+    void OperationSignals.Stop()
     {
-      _cancellationTokenSource.Cancel();
+      _operationState.Stop();
     }
 
     private void NormalRunnable(OperationContext context, string statusText)

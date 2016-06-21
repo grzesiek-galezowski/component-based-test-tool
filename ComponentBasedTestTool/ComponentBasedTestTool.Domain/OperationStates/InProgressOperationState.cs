@@ -1,10 +1,18 @@
-﻿using ComponentBasedTestTool.ViewModels.Ports;
+﻿using System.Threading;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public class InProgressOperationState : OperationState
   {
+    private readonly CancellationTokenSource _cancellationTokenSource;
+
+    public InProgressOperationState(CancellationTokenSource cancellationTokenSource)
+    {
+      _cancellationTokenSource = cancellationTokenSource;
+    }
+
     public void Start(OperationContext context, Runnable operation)
     {
       // Method intentionally left empty.
@@ -13,6 +21,11 @@ namespace ComponentBasedTestTool.Domain.OperationStates
     public void DependencyFulfilled(OperationContext operationViewModel)
     {
       // Method intentionally left empty.
+    }
+
+    public void Stop()
+    {
+      _cancellationTokenSource.Cancel();
     }
   }
 }

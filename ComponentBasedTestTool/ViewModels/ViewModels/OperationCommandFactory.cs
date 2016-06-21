@@ -20,12 +20,12 @@ namespace ViewModels.ViewModels
     }
 
     public StopOperationCommand CreateStopCommand(
-      OperationStateMachine operation)
+      OperationSignals operation)
     {
       return new StopOperationCommand(_applicationContext, operation);
     }
 
-    public RestartOperationCommand CreateRestartCommand(OperationStateMachine operation, OperationViewModel operationViewModel)
+    public RestartOperationCommand CreateRestartCommand(OperationSignals operation, OperationViewModel operationViewModel)
     {
       return new RestartOperationCommand(_applicationContext, operation, operationViewModel);
     }
@@ -33,13 +33,13 @@ namespace ViewModels.ViewModels
 
   public class RestartOperationCommand : OperationCommand
   {
-    private readonly OperationStateMachine _operation;
+    private readonly OperationSignals _operation;
     private readonly OperationViewModel _operationViewModel;
     private bool _waitingForStart;
 
     public RestartOperationCommand(
       ApplicationContext applicationContext, 
-      OperationStateMachine operation, 
+      OperationSignals operation, 
       OperationViewModel operationViewModel) 
       : base(false, applicationContext)
     {

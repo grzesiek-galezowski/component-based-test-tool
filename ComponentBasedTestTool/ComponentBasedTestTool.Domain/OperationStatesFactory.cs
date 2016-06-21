@@ -5,26 +5,19 @@ namespace ComponentBasedTestTool.Domain
 {
   public class OperationStatesFactory
   {
-    private readonly CancellationTokenSource _cancellationTokenSource;
-
-    public OperationStatesFactory(CancellationTokenSource cancellationTokenSource)
-    {
-      _cancellationTokenSource = cancellationTokenSource;
-    }
-
     public OperationState Unavailable()
     {
       return new UnavailableOperationState();
     }
 
-    public OperationState InProgress()
+    public OperationState InProgress(CancellationTokenSource cancellationTokenSource)
     {
-      return new InProgressOperationState();
+      return new InProgressOperationState(cancellationTokenSource);
     }
 
     public OperationState RunnableState()
     {
-      return new RunnableOperationState(_cancellationTokenSource);
+      return new RunnableOperationState();
     }
   }
 }

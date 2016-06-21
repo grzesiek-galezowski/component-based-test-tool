@@ -9,16 +9,13 @@ namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public sealed class RunnableOperationState : OperationState
   {
-    private readonly CancellationTokenSource _cancellationTokenSource;
-
-    public RunnableOperationState(CancellationTokenSource cancellationTokenSource)
+    public RunnableOperationState()
     {
-      _cancellationTokenSource = cancellationTokenSource;
     }
 
     public void Start(OperationContext context, Runnable operation)
     {
-      Run(_cancellationTokenSource, context, operation);
+      Run(new CancellationTokenSource(), context, operation);
     }
 
     private static void Run(CancellationTokenSource cancellationTokenSource, OperationContext context, Runnable operation)
@@ -27,7 +24,7 @@ namespace ComponentBasedTestTool.Domain.OperationStates
       {
         try
         {
-          context.InProgress();
+          context.InProgress(cancellationTokenSource);
           await operation.RunAsync(cancellationTokenSource.Token).ConfigureAwait(false);
           context.Success();
         }
@@ -39,15 +36,17 @@ namespace ComponentBasedTestTool.Domain.OperationStates
         {
           context.Failure(e);
         }
-      }).ContinueWith((t,o) =>
-      {
-        
-      }, null);
+      });
     }
 
     public void DependencyFulfilled(OperationContext operationViewModel)
     {
       
+    }
+
+    public void Stop()
+    {
+      throw new NotImplementedException();
     }
   }
 }

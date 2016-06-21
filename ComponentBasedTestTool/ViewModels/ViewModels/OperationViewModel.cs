@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.ViewModels.Ports;
@@ -21,7 +22,7 @@ namespace ViewModels.ViewModels
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
-    private readonly OperationStateMachine _operationStateMachine;
+    private readonly OperationSignals _operationStateMachine;
     private RestartOperationCommand _restartCommand;
 
     public OperationViewModel(
@@ -29,7 +30,7 @@ namespace ViewModels.ViewModels
       Maybe<string> maybeDependencyName, 
       OperationCommandFactory operationCommandFactory, 
       OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
-      OperationStateMachine operationStateMachine)
+      OperationSignals operationStateMachine)
     {
       Name = name;
       _propertyListBuilder = operationPropertiesViewModelBuilder;
@@ -153,9 +154,9 @@ namespace ViewModels.ViewModels
       _operationStateMachine.Failure(exception, this);
     }
 
-    public void InProgress()
+    public void InProgress(CancellationTokenSource cancellationTokenSource)
     {
-      _operationStateMachine.InProgress(this);
+      _operationStateMachine.InProgress(this, cancellationTokenSource);
     }
 
     public void SetPropertiesOn(OperationPropertiesViewModel operationPropertiesViewModel)

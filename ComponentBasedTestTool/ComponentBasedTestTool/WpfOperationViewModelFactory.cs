@@ -35,7 +35,7 @@ namespace ComponentBasedTestTool
     private OperationViewModel OperationViewModelFor(
       OperationEntry operationEntry, 
       OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
-      OperationStateMachine defaultOperationStateMachine) => 
+      OperationSignals defaultOperationStateMachine) => 
         new OperationViewModel(
           operationEntry.Name,
           operationEntry.DependencyName, 
@@ -48,11 +48,9 @@ namespace ComponentBasedTestTool
 
     private static DefaultOperationStateMachine StateMachineFor(OperationEntry o)
     {
-      var cancellationTokenSource = new CancellationTokenSource();
       return new DefaultOperationStateMachine(
         o.Operation,
-        new UnavailableOperationState(),
-        cancellationTokenSource, new OperationStatesFactory(cancellationTokenSource));
+        new UnavailableOperationState(), new OperationStatesFactory());
     }
   }
 }

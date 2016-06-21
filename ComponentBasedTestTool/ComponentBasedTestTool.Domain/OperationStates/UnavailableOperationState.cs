@@ -15,5 +15,10 @@ namespace ComponentBasedTestTool.Domain.OperationStates
     {
       operationViewModel.Ready();
     }
+
+    public void Stop()
+    {
+      throw new NotImplementedException();
+    }
   }
 }

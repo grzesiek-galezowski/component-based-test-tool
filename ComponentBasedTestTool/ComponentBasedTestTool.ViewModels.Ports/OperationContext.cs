@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 namespace ComponentBasedTestTool.ViewModels.Ports
 {
@@ -8,7 +9,7 @@ namespace ComponentBasedTestTool.ViewModels.Ports
     void Success();
     void Stopped();
     void Failure(Exception exception);
-    void InProgress();
+    void InProgress(CancellationTokenSource cancellationTokenSource);
     void Initial();
 
     void NotifyonCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo);
