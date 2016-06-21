@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
 
@@ -38,7 +39,10 @@ namespace ComponentBasedTestTool.Domain.OperationStates
         {
           context.Failure(e);
         }
-      });
+      }).ContinueWith((t,o) =>
+      {
+        
+      }, null);
     }
 
     public void DependencyFulfilled(OperationContext operationViewModel)

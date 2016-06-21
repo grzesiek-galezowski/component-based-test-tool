@@ -22,6 +22,7 @@ namespace ViewModels.ViewModels
     private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly OperationStateMachine _operationStateMachine;
+    private RestartOperationCommand _restartCommand;
 
     public OperationViewModel(
       string name, 
@@ -53,6 +54,10 @@ namespace ViewModels.ViewModels
     public OperationCommand StopOperationCommand
       => _stopCommand ?? (_stopCommand = 
       _operationCommandFactory.CreateStopCommand(_operationStateMachine));
+
+    public RestartOperationCommand RestartOperationCommand
+      => _restartCommand ?? (_restartCommand = 
+      _operationCommandFactory.CreateRestartCommand(_operationStateMachine, this));
 
 
     public string Name { get; }
@@ -97,7 +102,11 @@ namespace ViewModels.ViewModels
     public bool CanStop
     {
       get { return StopOperationCommand.CanExecuteValue; }
-      set { StopOperationCommand.CanExecuteValue = value; }
+      set
+      {
+        StopOperationCommand.CanExecuteValue = value;
+        RestartOperationCommand.CanExecuteValue = value;
+      }
     }
 
     public void Start()

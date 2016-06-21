@@ -24,6 +24,7 @@
       <ContextMenu x:Key="ItemContextMenu">
         <MenuItem Header="Run" Command="{Binding Path=RunOperationCommand}" Background="WhiteSmoke" />
         <MenuItem Header="Stop" Command="{Binding Path=StopOperationCommand}" Background="WhiteSmoke" />
+        <MenuItem Header="Restart" Command="{Binding Path=RestartOperationCommand}" Background="WhiteSmoke" />
       </ContextMenu>
     </ListView.Resources>
 
