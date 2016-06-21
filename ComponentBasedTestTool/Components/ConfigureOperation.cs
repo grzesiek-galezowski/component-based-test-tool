@@ -5,7 +5,7 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
-  public class ConfigureOperation : Operation
+  public class ConfigureOperation : ComponentOperation
   {
     private readonly OperationsOutput _output;
 

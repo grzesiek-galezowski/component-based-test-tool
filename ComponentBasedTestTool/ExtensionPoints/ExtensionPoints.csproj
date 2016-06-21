@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
     <Compile Include="ImplementedByContext\ComponentsList.cs" />
-    <Compile Include="ImplementedByComponents\Operation.cs" />
+    <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
     <Compile Include="ImplementedByContext\OperationParametersListBuilder.cs" />
     <Compile Include="ImplementedByContext\OperationsOutput.cs" />
     <Compile Include="Properties\Annotations.cs" />

@@ -10,8 +10,8 @@ namespace ExtensionPoints.ImplementedByContext
 
   public interface TestComponentOperationDestination
   {
-    void AddOperation(string name, Operation operation, string dependencyName);
-    void AddOperation(string name, Operation operation);
+    void AddOperation(string name, ComponentOperation operation, string dependencyName);
+    void AddOperation(string name, ComponentOperation operation);
   }
 
   public interface Persistable

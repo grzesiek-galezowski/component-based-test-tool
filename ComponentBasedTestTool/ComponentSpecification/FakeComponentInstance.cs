@@ -9,11 +9,14 @@ namespace ComponentSpecification
   public class FakeComponentInstance : TestComponent
   {
     public string Name { get; }
+    public string Description { get; }
+
     private readonly List<Tuple<string, FakeOperation>> _operations = new List<Tuple<string, FakeOperation>>();
 
-    public FakeComponentInstance(string name)
+    public FakeComponentInstance(string name, string description)
     {
       Name = name;
+      Description = description;
     }
 
     public void PopulateOperations(TestComponentOperationDestination ctx)

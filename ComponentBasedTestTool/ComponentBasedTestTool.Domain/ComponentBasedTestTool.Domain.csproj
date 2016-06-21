@@ -43,9 +43,10 @@
     <Compile Include="DefaultOperationStateMachine.cs" />
     <Compile Include="OperationState.cs" />
     <Compile Include="OperationStatesFactory.cs" />
-    <Compile Include="OperationStates\ExecutableOperationState.cs" />
+    <Compile Include="OperationStates\AsyncRunnable.cs" />
+    <Compile Include="OperationStates\RunnableOperationState.cs" />
     <Compile Include="OperationStates\InProgressOperationState.cs" />
-    <Compile Include="OperationStates\NotExecutableOperationState.cs" />
+    <Compile Include="OperationStates\UnavailableOperationState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

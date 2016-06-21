@@ -30,7 +30,6 @@
           <ListView x:Name="ComponentsList" SelectionMode="Multiple"  Grid.Row="1" ItemsSource="{Binding TestComponents}">
             <ListView.View >
               <GridView>
-                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
                 <GridViewColumn Header="Add"  Width="Auto">
                   <GridViewColumn.CellTemplate>
                     <DataTemplate>
@@ -46,6 +45,8 @@
                     </DataTemplate>
                   </GridViewColumn.CellTemplate>
                 </GridViewColumn>
+                <GridViewColumn Header="Name" Width="Auto" DisplayMemberBinding="{Binding Name}"/>
+                <GridViewColumn Header="Description" Width="Auto" DisplayMemberBinding="{Binding Description}"/>
                 <GridView.ColumnHeaderContainerStyle>
                   <Style TargetType="GridViewColumnHeader">
                     <Setter Property="Visibility" Value="Collapsed" />

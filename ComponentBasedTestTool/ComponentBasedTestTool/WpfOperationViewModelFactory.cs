@@ -51,7 +51,7 @@ namespace ComponentBasedTestTool
       var cancellationTokenSource = new CancellationTokenSource();
       return new DefaultOperationStateMachine(
         o.Operation,
-        new NotExecutableOperationState(),
+        new UnavailableOperationState(),
         cancellationTokenSource, new OperationStatesFactory(cancellationTokenSource));
     }
   }

@@ -14,12 +14,12 @@ namespace ComponentBasedTestTool.Domain
   {
     private readonly List<OperationDependencyObserver> _observers;
     private readonly CancellationTokenSource _cancellationTokenSource;
-    private readonly Operation _operation;
+    private readonly Runnable _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
 
     public DefaultOperationStateMachine(
-      Operation operation, 
+      Runnable operation, 
       OperationState operationState, 
       CancellationTokenSource cancellationTokenSource, 
       OperationStatesFactory operationStatesFactory)
@@ -40,7 +40,7 @@ namespace ComponentBasedTestTool.Domain
     {
       context.NotifyonCurrentState(nameof(Failure), Runnability.Runnable(), ErrorInfo.From(exception));
 
-      _operationState = _operationStatesFactory.ExecutableState();
+      _operationState = _operationStatesFactory.RunnableState();
     }
 
     public void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer)
@@ -55,7 +55,7 @@ namespace ComponentBasedTestTool.Domain
         Runnability.Unavailable(), 
         ErrorInfo.None());
 
-      _operationState = _operationStatesFactory.NotExecutable();
+      _operationState = _operationStatesFactory.Unavailable();
     }
 
     public void InProgress(OperationContext context)
@@ -70,7 +70,7 @@ namespace ComponentBasedTestTool.Domain
 
     public void Ready(OperationContext context)
     {
-      NormalExecutable(context, nameof(Ready));
+      NormalRunnable(context, nameof(Ready));
     }
 
     public void Start(OperationContext context)
@@ -80,12 +80,12 @@ namespace ComponentBasedTestTool.Domain
 
     public void Stopped(OperationContext context)
     {
-      NormalExecutable(context, nameof(Stopped));
+      NormalRunnable(context, nameof(Stopped));
     }
 
     public void Success(OperationContext context)
     {
-      NormalExecutable(context, nameof(Success));
+      NormalRunnable(context, nameof(Success));
       foreach (var observer in _observers)
       {
         observer.DependencyFulfilled();
@@ -97,10 +97,10 @@ namespace ComponentBasedTestTool.Domain
       _cancellationTokenSource.Cancel();
     }
 
-    private void NormalExecutable(OperationContext context, string statusText)
+    private void NormalRunnable(OperationContext context, string statusText)
     {
       context.NotifyonCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
-      _operationState = _operationStatesFactory.ExecutableState();
+      _operationState = _operationStatesFactory.RunnableState();
     }
   }
 

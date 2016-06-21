@@ -18,7 +18,7 @@ namespace ComponentSpecification
 
     public FakeTestComponentSource Add(string name)
     {
-      var fakeComponentInstance = new FakeComponentInstance(name);
+      var fakeComponentInstance = new FakeComponentInstance(name, "dummy description");
       var fakeTestComponentSource = new FakeTestComponentSource(fakeComponentInstance);
       _components.Add(fakeTestComponentSource);
       _componentInstances.Add(fakeComponentInstance);

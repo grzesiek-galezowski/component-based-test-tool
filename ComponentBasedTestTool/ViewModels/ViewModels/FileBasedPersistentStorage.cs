@@ -15,13 +15,13 @@ namespace ViewModels.ViewModels
       _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
     }
 
-    public void AddOperation(string name, Operation operation, string dependencyName)
+    public void AddOperation(string name, ComponentOperation operation, string dependencyName)
     {
       _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
       operation.StoreParameters(this);
     }
 
-    public void AddOperation(string name, Operation operation)
+    public void AddOperation(string name, ComponentOperation operation)
     {
       _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
       operation.StoreParameters(this);

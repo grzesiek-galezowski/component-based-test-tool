@@ -4,9 +4,9 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain.OperationStates
 {
-  public class NotExecutableOperationState : OperationState
+  public class UnavailableOperationState : OperationState
   {
-    public void Start(OperationContext context, Operation operation)
+    public void Start(OperationContext context, Runnable operation)
     {
       throw new NotSupportedException("The operation cannot be invoked right now");
     }

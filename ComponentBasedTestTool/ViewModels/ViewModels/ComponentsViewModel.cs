@@ -45,10 +45,10 @@ namespace ViewModels.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public void Add(string name, TestComponentInstanceFactory instanceFactory)
+    public void Add(string name, string description, TestComponentInstanceFactory instanceFactory)
     {
       TestComponents.Add(
-        _testComponentViewModelFactory.Create(name, instanceFactory)
+        _testComponentViewModelFactory.Create(name, description, instanceFactory)
       );
     }
 

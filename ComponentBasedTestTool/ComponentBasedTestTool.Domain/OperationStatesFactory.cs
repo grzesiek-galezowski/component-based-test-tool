@@ -12,9 +12,9 @@ namespace ComponentBasedTestTool.Domain
       _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public OperationState NotExecutable()
+    public OperationState Unavailable()
     {
-      return new NotExecutableOperationState();
+      return new UnavailableOperationState();
     }
 
     public OperationState InProgress()
@@ -22,9 +22,9 @@ namespace ComponentBasedTestTool.Domain
       return new InProgressOperationState();
     }
 
-    public OperationState ExecutableState()
+    public OperationState RunnableState()
     {
-      return new ExecutableOperationState(_cancellationTokenSource);
+      return new RunnableOperationState(_cancellationTokenSource);
     }
   }
 }

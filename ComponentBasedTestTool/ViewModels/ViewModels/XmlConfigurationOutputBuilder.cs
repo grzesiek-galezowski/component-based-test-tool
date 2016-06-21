@@ -22,7 +22,7 @@ namespace ViewModels.ViewModels
       _doc.Add(_components);
     }
 
-    public void AppendOperationNode(string name, Operation operation)
+    public void AppendOperationNode(string name, Runnable operation)
     {
       _currentOperation = new XElement("Operation",
         new XAttribute("name", name),

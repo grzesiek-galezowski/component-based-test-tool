@@ -17,12 +17,11 @@ namespace ViewModels.ViewModels
       _operationViewModelFactory = operationViewModelFactory;
     }
 
-    public TestComponentViewModel Create(
-      string name, 
-      TestComponentInstanceFactory instanceFactory)
+    public TestComponentViewModel Create(string name, string description, TestComponentInstanceFactory instanceFactory)
     {
       return new TestComponentViewModel(
         name, 
+        description,
         _componentInstancesViewModel, 
         new ComponentInstanceViewModelFactory(
           instanceFactory, 

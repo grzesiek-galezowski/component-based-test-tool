@@ -8,15 +8,14 @@ namespace ViewModels.ViewModels
     private readonly ComponentInstancesViewModel _componentInstancesViewModel;
     private readonly ComponentInstanceViewModelFactory _componentInstanceViewModelFactory;
 
-    public TestComponentViewModel(
-      string name, 
-      ComponentInstancesViewModel componentInstancesViewModel, 
-      ComponentInstanceViewModelFactory componentInstanceViewModelFactory)
+    public TestComponentViewModel(string name, string description, ComponentInstancesViewModel componentInstancesViewModel, ComponentInstanceViewModelFactory componentInstanceViewModelFactory)
     {
       Name = name;
+      Description = description;
       _componentInstancesViewModel = componentInstancesViewModel;
       _componentInstanceViewModelFactory = componentInstanceViewModelFactory;
     }
+
 
     public ICommand AddComponentInstanceCommand => 
       new AddComponentInstanceCommand(
@@ -24,5 +23,6 @@ namespace ViewModels.ViewModels
         _componentInstanceViewModelFactory, this);
 
     public string Name { get; set; }
+    public string Description { get; set; }
   }
 }

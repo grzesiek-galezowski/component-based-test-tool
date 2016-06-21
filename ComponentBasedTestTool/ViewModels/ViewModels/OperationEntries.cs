@@ -15,7 +15,7 @@ namespace ViewModels.ViewModels
       _operations = new List<OperationEntry>();
     }
 
-    public void Add(string name, Operation operation, Maybe<string> dependencyName)
+    public void Add(string name, ComponentOperation operation, Maybe<string> dependencyName)
     {
       _operations.Add(OperationEntry.With(name, operation, dependencyName));
     }

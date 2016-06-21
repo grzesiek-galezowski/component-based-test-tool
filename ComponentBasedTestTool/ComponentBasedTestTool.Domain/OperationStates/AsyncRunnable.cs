@@ -6,16 +6,16 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain.OperationStates
 {
-  public sealed class ExecutableOperationState : OperationState
+  internal class AsyncRunnable
   {
     private readonly CancellationTokenSource _cancellationTokenSource;
 
-    public ExecutableOperationState(CancellationTokenSource cancellationTokenSource)
+    public AsyncRunnable(CancellationTokenSource cancellationTokenSource)
     {
       _cancellationTokenSource = cancellationTokenSource;
     }
 
-    public void Start(OperationContext context, Operation operation)
+    public void Run(CancellationTokenSource cancellationTokenSource, OperationContext context, Runnable operation)
     {
       Task.Run(async () =>
       {
@@ -34,11 +34,6 @@ namespace ComponentBasedTestTool.Domain.OperationStates
           context.Failure(e);
         }
       });
-    }
-
-    public void DependencyFulfilled(OperationContext operationViewModel)
-    {
-      
     }
   }
 }

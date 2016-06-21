@@ -7,7 +7,7 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
-  public class CatOperation : Operation
+  public class CatOperation : ComponentOperation
   {
     private readonly OperationsOutput _out;
     private OperationParameter<string> _filename;

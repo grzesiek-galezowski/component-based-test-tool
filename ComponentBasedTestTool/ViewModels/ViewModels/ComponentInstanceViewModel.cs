@@ -62,12 +62,12 @@ namespace ViewModels.ViewModels
       _operationViewModels.AddTo(operationsViewModel);
     }
 
-    public void AddOperation(string name, Operation operation, string dependencyName)
+    public void AddOperation(string name, ComponentOperation operation, string dependencyName)
     {
       _operationEntries.Add(name, operation, Maybe.From(dependencyName));
     }
 
-    public void AddOperation(string name, Operation operation)
+    public void AddOperation(string name, ComponentOperation operation)
     {
       _operationEntries.Add(name, operation, Maybe.Not);
     }

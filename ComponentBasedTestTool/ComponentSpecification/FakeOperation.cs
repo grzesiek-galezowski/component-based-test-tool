@@ -8,10 +8,10 @@ using NSubstitute;
 
 namespace ComponentSpecification
 {
-  public class FakeOperation : Operation
+  public class FakeOperation : ComponentOperation
   {
     private readonly List<Tuple<string, string>> _parameters = new List<Tuple<string, string>>();
-    private readonly Operation _mock = Substitute.For<Operation>();
+    private readonly Runnable _mock = Substitute.For<ComponentOperation>();
 
     public Task RunAsync(CancellationToken token)
     {

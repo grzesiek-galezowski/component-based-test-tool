@@ -7,7 +7,7 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
-  public class LsOperation : Operation
+  public class LsOperation : ComponentOperation
   {
     private readonly OperationsOutput _out;
     private OperationParameter<string> _directory;

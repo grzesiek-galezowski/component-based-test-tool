@@ -5,7 +5,7 @@ namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public class InProgressOperationState : OperationState
   {
-    public void Start(OperationContext context, Operation operation)
+    public void Start(OperationContext context, Runnable operation)
     {
       // Method intentionally left empty.
     }

@@ -6,7 +6,7 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
-  public class WaitOperation : Operation
+  public class WaitOperation : ComponentOperation
   {
     private readonly OperationsOutput _out;
     private OperationParameter<TimeSpan> _time;

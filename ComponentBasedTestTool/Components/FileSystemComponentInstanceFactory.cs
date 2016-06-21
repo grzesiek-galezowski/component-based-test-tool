@@ -15,7 +15,7 @@ namespace Components
 
     public void AddTo(ComponentsList components)
     {
-      components.Add("Filesystem", this);
+      components.Add("Filesystem", "Performs various filesystem operations", this);
     }
   }
 
