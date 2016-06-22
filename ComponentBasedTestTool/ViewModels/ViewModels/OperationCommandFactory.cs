@@ -53,5 +53,14 @@ namespace ViewModels.ViewModels
       _operation.Stop();
       _waitingForStart = true;
     }
+
+    public void ContinueIfNeeded()
+    {
+      if (_waitingForStart)
+      {
+        _waitingForStart = false;
+        _operation.Start(_operationViewModel);
+      }
+    }
   }
 }

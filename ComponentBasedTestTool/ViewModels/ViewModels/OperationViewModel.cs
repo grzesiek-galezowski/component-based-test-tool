@@ -147,6 +147,7 @@ namespace ViewModels.ViewModels
     public void Stopped()
     {
       _operationStateMachine.Stopped(this);
+      RestartOperationCommand.ContinueIfNeeded();
     }
 
     public void Failure(Exception exception)
