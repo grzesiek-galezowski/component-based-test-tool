@@ -9,34 +9,39 @@ namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public sealed class RunnableOperationState : OperationState
   {
-    public RunnableOperationState()
+    private readonly BackgroundTasks _backgroundTasks;
+
+    public RunnableOperationState(BackgroundTasks backgroundTasks)
     {
+      _backgroundTasks = backgroundTasks;
     }
 
     public void Start(OperationContext context, Runnable operation)
     {
-      Run(new CancellationTokenSource(), context, operation);
+      _backgroundTasks.Launch(PerformRun, context, operation);
     }
 
-    private static void Run(CancellationTokenSource cancellationTokenSource, OperationContext context, Runnable operation)
+    private static async Task PerformRun(CancellationTokenSource cancellationTokenSource, OperationContext context,
+      Runnable operation)
     {
-      Task.Run(async () =>
+      try
       {
-        try
-        {
-          context.InProgress(cancellationTokenSource);
-          await operation.RunAsync(cancellationTokenSource.Token).ConfigureAwait(false);
-          context.Success();
-        }
-        catch (OperationCanceledException)
-        {
-          context.Stopped();
-        }
-        catch (Exception e)
-        {
-          context.Failure(e);
-        }
-      });
+        context.InProgress(cancellationTokenSource);
+        await operation.RunAsync(cancellationTokenSource.Token).ConfigureAwait(false);
+        context.Success();
+      }
+      catch (OperationCanceledException)
+      {
+        context.Stopped();
+      }
+      catch (Exception e)
+      {
+        context.Failure(e);
+      }
+      finally
+      {
+        cancellationTokenSource.Dispose();
+      }
     }
 
     public void DependencyFulfilled(OperationContext operationViewModel)

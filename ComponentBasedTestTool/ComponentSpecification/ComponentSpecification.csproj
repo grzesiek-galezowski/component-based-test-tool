@@ -53,17 +53,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentBasedTestToolDriver.cs" />
+    <Compile Include="AutomationLayer\ComponentBasedTestToolDriver.cs" />
+    <Compile Include="AutomationLayer\SynchronousTasks.cs" />
     <Compile Include="DisplayingSpecification.cs" />
-    <Compile Include="FakeComponentInstance.cs" />
-    <Compile Include="FakeComponentsView.cs" />
-    <Compile Include="FakeInstancesView.cs" />
-    <Compile Include="FakeOperation.cs" />
-    <Compile Include="FakeOperationsView.cs" />
-    <Compile Include="FakePropertiesView.cs" />
-    <Compile Include="FakeTestComponent.cs" />
-    <Compile Include="FakeTestComponentSource.cs" />
-    <Compile Include="FakeTestComponents.cs" />
+    <Compile Include="AutomationLayer\FakeComponentInstance.cs" />
+    <Compile Include="AutomationLayer\FakeComponentsView.cs" />
+    <Compile Include="AutomationLayer\FakeInstancesView.cs" />
+    <Compile Include="AutomationLayer\FakeOperation.cs" />
+    <Compile Include="AutomationLayer\FakeOperationsView.cs" />
+    <Compile Include="AutomationLayer\FakePropertiesView.cs" />
+    <Compile Include="AutomationLayer\FakeTestComponent.cs" />
+    <Compile Include="AutomationLayer\FakeTestComponentSource.cs" />
+    <Compile Include="AutomationLayer\FakeTestComponents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +111,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

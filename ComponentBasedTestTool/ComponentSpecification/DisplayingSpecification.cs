@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using ComponentSpecification.AutomationLayer;
 using NUnit.Framework;
 using TddEbook.TddToolkit;
 

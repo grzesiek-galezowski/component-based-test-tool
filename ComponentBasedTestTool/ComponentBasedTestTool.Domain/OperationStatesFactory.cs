@@ -5,6 +5,13 @@ namespace ComponentBasedTestTool.Domain
 {
   public class OperationStatesFactory
   {
+    private readonly BackgroundTasks _backgroundTasks;
+
+    public OperationStatesFactory(BackgroundTasks backgroundTasks)
+    {
+      _backgroundTasks = backgroundTasks;
+    }
+
     public OperationState Unavailable()
     {
       return new UnavailableOperationState();
@@ -17,7 +24,7 @@ namespace ComponentBasedTestTool.Domain
 
     public OperationState RunnableState()
     {
-      return new RunnableOperationState();
+      return new RunnableOperationState(_backgroundTasks);
     }
   }
 }

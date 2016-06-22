@@ -2,7 +2,7 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using NSubstitute;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class FakeTestComponentSource
   {

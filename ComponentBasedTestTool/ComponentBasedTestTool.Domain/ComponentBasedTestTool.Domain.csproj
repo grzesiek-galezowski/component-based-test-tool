@@ -44,6 +44,7 @@
     <Compile Include="DefaultOperationStateMachine.cs" />
     <Compile Include="OperationState.cs" />
     <Compile Include="OperationStatesFactory.cs" />
+    <Compile Include="OperationStates\AsyncBasedBackgroundTasks.cs" />
     <Compile Include="OperationStates\RunnableOperationState.cs" />
     <Compile Include="OperationStates\InProgressOperationState.cs" />
     <Compile Include="OperationStates\UnavailableOperationState.cs" />

@@ -4,6 +4,7 @@ using System.Composition.Hosting;
 using System.Linq;
 using System.Windows;
 using ComponentBasedTestTool.Annotations;
+using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading;
@@ -22,7 +23,11 @@ namespace ComponentBasedTestTool
     {
       base.OnStartup(e);
 
-      DefaultApplicationLoop.Start(new MainWindow(), new ExecutingAssemblyFolder(), new WpfApplicationContext());
+      DefaultApplicationLoop.Start(
+        new MainWindow(), 
+        new ExecutingAssemblyFolder(), 
+        new WpfApplicationContext(), 
+        new AsyncBasedBackgroundTasks());
     }
   }
 }

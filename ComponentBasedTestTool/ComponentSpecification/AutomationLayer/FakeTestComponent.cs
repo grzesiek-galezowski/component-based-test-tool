@@ -1,7 +1,7 @@
 using System.Linq;
 using ViewModels.ViewModels;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class FakeTestComponent
   {

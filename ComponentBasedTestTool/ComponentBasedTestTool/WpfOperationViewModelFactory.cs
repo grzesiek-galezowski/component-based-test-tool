@@ -11,10 +11,12 @@ namespace ComponentBasedTestTool
   public class WpfOperationViewModelFactory : OperationViewModelFactory
   {
     private readonly ApplicationContext _applicationContext;
+    private readonly BackgroundTasks _backgroundTasks;
 
-    public WpfOperationViewModelFactory(ApplicationContext applicationContext)
+    public WpfOperationViewModelFactory(ApplicationContext applicationContext, BackgroundTasks backgroundTasks)
     {
       _applicationContext = applicationContext;
+      _backgroundTasks = backgroundTasks;
     }
 
     public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry)
@@ -46,11 +48,11 @@ namespace ComponentBasedTestTool
     private OperationCommandFactory AllowingCommandExecution() => 
       new OperationCommandFactory(_applicationContext);
 
-    private static DefaultOperationStateMachine StateMachineFor(OperationEntry o)
+    private DefaultOperationStateMachine StateMachineFor(OperationEntry o)
     {
       return new DefaultOperationStateMachine(
         o.Operation,
-        new UnavailableOperationState(), new OperationStatesFactory());
+        new UnavailableOperationState(), new OperationStatesFactory(_backgroundTasks));
     }
   }
 }

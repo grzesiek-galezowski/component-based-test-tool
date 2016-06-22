@@ -1,10 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
 using NUnit.Framework;
 using ViewModels.ViewModels;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class FakePropertiesView
   {

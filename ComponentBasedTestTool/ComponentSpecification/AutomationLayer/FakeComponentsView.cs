@@ -2,7 +2,7 @@ using System.Linq;
 using NUnit.Framework;
 using ViewModels.ViewModels;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class FakeComponentsView
   {

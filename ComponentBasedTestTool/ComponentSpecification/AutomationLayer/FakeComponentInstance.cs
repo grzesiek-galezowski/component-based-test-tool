@@ -4,7 +4,7 @@ using System.Linq;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class FakeComponentInstance : TestComponent
   {

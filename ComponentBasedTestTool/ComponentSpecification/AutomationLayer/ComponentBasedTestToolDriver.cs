@@ -1,8 +1,5 @@
 using System;
-using System.Linq;
-using System.Reflection;
 using ComponentBasedTestTool;
-using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
@@ -12,7 +9,7 @@ using NSubstitute.Core;
 using NUnit.Framework;
 using ViewModels.ViewModels;
 
-namespace ComponentSpecification
+namespace ComponentSpecification.AutomationLayer
 {
   public class ComponentBasedTestToolDriver : ApplicationBootstrap
   {
@@ -54,7 +51,11 @@ namespace ComponentSpecification
 
       pluginLocation.LoadComponentRoots().Returns(new[] {componentRoot});
 
-      DefaultApplicationLoop.Start(bootstrap, pluginLocation, new FakeApplicationContext());
+      DefaultApplicationLoop.Start(
+        bootstrap, 
+        pluginLocation, 
+        new FakeApplicationContext(), 
+        new SynchronousTasks());
     }
 
     private Action<CallInfo> AddConfiguredComponents()

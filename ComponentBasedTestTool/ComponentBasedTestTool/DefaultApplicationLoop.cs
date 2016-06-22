@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Input;
 using System.Xml.Linq;
+using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
@@ -17,16 +18,19 @@ namespace ComponentBasedTestTool
   {
     public static void Start(
       ApplicationBootstrap bootstrap, 
-      ComponentLocation componentLocation, ApplicationContext applicationContext)
+      ComponentLocation componentLocation, 
+      ApplicationContext applicationContext, 
+      BackgroundTasks backgroundTasks)
     {
-      Configure(componentLocation, bootstrap, applicationContext);
+      Configure(componentLocation, bootstrap, applicationContext, backgroundTasks);
       bootstrap.Start();
     }
 
     private static void Configure(
       ComponentLocation componentLocation, 
       ApplicationBootstrap bootstrap, 
-      ApplicationContext applicationContext)
+      ApplicationContext applicationContext, 
+      BackgroundTasks backgroundTasks)
     {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
@@ -37,7 +41,7 @@ namespace ComponentBasedTestTool
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext));
+          new WpfOperationViewModelFactory(applicationContext, backgroundTasks));
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var topMenuBarViewModel = new TopMenuBarViewModel(
