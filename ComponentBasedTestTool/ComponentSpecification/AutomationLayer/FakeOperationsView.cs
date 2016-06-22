@@ -1,5 +1,6 @@
 using System.Linq;
 using NUnit.Framework;
+using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
 
 namespace ComponentSpecification.AutomationLayer
@@ -38,6 +39,16 @@ namespace ComponentSpecification.AutomationLayer
     public void ExecuteSelectedOperation()
     {
       _operationsViewModel.SelectedOperation.RunOperationCommand.Execute(null);
+    }
+
+    public void AssertSelectedOperationIsDisplayedAsStopped()
+    {
+      XAssert.Equal("Stopped", _operationsViewModel.SelectedOperation.State);
+    }
+
+    public void AssertSelectedOperationIsDisplayedAsSuccessful()
+    {
+      XAssert.Equal("Success", _operationsViewModel.SelectedOperation.State);
     }
   }
 }

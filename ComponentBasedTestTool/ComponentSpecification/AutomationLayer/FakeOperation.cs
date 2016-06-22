@@ -6,6 +6,7 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using NSubstitute;
 using NSubstitute.Core;
+using NSubstitute.ExceptionExtensions;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -13,11 +14,9 @@ namespace ComponentSpecification.AutomationLayer
   {
     private readonly List<Tuple<string, string>> _parameters = new List<Tuple<string, string>>();
     private readonly Runnable _mock = Substitute.For<ComponentOperation>();
-    private Maybe<CancellationToken> _lastRunToken = new Maybe<CancellationToken>();
 
     public Task RunAsync(CancellationToken token)
     {
-      _lastRunToken = Maybe.Just(token);
       return _mock.RunAsync(token);
     }
 
@@ -45,9 +44,20 @@ namespace ComponentSpecification.AutomationLayer
       
     }
 
-    public void AssertWasRun()
+    public void AssertWasRun(int count)
     {
-      _mock.Received(1).RunAsync(_lastRunToken.ValueOr(() => {throw new Exception("No token remembered");}));
+      _mock.Received(count).RunAsync(Arg.Any<CancellationToken>());
+    }
+
+    public void BehaveAsStoppedOnce()
+    {
+      _mock.RunAsync(Arg.Any<CancellationToken>()).Returns(
+        ci => {throw new TaskCanceledException();}, ci => { return Task.CompletedTask; });
+    }
+
+    public void BehaveAsSuccessfulOnce()
+    {
+      _mock.When(m => m.RunAsync(Arg.Any<CancellationToken>())).Do(ci => { });
     }
   }
 }

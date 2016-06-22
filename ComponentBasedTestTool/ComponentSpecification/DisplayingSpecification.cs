@@ -76,9 +76,9 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var operationName11 = Any.String(OperationNameSeed);
-      var operationName12 = Any.String(OperationNameSeed);
+      var componentName1 = AnyComponentName();
+      var operationName11 = AnyOperationName();
+      var operationName12 = AnyOperationName();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -100,12 +100,12 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var operationName11 = Any.String(OperationNameSeed);
-      var operationName12 = Any.String(OperationNameSeed);
-      var componentName2 = Any.String(ComponentNameSeed);
-      var component2Operation1 = Any.String(OperationNameSeed);
-      var component2Operation2 = Any.String(OperationNameSeed);
+      var componentName1 = AnyComponentName();
+      var operationName11 = AnyOperationName();
+      var operationName12 = AnyOperationName();
+      var componentName2 = AnyComponentName();
+      var component2Operation1 = AnyOperationName();
+      var component2Operation2 = AnyOperationName();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -132,12 +132,12 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var operationName11 = Any.String(OperationNameSeed);
-      var parameterName1 = Any.String(ParameterNameSeed);
-      var parameterValue1 = Any.String(ParameterValueSeed);
-      var parameterName2 = Any.String(ParameterNameSeed);
-      var parameterValue2 = Any.String(ParameterValueSeed);
+      var componentName1 = AnyComponentName();
+      var operationName11 = AnyOperationName();
+      var parameterName1 = AnyParameterName();
+      var parameterValue1 = AnyParameterValue();
+      var parameterName2 = AnyParameterName();
+      var parameterValue2 = AnyParameterValue();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -164,13 +164,13 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var operationName11 = Any.String(OperationNameSeed);
-      var operationName12 = Any.String(OperationNameSeed);
-      var parameterName1 = Any.String(ParameterNameSeed);
-      var parameterValue1 = Any.String(ParameterValueSeed);
-      var parameterName2 = Any.String(ParameterNameSeed);
-      var parameterValue2 = Any.String(ParameterValueSeed);
+      var componentName1 = AnyComponentName();
+      var operationName11 = AnyOperationName();
+      var operationName12 = AnyOperationName();
+      var parameterName1 = AnyParameterName();
+      var parameterValue1 = AnyParameterValue();
+      var parameterName2 = AnyParameterName();
+      var parameterValue2 = AnyParameterValue();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
@@ -195,13 +195,23 @@ namespace ComponentSpecification
       );
     }
 
+    private static string AnyParameterValue()
+    {
+      return Any.String(ParameterValueSeed);
+    }
+
+    private static string AnyParameterName()
+    {
+      return Any.String(ParameterNameSeed);
+    }
+
     [Test]
     public void ShouldExecuteLoadedOperationWhenTriggeredFromView()
     {
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
-      var componentName1 = Any.String(ComponentNameSeed);
-      var operationName11 = Any.String(OperationNameSeed);
+      var componentName1 = AnyComponentName();
+      var operationName11 = AnyOperationName();
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11);
@@ -218,6 +228,69 @@ namespace ComponentSpecification
       context.Operations.AssertWasRun(operationName11);
     }
 
+    [Test]
+    public void ShouldDisplayStoppedOperation()
+    {
+      //GIVEN
+      var context = new ComponentBasedTestToolDriver();
+      var componentName1 = AnyComponentName();
+      var operationName = AnyOperationName();
+
+      context.ComponentsSetup.Add(componentName1)
+        .WithOperation(operationName);
+
+
+      context.StartApplication();
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.InstancesView.Select(componentName1);
+      context.OperationsView.Select(operationName);
+
+      context.Operations.BehaveAsStoppedOnce(operationName);
+
+      //WHEN
+      context.OperationsView.ExecuteSelectedOperation();
+
+      //THEN
+      context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped();
+    }
+
+    [Test]
+    public void ShouldAllowExecutingPreviouslyStoppedOperation()
+    {
+      //GIVEN
+      var context = new ComponentBasedTestToolDriver();
+      var componentName1 = AnyComponentName();
+      var operationName = AnyOperationName();
+
+      context.ComponentsSetup.Add(componentName1)
+        .WithOperation(operationName);
+
+      context.StartApplication();
+      context.ComponentsView.AddInstanceOf(componentName1);
+      context.InstancesView.Select(componentName1);
+      context.OperationsView.Select(operationName);
+
+      context.Operations.BehaveAsStoppedOnce(operationName);
+      context.OperationsView.ExecuteSelectedOperation();
+
+      //WHEN
+      context.Operations.BehaveAsSuccessfulOnce(operationName);
+      context.OperationsView.ExecuteSelectedOperation();
+
+      //THEN
+      context.Operations.AssertWasRun(operationName, 2);
+      context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
+    }
+
+    private static string AnyOperationName()
+    {
+      return Any.String(OperationNameSeed);
+    }
+
+    private static string AnyComponentName()
+    {
+      return Any.String(ComponentNameSeed);
+    }
 
 
     private static KeyValuePair<string, string> Property(string parameterName1, string parameterValue1)

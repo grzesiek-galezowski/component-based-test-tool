@@ -7,6 +7,7 @@ using ExtensionPoints.ImplementedByContext;
 using NSubstitute;
 using NSubstitute.Core;
 using NUnit.Framework;
+using NUnit.Framework.Api;
 using ViewModels.ViewModels;
 
 namespace ComponentSpecification.AutomationLayer
@@ -128,11 +129,24 @@ namespace ComponentSpecification.AutomationLayer
       _componentsSetup = componentsSetup;
     }
 
-    public void AssertWasRun(string operationName)
+    public void AssertWasRun(string operationName, int count = 1)
     {
       _componentsSetup
         .RetrieveOperation(_instanceName, operationName)
-        .AssertWasRun();
+        .AssertWasRun(count);
+    }
+
+    public void BehaveAsStoppedOnce(string operationName)
+    {
+      _componentsSetup.RetrieveOperation(_instanceName, operationName)
+        .BehaveAsStoppedOnce();
+    }
+
+    public void BehaveAsSuccessfulOnce(string operationName)
+    {
+      _componentsSetup.RetrieveOperation(_instanceName, operationName)
+        .BehaveAsSuccessfulOnce();
+
     }
   }
 }
