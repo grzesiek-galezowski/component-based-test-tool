@@ -9,39 +9,16 @@ namespace ComponentBasedTestTool.Domain.OperationStates
 {
   public sealed class RunnableOperationState : OperationState
   {
-    private readonly BackgroundTasks _backgroundTasks;
+    private readonly BackgroundTasks _inBackground;
 
     public RunnableOperationState(BackgroundTasks backgroundTasks)
     {
-      _backgroundTasks = backgroundTasks;
+      _inBackground = backgroundTasks;
     }
 
     public void Start(OperationContext context, Runnable operation)
     {
-      _backgroundTasks.Launch(PerformRun, context, operation);
-    }
-
-    private static async Task PerformRun(CancellationTokenSource cancellationTokenSource, OperationContext context,
-      Runnable operation)
-    {
-      try
-      {
-        context.InProgress(cancellationTokenSource);
-        await operation.RunAsync(cancellationTokenSource.Token).ConfigureAwait(false);
-        context.Success();
-      }
-      catch (OperationCanceledException)
-      {
-        context.Stopped();
-      }
-      catch (Exception e)
-      {
-        context.Failure(e);
-      }
-      finally
-      {
-        cancellationTokenSource.Dispose();
-      }
+      _inBackground.Run(operation, context);
     }
 
     public void DependencyFulfilled(OperationContext operationViewModel)

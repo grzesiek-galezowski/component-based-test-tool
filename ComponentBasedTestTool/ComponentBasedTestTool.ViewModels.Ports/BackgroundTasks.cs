@@ -1,11 +1,9 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using ExtensionPoints.ImplementedByComponents;
 
-namespace ComponentBasedTestTool.Domain.OperationStates
+namespace ComponentBasedTestTool.ViewModels.Ports
 {
   public interface BackgroundTasks
   {
-    void Launch<T2, T3>(Func<CancellationTokenSource, T2, T3, Task> func, T2 arg2, T3 arg3);
+    void Run(Runnable operation, OperationContext context);
   }
 }

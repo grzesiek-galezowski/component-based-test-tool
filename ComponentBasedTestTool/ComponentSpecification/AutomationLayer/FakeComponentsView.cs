@@ -1,6 +1,6 @@
 using System.Linq;
-using NUnit.Framework;
 using ViewModels.ViewModels;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -15,7 +15,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public void AssertExactlyTheFollowingAreLoaded(params string[] names)
     {
-      Assert.AreEqual(names.Count(), _componentsViewModel.TestComponents.Count);
+      Assert.Equal(names.Count(), _componentsViewModel.TestComponents.Count);
       foreach (var name in names)
       {
         Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name == name),

@@ -1,7 +1,7 @@
 using System.Linq;
-using NUnit.Framework;
 using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -16,7 +16,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public void AssertShowsExactly(params string[] operationNames)
     {
-      CollectionAssert.AreEqual(
+      Assert.Equal(
         operationNames, 
         _operationsViewModel.Operations.Select(o => o.Name).ToArray());
     }
@@ -49,6 +49,11 @@ namespace ComponentSpecification.AutomationLayer
     public void AssertSelectedOperationIsDisplayedAsSuccessful()
     {
       XAssert.Equal("Success", _operationsViewModel.SelectedOperation.State);
+    }
+
+    public void AssertSelectedOperationIsDisplayedAsInProgress()
+    {
+      XAssert.Equal("In Progress", _operationsViewModel.SelectedOperation.State);
     }
   }
 }

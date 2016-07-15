@@ -48,16 +48,5 @@ namespace ComponentSpecification.AutomationLayer
     {
       _mock.Received(count).RunAsync(Arg.Any<CancellationToken>());
     }
-
-    public void BehaveAsStoppedOnce()
-    {
-      _mock.RunAsync(Arg.Any<CancellationToken>()).Returns(
-        ci => {throw new TaskCanceledException();}, ci => { return Task.CompletedTask; });
-    }
-
-    public void BehaveAsSuccessfulOnce()
-    {
-      _mock.When(m => m.RunAsync(Arg.Any<CancellationToken>())).Do(ci => { });
-    }
   }
 }

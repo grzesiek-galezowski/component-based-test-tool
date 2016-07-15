@@ -1,14 +1,14 @@
 using System;
 using ComponentBasedTestTool;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using NSubstitute;
 using NSubstitute.Core;
-using NUnit.Framework;
-using NUnit.Framework.Api;
 using ViewModels.ViewModels;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -21,6 +21,7 @@ namespace ComponentSpecification.AutomationLayer
     private OperationPropertiesViewModel _operationPropertiesViewModel;
     private OperationsOutputViewModel _operationsOutputViewModel;
     private OperationsViewModel _operationsViewModel;
+    private Maybe<OperationContext> _runningOperationContext = Maybe.Nothing<OperationContext>();
 
     public ComponentBasedTestToolDriver()
     {
@@ -32,14 +33,14 @@ namespace ComponentSpecification.AutomationLayer
     public FakeInstancesView InstancesView => new FakeInstancesView(_componentInstancesViewModel);
     public FakeOperationsView OperationsView => new FakeOperationsView(_operationsViewModel);
     public FakePropertiesView PropertiesView => new FakePropertiesView(_operationPropertiesViewModel);
-    public FakeOperationAssertions Operations => new FakeOperationAssertions(
+    public FakeOperationsState Operations => new FakeOperationsState(
       _componentInstancesViewModel.SelectedInstance.InstanceName,
       _operationsViewModel.SelectedOperation.Name,
-      ComponentsSetup);
+      ComponentsSetup, _runningOperationContext);
 
     public void AssertNoComponentsAreLoaded()
     {
-      Assert.AreEqual(0, _componentsViewModel.TestComponents.Count);
+      Assert.Equal(0, _componentsViewModel.TestComponents.Count);
     }
 
     public void StartApplication()
@@ -56,7 +57,12 @@ namespace ComponentSpecification.AutomationLayer
         bootstrap, 
         pluginLocation, 
         new FakeApplicationContext(), 
-        new SynchronousTasks());
+        new SynchronousTasks(SetRunningOperationContext));
+    }
+
+    private void SetRunningOperationContext(OperationContext context)
+    {
+      _runningOperationContext = Maybe.Just(context);
     }
 
     private Action<CallInfo> AddConfiguredComponents()
@@ -113,29 +119,29 @@ namespace ComponentSpecification.AutomationLayer
     }
   }
 
-  public class FakeOperationAssertions
+  public class FakeOperationsState
   {
     private readonly string _instanceName;
     private readonly string _operationName;
     private readonly FakeTestComponents _componentsSetup;
+    private readonly Maybe<OperationContext> _runningOperationContext;
 
-    public FakeOperationAssertions(
-      string instanceName, 
-      string operationName, 
-      FakeTestComponents componentsSetup)
+    public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<OperationContext> runningOperationContext)
     {
       _instanceName = instanceName;
       _operationName = operationName;
       _componentsSetup = componentsSetup;
+      _runningOperationContext = runningOperationContext;
     }
 
-    public void AssertWasRun(string operationName, int count = 1)
+    public void AssertWasRun(string operationName, int times = 1)
     {
       _componentsSetup
         .RetrieveOperation(_instanceName, operationName)
-        .AssertWasRun(count);
+        .AssertWasRun(times);
     }
 
+    /*
     public void BehaveAsStoppedOnce(string operationName)
     {
       _componentsSetup.RetrieveOperation(_instanceName, operationName)
@@ -147,6 +153,48 @@ namespace ComponentSpecification.AutomationLayer
       _componentsSetup.RetrieveOperation(_instanceName, operationName)
         .BehaveAsSuccessfulOnce();
 
+    }*/
+
+    public void StopRunningOperation()
+    {
+      if (_runningOperationContext.HasValue())
+      {
+        _runningOperationContext.ValueOrDefault().Stopped();
+      }
+      else
+      {
+        throw new NoOperationRunningException();
+      }
+
     }
+
+    public void SucceedRunningOperation()
+    {
+      if (_runningOperationContext.HasValue())
+      {
+        _runningOperationContext.ValueOrDefault().Success();
+      }
+      else
+      {
+        throw new NoOperationRunningException();
+      }
+
+    }
+
+    public void Fail(Exception e)
+    {
+      if (_runningOperationContext.HasValue())
+      {
+        _runningOperationContext.ValueOrDefault().Failure(e);
+      }
+      else
+      {
+        throw new NoOperationRunningException();
+      }
+    }
+  }
+
+  public class NoOperationRunningException : Exception
+  {
   }
 }

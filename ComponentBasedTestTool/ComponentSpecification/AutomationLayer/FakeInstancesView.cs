@@ -1,6 +1,7 @@
 using System.Linq;
-using NUnit.Framework;
+using FluentAssertions;
 using ViewModels.ViewModels;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -17,9 +18,8 @@ namespace ComponentSpecification.AutomationLayer
     {
       var count = _componentInstancesViewModel.ComponentInstances
         .Count(c => c.InstanceName == componentName);
-      Assert.AreEqual(
-        expectedCount,
-        count, $"Instances count of component {componentName} is not as expected");
+      
+      expectedCount.Should().Be(count, $"Instances count of component {componentName} is not as expected");
     }
 
     public void Select(string name)

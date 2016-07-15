@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Threading;
 using ComponentSpecification.AutomationLayer;
-using NUnit.Framework;
 using TddEbook.TddToolkit;
+using Xunit;
+
+// ReSharper disable ArgumentsStyleLiteral
 
 namespace ComponentSpecification
 {
@@ -14,7 +16,7 @@ namespace ComponentSpecification
     private const string ParameterNameSeed = "ParameterName";
     private const string ParameterValueSeed = "ParameterValue";
 
-    [Test]
+    [Fact]
     public void ShouldShowNoComponentWhenNoComponentWasLoaded()
     {
       //GIVEN
@@ -27,7 +29,7 @@ namespace ComponentSpecification
       context.AssertNoComponentsAreLoaded();
     }
 
-    [Test]
+    [Fact]
     public void ShouldShowTheNamesOfTheAddedComponents()
     {
       //GIVEN
@@ -46,7 +48,7 @@ namespace ComponentSpecification
         .AssertExactlyTheFollowingAreLoaded(componentName1, componentName2, componentName3);
     }
 
-    [Test] //note one step further- maybe nested contexts?
+    [Fact] //note one step further- maybe nested contexts?
     public void ShouldShowNameOfTheAddedInstances()
     {
       //GIVEN
@@ -70,7 +72,7 @@ namespace ComponentSpecification
       context.InstancesView.AssertShowsExactlyTheFollowingInstances(componentName3, 0);
     }
 
-    [Test]
+    [Fact]
     public void ShouldShowNamesOfOperationsOfTheInitiallySelectedComponentInstance()
     {
       //GIVEN
@@ -94,7 +96,7 @@ namespace ComponentSpecification
       context.OperationsView.AssertShowsExactly(operationName11, operationName12);
     }
 
-    [Test]
+    [Fact]
     public void ShouldShowNamesOfOperationsOfTheLastSelectedComponentInstance()
     {
       //GIVEN
@@ -126,7 +128,7 @@ namespace ComponentSpecification
       context.OperationsView.AssertShowsExactly(component2Operation1, component2Operation2);
     }
 
-    [Test]
+    [Fact]
     public void ShouldShowPropertiesOfInitialSelectedOperations()
     {
       //GIVEN
@@ -158,7 +160,7 @@ namespace ComponentSpecification
       );
     }
 
-    [Test]
+    [Fact]
     public void ShouldShowPropertiesOfLastSelectedOperations()
     {
       //GIVEN
@@ -205,7 +207,7 @@ namespace ComponentSpecification
       return Any.String(ParameterNameSeed);
     }
 
-    [Test]
+    [Fact]
     public void ShouldExecuteLoadedOperationWhenTriggeredFromView()
     {
       //GIVEN
@@ -223,12 +225,15 @@ namespace ComponentSpecification
 
       //WHEN
       context.OperationsView.ExecuteSelectedOperation();
+      context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress();
+      context.Operations.SucceedRunningOperation();
+      context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
 
       //THEN
       context.Operations.AssertWasRun(operationName11);
     }
 
-    [Test]
+    [Fact]
     public void ShouldDisplayStoppedOperation()
     {
       //GIVEN
@@ -239,22 +244,20 @@ namespace ComponentSpecification
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName);
 
-
       context.StartApplication();
       context.ComponentsView.AddInstanceOf(componentName1);
       context.InstancesView.Select(componentName1);
       context.OperationsView.Select(operationName);
 
-      context.Operations.BehaveAsStoppedOnce(operationName);
-
       //WHEN
       context.OperationsView.ExecuteSelectedOperation();
+      context.Operations.StopRunningOperation();
 
       //THEN
       context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped();
     }
 
-    [Test]
+    [Fact]
     public void ShouldAllowExecutingPreviouslyStoppedOperation()
     {
       //GIVEN
@@ -270,24 +273,24 @@ namespace ComponentSpecification
       context.InstancesView.Select(componentName1);
       context.OperationsView.Select(operationName);
 
-      context.Operations.BehaveAsStoppedOnce(operationName);
       context.OperationsView.ExecuteSelectedOperation();
+      context.Operations.StopRunningOperation();
 
       //WHEN
-      context.Operations.BehaveAsSuccessfulOnce(operationName);
       context.OperationsView.ExecuteSelectedOperation();
+      context.Operations.SucceedRunningOperation();
 
       //THEN
-      context.Operations.AssertWasRun(operationName, 2);
+      context.Operations.AssertWasRun(operationName, times: 2);
       context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
     }
 
-    private static string AnyOperationName()
+    public static string AnyOperationName()
     {
       return Any.String(OperationNameSeed);
     }
 
-    private static string AnyComponentName()
+    public static string AnyComponentName()
     {
       return Any.String(ComponentNameSeed);
     }

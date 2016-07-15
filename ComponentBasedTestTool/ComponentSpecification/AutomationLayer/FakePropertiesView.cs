@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using ViewModels.ViewModels;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -28,7 +28,7 @@ namespace ComponentSpecification.AutomationLayer
       var existingPropertiesType = propertiesSetOnViewModel.GetType();
       var propertyInfo = existingPropertiesType.GetProperty(expectedProperty.Key);
       Assert.NotNull(propertyInfo);
-      Assert.AreEqual(expectedProperty.Value, propertyInfo.GetValue(propertiesSetOnViewModel));
+      Assert.Equal(expectedProperty.Value, propertyInfo.GetValue(propertiesSetOnViewModel));
     }
   }
 }

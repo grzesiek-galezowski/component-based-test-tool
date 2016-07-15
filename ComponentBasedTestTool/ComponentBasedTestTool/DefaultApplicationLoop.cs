@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Windows.Input;
 using System.Xml.Linq;
 using ComponentBasedTestTool.Domain.OperationStates;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;

@@ -1,5 +1,6 @@
 using System.Threading;
 using ComponentBasedTestTool.Domain.OperationStates;
+using ComponentBasedTestTool.ViewModels.Ports;
 
 namespace ComponentBasedTestTool.Domain
 {
