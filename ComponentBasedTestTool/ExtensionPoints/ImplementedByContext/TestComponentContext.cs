@@ -22,5 +22,6 @@ namespace ExtensionPoints.ImplementedByContext
   public interface TestComponentContext
   {
     OperationsOutput CreateOutFor(string operationName);
+    
   }
 }

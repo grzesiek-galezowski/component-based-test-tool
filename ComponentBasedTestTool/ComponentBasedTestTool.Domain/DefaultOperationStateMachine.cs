@@ -8,9 +8,11 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain
 {
-  
+  public interface OperationStateMachine : OperationSignals, OperationStateObserver
+  {
+  }
 
-  public class DefaultOperationStateMachine : OperationSignals
+  public class DefaultOperationStateMachine : OperationStateMachine
   {
     private readonly List<OperationDependencyObserver> _observers;
     private readonly Runnable _operation;
@@ -64,7 +66,7 @@ namespace ComponentBasedTestTool.Domain
 
       _operationState = _operationStatesFactory.InProgress(cancellationTokenSource);
     }
-    void OperationSignals.Start(OperationContext context)
+    void OperationControl.Start(OperationContext context)
     {
       _operationState.Start(context, _operation);
     }
@@ -89,7 +91,7 @@ namespace ComponentBasedTestTool.Domain
       }
     }
 
-    void OperationSignals.Stop()
+    void OperationControl.Stop()
     {
       _operationState.Stop();
     }
@@ -98,6 +100,13 @@ namespace ComponentBasedTestTool.Domain
     {
       context.NotifyonCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
       _operationState = _operationStatesFactory.RunnableState();
+    }
+
+    public static DefaultOperationStateMachine StateMachineFor(Runnable componentOperation, BackgroundTasks backgroundTasks)
+    {
+      return new DefaultOperationStateMachine(
+        componentOperation,
+        new UnavailableOperationState(), new OperationStatesFactory(backgroundTasks));
     }
   }
 

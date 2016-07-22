@@ -86,6 +86,10 @@
     <Compile Include="ViewModels\XmlConfigurationOutputBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj">
+      <Project>{6083D4FF-E00C-4B2D-B090-63183A46D371}</Project>
+      <Name>ComponentBasedTestTool.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">
       <Project>{ef47f4e3-07b5-44a8-9d69-2d83013716b7}</Project>
       <Name>ComponentBasedTestTool.ViewModels.Ports</Name>

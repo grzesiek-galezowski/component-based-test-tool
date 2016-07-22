@@ -13,11 +13,15 @@ namespace ComponentBasedTestTool.ViewModels.Ports
     void InProgress(OperationContext context, CancellationTokenSource cancellationTokenSource);
   }
 
-  public interface OperationSignals : OperationStateObserver
+  public interface OperationControl
+  {
+    void Start(OperationContext context);
+    void Stop();
+  }
+
+  public interface OperationSignals : OperationControl
   {
     void DependencyFulfilled(OperationContext context);
     void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer);
-    void Start(OperationContext context);
-    void Stop();
   }
 }
