@@ -19,6 +19,7 @@
       <ContextMenu x:Key="ItemContextMenu">
         <MenuItem Header="Save Settings" Command="{Binding Path=SaveComponentInstanceSettingsCommand}" Background="WhiteSmoke" />
         <MenuItem Header="Delete" Command="{Binding Path=DeleteComponentInstanceCommand}" Background="WhiteSmoke" />
+        <MenuItem Header="Custom UI" Command="{Binding Path=ShowCustomUiForComponentInstanceCommand}" Background="WhiteSmoke" />
       </ContextMenu>
     </ListView.Resources>
     <ListView.ItemContainerStyle>

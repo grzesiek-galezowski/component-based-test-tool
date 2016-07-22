@@ -1,10 +1,8 @@
-using System.Threading;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels;
-using ViewModels.ViewModels.Commands;
 
 namespace ComponentBasedTestTool
 {

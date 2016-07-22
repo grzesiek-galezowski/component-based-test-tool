@@ -6,5 +6,6 @@ namespace ExtensionPoints.ImplementedByComponents
   {
     void PopulateOperations(TestComponentOperationDestination ctx);
     void CreateOperations(TestComponentContext testComponentContext);
+    void ShowCustomUi();
   }
 }

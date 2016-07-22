@@ -1,22 +1,25 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using ComponentBasedTestTool.Views.Ports;
+using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
 {
   public class ComponentInstancesViewModel
   {
+    private readonly ApplicationContext _applicationContext; //bug consider holding in a commands factory instead
     private readonly OperationsViewModel _operationsViewModel;
-
-    private readonly ObservableCollection<ComponentInstanceViewModel> 
-      _componentInstances = new ObservableCollection<ComponentInstanceViewModel>();
 
     private ComponentInstanceViewModel _selectedInstance;
 
-    public ComponentInstancesViewModel(OperationsViewModel operationsViewModel)
+    public ComponentInstancesViewModel(ApplicationContext applicationContext, OperationsViewModel operationsViewModel)
     {
+      _applicationContext = applicationContext;
       _operationsViewModel = operationsViewModel;
     }
 
-    public ObservableCollection<ComponentInstanceViewModel> ComponentInstances => _componentInstances;
+    public ObservableCollection<ComponentInstanceViewModel> ComponentInstances { get; } 
+      = new ObservableCollection<ComponentInstanceViewModel>();
 
     public ComponentInstanceViewModel SelectedInstance
     {
@@ -25,7 +28,6 @@ namespace ViewModels.ViewModels
       {
         _selectedInstance = value;
         _selectedInstance.AddOperationsTo(_operationsViewModel);
-
       }
     }
 
@@ -43,4 +45,5 @@ namespace ViewModels.ViewModels
       fileBasedPersistentStorage.Save();
     }
   }
+
 }

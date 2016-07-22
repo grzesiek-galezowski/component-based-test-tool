@@ -55,7 +55,7 @@
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
-    <Compile Include="ViewModels\AddAllSelectedCommand.cs" />
+    <Compile Include="ViewModels\Commands\AddAllSelectedCommand.cs" />
     <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
     <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
@@ -77,8 +77,12 @@
     <Compile Include="ViewModels\OperationViewModelFactory.cs" />
     <Compile Include="ViewModels\OperationViewModels.cs" />
     <Compile Include="ViewModels\OutputFactory.cs" />
+    <Compile Include="ViewModels\Commands\RestoreWorkspaceCommand.cs" />
+    <Compile Include="ViewModels\RestoringOfSavedComponentsObserver.cs" />
+    <Compile Include="ViewModels\Commands\SaveWorkspaceCommand.cs" />
     <Compile Include="ViewModels\TestComponentViewModel.cs" />
     <Compile Include="ViewModels\TestComponentViewModelFactory.cs" />
+    <Compile Include="ViewModels\TopMenuBarViewModel.cs" />
     <Compile Include="ViewModels\XmlConfigurationOutputBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

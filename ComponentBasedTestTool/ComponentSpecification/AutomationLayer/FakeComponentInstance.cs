@@ -32,6 +32,11 @@ namespace ComponentSpecification.AutomationLayer
       
     }
 
+    public void ShowCustomUi()
+    {
+      throw new NotImplementedException();
+    }
+
     public void ConfigureOperationWithName(string operationName)
     {
       _operations.Add(Tuple.Create(operationName, new FakeOperation()));

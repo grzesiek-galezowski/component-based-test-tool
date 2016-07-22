@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.ViewModels.Commands
 {
   public class AddAllSelectedCommand : ICommand
   {

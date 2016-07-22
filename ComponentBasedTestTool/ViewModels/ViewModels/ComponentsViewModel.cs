@@ -8,6 +8,7 @@ using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
 {

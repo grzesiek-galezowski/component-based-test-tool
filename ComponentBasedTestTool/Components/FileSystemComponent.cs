@@ -1,4 +1,7 @@
-﻿using ExtensionPoints;
+﻿using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
+using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
@@ -33,6 +36,18 @@ namespace Components
       _cat = new CatOperation(ctx.CreateOutFor(CatName));
       _wait = new WaitOperation(ctx.CreateOutFor(SleepName));
       _configure = new ConfigureOperation(ctx.CreateOutFor(_configureName));
+    }
+
+    public void ShowCustomUi()
+    {
+        var option = MessageBox.Show("lol", "la", MessageBoxButton.YesNoCancel);
+        if (option == MessageBoxResult.Yes)
+        {
+          Dispatcher.CurrentDispatcher.InvokeAsync(async () =>
+          {
+            await _wait.RunAsync(new CancellationToken());
+          });
+        };
     }
   }
 }
