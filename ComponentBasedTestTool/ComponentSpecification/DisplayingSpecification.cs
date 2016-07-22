@@ -16,18 +16,6 @@ namespace ComponentSpecification
     private const string ParameterNameSeed = "ParameterName";
     private const string ParameterValueSeed = "ParameterValue";
 
-    [Fact]
-    public void ShouldShowNoComponentWhenNoComponentWasLoaded()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-
-      //WHEN
-      context.StartApplication();
-
-      //THEN
-      context.AssertNoComponentsAreLoaded();
-    }
 
     [Fact]
     public void ShouldShowTheNamesOfTheAddedComponents()

@@ -97,6 +97,7 @@
     <Compile Include="AutomationLayer\FakeTestComponent.cs" />
     <Compile Include="AutomationLayer\FakeTestComponentSource.cs" />
     <Compile Include="AutomationLayer\FakeTestComponents.cs" />
+    <Compile Include="GivenAnApplicationIsStartedWithNoComponentsAvailable.cs" />
     <Compile Include="GivenAnOperationIsStarted.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

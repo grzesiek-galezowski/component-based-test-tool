@@ -8,13 +8,12 @@ namespace ComponentSpecification
 {
   public class GivenAnOperationIsStarted
   {
-    private ComponentBasedTestToolDriver _context;
+    private readonly ComponentBasedTestToolDriver _context = new ComponentBasedTestToolDriver();
 
     [Background]
     public void Bg()
     {
       //GIVEN
-      _context = new ComponentBasedTestToolDriver();
       var componentName1 = AnyComponentName();
       var operationName = AnyOperationName();
 
