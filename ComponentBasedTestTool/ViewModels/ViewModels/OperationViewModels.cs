@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using ComponentBasedTestTool.Domain;
+using ComponentBasedTestTool.Domain.OperationStates;
 
 namespace ViewModels.ViewModels
 {
@@ -15,7 +17,7 @@ namespace ViewModels.ViewModels
     public static OperationViewModels CreateOperationViewModels(OperationViewModelFactory operationViewModelFactory, List<OperationEntry> operationEntries)
     {
       var operationViewModels = new OperationViewModels(operationEntries.Select(
-        operationViewModelFactory.CreateOperationViewModel).ToList());
+        operationEntry => operationViewModelFactory.CreateOperationViewModel(operationEntry, operationEntry.OperationStateMachine)).ToList());
       operationViewModels.ResolveDependencies();
 
       return operationViewModels;

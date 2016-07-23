@@ -15,16 +15,14 @@ namespace ViewModels.ViewModels
       _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
     }
 
-    public void AddOperation(string name, ComponentOperation operation, string dependencyName)
+    public void AddOperation(string name, OperationStateMachine operation, string dependencyName)
     {
-      _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
-      operation.StoreParameters(this);
+      operation.SaveUsing(this, name); //bug remove name from here and pass through constructor
     }
 
-    public void AddOperation(string name, ComponentOperation operation)
+    public void AddOperation(string name, OperationStateMachine operation)
     {
-      _xmlConfigurationOutputBuilder.AppendOperationNode(name, operation);
-      operation.StoreParameters(this);
+      operation.SaveUsing(this, name); //bug remove name from here and pass through constructor
     }
 
     public void Store(params Persistable[] persistables)

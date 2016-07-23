@@ -39,7 +39,7 @@ namespace ComponentBasedTestTool
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext, backgroundTasks));
+          new WpfOperationViewModelFactory(applicationContext, backgroundTasks), backgroundTasks);
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var topMenuBarViewModel = new TopMenuBarViewModel(

@@ -6,6 +6,9 @@ using System.Windows;
 using System.Windows.Input;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
+using ComponentBasedTestTool.Domain;
+using ComponentBasedTestTool.Domain.OperationStates;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -23,17 +26,20 @@ namespace ViewModels.ViewModels
     private OperationViewModels _operationViewModels;
     private readonly OperationEntries _operationEntries;
     private readonly TestComponent _testComponentInstance;
+    private BackgroundTasks _backgroundTasks;
 
     public ComponentInstanceViewModel(
       string instanceName, 
       OutputFactory outputFactory, 
       OperationEntries operationEntries, 
-      TestComponent testComponentInstance)
+      TestComponent testComponentInstance, 
+      BackgroundTasks backgroundTasks)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
       _operationEntries = operationEntries;
       _testComponentInstance = testComponentInstance;
+      _backgroundTasks = backgroundTasks;
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
@@ -66,12 +72,12 @@ namespace ViewModels.ViewModels
       _operationViewModels.AddTo(operationsViewModel);
     }
 
-    public void AddOperation(string name, ComponentOperation operation, string dependencyName)
+    public void AddOperation(string name, OperationStateMachine operation, string dependencyName)
     {
       _operationEntries.Add(name, operation, Maybe.From(dependencyName));
     }
 
-    public void AddOperation(string name, ComponentOperation operation)
+    public void AddOperation(string name, OperationStateMachine operation)
     {
       _operationEntries.Add(name, operation, Maybe.Not);
     }
@@ -80,6 +86,21 @@ namespace ViewModels.ViewModels
     {
       return _outputFactory.CreateOutFor(operationName);
     }
+
+    public OperationStateMachine CreateOperation(ComponentOperation operation)
+    {
+      return StateMachineFor(operation, _backgroundTasks);
+    }
+
+    //bug move to factory
+    private static DefaultOperationStateMachine StateMachineFor(ComponentOperation componentOperation, BackgroundTasks backgroundTasks)
+    {
+      return new DefaultOperationStateMachine(
+        componentOperation,
+        new UnavailableOperationState(),
+        new OperationStatesFactory(backgroundTasks), new XmlConfigurationOutputBuilder());
+    }
+
 
     public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
     {

@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -42,8 +43,13 @@
     <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
     <Compile Include="ImplementedByContext\ComponentsList.cs" />
     <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
+    <Compile Include="ImplementedByContext\ErrorInfo.cs" />
+    <Compile Include="ImplementedByContext\OperationContext.cs" />
+    <Compile Include="ImplementedByContext\OperationDependencyObserver.cs" />
     <Compile Include="ImplementedByContext\OperationParametersListBuilder.cs" />
     <Compile Include="ImplementedByContext\OperationsOutput.cs" />
+    <Compile Include="ImplementedByContext\OperationStateMachine.cs" />
+    <Compile Include="ImplementedByContext\Runnability.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ImplementedByComponents\TestComponent.cs" />

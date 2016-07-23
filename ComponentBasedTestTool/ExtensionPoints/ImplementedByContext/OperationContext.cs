@@ -12,6 +12,6 @@ namespace ComponentBasedTestTool.ViewModels.Ports
     void InProgress(CancellationTokenSource cancellationTokenSource);
     void Initial();
 
-    void NotifyonCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo);
+    void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo);
   }
 }

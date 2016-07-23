@@ -1,9 +1,11 @@
 using System.Xml.Linq;
+using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels
 {
-  public class XmlConfigurationOutputBuilder
+
+  public class XmlConfigurationOutputBuilder : ConfigurationOutputBuilder
   {
     private XDocument _doc;
     private XElement _components;

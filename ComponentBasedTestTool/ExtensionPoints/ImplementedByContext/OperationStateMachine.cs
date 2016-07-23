@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
+using ComponentBasedTestTool.ViewModels.Ports;
 
-namespace ComponentBasedTestTool.ViewModels.Ports
+namespace ExtensionPoints.ImplementedByContext
 {
   public interface OperationStateObserver
   {
@@ -24,4 +25,11 @@ namespace ComponentBasedTestTool.ViewModels.Ports
     void DependencyFulfilled(OperationContext context);
     void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer);
   }
+
+  public interface OperationStateMachine : OperationSignals, OperationStateObserver
+  {
+    void InitializeParameters(OperationParametersListBuilder operationParametersListBuilder);
+    void SaveUsing(PersistentStorage persistentStorage, string name);
+  }
+
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 
@@ -10,15 +11,18 @@ namespace ViewModels.ViewModels.Commands
     private readonly TestComponentInstanceFactory _instanceFactory;
     private readonly OutputFactory _outputFactory;
     private readonly OperationViewModelFactory _operationViewModelFactory;
+    private readonly BackgroundTasks _backgroundTasks;
 
     public ComponentInstanceViewModelFactory(
       TestComponentInstanceFactory instanceFactory, 
       OutputFactory outputFactory, 
-      OperationViewModelFactory operationViewModelFactory)
+      OperationViewModelFactory operationViewModelFactory, 
+      BackgroundTasks backgroundTasks)
     {
       _instanceFactory = instanceFactory;
       _outputFactory = outputFactory;
       _operationViewModelFactory = operationViewModelFactory;
+      _backgroundTasks = backgroundTasks;
     }
 
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
@@ -29,8 +33,8 @@ namespace ViewModels.ViewModels.Commands
         = new ComponentInstanceViewModel(
           testComponentViewModel.Name, 
           _outputFactory, 
-          new OperationEntries(),
-          testComponentInstance);
+          new OperationEntries(_backgroundTasks),
+          testComponentInstance, _backgroundTasks);
 
       componentInstanceViewModel.Initialize(_operationViewModelFactory);
 

@@ -3,6 +3,7 @@ using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool
@@ -18,7 +19,7 @@ namespace ComponentBasedTestTool
       _backgroundTasks = backgroundTasks;
     }
 
-    public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry)
+    public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine)
     {
       var operationPropertiesViewModelBuilder = 
         new OperationPropertiesViewModelBuilder(operationEntry.Name);
@@ -28,7 +29,7 @@ namespace ComponentBasedTestTool
 
       var operationViewModel = OperationViewModelFor(
         operationEntry, 
-        operationPropertiesViewModelBuilder, DefaultOperationStateMachine.StateMachineFor(operationEntry.Operation, _backgroundTasks));
+        operationPropertiesViewModelBuilder, operationEntry.OperationStateMachine);
       return operationViewModel;
     }
 
@@ -45,5 +46,6 @@ namespace ComponentBasedTestTool
 
     private OperationCommandFactory AllowingCommandExecution() => 
       new OperationCommandFactory(_applicationContext);
+
   }
 }

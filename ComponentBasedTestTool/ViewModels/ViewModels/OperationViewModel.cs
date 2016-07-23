@@ -8,6 +8,7 @@ using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.ViewModels.Ports;
+using ExtensionPoints.ImplementedByContext;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
@@ -121,7 +122,7 @@ namespace ViewModels.ViewModels
       _operationStateMachine.Initial(this);
     }
 
-    public void NotifyonCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
+    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
     {
       CanRun = runnability.CanRun;
       CanStop = runnability.CanStop;

@@ -5,29 +5,37 @@ using System.Threading;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ComponentBasedTestTool.Domain
 {
-  public interface OperationStateMachine : OperationSignals, OperationStateObserver
+  public interface ConfigurationOutputBuilder
   {
+    void AppendOperationNode(string name, Runnable operation);
+    void AppendProperty<T>(string name, T value);
+    void Save();
+    void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance);
   }
 
   public class DefaultOperationStateMachine : OperationStateMachine
   {
     private readonly List<OperationDependencyObserver> _observers;
-    private readonly Runnable _operation;
+    private readonly ComponentOperation _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
+    private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
     public DefaultOperationStateMachine(
-      Runnable operation, 
+      ComponentOperation operation, 
       OperationState operationState, 
-      OperationStatesFactory operationStatesFactory)
+      OperationStatesFactory operationStatesFactory, 
+      ConfigurationOutputBuilder xmlConfigurationOutputBuilder)
     {
       _operation = operation;
       _operationState = operationState;
       _observers = new List<OperationDependencyObserver>();
       _operationStatesFactory = operationStatesFactory;
+      _xmlConfigurationOutputBuilder = xmlConfigurationOutputBuilder;
     }
 
     void OperationSignals.DependencyFulfilled(OperationContext context)
@@ -37,7 +45,7 @@ namespace ComponentBasedTestTool.Domain
 
     void OperationStateObserver.Failure(Exception exception, OperationContext context)
     {
-      context.NotifyonCurrentState("Failure", Runnability.Runnable(), ErrorInfo.From(exception));
+      context.NotifyOnCurrentState("Failure", Runnability.Runnable(), ErrorInfo.From(exception));
 
       _operationState = _operationStatesFactory.RunnableState();
     }
@@ -49,7 +57,7 @@ namespace ComponentBasedTestTool.Domain
 
     void OperationStateObserver.Initial(OperationContext context)
     {
-      context.NotifyonCurrentState(
+      context.NotifyOnCurrentState(
         "Initial", 
         Runnability.Unavailable(), 
         ErrorInfo.None());
@@ -59,13 +67,25 @@ namespace ComponentBasedTestTool.Domain
 
     void OperationStateObserver.InProgress(OperationContext context, CancellationTokenSource cancellationTokenSource)
     {
-      context.NotifyonCurrentState(
+      context.NotifyOnCurrentState(
         "In Progress", 
         Runnability.InProgress(), 
         ErrorInfo.None());
 
       _operationState = _operationStatesFactory.InProgress(cancellationTokenSource);
     }
+
+    public void InitializeParameters(OperationParametersListBuilder operationParametersListBuilder)
+    {
+      _operation.InitializeParameters(operationParametersListBuilder);
+    }
+
+    public void SaveUsing(PersistentStorage persistentStorage, string name)
+    {
+      _xmlConfigurationOutputBuilder.AppendOperationNode(name, _operation);
+      _operation.StoreParameters(persistentStorage);
+    }
+
     void OperationControl.Start(OperationContext context)
     {
       _operationState.Start(context, _operation);
@@ -98,16 +118,10 @@ namespace ComponentBasedTestTool.Domain
 
     private void NormalRunnable(OperationContext context, string statusText)
     {
-      context.NotifyonCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
+      context.NotifyOnCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
       _operationState = _operationStatesFactory.RunnableState();
     }
 
-    public static DefaultOperationStateMachine StateMachineFor(Runnable componentOperation, BackgroundTasks backgroundTasks)
-    {
-      return new DefaultOperationStateMachine(
-        componentOperation,
-        new UnavailableOperationState(), new OperationStatesFactory(backgroundTasks));
-    }
   }
 
 

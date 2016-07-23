@@ -36,12 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundTasks.cs" />
-    <Compile Include="ErrorInfo.cs" />
-    <Compile Include="OperationContext.cs" />
-    <Compile Include="OperationDependencyObserver.cs" />
-    <Compile Include="OperationSignals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runnability.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">

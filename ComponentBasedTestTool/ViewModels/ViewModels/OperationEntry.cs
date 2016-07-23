@@ -1,29 +1,42 @@
 using CallMeMaybe;
+using ComponentBasedTestTool.Domain;
+using ComponentBasedTestTool.Domain.OperationStates;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels
 {
   public class OperationEntry
   {
+    private readonly OperationStateMachine _operation;
     public Maybe<string> DependencyName { get; }
     public string Name { get; }
-    public ComponentOperation Operation { get; }
+    private OperationStateMachine InnerOperation { get; } //TODO get rid of this. Only state machine should stay!!!
 
-    public OperationEntry(string name, ComponentOperation operation, Maybe<string> dependencyName)
+    public OperationEntry(string name, OperationStateMachine innerOperation, Maybe<string> dependencyName, OperationStateMachine operationStateMachine)
     {
       Name = name;
-      Operation = operation;
+      InnerOperation = innerOperation;
       DependencyName = dependencyName;
+      _operation = operationStateMachine;
     }
 
-    public static OperationEntry With(string name, ComponentOperation operation, Maybe<string> dependencyName)
+    public static OperationEntry With(string name, OperationStateMachine operation, Maybe<string> dependencyName, OperationStateMachine operationStateMachine)
     {
-      return new OperationEntry(name, operation, dependencyName);
+      return new OperationEntry(name, operation, dependencyName, operationStateMachine);
     }
 
     public void FillParameters(OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder)
     {
-      Operation.InitializeParameters(operationPropertiesViewModelBuilder);
+      InnerOperation.InitializeParameters(operationPropertiesViewModelBuilder);
+    }
+
+    public OperationStateMachine OperationStateMachine
+    {
+      get
+      {
+        return _operation;
+      }
     }
   }
 }
