@@ -12,6 +12,7 @@ using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

@@ -4,6 +4,7 @@ using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool
@@ -36,13 +37,16 @@ namespace ComponentBasedTestTool
     private OperationViewModel OperationViewModelFor(
       OperationEntry operationEntry, 
       OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
-      OperationStateMachine defaultOperationStateMachine) => 
-        new OperationViewModel(
-          operationEntry.Name,
-          operationEntry.DependencyName, 
-          AllowingCommandExecution(), 
-          operationPropertiesViewModelBuilder, 
-          defaultOperationStateMachine);
+      OperationStateMachine defaultOperationStateMachine)
+    {
+      var operationViewModelFor = new OperationViewModel(
+        operationEntry.Name,
+        operationEntry.DependencyName,
+        AllowingCommandExecution(),
+        operationPropertiesViewModelBuilder,
+        defaultOperationStateMachine);
+      return operationViewModelFor;
+    }
 
     private OperationCommandFactory AllowingCommandExecution() => 
       new OperationCommandFactory(_applicationContext);

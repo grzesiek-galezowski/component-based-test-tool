@@ -3,6 +3,7 @@ using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ViewModels.ViewModels
 {

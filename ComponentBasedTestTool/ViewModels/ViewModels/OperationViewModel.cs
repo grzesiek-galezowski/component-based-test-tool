@@ -9,6 +9,7 @@ using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
@@ -22,7 +23,6 @@ namespace ViewModels.ViewModels
     private string _lastErrorFullText = "lolokimono";
     private readonly Maybe<string> _maybeDependencyName;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
-    private object _cachedObject;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly OperationStateMachine _operationStateMachine;
     private RestartOperationCommand _restartCommand;
@@ -60,7 +60,7 @@ namespace ViewModels.ViewModels
 
     public RestartOperationCommand RestartOperationCommand
       => _restartCommand ?? (_restartCommand = 
-      _operationCommandFactory.CreateRestartCommand(_operationStateMachine, this));
+      _operationCommandFactory.CreateRestartCommand(_operationStateMachine));
 
 
     public string Name { get; }
@@ -114,7 +114,7 @@ namespace ViewModels.ViewModels
 
     public void Start()
     {
-      _operationStateMachine.Start(this);
+      _operationStateMachine.Start();
     }
 
     public void Initial()

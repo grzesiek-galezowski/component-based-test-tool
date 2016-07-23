@@ -5,6 +5,7 @@ using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 using NSubstitute;
 using NSubstitute.Core;
 using ViewModels.ViewModels;

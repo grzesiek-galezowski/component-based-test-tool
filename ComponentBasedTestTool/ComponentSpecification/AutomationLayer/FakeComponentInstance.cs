@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentSpecification.AutomationLayer
 {

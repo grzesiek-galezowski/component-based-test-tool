@@ -3,6 +3,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain.OperationStates
 {

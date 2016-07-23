@@ -6,6 +6,7 @@ using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain
 {
@@ -16,6 +17,7 @@ namespace ComponentBasedTestTool.Domain
     private readonly ComponentOperation _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
+    private OperationContext _context = new NullContext();
 
     public DefaultOperationStateMachine(
       ComponentOperation operation, 
@@ -76,9 +78,14 @@ namespace ComponentBasedTestTool.Domain
       _operation.StoreParameters(persistentStorage);
     }
 
-    void OperationControl.Start(OperationContext context)
+    public void SetContext(OperationContext context)
     {
-      _operationState.Start(context, _operation);
+      _context = context;
+    }
+
+    void OperationControl.Start()
+    {
+      _operationState.Start(_context, _operation);
     }
 
     void OperationStateObserver.Ready(OperationContext context)
@@ -114,5 +121,36 @@ namespace ComponentBasedTestTool.Domain
 
   }
 
+  internal class NullContext : OperationContext
+  {
+    public void Ready()
+    {
+      
+    }
 
+    public void Success()
+    {
+      
+    }
+
+    public void Stopped()
+    {
+    }
+
+    public void Failure(Exception exception)
+    {
+    }
+
+    public void InProgress(CancellationTokenSource cancellationTokenSource)
+    {
+    }
+
+    public void Initial()
+    {
+    }
+
+    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
+    {
+    }
+  }
 }

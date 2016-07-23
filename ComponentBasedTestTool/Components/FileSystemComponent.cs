@@ -1,11 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Threading;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components
 {
@@ -42,46 +40,7 @@ namespace Components
 
     public void ShowCustomUi()
     {
-        var option = MessageBox.Show("lol", "la", MessageBoxButton.YesNoCancel);
-        if (option == MessageBoxResult.Yes)
-        {
-          Dispatcher.CurrentDispatcher.Invoke(() =>
-          {
-            _wait.Start(new MyOperationContext());
-          });
-        };
+      new CustomGui(_wait).ShowDialog();
     }
-  }
-
-  public class MyOperationContext : OperationContext
-  {
-    public void Ready()
-    {
-    }
-
-    public void Success()
-    {
-    }
-
-    public void Stopped()
-    {
-    }
-
-    public void Failure(Exception exception)
-    {
-    }
-
-    public void InProgress(CancellationTokenSource cancellationTokenSource)
-    {
-    }
-
-    public void Initial()
-    {
-    }
-
-    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
-    {
-    }
-
   }
 }

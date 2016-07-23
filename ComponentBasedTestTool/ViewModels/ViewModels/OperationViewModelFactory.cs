@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ViewModels.ViewModels
 {
