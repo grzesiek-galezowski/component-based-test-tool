@@ -43,6 +43,7 @@
     <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
     <Compile Include="ImplementedByContext\ComponentsList.cs" />
     <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
+    <Compile Include="ImplementedByContext\ConfigurationOutputBuilder.cs" />
     <Compile Include="ImplementedByContext\ErrorInfo.cs" />
     <Compile Include="ImplementedByContext\OperationContext.cs" />
     <Compile Include="ImplementedByContext\OperationDependencyObserver.cs" />

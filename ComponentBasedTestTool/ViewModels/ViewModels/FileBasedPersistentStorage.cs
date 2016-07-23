@@ -1,4 +1,5 @@
 using System.Xml.Linq;
+using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
@@ -17,12 +18,12 @@ namespace ViewModels.ViewModels
 
     public void AddOperation(string name, OperationStateMachine operation, string dependencyName)
     {
-      operation.SaveUsing(this, name); //bug remove name from here and pass through constructor
+      operation.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }
 
     public void AddOperation(string name, OperationStateMachine operation)
     {
-      operation.SaveUsing(this, name); //bug remove name from here and pass through constructor
+      operation.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }
 
     public void Store(params Persistable[] persistables)

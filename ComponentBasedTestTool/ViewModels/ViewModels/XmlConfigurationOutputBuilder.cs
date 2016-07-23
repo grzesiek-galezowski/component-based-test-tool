@@ -1,6 +1,7 @@
 using System.Xml.Linq;
 using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
+using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels
 {

@@ -9,13 +9,6 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace ComponentBasedTestTool.Domain
 {
-  public interface ConfigurationOutputBuilder
-  {
-    void AppendOperationNode(string name, Runnable operation);
-    void AppendProperty<T>(string name, T value);
-    void Save();
-    void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance);
-  }
 
   public class DefaultOperationStateMachine : OperationStateMachine
   {
@@ -23,19 +16,16 @@ namespace ComponentBasedTestTool.Domain
     private readonly ComponentOperation _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
-    private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
     public DefaultOperationStateMachine(
       ComponentOperation operation, 
       OperationState operationState, 
-      OperationStatesFactory operationStatesFactory, 
-      ConfigurationOutputBuilder xmlConfigurationOutputBuilder)
+      OperationStatesFactory operationStatesFactory)
     {
       _operation = operation;
       _operationState = operationState;
       _observers = new List<OperationDependencyObserver>();
       _operationStatesFactory = operationStatesFactory;
-      _xmlConfigurationOutputBuilder = xmlConfigurationOutputBuilder;
     }
 
     void OperationSignals.DependencyFulfilled(OperationContext context)
@@ -80,9 +70,9 @@ namespace ComponentBasedTestTool.Domain
       _operation.InitializeParameters(operationParametersListBuilder);
     }
 
-    public void SaveUsing(PersistentStorage persistentStorage, string name)
+    public void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder)
     {
-      _xmlConfigurationOutputBuilder.AppendOperationNode(name, _operation);
+      builder.AppendOperationNode(name, _operation);
       _operation.StoreParameters(persistentStorage);
     }
 

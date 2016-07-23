@@ -15,8 +15,8 @@ namespace Components
     private OperationStateMachine _cs;
     private OperationStateMachine _cat;
     private OperationStateMachine _wait;
-    private readonly string _configureName = "configure";
     private OperationStateMachine _configure;
+    private readonly string _configureName = "configure";
     private const string SleepName = "sleep";
     private const string CatName = "cat";
     private const string CdName = "cd";
@@ -31,13 +31,13 @@ namespace Components
       ctx.AddOperation(SleepName, _wait, _configureName);
     }
 
-    public void CreateOperations(TestComponentContext ctx)
+    public void CreateOperations(TestComponentContext _)
     {
-      _ls = ctx.CreateOperation(new LsOperation(ctx.CreateOutFor(LsName)));
-      _cs = ctx.CreateOperation(new CdOperation(ctx.CreateOutFor(CdName)));
-      _cat = ctx.CreateOperation(new CatOperation(ctx.CreateOutFor(CatName)));
-      _wait = ctx.CreateOperation(new WaitOperation(ctx.CreateOutFor(SleepName)));
-      _configure = ctx.CreateOperation(new ConfigureOperation(ctx.CreateOutFor(_configureName)));
+      _ls = _.CreateOperation(new LsOperation(_.CreateOutFor(LsName)));
+      _cs = _.CreateOperation(new CdOperation(_.CreateOutFor(CdName)));
+      _cat = _.CreateOperation(new CatOperation(_.CreateOutFor(CatName)));
+      _wait = _.CreateOperation(new WaitOperation(_.CreateOutFor(SleepName)));
+      _configure = _.CreateOperation(new ConfigureOperation(_.CreateOutFor(_configureName)));
     }
 
     public void ShowCustomUi()
@@ -57,37 +57,30 @@ namespace Components
   {
     public void Ready()
     {
-      throw new System.NotImplementedException();
     }
 
     public void Success()
     {
-      throw new System.NotImplementedException();
     }
 
     public void Stopped()
     {
-      throw new System.NotImplementedException();
     }
 
     public void Failure(Exception exception)
     {
-      throw new System.NotImplementedException();
     }
 
     public void InProgress(CancellationTokenSource cancellationTokenSource)
     {
-      throw new System.NotImplementedException();
     }
 
     public void Initial()
     {
-      throw new System.NotImplementedException();
     }
 
     public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
     {
-      throw new System.NotImplementedException();
     }
 
   }

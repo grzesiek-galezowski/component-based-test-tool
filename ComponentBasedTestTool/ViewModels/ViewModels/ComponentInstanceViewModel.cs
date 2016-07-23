@@ -26,7 +26,7 @@ namespace ViewModels.ViewModels
     private OperationViewModels _operationViewModels;
     private readonly OperationEntries _operationEntries;
     private readonly TestComponent _testComponentInstance;
-    private BackgroundTasks _backgroundTasks;
+    private readonly BackgroundTasks _backgroundTasks;
 
     public ComponentInstanceViewModel(
       string instanceName, 
@@ -98,7 +98,7 @@ namespace ViewModels.ViewModels
       return new DefaultOperationStateMachine(
         componentOperation,
         new UnavailableOperationState(),
-        new OperationStatesFactory(backgroundTasks), new XmlConfigurationOutputBuilder());
+        new OperationStatesFactory(backgroundTasks));
     }
 
 
