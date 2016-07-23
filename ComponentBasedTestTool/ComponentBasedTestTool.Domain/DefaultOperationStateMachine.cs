@@ -83,6 +83,11 @@ namespace ComponentBasedTestTool.Domain
       _context = context;
     }
 
+    public void FromNowOnReportStateChangesTo(OperationStateObserver operationStateObserver)
+    {
+      throw new NotImplementedException(); //bug implement
+    }
+
     void OperationControl.Start()
     {
       _operationState.Start(_context, _operation);

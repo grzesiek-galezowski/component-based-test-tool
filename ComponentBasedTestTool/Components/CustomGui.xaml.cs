@@ -26,6 +26,7 @@ namespace Components
     {
       _wait = wait;
       InitializeComponent();
+      _wait.FromNowOnReportStateChangesTo((OperationStateObserver)this);
     }
 
     private void button_Click(object sender, RoutedEventArgs e)

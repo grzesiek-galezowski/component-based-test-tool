@@ -40,7 +40,7 @@ namespace Components
 
     public void ShowCustomUi()
     {
-      new CustomGui(_wait).ShowDialog();
+      new CustomGui(_wait).Show();
     }
   }
 }
