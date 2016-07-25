@@ -33,7 +33,7 @@ namespace ViewModels.ViewModels
       {
         var operationStateMachine = operationEntry.OperationStateMachine;
         var operationViewModel = operationViewModelFactory.CreateOperationViewModel(operationEntry, operationStateMachine);
-        operationStateMachine.SetContext(operationViewModel);
+        operationStateMachine.RegisterContext(operationViewModel);
         return operationViewModel;
       };
     }

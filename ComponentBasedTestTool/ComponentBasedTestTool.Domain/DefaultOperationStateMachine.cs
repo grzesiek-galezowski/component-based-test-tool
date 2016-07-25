@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -17,7 +15,7 @@ namespace ComponentBasedTestTool.Domain
     private readonly ComponentOperation _operation;
     private OperationState _operationState;
     private readonly OperationStatesFactory _operationStatesFactory;
-    private OperationContext _context = new NullContext();
+    private readonly BroadcastContext _context = new BroadcastContext();
 
     public DefaultOperationStateMachine(
       ComponentOperation operation, 
@@ -79,9 +77,9 @@ namespace ComponentBasedTestTool.Domain
       _operation.StoreParameters(persistentStorage);
     }
 
-    public void SetContext(OperationContext context)
+    public void RegisterContext(OperationContext context)
     {
-      _context = context;
+      _context.Register(context);
     }
 
     void OperationControl.Start()
@@ -122,36 +120,74 @@ namespace ComponentBasedTestTool.Domain
 
   }
 
-  internal class NullContext : OperationContext
+  public class BroadcastContext : OperationContext
   {
+    private readonly List<OperationContext> _contexts;
+
+    public BroadcastContext(params OperationContext[] context)
+    {
+      _contexts = new List<OperationContext>(context);
+    }
+
+    public void Register(OperationContext context)
+    {
+      _contexts.Add(context);
+    }
+
     public void Ready()
     {
-      
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.Ready();
+      }
     }
 
     public void Success()
     {
-      
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.Success();
+      }
     }
 
     public void Stopped()
     {
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.Stopped();
+      }
     }
 
     public void Failure(Exception exception)
     {
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.Failure(exception);
+      }
     }
 
     public void InProgress(CancellationTokenSource cancellationTokenSource)
     {
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.InProgress(cancellationTokenSource);
+      }
     }
 
     public void Initial()
     {
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.Initial();
+      }
     }
 
     public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
     {
+      foreach (var operationContext in _contexts)
+      {
+        operationContext.NotifyOnCurrentState(stateName, runnability, errorInfo);
+      }
     }
   }
 }

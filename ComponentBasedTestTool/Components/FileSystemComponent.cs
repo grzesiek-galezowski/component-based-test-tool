@@ -15,6 +15,12 @@ namespace Components
     private OperationControl _wait;
     private OperationControl _configure;
     private readonly string _configureName = "configure";
+    private CustomGui _customGui;
+
+    public FileSystemComponent()
+    {
+    }
+
     private const string SleepName = "sleep";
     private const string CatName = "cat";
     private const string CdName = "cd";
@@ -36,11 +42,14 @@ namespace Components
       _cat = _.CreateOperation(new CatOperation(_.CreateOutFor(CatName)));
       _wait = _.CreateOperation(new WaitOperation(_.CreateOutFor(SleepName)));
       _configure = _.CreateOperation(new ConfigureOperation(_.CreateOutFor(_configureName)));
+
+      _customGui = new CustomGui(_wait);
+      _wait.RegisterContext(_customGui);
     }
 
     public void ShowCustomUi()
     {
-      new CustomGui(_wait).Show();
+      _customGui.Show();
     }
   }
 }
