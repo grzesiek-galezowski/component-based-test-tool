@@ -13,7 +13,7 @@ namespace ComponentSpecification.AutomationLayer
     public string Description { get; }
 
     private readonly List<Tuple<string, FakeOperation>> _operations = new List<Tuple<string, FakeOperation>>();
-    private readonly List<Tuple<string, OperationStateMachine>> _realOperations = new List<Tuple<string, OperationStateMachine>>();
+    private readonly List<Tuple<string, OperationControl>> _realOperations = new List<Tuple<string, OperationControl>>();
 
     public FakeComponentInstance(string name, string description)
     {
@@ -31,7 +31,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public void CreateOperations(TestComponentContext testComponentContext)
     {
-      var operationStateMachines = 
+      List<Tuple<string, OperationControl>> operationStateMachines = 
         _operations.Select(o => Tuple.Create(o.Item1, testComponentContext.CreateOperation(o.Item2))).ToList();
       _realOperations.AddRange(operationStateMachines);
     }

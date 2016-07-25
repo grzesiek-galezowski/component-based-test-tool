@@ -28,21 +28,22 @@ namespace ViewModels.ViewModels
     private readonly OperationEntries _operationEntries;
     private readonly TestComponent _testComponentInstance;
     private readonly BackgroundTasks _backgroundTasks;
-    private readonly Dictionary<OperationControl, OperationStateMachine> _operationMachinesByPluginView;
+    private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
 
     public ComponentInstanceViewModel(
       string instanceName, 
       OutputFactory outputFactory, 
       OperationEntries operationEntries, 
       TestComponent testComponentInstance, 
-      BackgroundTasks backgroundTasks)
+      BackgroundTasks backgroundTasks, 
+      OperationMachinesByControlObject operationMachinesByControlObject)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
       _operationEntries = operationEntries;
       _testComponentInstance = testComponentInstance;
       _backgroundTasks = backgroundTasks;
-      _operationMachinesByPluginView = new Dictionary<OperationControl, OperationStateMachine>();
+      _operationMachinesByControlObject = operationMachinesByControlObject;
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
@@ -77,12 +78,12 @@ namespace ViewModels.ViewModels
 
     public void AddOperation(string name, OperationControl operation, string dependencyName)
     {
-      _operationEntries.Add(name, _operationMachinesByPluginView[operation], Maybe.From(dependencyName));
+      _operationEntries.Add(name, _operationMachinesByControlObject.For(operation), Maybe.From(dependencyName));
     }
 
     public void AddOperation(string name, OperationControl operation)
     {
-      _operationEntries.Add(name, _operationMachinesByPluginView[operation], Maybe.Not);
+      _operationEntries.Add(name, _operationMachinesByControlObject.For(operation), Maybe.Not);
     }
 
     public OperationsOutput CreateOutFor(string operationName)
@@ -93,7 +94,7 @@ namespace ViewModels.ViewModels
     public OperationControl CreateOperation(ComponentOperation operation)
     {
       var defaultOperationStateMachine = StateMachineFor(operation, _backgroundTasks);
-      _operationMachinesByPluginView[defaultOperationStateMachine] = defaultOperationStateMachine;
+      _operationMachinesByControlObject.Register(defaultOperationStateMachine);
       return defaultOperationStateMachine;
     }
 
@@ -107,10 +108,10 @@ namespace ViewModels.ViewModels
     }
 
 
-    public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
+    public void SaveTo(PersistentModelFileContentBuilder persistentModelFileContentBuilder)
     {
-      fileBasedPersistentStorage.NewComponentInstance(this.InstanceName, _testComponentInstance);
-      _testComponentInstance.PopulateOperations(fileBasedPersistentStorage);
+      persistentModelFileContentBuilder.NewComponentInstance(this.InstanceName, _testComponentInstance);
+      _testComponentInstance.PopulateOperations(persistentModelFileContentBuilder);
     }
 
     public ICommand ShowCustomUiForComponentInstanceCommand => new ShowCustomUiForComponentInstanceCommand(_testComponentInstance);

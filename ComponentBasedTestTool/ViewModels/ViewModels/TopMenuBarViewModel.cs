@@ -7,21 +7,20 @@ namespace ViewModels.ViewModels
   {
     private readonly ComponentInstancesViewModel _componentInstancesViewModel;
     private readonly OperationsOutputViewModel _operationsOutputViewModel;
-    private readonly ComponentsViewModel _componentsViewModel;
+    private readonly PersistentModelContentBuilderFactory _persistentModelContentBuilderFactory;
 
     public TopMenuBarViewModel(
       ComponentInstancesViewModel componentInstancesViewModel, 
       OperationsOutputViewModel operationsOutputViewModel, 
-      ComponentsViewModel componentsViewModel)
+      PersistentModelContentBuilderFactory persistentModelContentBuilderFactory)
     {
       _componentInstancesViewModel = componentInstancesViewModel;
       _operationsOutputViewModel = operationsOutputViewModel;
-      _componentsViewModel = componentsViewModel;
+      _persistentModelContentBuilderFactory = persistentModelContentBuilderFactory;
     }
 
     public ICommand SaveWorkspaceCommand => new SaveWorkspaceCommand(
-      _componentInstancesViewModel, 
-      _operationsOutputViewModel);
+      _componentInstancesViewModel, _persistentModelContentBuilderFactory);
     public ICommand RestoreWorkspaceCommand => new RestoreWorkspaceCommand(
       _componentInstancesViewModel, 
       _operationsOutputViewModel,

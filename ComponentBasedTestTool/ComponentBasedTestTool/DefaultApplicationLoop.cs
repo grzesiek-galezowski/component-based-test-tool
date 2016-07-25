@@ -10,6 +10,7 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels;
+using ViewModels.ViewModels.Commands;
 
 namespace ComponentBasedTestTool
 {
@@ -36,17 +37,17 @@ namespace ComponentBasedTestTool
       var outputFactory = new OutputFactory(operationsOutputViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
       var componentInstancesViewModel = new ComponentInstancesViewModel(applicationContext, operationsViewModel);
+      var operationMachinesByControlObject = new OperationMachinesByControlObject();
       var testComponentViewModelFactory =
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext, backgroundTasks), backgroundTasks);
+          new WpfOperationViewModelFactory(applicationContext, backgroundTasks), backgroundTasks, operationMachinesByControlObject);
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var topMenuBarViewModel = new TopMenuBarViewModel(
         componentInstancesViewModel,
-        operationsOutputViewModel,
-        componentsViewModel);
+        operationsOutputViewModel, new PersistentModelContentBuilderFactory(operationsOutputViewModel, operationMachinesByControlObject));
 
       var factoryRepositories = componentLocation.LoadComponentRoots();
       

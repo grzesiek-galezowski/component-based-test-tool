@@ -64,10 +64,11 @@
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
-    <Compile Include="ViewModels\FileBasedPersistentStorage.cs" />
+    <Compile Include="ViewModels\PersistentModelFileContentBuilder.cs" />
     <Compile Include="ViewModels\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />
     <Compile Include="ViewModels\OperationEntry.cs" />
+    <Compile Include="ViewModels\OperationMachinesByControlObject.cs" />
     <Compile Include="ViewModels\OperationParameterViewModel.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModel.cs" />
     <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />

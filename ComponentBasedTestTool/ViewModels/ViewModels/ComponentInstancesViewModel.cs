@@ -36,13 +36,13 @@ namespace ViewModels.ViewModels
       ComponentInstances.Add(componentInstanceViewModel);
     }
 
-    public void SaveTo(FileBasedPersistentStorage fileBasedPersistentStorage)
+    public void SaveTo(PersistentModelFileContentBuilder persistentModelFileContentBuilder)
     {
       foreach (var componentInstanceViewModel in ComponentInstances)
       {
-        componentInstanceViewModel.SaveTo(fileBasedPersistentStorage);
+        componentInstanceViewModel.SaveTo(persistentModelFileContentBuilder);
       }
-      fileBasedPersistentStorage.Save();
+      persistentModelFileContentBuilder.Save();
     }
   }
 

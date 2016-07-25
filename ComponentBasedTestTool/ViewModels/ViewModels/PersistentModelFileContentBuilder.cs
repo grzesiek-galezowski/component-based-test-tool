@@ -1,31 +1,32 @@
-using System.Xml.Linq;
-using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ViewModels.ViewModels
 {
-  public class FileBasedPersistentStorage : TestComponentOperationDestination, PersistentStorage
+  public class PersistentModelFileContentBuilder : TestComponentOperationDestination, PersistentStorage
   {
     private readonly OperationsOutputViewModel _operationsOutputViewModel;
+    private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
     private readonly XmlConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
-    public FileBasedPersistentStorage(OperationsOutputViewModel operationsOutputViewModel)
+    public PersistentModelFileContentBuilder(OperationsOutputViewModel operationsOutputViewModel, OperationMachinesByControlObject operationMachinesByControlObject)
     {
       _operationsOutputViewModel = operationsOutputViewModel;
+      _operationMachinesByControlObject = operationMachinesByControlObject;
       _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
     }
 
     public void AddOperation(string name, OperationControl operation, string dependencyName)
     {
-      var stateMachine = _operationsOutputViewModel[operation]; //bug add mapping
+      var stateMachine = _operationMachinesByControlObject.For(operation);
       stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }
 
     public void AddOperation(string name, OperationControl operation)
     {
-      operation.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
+      var stateMachine = _operationMachinesByControlObject.For(operation);
+      stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }
 
     public void Store(params Persistable[] persistables)
