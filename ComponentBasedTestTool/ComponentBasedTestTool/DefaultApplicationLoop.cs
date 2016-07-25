@@ -8,6 +8,7 @@ using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool

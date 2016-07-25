@@ -9,11 +9,11 @@ namespace Components
 {
   public class FileSystemComponent : TestComponent
   {
-    private OperationStateMachine _ls;
-    private OperationStateMachine _cs;
-    private OperationStateMachine _cat;
-    private OperationStateMachine _wait;
-    private OperationStateMachine _configure;
+    private OperationControl _ls;
+    private OperationControl _cs;
+    private OperationControl _cat;
+    private OperationControl _wait;
+    private OperationControl _configure;
     private readonly string _configureName = "configure";
     private const string SleepName = "sleep";
     private const string CatName = "cat";

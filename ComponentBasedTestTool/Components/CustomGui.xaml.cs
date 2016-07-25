@@ -20,13 +20,12 @@ namespace Components
   /// </summary>
   public partial class CustomGui : Window
   {
-    private readonly OperationStateMachine _wait;
+    private readonly OperationControl _wait;
 
-    public CustomGui(OperationStateMachine wait)
+    public CustomGui(OperationControl wait)
     {
       _wait = wait;
       InitializeComponent();
-      _wait.FromNowOnReportStateChangesTo((OperationStateObserver)this);
     }
 
     private void button_Click(object sender, RoutedEventArgs e)

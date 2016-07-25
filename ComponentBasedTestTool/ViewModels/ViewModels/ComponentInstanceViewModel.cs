@@ -28,6 +28,7 @@ namespace ViewModels.ViewModels
     private readonly OperationEntries _operationEntries;
     private readonly TestComponent _testComponentInstance;
     private readonly BackgroundTasks _backgroundTasks;
+    private readonly Dictionary<OperationControl, OperationStateMachine> _operationMachinesByPluginView;
 
     public ComponentInstanceViewModel(
       string instanceName, 
@@ -41,6 +42,7 @@ namespace ViewModels.ViewModels
       _operationEntries = operationEntries;
       _testComponentInstance = testComponentInstance;
       _backgroundTasks = backgroundTasks;
+      _operationMachinesByPluginView = new Dictionary<OperationControl, OperationStateMachine>();
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
@@ -73,14 +75,14 @@ namespace ViewModels.ViewModels
       _operationViewModels.AddTo(operationsViewModel);
     }
 
-    public void AddOperation(string name, OperationStateMachine operation, string dependencyName)
+    public void AddOperation(string name, OperationControl operation, string dependencyName)
     {
-      _operationEntries.Add(name, operation, Maybe.From(dependencyName));
+      _operationEntries.Add(name, _operationMachinesByPluginView[operation], Maybe.From(dependencyName));
     }
 
-    public void AddOperation(string name, OperationStateMachine operation)
+    public void AddOperation(string name, OperationControl operation)
     {
-      _operationEntries.Add(name, operation, Maybe.Not);
+      _operationEntries.Add(name, _operationMachinesByPluginView[operation], Maybe.Not);
     }
 
     public OperationsOutput CreateOutFor(string operationName)
@@ -88,9 +90,11 @@ namespace ViewModels.ViewModels
       return _outputFactory.CreateOutFor(operationName);
     }
 
-    public OperationStateMachine CreateOperation(ComponentOperation operation)
+    public OperationControl CreateOperation(ComponentOperation operation)
     {
-      return StateMachineFor(operation, _backgroundTasks);
+      var defaultOperationStateMachine = StateMachineFor(operation, _backgroundTasks);
+      _operationMachinesByPluginView[defaultOperationStateMachine] = defaultOperationStateMachine;
+      return defaultOperationStateMachine;
     }
 
     //bug move to factory

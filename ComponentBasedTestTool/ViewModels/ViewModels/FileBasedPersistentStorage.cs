@@ -17,12 +17,13 @@ namespace ViewModels.ViewModels
       _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
     }
 
-    public void AddOperation(string name, OperationStateMachine operation, string dependencyName)
+    public void AddOperation(string name, OperationControl operation, string dependencyName)
     {
-      operation.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
+      var stateMachine = _operationsOutputViewModel[operation]; //bug add mapping
+      stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }
 
-    public void AddOperation(string name, OperationStateMachine operation)
+    public void AddOperation(string name, OperationControl operation)
     {
       operation.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
     }

@@ -72,6 +72,7 @@ namespace ComponentBasedTestTool.Domain
       _operation.InitializeParameters(operationParametersListBuilder);
     }
 
+    //bug after change, try removing some types from extension points
     public void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder)
     {
       builder.AppendOperationNode(name, _operation);
@@ -81,11 +82,6 @@ namespace ComponentBasedTestTool.Domain
     public void SetContext(OperationContext context)
     {
       _context = context;
-    }
-
-    public void FromNowOnReportStateChangesTo(OperationStateObserver operationStateObserver)
-    {
-      throw new NotImplementedException(); //bug implement
     }
 
     void OperationControl.Start()

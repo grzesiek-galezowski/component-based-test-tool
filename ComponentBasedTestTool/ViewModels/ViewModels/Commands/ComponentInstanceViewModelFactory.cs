@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
