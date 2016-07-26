@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
@@ -9,14 +11,23 @@ namespace Components
   /// <summary>
   /// Interaction logic for CustomGui.xaml
   /// </summary>
-  public partial class CustomGui : Window, OperationContext //bug the state of the button should depend on configure operation
+  public partial class CustomGui : Window
   {
     private readonly OperationControl _wait;
+    private readonly OperationControl _configure;
+    private OperationContext _configureControls;
+    private OperationContext _waitControls;
 
-    public CustomGui(OperationControl wait)
+    public CustomGui(OperationControl wait, OperationControl configure)
     {
-      _wait = wait;
       InitializeComponent();
+      _wait = wait;
+      _configure = configure;
+      _configureControls = new ConfigurationControls(this);
+      _waitControls = new WaitControls(this);
+      _configure.RegisterContext(_configureControls);
+      _wait.RegisterContext(_waitControls);
+
     }
 
     private void button_Click(object sender, RoutedEventArgs e)
@@ -24,62 +35,31 @@ namespace Components
       _wait.Start();
     }
 
-    public void Ready()
+    private void Window_Closing(object sender, CancelEventArgs e)
     {
-      Dispatcher.Invoke(() =>
-      {
-        sleepButton.IsEnabled = false;
-      });
+      _configure.DeregisterContext(_configureControls);
+      _wait.RegisterContext(_waitControls);
     }
 
-    public void Success()
+    private void Window_Closed(object sender, EventArgs e)
+    {
+    }
+
+    public void Enable()
     {
       Dispatcher.Invoke(() =>
       {
         sleepButton.IsEnabled = true;
       });
-
     }
 
-    public void Stopped()
+    public void Disable()
     {
-      Dispatcher.Invoke(() =>
+      this.Dispatcher.Invoke(() =>
       {
         sleepButton.IsEnabled = false;
       });
-
     }
 
-    public void Failure(Exception exception)
-    {
-      Dispatcher.Invoke(() =>
-      {
-        sleepButton.IsEnabled = false;
-      });
-
-    }
-
-    public void Initial() 
-    {
-      Dispatcher.Invoke(() =>
-      {
-        sleepButton.IsEnabled = false;
-      });
-
-    }
-
-    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
-    {
-      MessageBox.Show("current state");
-    }
-
-    public void InProgress(CancellationTokenSource cancellationTokenSource)
-    {
-      Dispatcher.Invoke(() =>
-      {
-        sleepButton.IsEnabled = false; //bug doesn't work
-      });
-
-    }
   }
 }
