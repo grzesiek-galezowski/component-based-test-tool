@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CustomGui" Height="300" Width="300">
     <Grid>
-    <Button x:Name="button" Content="Sleep" HorizontalAlignment="Left" Margin="58,66,0,0" VerticalAlignment="Top" Width="160" Height="43" Click="button_Click"/>
+    <Button x:Name="sleepButton" Content="Sleep" HorizontalAlignment="Left" Margin="58,66,0,0" VerticalAlignment="Top" Width="160" Height="43" Click="button_Click"/>
 
   </Grid>
 </Window>

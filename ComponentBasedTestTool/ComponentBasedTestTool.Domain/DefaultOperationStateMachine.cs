@@ -80,6 +80,7 @@ namespace ComponentBasedTestTool.Domain
     public void RegisterContext(OperationContext context)
     {
       _context.Register(context);
+      _operationState.Notify(context);
     }
 
     void OperationControl.Start()
@@ -110,6 +111,11 @@ namespace ComponentBasedTestTool.Domain
     void OperationControl.Stop()
     {
       _operationState.Stop();
+    }
+
+    public void DeregisterContext(OperationContext context)
+    {
+      _context.Deregister(context);
     }
 
     private void NormalRunnable(OperationContext context, string statusText)
@@ -188,6 +194,11 @@ namespace ComponentBasedTestTool.Domain
       {
         operationContext.NotifyOnCurrentState(stateName, runnability, errorInfo);
       }
+    }
+
+    public void Deregister(OperationContext context)
+    {
+      _contexts.Remove(context);
     }
   }
 }

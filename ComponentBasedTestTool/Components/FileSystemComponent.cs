@@ -43,13 +43,20 @@ namespace Components
       _wait = _.CreateOperation(new WaitOperation(_.CreateOutFor(SleepName)));
       _configure = _.CreateOperation(new ConfigureOperation(_.CreateOutFor(_configureName)));
 
-      _customGui = new CustomGui(_wait);
-      _wait.RegisterContext(_customGui);
     }
 
     public void ShowCustomUi()
     {
-      _customGui.Show();
+      try
+      {
+        _customGui = new CustomGui(_wait);
+        _configure.RegisterContext(_customGui);
+        _customGui.Show();
+      }
+      finally
+      {
+        _configure.DeregisterContext(_customGui);
+      }
     }
   }
 }

@@ -29,5 +29,10 @@ namespace ComponentBasedTestTool.Domain.OperationStates
     {
       _cancellationTokenSource.Cancel();
     }
+
+    public void Notify(OperationContext context)
+    {
+      context.InProgress(_cancellationTokenSource);
+    }
   }
 }

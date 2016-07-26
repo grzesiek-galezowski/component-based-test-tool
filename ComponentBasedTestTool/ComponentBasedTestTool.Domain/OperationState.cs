@@ -10,5 +10,6 @@ namespace ComponentBasedTestTool.Domain
     void Start(OperationContext context, Runnable operation);
     void DependencyFulfilled(OperationContext operationViewModel);
     void Stop();
+    void Notify(OperationContext context);
   }
 }

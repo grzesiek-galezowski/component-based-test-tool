@@ -9,7 +9,7 @@ namespace Components
   /// <summary>
   /// Interaction logic for CustomGui.xaml
   /// </summary>
-  public partial class CustomGui : Window, OperationContext
+  public partial class CustomGui : Window, OperationContext //bug the state of the button should depend on configure operation
   {
     private readonly OperationControl _wait;
 
@@ -26,27 +26,46 @@ namespace Components
 
     public void Ready()
     {
-      MessageBox.Show("ready");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = false;
+      });
     }
 
     public void Success()
     {
-      MessageBox.Show("success");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = true;
+      });
+
     }
 
     public void Stopped()
     {
-      MessageBox.Show("stopped");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = false;
+      });
+
     }
 
     public void Failure(Exception exception)
     {
-      MessageBox.Show("failure");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = false;
+      });
+
     }
 
-    public void Initial() //bug when UI is open, initial state must be passed to it.
+    public void Initial() 
     {
-      MessageBox.Show("initial");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = false;
+      });
+
     }
 
     public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
@@ -56,7 +75,11 @@ namespace Components
 
     public void InProgress(CancellationTokenSource cancellationTokenSource)
     {
-      MessageBox.Show("in progress");
+      Dispatcher.Invoke(() =>
+      {
+        sleepButton.IsEnabled = false; //bug doesn't work
+      });
+
     }
   }
 }

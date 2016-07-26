@@ -5,5 +5,6 @@ namespace ExtensionPoints.ImplementedByContext.StateMachine
     void RegisterContext(OperationContext context);
     void Start();
     void Stop();
+    void DeregisterContext(OperationContext context);
   }
 }

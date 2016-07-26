@@ -32,5 +32,10 @@ namespace ComponentBasedTestTool.Domain.OperationStates
     {
       throw new NotImplementedException();
     }
+
+    public void Notify(OperationContext context)
+    {
+      context.Ready();
+    }
   }
 }
