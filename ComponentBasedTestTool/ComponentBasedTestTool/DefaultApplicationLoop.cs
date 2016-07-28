@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Windows;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views;
@@ -14,9 +15,9 @@ using ViewModels.ViewModels.Commands;
 
 namespace ComponentBasedTestTool
 {
-  public static class DefaultApplicationLoop
+  public class DefaultApplicationLoop
   {
-    public static void Start(
+    public void Start(
       ApplicationBootstrap bootstrap, 
       ComponentLocation componentLocation, 
       ApplicationContext applicationContext, 
@@ -70,6 +71,11 @@ namespace ComponentBasedTestTool
       {
         testComponentInstanceFactoryRepository.AddTo(componentsViewModel);
       }
+    }
+
+    public void Stop()
+    {
+      MessageBox.Show("lolek");
     }
   }
 }

@@ -54,7 +54,7 @@ namespace ComponentSpecification.AutomationLayer
 
       pluginLocation.LoadComponentRoots().Returns(new[] {componentRoot});
 
-      DefaultApplicationLoop.Start(
+      new DefaultApplicationLoop().Start(
         bootstrap, 
         pluginLocation, 
         new FakeApplicationContext(), 

@@ -23,8 +23,11 @@ namespace ComponentBasedTestTool
     {
       base.OnStartup(e);
 
-      DefaultApplicationLoop.Start(
-        new MainWindow(), 
+      var applicationBootstrap = new MainWindow();
+      var defaultApplicationLoop = new DefaultApplicationLoop();
+      applicationBootstrap.Closing += (sender, args) => defaultApplicationLoop.Stop();
+      defaultApplicationLoop.Start(
+        applicationBootstrap, 
         new ExecutingAssemblyFolder(), 
         new WpfApplicationContext(), 
         new AsyncBasedBackgroundTasks());
