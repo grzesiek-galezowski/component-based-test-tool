@@ -37,6 +37,7 @@ namespace ComponentBasedTestTool
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
       var outputFactory = new OutputFactory(operationsOutputViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
+      var scriptOperationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
       var componentInstancesViewModel = new ComponentInstancesViewModel(applicationContext, operationsViewModel);
       var operationMachinesByControlObject = new OperationMachinesByControlObject();
       var testComponentViewModelFactory =
@@ -57,6 +58,7 @@ namespace ComponentBasedTestTool
       bootstrap.SetOperationPropertiesViewDataContext(operationPropertiesViewModel);
       bootstrap.SetTopMenuBarContext(topMenuBarViewModel);
       bootstrap.SetOperationsViewDataContext(operationsViewModel);
+      bootstrap.SetScriptOperationsViewDataContext(scriptOperationsViewModel);
       bootstrap.SetOperationsOutputViewDataContext(operationsOutputViewModel);
       bootstrap.SetComponentsViewDataContext(componentsViewModel);
       bootstrap.SetComponentInstancesViewDataContext(componentInstancesViewModel);
@@ -75,7 +77,7 @@ namespace ComponentBasedTestTool
 
     public void Stop()
     {
-      MessageBox.Show("lolek");
+      //TODO log
     }
   }
 }

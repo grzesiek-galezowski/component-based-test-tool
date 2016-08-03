@@ -1,41 +1,77 @@
-﻿using System;
-using ComponentSpecification.AutomationLayer;
+﻿using ComponentSpecification.AutomationLayer;
+using TddEbook.TddToolkit;
 using Xbehave;
-using Xunit;
-using static ComponentSpecification.DisplayingSpecification;
+using static ComponentSpecification.ComponentAny;
 
 namespace ComponentSpecification
 {
   public class GivenAnOperationIsStarted
   {
     private readonly ComponentBasedTestToolDriver _context = new ComponentBasedTestToolDriver();
+    private readonly string _componentName1 = AnyComponentName();
+    private readonly string _operationName11 = AnyOperationName();
 
     [Background]
     public void Bg()
     {
       //GIVEN
-      var componentName1 = AnyComponentName();
-      var operationName = AnyOperationName();
+      "Given an operation is started"
+        .x(() =>
+        {
+          _context.ComponentsSetup.Add(_componentName1)
+            .WithOperation(_operationName11);
 
-      _context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName);
-
-      _context.StartApplication();
-      _context.ComponentsView.AddInstanceOf(componentName1);
-      _context.InstancesView.Select(componentName1);
-      _context.OperationsView.Select(operationName);
-
-      //WHEN
-      _context.OperationsView.ExecuteSelectedOperation();
+          _context.StartApplication();
+          _context.ComponentsView.AddInstanceOf(_componentName1);
+          _context.StartOperation(_componentName1, _operationName11);
+        });
     }
 
     [Scenario]
-    public void WhenItIsStoppedItsStatusShouldBeDisplayedAsStopped()
+    public void ShouldStartPluginOperation()
     {
-      "When I stop it".x(() => _context.Operations.StopRunningOperation());
+      "Then the plugin operation should be started"
+        .x(() => _context.Operations.AssertWasRun(_operationName11));
+    }
+
+
+    [Scenario]
+    public void ShouldDisplayStartedOperationAsInProgress()
+    {
+      "Then the operations should be displayed as in progress"
+        .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress());
+    }
+
+    [Scenario]
+    public void ShouldDisplayStoppedOperationAsStopped()
+    {
+      "When I stop it".x(() => _context.Operations.MakeRunningOperationStop());
 
       "Then it should be displayed as stopped"
         .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped());
     }
+
+    [Scenario]
+    public void ShouldDisplaySuccessfulOperationAsSuccessful()
+    {
+      "When it finishes successfully"
+        .x(() => _context.Operations.MakeRunningOperationSucceed());
+
+      "Then the operations should be displayed as in successful"
+        .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful());
+    }
+
+    [Scenario]
+    public void ShouldDisplayFailedOperationAsFailed()
+    {
+      var exception = Any.Exception();
+
+      "When it fails"
+        .x(() => _context.Operations.MakeRunningOperationFailWith(exception));
+
+      "Then the operations should be displayed as in failed"
+        .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsFailedWith(exception));
+    }
+
   }
 }

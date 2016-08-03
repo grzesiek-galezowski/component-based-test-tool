@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -117,32 +116,4 @@ namespace ViewModels.ViewModels
     public ICommand ShowCustomUiForComponentInstanceCommand => new ShowCustomUiForComponentInstanceCommand(_testComponentInstance);
 
   }
-
-  public class ShowCustomUiForComponentInstanceCommand : ICommand
-  {
-    private readonly TestComponent _testComponentInstance;
-
-    public ShowCustomUiForComponentInstanceCommand(TestComponent testComponentInstance)
-    {
-      _testComponentInstance = testComponentInstance;
-    }
-
-    public bool CanExecute(object parameter)
-    {
-      return true; //for now
-    }
-
-    public void Execute(object parameter)
-    {
-      _testComponentInstance.ShowCustomUi();
-    }
-
-    public event EventHandler CanExecuteChanged;
-
-    protected virtual void OnCanExecuteChanged()
-    {
-      CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-    }
-  }
-
 }

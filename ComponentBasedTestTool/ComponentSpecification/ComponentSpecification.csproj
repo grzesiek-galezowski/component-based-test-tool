@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="AutomationLayer\ComponentBasedTestToolDriver.cs" />
     <Compile Include="AutomationLayer\RunningOperation.cs" />
+    <Compile Include="ComponentAny.cs" />
     <Compile Include="DisplayingSpecification.cs" />
     <Compile Include="AutomationLayer\FakeComponentInstance.cs" />
     <Compile Include="AutomationLayer\FakeComponentsView.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="AutomationLayer\FakeTestComponents.cs" />
     <Compile Include="GivenAnApplicationIsStartedWithNoComponentsAvailable.cs" />
     <Compile Include="GivenAnOperationIsStarted.cs" />
+    <Compile Include="GivenComponentWithSeveralOperationsIsLoaded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

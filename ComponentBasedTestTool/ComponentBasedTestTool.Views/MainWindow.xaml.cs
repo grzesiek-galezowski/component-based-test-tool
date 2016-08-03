@@ -37,6 +37,11 @@ namespace ComponentBasedTestTool.Views
       OperationsView.DataContext = operationsViewModel;
     }
 
+    public void SetScriptOperationsViewDataContext(object scriptOperationsViewModel)
+    {
+      ScriptOperationsView.DataContext = scriptOperationsViewModel;
+    }
+
     public void SetOperationPropertiesViewDataContext(object operationPropertiesViewModel)
     {
       OperationPropertiesView.DataContext = operationPropertiesViewModel;

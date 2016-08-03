@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="CatOperation.cs" />
     <Compile Include="CdOperation.cs" />
+    <Compile Include="ConfigurationControls.cs" />
     <Compile Include="ConfigureOperation.cs" />
     <Compile Include="CustomGui.xaml.cs">
       <DependentUpon>CustomGui.xaml</DependentUpon>
@@ -88,6 +89,7 @@
     <Compile Include="UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WaitControls.cs" />
     <Compile Include="WaitOperation.cs" />
     <Compile Include="LsOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

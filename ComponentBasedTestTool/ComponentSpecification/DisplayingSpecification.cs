@@ -4,6 +4,7 @@ using System.Threading;
 using ComponentSpecification.AutomationLayer;
 using TddEbook.TddToolkit;
 using Xunit;
+using static ComponentSpecification.ComponentAny;
 
 // ReSharper disable ArgumentsStyleLiteral
 
@@ -11,21 +12,15 @@ namespace ComponentSpecification
 {
   public class DisplayingSpecification
   {
-    private const string ComponentNameSeed = "Component";
-    private const string OperationNameSeed = "Operation";
-    private const string ParameterNameSeed = "ParameterName";
-    private const string ParameterValueSeed = "ParameterValue";
-
-
     [Fact]
     public void ShouldShowTheNamesOfTheAddedComponents()
     {
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var componentName2 = Any.String(ComponentNameSeed);
-      var componentName3 = Any.String(ComponentNameSeed);
+      var componentName1 = AnyComponentName();
+      var componentName2 = AnyComponentName();
+      var componentName3 = AnyComponentName();
       context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
       //WHEN
@@ -42,9 +37,9 @@ namespace ComponentSpecification
       //GIVEN
       var context = new ComponentBasedTestToolDriver();
 
-      var componentName1 = Any.String(ComponentNameSeed);
-      var componentName2 = Any.String(ComponentNameSeed);
-      var componentName3 = Any.String(ComponentNameSeed);
+      var componentName1 = AnyComponentName();
+      var componentName2 = AnyComponentName();
+      var componentName3 = AnyComponentName();
       context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
       context.StartApplication();
@@ -116,37 +111,6 @@ namespace ComponentSpecification
       context.OperationsView.AssertShowsExactly(component2Operation1, component2Operation2);
     }
 
-    [Fact]
-    public void ShouldShowPropertiesOfInitialSelectedOperations()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-
-      var componentName1 = AnyComponentName();
-      var operationName11 = AnyOperationName();
-      var parameterName1 = AnyParameterName();
-      var parameterValue1 = AnyParameterValue();
-      var parameterName2 = AnyParameterName();
-      var parameterValue2 = AnyParameterValue();
-
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName11)
-          .WithParameter(parameterName1, parameterValue1)
-          .WithParameter(parameterName2, parameterValue2);
-
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
-
-      //WHEN
-      context.OperationsView.Select(operationName11);
-
-      //THEN
-      context.PropertiesView.AssertShowsExactly(
-        Property(parameterName1, parameterValue1),
-        Property(parameterName2, parameterValue2)
-      );
-    }
 
     [Fact]
     public void ShouldShowPropertiesOfLastSelectedOperations()
@@ -164,11 +128,11 @@ namespace ComponentSpecification
 
       context.ComponentsSetup.Add(componentName1)
         .WithOperation(operationName11)
-          .WithParameter(Any.String(), Any.String())
-          .WithParameter(Any.String(), Any.String())
+        .WithParameter(Any.String(), Any.String())
+        .WithParameter(Any.String(), Any.String())
         .WithOperation(operationName12)
-          .WithParameter(parameterName1, parameterValue1)
-          .WithParameter(parameterName2, parameterValue2);
+        .WithParameter(parameterName1, parameterValue1)
+        .WithParameter(parameterName2, parameterValue2);
 
       context.StartApplication();
       context.ComponentsView.AddInstanceOf(componentName1);
@@ -179,114 +143,9 @@ namespace ComponentSpecification
       context.OperationsView.Select(operationName12);
 
       //THEN
-      context.PropertiesView.AssertShowsExactly(
-        Property(parameterName1, parameterValue1),
+      context.PropertiesView.AssertShowsExactly(Property(parameterName1, parameterValue1),
         Property(parameterName2, parameterValue2)
-      );
-    }
-
-    private static string AnyParameterValue()
-    {
-      return Any.String(ParameterValueSeed);
-    }
-
-    private static string AnyParameterName()
-    {
-      return Any.String(ParameterNameSeed);
-    }
-
-    [Fact]
-    public void ShouldExecuteLoadedOperationWhenTriggeredFromView()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-      var componentName1 = AnyComponentName();
-      var operationName11 = AnyOperationName();
-
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName11);
-
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
-      context.OperationsView.Select(operationName11);
-
-      //WHEN
-      context.OperationsView.ExecuteSelectedOperation();
-      context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress();
-      context.Operations.SucceedRunningOperation();
-      context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
-
-      //THEN
-      context.Operations.AssertWasRun(operationName11);
-    }
-
-    [Fact]
-    public void ShouldDisplayStoppedOperation()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-      var componentName1 = AnyComponentName();
-      var operationName = AnyOperationName();
-
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName);
-
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
-      context.OperationsView.Select(operationName);
-
-      //WHEN
-      context.OperationsView.ExecuteSelectedOperation();
-      context.Operations.StopRunningOperation();
-
-      //THEN
-      context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped();
-    }
-
-    [Fact]
-    public void ShouldAllowExecutingPreviouslyStoppedOperation()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-      var componentName1 = AnyComponentName();
-      var operationName = AnyOperationName();
-
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName);
-
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
-      context.OperationsView.Select(operationName);
-
-      context.OperationsView.ExecuteSelectedOperation();
-      context.Operations.StopRunningOperation();
-
-      //WHEN
-      context.OperationsView.ExecuteSelectedOperation();
-      context.Operations.SucceedRunningOperation();
-
-      //THEN
-      context.Operations.AssertWasRun(operationName, times: 2);
-      context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
-    }
-
-    public static string AnyOperationName()
-    {
-      return Any.String(OperationNameSeed);
-    }
-
-    public static string AnyComponentName()
-    {
-      return Any.String(ComponentNameSeed);
-    }
-
-
-    private static KeyValuePair<string, string> Property(string parameterName1, string parameterValue1)
-    {
-      return new KeyValuePair<string, string>(parameterName1, parameterValue1);
+        );
     }
 
 

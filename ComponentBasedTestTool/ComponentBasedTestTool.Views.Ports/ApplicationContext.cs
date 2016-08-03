@@ -7,6 +7,7 @@ namespace ComponentBasedTestTool.Views.Ports
     void Invoke(EventHandler eventHandler, object sender);
   }
 
+
   public interface ApplicationBootstrap
   {
     //TODO convert to empty interfaces
@@ -17,6 +18,7 @@ namespace ComponentBasedTestTool.Views.Ports
     void SetOperationPropertiesViewDataContext(object operationPropertiesViewModel);
     void Start();
     void SetTopMenuBarContext(object topMenuBarContextViewModel);
+    void SetScriptOperationsViewDataContext(object scriptOperationsViewModel);
   }
 
 }

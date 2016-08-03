@@ -82,6 +82,7 @@
     <Compile Include="ViewModels\Commands\RestartOperationCommand.cs" />
     <Compile Include="ViewModels\RestoringOfSavedComponentsObserver.cs" />
     <Compile Include="ViewModels\Commands\SaveWorkspaceCommand.cs" />
+    <Compile Include="ViewModels\Commands\ShowCustomUiForComponentInstanceCommand.cs" />
     <Compile Include="ViewModels\TestComponentViewModel.cs" />
     <Compile Include="ViewModels\TestComponentViewModelFactory.cs" />
     <Compile Include="ViewModels\TopMenuBarViewModel.cs" />

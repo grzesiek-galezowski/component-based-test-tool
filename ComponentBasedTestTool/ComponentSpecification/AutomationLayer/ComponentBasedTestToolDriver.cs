@@ -8,6 +8,7 @@ using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using NSubstitute;
 using NSubstitute.Core;
+using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
 using Xunit;
 
@@ -23,6 +24,7 @@ namespace ComponentSpecification.AutomationLayer
     private OperationsOutputViewModel _operationsOutputViewModel;
     private OperationsViewModel _operationsViewModel;
     private Maybe<OperationContext> _runningOperationContext = Maybe.Nothing<OperationContext>();
+    private OperationsViewModel _scriptOperationsViewModel;
 
     public ComponentBasedTestToolDriver()
     {
@@ -101,6 +103,11 @@ namespace ComponentSpecification.AutomationLayer
       _operationsViewModel = (OperationsViewModel) operationsViewModel;
     }
 
+    public void SetScriptOperationsViewDataContext(object scriptOperationsViewModel)
+    {
+      _scriptOperationsViewModel = (OperationsViewModel)scriptOperationsViewModel;
+    }
+
     void ApplicationBootstrap.Start()
     {
       // Method intentionally left empty.
@@ -109,6 +116,14 @@ namespace ComponentSpecification.AutomationLayer
     public void SetTopMenuBarContext(object topMenuBarContextViewModel)
     {
       
+    }
+
+
+    public void StartOperation(string componentName1, string operationName11)
+    {
+      InstancesView.Select(componentName1);
+      OperationsView.Select(operationName11);
+      OperationsView.StartSelectedOperation();
     }
   }
 
@@ -156,7 +171,7 @@ namespace ComponentSpecification.AutomationLayer
 
     }*/
 
-    public void StopRunningOperation()
+    public void MakeRunningOperationStop()
     {
       if (_runningOperationContext.HasValue())
       {
@@ -169,7 +184,7 @@ namespace ComponentSpecification.AutomationLayer
 
     }
 
-    public void SucceedRunningOperation()
+    public void MakeRunningOperationSucceed()
     {
       if (_runningOperationContext.HasValue())
       {
@@ -182,11 +197,11 @@ namespace ComponentSpecification.AutomationLayer
 
     }
 
-    public void Fail(Exception e)
+    public void MakeRunningOperationFailWith(Exception exception)
     {
       if (_runningOperationContext.HasValue())
       {
-        _runningOperationContext.ValueOrDefault().Failure(e);
+        _runningOperationContext.ValueOrDefault().Failure(exception);
       }
       else
       {

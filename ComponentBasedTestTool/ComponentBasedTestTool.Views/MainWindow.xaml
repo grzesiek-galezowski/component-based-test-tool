@@ -41,7 +41,14 @@
       </Grid.ColumnDefinitions>
       <views1:ComponentsView x:Name="ComponentsView" Grid.Column="0" />
       <GridSplitter Style="{StaticResource VerticalGridSplitter}" Grid.Column="1" />
-      <views1:OperationsView x:Name="OperationsView"  Grid.Column="2" />
+      <TabControl Grid.Column="2">
+        <TabItem Header="Instance Operations">
+          <views1:OperationsView x:Name="OperationsView" />
+        </TabItem>
+        <TabItem Header="Script View">
+          <views1:OperationsView x:Name="ScriptOperationsView" />
+        </TabItem>
+      </TabControl>
       <GridSplitter Style="{StaticResource VerticalGridSplitter}"  Grid.Column="3" />
       <views1:OperationPropertiesView x:Name="OperationPropertiesView"  Grid.Column="4" />
     </Grid>

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
@@ -36,7 +37,7 @@ namespace ComponentSpecification.AutomationLayer
       OperationViewByName(operationName).RunOperationCommand.Execute(null);
     }
 
-    public void ExecuteSelectedOperation()
+    public void StartSelectedOperation()
     {
       _operationsViewModel.SelectedOperation.RunOperationCommand.Execute(null);
     }
@@ -54,6 +55,12 @@ namespace ComponentSpecification.AutomationLayer
     public void AssertSelectedOperationIsDisplayedAsInProgress()
     {
       XAssert.Equal("In Progress", _operationsViewModel.SelectedOperation.State);
+    }
+
+    public void AssertSelectedOperationIsDisplayedAsFailedWith(Exception exception)
+    {
+      XAssert.Equal("Failure", _operationsViewModel.SelectedOperation.State);
+      XAssert.Equal(exception.ToString(), _operationsViewModel.SelectedOperation.LastErrorFullText);
     }
   }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Reflection.Emit;
-using System.Threading;
+﻿using System.Reflection.Emit;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -21,10 +18,6 @@ namespace Components
     private OperationControl _configure;
     private readonly string _configureName = "configure";
     private CustomGui _customGui;
-
-    public FileSystemComponent()
-    {
-    }
 
     private const string SleepName = "sleep";
     private const string CatName = "cat";
@@ -52,115 +45,21 @@ namespace Components
 
     public void ShowCustomUi()
     {
-      _customGui = new CustomGui(_wait, _configure);
+      if (_customGui == null || !_customGui.IsLoaded)
+      {
+        _customGui = new CustomGui(_wait, _configure)
+        {
+          Owner = Application.Current.MainWindow
+        };
+        _customGui.Show();
+      }
+      else
+      {
+        _customGui.Focus();
+      }
     
-      _customGui.Show();
 
       MessageBox.Show("end show");
-    }
-  }
-
-  public class WaitControls : OperationContext
-  {
-    private readonly CustomGui _customGui;
-
-    public WaitControls(CustomGui customGui)
-    {
-      _customGui = customGui;
-    }
-
-    public void Ready()
-    {
-      Enable();
-    }
-
-    private void Enable()
-    {
-      _customGui.Enable();
-    }
-
-    private void Disable()
-    {
-      _customGui.Disable();
-    }
-
-    public void Success()
-    {
-      Enable();
-    }
-
-    public void Stopped()
-    {
-      Enable();
-    }
-
-    public void Failure(Exception exception)
-    {
-      Enable();
-    }
-
-    public void InProgress(CancellationTokenSource cancellationTokenSource)
-    {
-      Disable();
-    }
-
-
-
-    public void Initial()
-    {
-      Disable();
-    }
-
-    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
-    {
-      
-    }
-  }
-
-  public class ConfigurationControls : OperationContext
-  {
-    private readonly CustomGui _customGui;
-
-    public ConfigurationControls(CustomGui customGui)
-    {
-      _customGui = customGui;
-    }
-
-
-    public void Ready()
-    {
-
-    }
-
-    public void Success()
-    {
-      _customGui.Enable();
-    }
-
-    public void Stopped()
-    {
-      _customGui.Enable();
-    }
-
-
-    public void Initial()
-    {
-      _customGui.Disable();
-    }
-
-    public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
-    {
-      
-    }
-
-    public void InProgress(CancellationTokenSource cancellationTokenSource)
-    {
-      _customGui.Disable();
-    }
-
-    public void Failure(Exception exception)
-    {
-      _customGui.Enable();
     }
   }
 }
