@@ -1,3 +1,4 @@
+using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;

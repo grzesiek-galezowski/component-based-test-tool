@@ -1,6 +1,6 @@
 using System;
 
-namespace ComponentBasedTestTool.ViewModels.Ports
+namespace ExtensionPoints.ImplementedByContext
 {
   public class Runnability : IEquatable<Runnability>
   {

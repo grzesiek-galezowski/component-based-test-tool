@@ -1,4 +1,4 @@
-﻿namespace ExtensionPoints.ImplementedByContext
+﻿namespace ComponentBasedTestTool.Domain
 {
   public interface OperationDependencyObserver
   {

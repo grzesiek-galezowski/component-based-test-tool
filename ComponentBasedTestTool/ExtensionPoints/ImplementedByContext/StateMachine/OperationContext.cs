@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using ComponentBasedTestTool.ViewModels.Ports;
 
 namespace ExtensionPoints.ImplementedByContext.StateMachine
 {

@@ -41,8 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigurationOutputBuilder.cs" />
     <Compile Include="DefaultOperationStateMachine.cs" />
+    <Compile Include="OperationDependencyObserver.cs" />
+    <Compile Include="OperationSignals.cs" />
     <Compile Include="OperationState.cs" />
+    <Compile Include="OperationStateMachine.cs" />
     <Compile Include="OperationStatesFactory.cs" />
     <Compile Include="OperationStates\AsyncBasedBackgroundTasks.cs" />
     <Compile Include="OperationStates\RunnableOperationState.cs" />

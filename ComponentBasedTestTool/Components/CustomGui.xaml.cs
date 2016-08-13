@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components

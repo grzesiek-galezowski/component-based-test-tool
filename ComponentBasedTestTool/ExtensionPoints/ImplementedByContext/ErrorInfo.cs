@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace ComponentBasedTestTool.ViewModels.Ports
+namespace ExtensionPoints.ImplementedByContext
 {
   public class ErrorInfo : IEquatable<ErrorInfo>
   {

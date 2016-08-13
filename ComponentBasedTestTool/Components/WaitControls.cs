@@ -1,6 +1,6 @@
 using System;
 using System.Threading;
-using ComponentBasedTestTool.ViewModels.Ports;
+using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components

@@ -1,4 +1,7 @@
-﻿namespace ExtensionPoints.ImplementedByContext.StateMachine
+﻿using ExtensionPoints.ImplementedByContext;
+using ExtensionPoints.ImplementedByContext.StateMachine;
+
+namespace ComponentBasedTestTool.Domain
 {
   public interface OperationStateMachine : OperationSignals, OperationStateObserver
   {

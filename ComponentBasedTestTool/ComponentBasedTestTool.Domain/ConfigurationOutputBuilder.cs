@@ -1,6 +1,5 @@
 ﻿using ExtensionPoints.ImplementedByComponents;
 
-namespace ExtensionPoints.ImplementedByContext
 {
   public interface ConfigurationOutputBuilder
   {
