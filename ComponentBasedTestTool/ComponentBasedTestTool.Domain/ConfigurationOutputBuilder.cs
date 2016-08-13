@@ -1,5 +1,6 @@
 ﻿using ExtensionPoints.ImplementedByComponents;
 
+namespace ComponentBasedTestTool.Domain
 {
   public interface ConfigurationOutputBuilder
   {
@@ -8,5 +9,4 @@
     void Save();
     void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance);
   }
-}
 }

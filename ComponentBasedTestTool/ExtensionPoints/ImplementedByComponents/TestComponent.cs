@@ -2,7 +2,7 @@
 
 namespace ExtensionPoints.ImplementedByComponents
 {
-  public interface TestComponent
+  public interface TestComponent : TestComponentAdditionalCapabilities.CustomGui
   {
     void PopulateOperations(TestComponentOperationDestination ctx);
     void CreateOperations(TestComponentContext testComponentContext);

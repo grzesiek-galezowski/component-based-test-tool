@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImplementedByComponents\TestComponentAdditionalCapabilities.cs" />
     <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
     <Compile Include="ImplementedByContext\ComponentsList.cs" />
     <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
