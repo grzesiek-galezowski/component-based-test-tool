@@ -1,20 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
 {
   public class ComponentInstancesViewModel
   {
-    private readonly ApplicationContext _applicationContext; //bug consider holding in a commands factory instead
     private readonly OperationsViewModel _operationsViewModel;
 
     private ComponentInstanceViewModel _selectedInstance;
 
-    public ComponentInstancesViewModel(ApplicationContext applicationContext, OperationsViewModel operationsViewModel)
+    public ComponentInstancesViewModel(OperationsViewModel operationsViewModel)
     {
-      _applicationContext = applicationContext;
       _operationsViewModel = operationsViewModel;
     }
 

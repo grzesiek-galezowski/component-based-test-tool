@@ -23,7 +23,8 @@ namespace ViewModels.ViewModels.Commands
 
     public void Execute(object parameter)
     {
-      _componentInstancesViewModel.SaveTo(_persistentModelContentBuilderFactory.CreatePersistentModelFileContentBuilder()); //bug extract factory
+      var persistentModelFileContentBuilder = _persistentModelContentBuilderFactory.CreateInstance();
+      _componentInstancesViewModel.SaveTo(persistentModelFileContentBuilder);
     }
 
     public event EventHandler CanExecuteChanged;
@@ -45,7 +46,7 @@ namespace ViewModels.ViewModels.Commands
       _operationMachinesByControlObject = operationMachinesByControlObject;
     }
 
-    public PersistentModelFileContentBuilder CreatePersistentModelFileContentBuilder()
+    public PersistentModelFileContentBuilder CreateInstance()
     {
       return new PersistentModelFileContentBuilder(_operationsOutputViewModel, _operationMachinesByControlObject);
     }

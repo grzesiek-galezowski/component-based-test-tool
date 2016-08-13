@@ -33,13 +33,13 @@ namespace Components
       ctx.AddOperation(SleepName, _wait, _configureName);
     }
 
-    public void CreateOperations(TestComponentContext _)
+    public void CreateOperations(TestComponentContext ctx)
     {
-      _ls = _.CreateOperation(new LsOperation(_.CreateOutFor(LsName)));
-      _cs = _.CreateOperation(new CdOperation(_.CreateOutFor(CdName)));
-      _cat = _.CreateOperation(new CatOperation(_.CreateOutFor(CatName)));
-      _wait = _.CreateOperation(new WaitOperation(_.CreateOutFor(SleepName)));
-      _configure = _.CreateOperation(new ConfigureOperation(_.CreateOutFor(_configureName)));
+      _ls = ctx.CreateOperation(new LsOperation(ctx.CreateOutFor(LsName)));
+      _cs = ctx.CreateOperation(new CdOperation(ctx.CreateOutFor(CdName)));
+      _cat = ctx.CreateOperation(new CatOperation(ctx.CreateOutFor(CatName)));
+      _wait = ctx.CreateOperation(new WaitOperation(ctx.CreateOutFor(SleepName)));
+      _configure = ctx.CreateOperation(new ConfigureOperation(ctx.CreateOutFor(_configureName)));
 
     }
 

@@ -33,16 +33,17 @@ namespace ComponentBasedTestTool
     {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
-      var outputFactory = new OutputFactory(operationsOutputViewModel);
-      var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
       var scriptOperationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
-      var componentInstancesViewModel = new ComponentInstancesViewModel(applicationContext, operationsViewModel);
+      var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
+      var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel);
       var operationMachinesByControlObject = new OperationMachinesByControlObject();
+      var outputFactory = new OutputFactory(operationsOutputViewModel);
       var testComponentViewModelFactory =
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext, backgroundTasks), backgroundTasks, operationMachinesByControlObject);
+          new WpfOperationViewModelFactory(applicationContext), 
+          backgroundTasks, operationMachinesByControlObject);
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var topMenuBarViewModel = new TopMenuBarViewModel(

@@ -1,6 +1,5 @@
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -12,12 +11,10 @@ namespace ComponentBasedTestTool
   public class WpfOperationViewModelFactory : OperationViewModelFactory
   {
     private readonly ApplicationContext _applicationContext;
-    private readonly BackgroundTasks _backgroundTasks;
 
-    public WpfOperationViewModelFactory(ApplicationContext applicationContext, BackgroundTasks backgroundTasks)
+    public WpfOperationViewModelFactory(ApplicationContext applicationContext)
     {
       _applicationContext = applicationContext;
-      _backgroundTasks = backgroundTasks;
     }
 
     public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine)

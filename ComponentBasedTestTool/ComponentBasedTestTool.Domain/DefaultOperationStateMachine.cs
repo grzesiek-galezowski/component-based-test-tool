@@ -70,7 +70,6 @@ namespace ComponentBasedTestTool.Domain
       _operation.InitializeParameters(operationParametersListBuilder);
     }
 
-    //bug after change, try removing some types from extension points
     public void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder)
     {
       builder.AppendOperationNode(name, _operation);

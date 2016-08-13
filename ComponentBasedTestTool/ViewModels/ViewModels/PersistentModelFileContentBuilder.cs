@@ -1,3 +1,4 @@
+using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
@@ -8,7 +9,7 @@ namespace ViewModels.ViewModels
   {
     private readonly OperationsOutputViewModel _operationsOutputViewModel;
     private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
-    private readonly XmlConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
+    private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
     public PersistentModelFileContentBuilder(OperationsOutputViewModel operationsOutputViewModel, OperationMachinesByControlObject operationMachinesByControlObject)
     {

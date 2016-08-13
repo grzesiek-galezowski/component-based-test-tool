@@ -12,7 +12,7 @@ namespace ViewModels.ViewModels
     private readonly OperationStateMachine _operation;
     public Maybe<string> DependencyName { get; }
     public string Name { get; }
-    private OperationStateMachine InnerOperation { get; } //TODO get rid of this. Only state machine should stay!!!
+    private OperationStateMachine InnerOperation { get; }
 
     public OperationEntry(string name, OperationStateMachine innerOperation, Maybe<string> dependencyName, OperationStateMachine operationStateMachine)
     {
