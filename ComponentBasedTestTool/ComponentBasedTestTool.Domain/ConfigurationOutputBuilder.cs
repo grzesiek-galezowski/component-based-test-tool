@@ -9,3 +9,4 @@
     void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance);
   }
 }
+}

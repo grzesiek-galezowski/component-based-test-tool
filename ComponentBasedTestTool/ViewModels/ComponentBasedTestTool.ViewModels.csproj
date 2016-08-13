@@ -36,7 +36,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="RunSharp, Version=1.0.0.19, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
       <HintPath>..\packages\aqla.runsharp.1.0.0.19\lib\net35\RunSharp.dll</HintPath>
       <Private>True</Private>
