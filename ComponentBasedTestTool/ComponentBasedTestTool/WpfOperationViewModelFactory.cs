@@ -22,7 +22,7 @@ namespace ComponentBasedTestTool
       var operationPropertiesViewModelBuilder = 
         new OperationPropertiesViewModelBuilder(operationEntry.Name);
 
-      operationEntry.FillParameters(operationPropertiesViewModelBuilder);
+      operationEntry.AddParametersTo(operationPropertiesViewModelBuilder);
       operationPropertiesViewModelBuilder.RetrieveList();
 
       var operationViewModel = OperationViewModelFor(

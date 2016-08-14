@@ -5,7 +5,7 @@ namespace ComponentBasedTestTool.Domain
 {
   public interface OperationStateMachine : OperationSignals, OperationStateObserver
   {
-    void InitializeParameters(OperationParametersListBuilder operationParametersListBuilder);
+    void InitializeParametersIn(OperationParametersListBuilder operationParametersListBuilder);
     void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder);
     void RegisterContext(OperationContext context);
   }

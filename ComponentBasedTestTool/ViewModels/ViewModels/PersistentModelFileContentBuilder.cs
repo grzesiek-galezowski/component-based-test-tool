@@ -44,7 +44,7 @@ namespace ViewModels.ViewModels
       _xmlConfigurationOutputBuilder.AppendProperty(name, value);
     }
 
-    public void NewComponentInstance(string instanceName, TestComponent testComponentInstance)
+    public void NewComponentInstance(string instanceName, CoreTestComponent testComponentInstance)
     {
       _xmlConfigurationOutputBuilder.AppendComponentInstanceNode(instanceName, testComponentInstance);
     }

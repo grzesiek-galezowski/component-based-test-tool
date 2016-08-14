@@ -34,7 +34,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImplementedByComponents\TestComponentAdditionalCapabilities.cs" />
+    <Compile Include="ImplementedByComponents\Capabilities.cs" />
+    <Compile Include="ImplementedByComponents\TestComponent.cs" />
     <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
     <Compile Include="ImplementedByContext\ComponentsList.cs" />
     <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
@@ -50,7 +51,7 @@
     <Compile Include="ImplementedByContext\Persistable.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImplementedByComponents\TestComponent.cs" />
+    <Compile Include="ImplementedByComponents\CoreTestComponent.cs" />
     <Compile Include="ImplementedByContext\TestComponentContext.cs" />
     <Compile Include="ImplementedByComponents\TestComponentInstanceFactory.cs" />
   </ItemGroup>

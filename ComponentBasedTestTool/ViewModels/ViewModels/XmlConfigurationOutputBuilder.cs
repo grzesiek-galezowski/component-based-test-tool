@@ -45,7 +45,7 @@ namespace ViewModels.ViewModels
       _doc.Save("Save.xml");
     }
 
-    public void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance)
+    public void AppendComponentInstanceNode(string instanceName, CoreTestComponent testComponentInstance)
     {
       _currentComponentInstance = new XElement("Component",
         new XAttribute("name", instanceName),

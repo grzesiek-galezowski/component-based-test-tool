@@ -13,8 +13,11 @@ namespace ViewModels.ViewModels
     private readonly BackgroundTasks _backgroundTasks;
     private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
 
-    public TestComponentViewModelFactory(ComponentInstancesViewModel componentInstancesViewModel, 
-      OutputFactory outputFactory, OperationViewModelFactory operationViewModelFactory, BackgroundTasks backgroundTasks, 
+    public TestComponentViewModelFactory(
+      ComponentInstancesViewModel componentInstancesViewModel, 
+      OutputFactory outputFactory, 
+      OperationViewModelFactory operationViewModelFactory, 
+      BackgroundTasks backgroundTasks, 
       OperationMachinesByControlObject operationMachinesByControlObject)
     {
       _componentInstancesViewModel = componentInstancesViewModel;

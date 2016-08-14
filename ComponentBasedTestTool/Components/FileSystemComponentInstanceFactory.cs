@@ -1,14 +1,15 @@
 ﻿using System.Composition;
-using ExtensionPoints;
+using ComponentBasedTestTool.Annotations;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
 namespace Components
 {
   [Export(typeof(TestComponentSourceRoot))]
+  [UsedImplicitly]
   public class FileSystemComponentInstanceFactory : TestComponentInstanceFactory, TestComponentSourceRoot
   {
-    public TestComponent Create()
+    public CoreTestComponent Create()
     {
       return new FileSystemComponent();
     }

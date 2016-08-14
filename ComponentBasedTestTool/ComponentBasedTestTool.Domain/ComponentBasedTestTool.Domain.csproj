@@ -31,12 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurationOutputBuilder.cs" />
     <Compile Include="DefaultOperationStateMachine.cs" />
+    <Compile Include="NullCustomGuiCapability.cs" />
     <Compile Include="OperationDependencyObserver.cs" />
     <Compile Include="OperationSignals.cs" />
     <Compile Include="OperationState.cs" />
@@ -47,6 +49,7 @@
     <Compile Include="OperationStates\InProgressOperationState.cs" />
     <Compile Include="OperationStates\UnavailableOperationState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestComponentWithAllCapabilitiesAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">

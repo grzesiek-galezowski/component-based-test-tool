@@ -1,11 +1,7 @@
-﻿using ExtensionPoints.ImplementedByContext;
-
-namespace ExtensionPoints.ImplementedByComponents
+﻿namespace ExtensionPoints.ImplementedByComponents
 {
-  public interface TestComponent : TestComponentAdditionalCapabilities.CustomGui
+  public interface TestComponent : CoreTestComponent, Capabilities.All
   {
-    void PopulateOperations(TestComponentOperationDestination ctx);
-    void CreateOperations(TestComponentContext testComponentContext);
-    void ShowCustomUi();
+    
   }
 }

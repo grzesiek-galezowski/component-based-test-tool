@@ -1,15 +1,11 @@
-﻿using System.Reflection.Emit;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
-using ExtensionPoints;
+﻿using System.Windows;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components
 {
-  public class FileSystemComponent : TestComponent
+  public class FileSystemComponent : CoreTestComponent, Capabilities.CustomGui
   {
     private OperationControl _ls;
     private OperationControl _cs;

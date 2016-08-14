@@ -1,7 +1,5 @@
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Views.Ports;
-using ExtensionPoints.ImplementedByContext;
-using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

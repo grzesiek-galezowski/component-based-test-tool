@@ -1,4 +1,5 @@
 using System;
+using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
@@ -36,11 +37,18 @@ namespace ViewModels.ViewModels.Commands
           testComponentViewModel.Name, 
           _outputFactory, 
           new OperationEntries(_backgroundTasks),
-          testComponentInstance, _backgroundTasks, _operationMachinesByControlObject);
+          TestComponentInstanceWithAllCapabilities(testComponentInstance), _backgroundTasks, _operationMachinesByControlObject);
 
       componentInstanceViewModel.Initialize(_operationViewModelFactory);
 
       return componentInstanceViewModel;
+    }
+
+    private static TestComponent TestComponentInstanceWithAllCapabilities(CoreTestComponent testComponentInstance)
+    {
+      var customGuiCapability = (testComponentInstance as Capabilities.CustomGui) ?? new NullCustomGuiCapability();
+      return new TestComponentWithAllCapabilitiesAdapter(testComponentInstance, 
+        customGuiCapability);
     }
   }
 }

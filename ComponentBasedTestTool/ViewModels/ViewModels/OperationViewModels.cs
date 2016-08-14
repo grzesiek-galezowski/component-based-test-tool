@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using ComponentBasedTestTool.Domain;
-using ComponentBasedTestTool.Domain.OperationStates;
 
 namespace ViewModels.ViewModels
 {
@@ -17,32 +14,30 @@ namespace ViewModels.ViewModels
 
     public static OperationViewModels CreateOperationViewModels(
       OperationViewModelFactory operationViewModelFactory, 
-      List<OperationEntry> operationEntries)
+      IEnumerable<OperationEntry> operationEntries)
     {
       var operationViewModels = new OperationViewModels(
         operationEntries.Select(
-          NewOperationViewModel(operationViewModelFactory)).ToList());
+          operationEntry => operationEntry.ToOperationViewModel(operationViewModelFactory)).ToList());
+      operationViewModels.Register();
       operationViewModels.ResolveDependencies();
 
       return operationViewModels;
     }
 
-    private static Func<OperationEntry, OperationViewModel> NewOperationViewModel(OperationViewModelFactory operationViewModelFactory)
+    private void Register()
     {
-      return operationEntry =>
+      foreach (var operationViewModel in _viewModels)
       {
-        var operationStateMachine = operationEntry.OperationStateMachine;
-        var operationViewModel = operationViewModelFactory.CreateOperationViewModel(operationEntry, operationStateMachine);
-        operationStateMachine.RegisterContext(operationViewModel);
-        return operationViewModel;
-      };
+        operationViewModel.ObserveOperationState();
+      }
     }
 
     private void ResolveDependencies()
     {
       foreach (var operationViewModel in _viewModels)
       {
-        operationViewModel.ObserveMatching(_viewModels);
+        operationViewModel.ObserveDependencies(_viewModels);
       }
     }
 

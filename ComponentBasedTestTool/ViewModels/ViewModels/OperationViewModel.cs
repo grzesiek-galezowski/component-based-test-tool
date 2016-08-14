@@ -177,7 +177,7 @@ namespace ViewModels.ViewModels
     }
     #endregion
 
-    public void ObserveMatching(IEnumerable<OperationViewModel> operationViewModel)
+    public void ObserveDependencies(IEnumerable<OperationViewModel> operationViewModel)
     {
       if (_maybeDependencyName.HasValue)
       {
@@ -193,6 +193,11 @@ namespace ViewModels.ViewModels
     }
 
     private bool IsKnownAs(string name) => Name == name;
+
+    public void ObserveOperationState()
+    {
+      _operationStateMachine.RegisterContext(this);
+    }
   }
 }
 

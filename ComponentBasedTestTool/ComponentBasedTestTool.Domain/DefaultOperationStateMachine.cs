@@ -65,7 +65,7 @@ namespace ComponentBasedTestTool.Domain
       _operationState = _operationStatesFactory.InProgress(cancellationTokenSource);
     }
 
-    public void InitializeParameters(OperationParametersListBuilder operationParametersListBuilder)
+    public void InitializeParametersIn(OperationParametersListBuilder operationParametersListBuilder)
     {
       _operation.InitializeParameters(operationParametersListBuilder);
     }

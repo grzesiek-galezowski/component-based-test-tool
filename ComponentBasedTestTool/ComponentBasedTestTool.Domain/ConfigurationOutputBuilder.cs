@@ -7,6 +7,6 @@ namespace ComponentBasedTestTool.Domain
     void AppendOperationNode(string name, Runnable operation);
     void AppendProperty<T>(string name, T value);
     void Save();
-    void AppendComponentInstanceNode(string instanceName, TestComponent testComponentInstance);
+    void AppendComponentInstanceNode(string instanceName, CoreTestComponent testComponentInstance);
   }
 }

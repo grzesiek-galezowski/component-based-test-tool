@@ -7,7 +7,7 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentSpecification.AutomationLayer
 {
-  public class FakeComponentInstance : TestComponent
+  public class FakeComponentInstance : CoreTestComponent, Capabilities.All
   {
     public string Name { get; }
     public string Description { get; }
@@ -29,16 +29,16 @@ namespace ComponentSpecification.AutomationLayer
       }
     }
 
-    public void CreateOperations(TestComponentContext testComponentContext)
+    public void CreateOperations(TestComponentContext ctx)
     {
-      List<Tuple<string, OperationControl>> operationStateMachines = 
-        _operations.Select(o => Tuple.Create(o.Item1, testComponentContext.CreateOperation(o.Item2))).ToList();
+      var operationStateMachines = 
+        _operations.Select(o => Tuple.Create(o.Item1, ctx.CreateOperation(o.Item2))).ToList();
       _realOperations.AddRange(operationStateMachines);
     }
 
     public void ShowCustomUi()
     {
-      throw new NotImplementedException();
+      throw new NotImplementedException("Need to refactor and add tests for this functionality");
     }
 
     public void ConfigureOperationWithName(string operationName)

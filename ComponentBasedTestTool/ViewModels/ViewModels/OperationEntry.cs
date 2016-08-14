@@ -1,15 +1,10 @@
 using CallMeMaybe;
 using ComponentBasedTestTool.Domain;
-using ComponentBasedTestTool.Domain.OperationStates;
-using ExtensionPoints.ImplementedByComponents;
-using ExtensionPoints.ImplementedByContext;
-using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ViewModels.ViewModels
 {
   public class OperationEntry
   {
-    private readonly OperationStateMachine _operation;
     public Maybe<string> DependencyName { get; }
     public string Name { get; }
     private OperationStateMachine InnerOperation { get; }
@@ -19,7 +14,7 @@ namespace ViewModels.ViewModels
       Name = name;
       InnerOperation = innerOperation;
       DependencyName = dependencyName;
-      _operation = operationStateMachine;
+      OperationStateMachine = operationStateMachine;
     }
 
     public static OperationEntry With(string name, OperationStateMachine operation, Maybe<string> dependencyName, OperationStateMachine operationStateMachine)
@@ -27,17 +22,19 @@ namespace ViewModels.ViewModels
       return new OperationEntry(name, operation, dependencyName, operationStateMachine);
     }
 
-    public void FillParameters(OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder)
+    public void AddParametersTo(OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder)
     {
-      InnerOperation.InitializeParameters(operationPropertiesViewModelBuilder);
+      InnerOperation.InitializeParametersIn(operationPropertiesViewModelBuilder);
     }
 
-    public OperationStateMachine OperationStateMachine
+    //ugly: unclear role of this class
+    public OperationStateMachine OperationStateMachine { get; }
+
+    public OperationViewModel ToOperationViewModel(OperationViewModelFactory operationViewModelFactory)
     {
-      get
-      {
-        return _operation;
-      }
+      var operationViewModel = 
+        operationViewModelFactory.CreateOperationViewModel(this, OperationStateMachine);
+      return operationViewModel;
     }
   }
 }

@@ -2,6 +2,6 @@
 {
   public interface TestComponentInstanceFactory
   {
-    TestComponent Create();
+    CoreTestComponent Create();
   }
 }

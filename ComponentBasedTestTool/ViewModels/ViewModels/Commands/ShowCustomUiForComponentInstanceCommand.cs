@@ -6,11 +6,11 @@ namespace ViewModels.ViewModels.Commands
 {
   public sealed class ShowCustomUiForComponentInstanceCommand : ICommand
   {
-    private readonly TestComponent _testComponentInstance;
+    private readonly Capabilities.CustomGui _componentInstance;
 
-    public ShowCustomUiForComponentInstanceCommand(TestComponent testComponentInstance)
+    public ShowCustomUiForComponentInstanceCommand(Capabilities.CustomGui componentInstance)
     {
-      _testComponentInstance = testComponentInstance;
+      _componentInstance = componentInstance;
     }
 
     public bool CanExecute(object parameter)
@@ -20,7 +20,7 @@ namespace ViewModels.ViewModels.Commands
 
     public void Execute(object parameter)
     {
-      _testComponentInstance.ShowCustomUi();
+      _componentInstance.ShowCustomUi();
     }
 
     public event EventHandler CanExecuteChanged;
