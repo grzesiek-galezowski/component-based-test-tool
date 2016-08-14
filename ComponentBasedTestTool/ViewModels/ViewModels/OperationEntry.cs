@@ -1,5 +1,6 @@
 using CallMeMaybe;
 using ComponentBasedTestTool.Domain;
+using ViewModels.Composition;
 
 namespace ViewModels.ViewModels
 {

@@ -1,7 +1,7 @@
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
+using ViewModels.ViewModels;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.Composition
 {
   public class OutputFactory
   {

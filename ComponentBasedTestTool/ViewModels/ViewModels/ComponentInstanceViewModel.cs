@@ -9,6 +9,7 @@ using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
+using ViewModels.Composition;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels

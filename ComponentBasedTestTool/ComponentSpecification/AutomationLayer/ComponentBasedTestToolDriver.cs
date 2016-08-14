@@ -125,6 +125,8 @@ namespace ComponentSpecification.AutomationLayer
       OperationsView.Select(operationName11);
       OperationsView.StartSelectedOperation();
     }
+
+    public event Action EnvironmentClosing;
   }
 
   public class FakeApplicationContext : ApplicationContext

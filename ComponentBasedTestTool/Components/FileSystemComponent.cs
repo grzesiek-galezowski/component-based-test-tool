@@ -5,7 +5,10 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components
 {
-  public class FileSystemComponent : CoreTestComponent, Capabilities.CustomGui
+  public class FileSystemComponent : 
+    CoreTestComponent, 
+    Capabilities.CustomGui,
+    Capabilities.CleanupOnEnvironmentClosing
   {
     private OperationControl _ls;
     private OperationControl _cs;
@@ -53,9 +56,11 @@ namespace Components
       {
         _customGui.Focus();
       }
-    
+    }
 
-      MessageBox.Show("end show");
+    public void CleanupOnClosing()
+    {
+      MessageBox.Show("Cleaning up!");
     }
   }
 }

@@ -1,8 +1,9 @@
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Views.Ports;
+using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.Composition
 {
   public class OperationCommandFactory
   {

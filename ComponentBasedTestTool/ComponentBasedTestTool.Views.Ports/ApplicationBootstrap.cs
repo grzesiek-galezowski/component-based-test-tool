@@ -1,6 +1,13 @@
+using System;
+
 namespace ComponentBasedTestTool.Views.Ports
 {
-  public interface ApplicationBootstrap
+  public interface ApplicationEvents
+  {
+    event Action EnvironmentClosing;
+  }
+
+  public interface ApplicationBootstrap : ApplicationEvents
   {
     //TODO convert to empty interfaces
     void SetComponentInstancesViewDataContext(object componentInstancesViewModel);

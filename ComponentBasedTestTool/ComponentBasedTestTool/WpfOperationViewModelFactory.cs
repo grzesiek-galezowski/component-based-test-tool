@@ -4,6 +4,7 @@ using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
+using ViewModels.Composition;
 using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool

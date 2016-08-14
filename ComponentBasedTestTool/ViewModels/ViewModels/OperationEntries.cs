@@ -8,6 +8,7 @@ using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
+using ViewModels.Composition;
 
 namespace ViewModels.ViewModels
 {

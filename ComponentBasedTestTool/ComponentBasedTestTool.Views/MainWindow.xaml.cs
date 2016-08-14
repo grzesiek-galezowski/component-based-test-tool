@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentBasedTestTool.Views.Views;
@@ -15,6 +16,7 @@ namespace ComponentBasedTestTool.Views
     public MainWindow()
     {
       InitializeComponent();
+      base.Closing += (sender, args) => OnEnvironmentClosing();
     }
 
     public void SetComponentInstancesViewDataContext(object componentInstancesViewModel)
@@ -57,5 +59,11 @@ namespace ComponentBasedTestTool.Views
       TopMenuBar.DataContext = topMenuBarContextViewModel;
     }
 
+    public event Action EnvironmentClosing;
+
+    protected virtual void OnEnvironmentClosing()
+    {
+      EnvironmentClosing?.Invoke();
+    }
   }
 }

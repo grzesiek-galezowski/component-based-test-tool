@@ -7,7 +7,13 @@ namespace ExtensionPoints.ImplementedByComponents
       void ShowCustomUi();
     }
 
-    public interface All : CustomGui
+    public interface CleanupOnEnvironmentClosing
+    {
+      void CleanupOnClosing();
+    }
+
+
+    public interface All : CustomGui, CleanupOnEnvironmentClosing
     {
       
     }

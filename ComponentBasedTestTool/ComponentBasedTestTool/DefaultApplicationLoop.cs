@@ -8,6 +8,7 @@ using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
+using ViewModels.Composition;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
@@ -43,7 +44,9 @@ namespace ComponentBasedTestTool
           componentInstancesViewModel,
           outputFactory,
           new WpfOperationViewModelFactory(applicationContext), 
-          backgroundTasks, operationMachinesByControlObject);
+          backgroundTasks, 
+          operationMachinesByControlObject,
+          bootstrap);
       var componentsViewModel = new ComponentsViewModel(testComponentViewModelFactory);
 
       var topMenuBarViewModel = new TopMenuBarViewModel(

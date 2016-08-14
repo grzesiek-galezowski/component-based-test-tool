@@ -1,9 +1,10 @@
 ﻿using ComponentBasedTestTool.ViewModels.Ports;
-using ExtensionPoints;
+using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints.ImplementedByComponents;
+using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.Composition
 {
   public class TestComponentViewModelFactory
   {
@@ -12,19 +13,22 @@ namespace ViewModels.ViewModels
     private readonly OperationViewModelFactory _operationViewModelFactory;
     private readonly BackgroundTasks _backgroundTasks;
     private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
+    private readonly ApplicationEvents _applicationEvents;
 
     public TestComponentViewModelFactory(
       ComponentInstancesViewModel componentInstancesViewModel, 
       OutputFactory outputFactory, 
       OperationViewModelFactory operationViewModelFactory, 
       BackgroundTasks backgroundTasks, 
-      OperationMachinesByControlObject operationMachinesByControlObject)
+      OperationMachinesByControlObject operationMachinesByControlObject, 
+      ApplicationEvents applicationEvents)
     {
       _componentInstancesViewModel = componentInstancesViewModel;
       _outputFactory = outputFactory;
       _operationViewModelFactory = operationViewModelFactory;
       _backgroundTasks = backgroundTasks;
       _operationMachinesByControlObject = operationMachinesByControlObject;
+      _applicationEvents = applicationEvents;
     }
 
     public TestComponentViewModel Create(string name, string description, TestComponentInstanceFactory instanceFactory)
@@ -35,7 +39,11 @@ namespace ViewModels.ViewModels
         _componentInstancesViewModel, 
         new ComponentInstanceViewModelFactory(
           instanceFactory, 
-          _outputFactory, _operationViewModelFactory, _backgroundTasks, _operationMachinesByControlObject));
+          _outputFactory, 
+          _operationViewModelFactory, 
+          _backgroundTasks, 
+          _operationMachinesByControlObject,
+          _applicationEvents));
     }
   }
 }

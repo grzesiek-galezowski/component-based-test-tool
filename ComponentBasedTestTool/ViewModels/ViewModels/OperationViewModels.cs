@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using ViewModels.Composition;
 
 namespace ViewModels.ViewModels
 {

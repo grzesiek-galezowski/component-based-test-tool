@@ -1,8 +1,10 @@
 using System;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.ViewModels.Ports;
+using ComponentBasedTestTool.Views.Ports;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
+using ViewModels.Composition;
 
 namespace ViewModels.ViewModels.Commands
 {
@@ -13,42 +15,53 @@ namespace ViewModels.ViewModels.Commands
     private readonly OperationViewModelFactory _operationViewModelFactory;
     private readonly BackgroundTasks _backgroundTasks;
     private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
+    private readonly ApplicationEvents _applicationEvents;
 
     public ComponentInstanceViewModelFactory(
-      TestComponentInstanceFactory instanceFactory, 
-      OutputFactory outputFactory, 
-      OperationViewModelFactory operationViewModelFactory, 
-      BackgroundTasks backgroundTasks, 
-      OperationMachinesByControlObject operationMachinesByControlObject)
+      TestComponentInstanceFactory instanceFactory, OutputFactory outputFactory, 
+      OperationViewModelFactory operationViewModelFactory, BackgroundTasks backgroundTasks, 
+      OperationMachinesByControlObject operationMachinesByControlObject, 
+      ApplicationEvents applicationEvents)
     {
       _instanceFactory = instanceFactory;
       _outputFactory = outputFactory;
       _operationViewModelFactory = operationViewModelFactory;
       _backgroundTasks = backgroundTasks;
       _operationMachinesByControlObject = operationMachinesByControlObject;
+      _applicationEvents = applicationEvents;
     }
 
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
     {
-      var testComponentInstance = _instanceFactory.Create();
+      var testComponentInstance = Wrap();
 
       var componentInstanceViewModel 
         = new ComponentInstanceViewModel(
           testComponentViewModel.Name, 
           _outputFactory, 
           new OperationEntries(_backgroundTasks),
-          TestComponentInstanceWithAllCapabilities(testComponentInstance), _backgroundTasks, _operationMachinesByControlObject);
+          testComponentInstance, _backgroundTasks, 
+          _operationMachinesByControlObject);
 
       componentInstanceViewModel.Initialize(_operationViewModelFactory);
 
       return componentInstanceViewModel;
     }
 
-    private static TestComponent TestComponentInstanceWithAllCapabilities(CoreTestComponent testComponentInstance)
+    private TestComponent Wrap()
     {
-      var customGuiCapability = (testComponentInstance as Capabilities.CustomGui) ?? new NullCustomGuiCapability();
-      return new TestComponentWithAllCapabilitiesAdapter(testComponentInstance, 
-        customGuiCapability);
+      var testComponentInstance = _instanceFactory.Create();
+      var nullCapabilities = new NullCapabilities();
+      var interfaceCasts = new InterfaceCasts(testComponentInstance);
+      var customGuiCapability = interfaceCasts.To<Capabilities.CustomGui>(nullCapabilities);
+      var customClosingCapability = interfaceCasts.To<Capabilities.CleanupOnEnvironmentClosing>(nullCapabilities);
+
+      _applicationEvents.EnvironmentClosing += customClosingCapability.CleanupOnClosing;
+
+      return new TestComponentWithAllCapabilitiesAdapter(
+        testComponentInstance, 
+        customGuiCapability,
+        customClosingCapability);
     }
   }
 }

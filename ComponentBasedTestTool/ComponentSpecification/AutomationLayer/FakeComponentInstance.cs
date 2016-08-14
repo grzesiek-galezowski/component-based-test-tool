@@ -60,5 +60,10 @@ namespace ComponentSpecification.AutomationLayer
     {
       return _operations.First(o => o.Item1 == operationName).Item2;
     }
+
+    public void CleanupOnClosing()
+    {
+      throw new NotImplementedException("Need to refactor and add tests for this functionality");
+    }
   }
 }

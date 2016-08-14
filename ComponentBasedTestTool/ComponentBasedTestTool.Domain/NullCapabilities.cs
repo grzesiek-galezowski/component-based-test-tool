@@ -3,12 +3,18 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain
 {
-  public class NullCustomGuiCapability : Capabilities.CustomGui
+  public class NullCapabilities : Capabilities.All
   {
     public void ShowCustomUi()
     {
       //TODO refactor this away. This should have no dependency on UI
       MessageBox.Show("This plugin does not support custom GUI");
+    }
+
+    public void CleanupOnClosing()
+    {
+      //TODO refactor this away. This should have no dependency on UI
+      MessageBox.Show("This plugin does not support closing");
     }
   }
 }

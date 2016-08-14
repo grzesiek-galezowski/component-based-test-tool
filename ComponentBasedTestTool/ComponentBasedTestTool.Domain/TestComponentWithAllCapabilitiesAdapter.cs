@@ -7,13 +7,16 @@ namespace ComponentBasedTestTool.Domain
   {
     private readonly CoreTestComponent _testComponentInstance;
     private readonly Capabilities.CustomGui _customGuiCapability;
+    private readonly Capabilities.CleanupOnEnvironmentClosing _customClosingCapability;
 
     public TestComponentWithAllCapabilitiesAdapter(
       CoreTestComponent testComponentInstance, 
-      Capabilities.CustomGui customGuiCapability)
+      Capabilities.CustomGui customGuiCapability, 
+      Capabilities.CleanupOnEnvironmentClosing customClosingCapability)
     {
       _testComponentInstance = testComponentInstance;
       _customGuiCapability = customGuiCapability;
+      _customClosingCapability = customClosingCapability;
     }
 
     public void ShowCustomUi()
@@ -29,6 +32,11 @@ namespace ComponentBasedTestTool.Domain
     public void CreateOperations(TestComponentContext ctx)
     {
       _testComponentInstance.CreateOperations(ctx);
+    }
+
+    public void CleanupOnClosing()
+    {
+      _customClosingCapability.CleanupOnClosing();
     }
   }
 }

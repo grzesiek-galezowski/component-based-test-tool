@@ -57,10 +57,12 @@
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\Commands\AddAllSelectedCommand.cs" />
     <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
+    <Compile Include="ViewModels\Commands\InterfaceCasts.cs" />
     <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
     <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
     <Compile Include="ViewModels\Commands\OperationCommand.cs" />
     <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
+    <Compile Include="ViewModels\Commands\TestComponentInstanceFactory.cs" />
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />

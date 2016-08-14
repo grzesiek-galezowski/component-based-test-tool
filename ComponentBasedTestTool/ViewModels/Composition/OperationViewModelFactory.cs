@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ComponentBasedTestTool.Domain;
-using ExtensionPoints.ImplementedByContext;
-using ExtensionPoints.ImplementedByContext.StateMachine;
+﻿using ComponentBasedTestTool.Domain;
+using ViewModels.ViewModels;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.Composition
 {
   public interface OperationViewModelFactory
   {

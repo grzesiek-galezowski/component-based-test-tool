@@ -5,6 +5,7 @@ using System.Windows.Input;
 using ComponentBasedTestTool.Annotations;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
+using ViewModels.Composition;
 using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels
