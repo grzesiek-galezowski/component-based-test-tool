@@ -4,6 +4,7 @@ using System.Linq;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
+using Xunit;
 
 namespace ComponentSpecification.AutomationLayer
 {
@@ -14,6 +15,8 @@ namespace ComponentSpecification.AutomationLayer
 
     private readonly List<Tuple<string, FakeOperation>> _operations = new List<Tuple<string, FakeOperation>>();
     private readonly List<Tuple<string, OperationControl>> _realOperations = new List<Tuple<string, OperationControl>>();
+    private int _customUiCallsCount = 0;
+    private int _cleanupOnClosingCallCount = 0;
 
     public FakeComponentInstance(string name, string description)
     {
@@ -38,7 +41,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public void ShowCustomUi()
     {
-      throw new NotImplementedException("Need to refactor and add tests for this functionality");
+      _customUiCallsCount++;
     }
 
     public void ConfigureOperationWithName(string operationName)
@@ -63,7 +66,17 @@ namespace ComponentSpecification.AutomationLayer
 
     public void CleanupOnClosing()
     {
-      throw new NotImplementedException("Need to refactor and add tests for this functionality");
+      _cleanupOnClosingCallCount++;
+    }
+
+    public void AssertReceivedACommandToShowCustomUi()
+    {
+      Assert.Equal(1, _customUiCallsCount);
+    }
+
+    public void AssertReceivedClosingNotification()
+    {
+      Assert.Equal(1, _cleanupOnClosingCallCount);
     }
   }
 }

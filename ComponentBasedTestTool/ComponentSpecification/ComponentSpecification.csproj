@@ -82,7 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationLayer\ComponentBasedTestToolDriver.cs" />
-    <Compile Include="AutomationLayer\RunningOperation.cs" />
+    <Compile Include="AutomationLayer\FakeApplicationContext.cs" />
+    <Compile Include="AutomationLayer\FakeComponentInstances.cs" />
+    <Compile Include="AutomationLayer\FakeOperationsState.cs" />
+    <Compile Include="AutomationLayer\NoOperationRunningException.cs" />
+    <Compile Include="AutomationLayer\SynchronousTasks.cs" />
     <Compile Include="ComponentAny.cs" />
     <Compile Include="DisplayingSpecification.cs" />
     <Compile Include="AutomationLayer\FakeComponentInstance.cs" />

@@ -24,8 +24,17 @@ namespace ComponentSpecification.AutomationLayer
 
     public void Select(string name)
     {
-      _componentInstancesViewModel.SelectedInstance =
-        _componentInstancesViewModel.ComponentInstances.First(i => i.InstanceName == name);
+      _componentInstancesViewModel.SelectedInstance = InstanceWith(name);
+    }
+
+    private ComponentInstanceViewModel InstanceWith(string name)
+    {
+      return _componentInstancesViewModel.ComponentInstances.First(i => i.InstanceName == name);
+    }
+
+    public void ShowCustomGui(string name)
+    {
+      InstanceWith(name).ShowCustomUiForComponentInstanceCommand.Execute(null);
     }
   }
 }

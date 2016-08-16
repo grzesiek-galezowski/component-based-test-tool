@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ComponentBasedTestTool;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
@@ -18,6 +19,7 @@ namespace ComponentSpecification.AutomationLayer
   {
     private ComponentInstancesViewModel _componentInstancesViewModel;
 
+    private readonly List<FakeComponentInstance> _fakeComponentInstances = new List<FakeComponentInstance>();
     private ComponentsViewModel _componentsViewModel;
     private readonly TestComponentInstanceFactory _instanceFactory;
     private OperationPropertiesViewModel _operationPropertiesViewModel;
@@ -29,9 +31,11 @@ namespace ComponentSpecification.AutomationLayer
     public ComponentBasedTestToolDriver()
     {
       _instanceFactory = Substitute.For<TestComponentInstanceFactory>();
+      ComponentInstances = new FakeComponentInstances(_fakeComponentInstances);
+      ComponentsSetup = new FakeTestComponents(_fakeComponentInstances);
     }
 
-    public FakeTestComponents ComponentsSetup { get; } = new FakeTestComponents();
+    public FakeTestComponents ComponentsSetup { get; }
     public FakeComponentsView ComponentsView => new FakeComponentsView(_componentsViewModel);
     public FakeInstancesView InstancesView => new FakeInstancesView(_componentInstancesViewModel);
     public FakeOperationsView OperationsView => new FakeOperationsView(_operationsViewModel);
@@ -40,6 +44,8 @@ namespace ComponentSpecification.AutomationLayer
       _componentInstancesViewModel.SelectedInstance.InstanceName,
       _operationsViewModel.SelectedOperation.Name,
       ComponentsSetup, _runningOperationContext);
+
+    public FakeComponentInstances ComponentInstances { get; }
 
     public void AssertNoComponentsAreLoaded()
     {
@@ -127,92 +133,10 @@ namespace ComponentSpecification.AutomationLayer
     }
 
     public event Action EnvironmentClosing;
-  }
 
-  public class FakeApplicationContext : ApplicationContext
-  {
-    public void Invoke(EventHandler eventHandler, object sender)
+    public void Close()
     {
-      //for now left blank
+      EnvironmentClosing.Invoke();
     }
-  }
-
-  public class FakeOperationsState
-  {
-    private readonly string _instanceName;
-    private readonly string _operationName;
-    private readonly FakeTestComponents _componentsSetup;
-    private readonly Maybe<OperationContext> _runningOperationContext;
-
-    public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<OperationContext> runningOperationContext)
-    {
-      _instanceName = instanceName;
-      _operationName = operationName;
-      _componentsSetup = componentsSetup;
-      _runningOperationContext = runningOperationContext;
-    }
-
-    public void AssertWasRun(string operationName, int times = 1)
-    {
-      _componentsSetup
-        .RetrieveOperation(_instanceName, operationName)
-        .AssertWasRun(times);
-    }
-
-    /*
-    public void BehaveAsStoppedOnce(string operationName)
-    {
-      _componentsSetup.RetrieveOperation(_instanceName, operationName)
-        .BehaveAsStoppedOnce();
-    }
-
-    public void BehaveAsSuccessfulOnce(string operationName)
-    {
-      _componentsSetup.RetrieveOperation(_instanceName, operationName)
-        .BehaveAsSuccessfulOnce();
-
-    }*/
-
-    public void MakeRunningOperationStop()
-    {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Stopped();
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
-
-    }
-
-    public void MakeRunningOperationSucceed()
-    {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Success();
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
-
-    }
-
-    public void MakeRunningOperationFailWith(Exception exception)
-    {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Failure(exception);
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
-    }
-  }
-
-  public class NoOperationRunningException : Exception
-  {
   }
 }

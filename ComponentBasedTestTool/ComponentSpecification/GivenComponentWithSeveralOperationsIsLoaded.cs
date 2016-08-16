@@ -75,6 +75,26 @@ namespace ComponentSpecification
     }
 
 
+    [Scenario]
+    public void ShouldPassCustomUiCallToPlugin()
+    {
+      "When I ask the instance to display custom GUI"
+        .x(() => _context.InstancesView.ShowCustomGui(_componentName1));
+
+      "Then the command should be passed to the plugin"
+        .x(() => _context.ComponentInstances.AssertCommandToShowCustomUiWasReceivedBy(_componentName1));
+    } //TODO what about notification of state to the custom UI?
+
+    [Scenario]
+    public void ShouldPassClosingNotificationToPlugin()
+    {
+      "When I close the application"
+        .x(() => _context.Close());
+
+      "Then the command should be passed to the plugin"
+        .x(() => _context.ComponentInstances.AssertClosingEventWasReceivedBy(_componentName1));
+    }
+
   }
 
 }
