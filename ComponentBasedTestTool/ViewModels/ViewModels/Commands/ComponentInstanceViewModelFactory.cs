@@ -10,7 +10,7 @@ namespace ViewModels.ViewModels.Commands
 {
   public class ComponentInstanceViewModelFactory
   {
-    private readonly TestComponentInstanceFactory _instanceFactory;
+    private readonly TestComponentInstanceFactory _componentInstanceFactory;
     private readonly OutputFactory _outputFactory;
     private readonly OperationViewModelFactory _operationViewModelFactory;
     private readonly BackgroundTasks _backgroundTasks;
@@ -18,12 +18,12 @@ namespace ViewModels.ViewModels.Commands
     private readonly ApplicationEvents _applicationEvents;
 
     public ComponentInstanceViewModelFactory(
-      TestComponentInstanceFactory instanceFactory, OutputFactory outputFactory, 
+      TestComponentInstanceFactory componentInstanceFactory, OutputFactory outputFactory, 
       OperationViewModelFactory operationViewModelFactory, BackgroundTasks backgroundTasks, 
       OperationMachinesByControlObject operationMachinesByControlObject, 
       ApplicationEvents applicationEvents)
     {
-      _instanceFactory = instanceFactory;
+      _componentInstanceFactory = componentInstanceFactory;
       _outputFactory = outputFactory;
       _operationViewModelFactory = operationViewModelFactory;
       _backgroundTasks = backgroundTasks;
@@ -33,24 +33,7 @@ namespace ViewModels.ViewModels.Commands
 
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
     {
-      var testComponentInstance = Wrap();
-
-      var componentInstanceViewModel 
-        = new ComponentInstanceViewModel(
-          testComponentViewModel.Name, 
-          _outputFactory, 
-          new OperationEntries(_backgroundTasks),
-          testComponentInstance, _backgroundTasks, 
-          _operationMachinesByControlObject);
-
-      componentInstanceViewModel.Initialize(_operationViewModelFactory);
-
-      return componentInstanceViewModel;
-    }
-
-    private TestComponent Wrap()
-    {
-      var testComponentInstance = _instanceFactory.Create();
+      var testComponentInstance = _componentInstanceFactory.Create();
       var nullCapabilities = new NullCapabilities();
       var interfaceCasts = new InterfaceCasts(testComponentInstance);
       var customGuiCapability = interfaceCasts.To<Capabilities.CustomGui>(nullCapabilities);
@@ -58,10 +41,17 @@ namespace ViewModels.ViewModels.Commands
 
       _applicationEvents.EnvironmentClosing += customClosingCapability.CleanupOnClosing;
 
-      return new TestComponentWithAllCapabilitiesAdapter(
-        testComponentInstance, 
-        customGuiCapability,
-        customClosingCapability);
+      var componentInstanceViewModel 
+        = new ComponentInstanceViewModel(
+          testComponentViewModel.Name, 
+          _outputFactory, 
+          new OperationEntries(_backgroundTasks),
+          testComponentInstance, _backgroundTasks, 
+          _operationMachinesByControlObject, customGuiCapability);
+
+      componentInstanceViewModel.Initialize(_operationViewModelFactory);
+
+      return componentInstanceViewModel;
     }
   }
 }

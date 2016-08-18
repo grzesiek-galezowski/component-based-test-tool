@@ -49,7 +49,6 @@
     <Compile Include="OperationStates\InProgressOperationState.cs" />
     <Compile Include="OperationStates\UnavailableOperationState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestComponentWithAllCapabilitiesAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">

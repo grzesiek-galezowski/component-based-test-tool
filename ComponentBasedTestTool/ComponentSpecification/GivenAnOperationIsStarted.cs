@@ -38,7 +38,7 @@ namespace ComponentSpecification
     [Scenario]
     public void ShouldDisplayStartedOperationAsInProgress()
     {
-      "Then the operations should be displayed as in progress"
+      "Then it should be displayed as in progress"
         .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress());
     }
 
@@ -57,7 +57,7 @@ namespace ComponentSpecification
       "When it finishes successfully"
         .x(() => _context.Operations.MakeRunningOperationSucceed());
 
-      "Then the operations should be displayed as in successful"
+      "Then the operations should be displayed as successful"
         .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful());
     }
 
@@ -69,7 +69,7 @@ namespace ComponentSpecification
       "When it fails"
         .x(() => _context.Operations.MakeRunningOperationFailWith(exception));
 
-      "Then the operations should be displayed as in failed"
+      "Then the operations should be displayed as failed"
         .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsFailedWith(exception));
     }
 

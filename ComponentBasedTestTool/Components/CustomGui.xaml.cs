@@ -14,8 +14,8 @@ namespace Components
   {
     private readonly OperationControl _wait;
     private readonly OperationControl _configure;
-    private OperationContext _configureControls;
-    private OperationContext _waitControls;
+    private readonly OperationContext _configureControls;
+    private readonly OperationContext _waitControls;
 
     public CustomGui(OperationControl wait, OperationControl configure)
     {

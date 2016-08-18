@@ -23,7 +23,8 @@ namespace ViewModels.ViewModels
     private readonly OutputFactory _outputFactory;
     private OperationViewModels _operationViewModels;
     private readonly OperationEntries _operationEntries;
-    private readonly TestComponent _testComponentInstance;
+    private readonly CoreTestComponent _testComponentInstance;
+    private readonly Capabilities.CustomGui _customUi;
     private readonly BackgroundTasks _backgroundTasks;
     private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
 
@@ -31,16 +32,19 @@ namespace ViewModels.ViewModels
       string instanceName, 
       OutputFactory outputFactory, 
       OperationEntries operationEntries, 
-      TestComponent testComponentInstance, 
+      CoreTestComponent testComponentInstance, 
       BackgroundTasks backgroundTasks, 
-      OperationMachinesByControlObject operationMachinesByControlObject)
+      OperationMachinesByControlObject operationMachinesByControlObject, 
+      Capabilities.CustomGui customUi)
     {
       _instanceName = instanceName;
       _outputFactory = outputFactory;
       _operationEntries = operationEntries;
       _testComponentInstance = testComponentInstance;
+      _customUi = customUi;
       _backgroundTasks = backgroundTasks;
       _operationMachinesByControlObject = operationMachinesByControlObject;
+
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
@@ -111,7 +115,7 @@ namespace ViewModels.ViewModels
       _testComponentInstance.PopulateOperations(persistentModelFileContentBuilder);
     }
 
-    public ICommand ShowCustomUiForComponentInstanceCommand => new ShowCustomUiForComponentInstanceCommand(_testComponentInstance);
+    public ICommand ShowCustomUiForComponentInstanceCommand => new ShowCustomUiForComponentInstanceCommand(_customUi);
 
   }
 }

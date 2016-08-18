@@ -46,6 +46,7 @@ namespace ComponentSpecification.AutomationLayer
       ComponentsSetup, _runningOperationContext);
 
     public FakeComponentInstances ComponentInstances { get; }
+    public FakeScriptView ScriptView => new FakeScriptView(_scriptOperationsViewModel);
 
     public void AssertNoComponentsAreLoaded()
     {
@@ -137,6 +138,21 @@ namespace ComponentSpecification.AutomationLayer
     public void Close()
     {
       EnvironmentClosing.Invoke();
+    }
+  }
+
+  public class FakeScriptView
+  {
+    private readonly OperationsViewModel _scriptOperationsViewModel;
+
+    public FakeScriptView(OperationsViewModel scriptOperationsViewModel)
+    {
+      _scriptOperationsViewModel = scriptOperationsViewModel;
+    }
+
+    public void AssertContainsNoOperations()
+    {
+      Assert.Empty(_scriptOperationsViewModel.Operations);
     }
   }
 }

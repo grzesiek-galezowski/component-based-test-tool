@@ -10,7 +10,8 @@ namespace ComponentSpecification
     [Background]
     public void Bg()
     {
-      _context.StartApplication();
+      "Given the application is started"
+        .x(() => _context.StartApplication());
     }
   
 
@@ -19,6 +20,21 @@ namespace ComponentSpecification
     {
       "Then the loaded components list should be blank"
         .x(() => _context.AssertNoComponentsAreLoaded());
+    }
+
+    [Scenario]
+    public void ItShouldContainNoOperationsInTheOperationView()
+    {
+      "Then the loaded components list should be blank"
+        .x(() => _context.AssertNoComponentsAreLoaded());
+    }
+
+
+    [Scenario]
+    public void ItShouldContainNoComponentsInTheScriptView()
+    {
+      "Then the script view should be blank"
+        .x(() => _context.ScriptView.AssertContainsNoOperations());
     }
   }
 }
