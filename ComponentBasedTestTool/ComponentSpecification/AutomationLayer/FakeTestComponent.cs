@@ -22,7 +22,7 @@ namespace ComponentSpecification.AutomationLayer
     {
       var testComponentViewModel = componentsViewModel
         .TestComponents
-        .First(c => c.Name == componentName);
+        .First(c => c.Name.StartsWith(componentName));
       var fakeTestComponent = new FakeTestComponent(testComponentViewModel);
       return fakeTestComponent;
     }

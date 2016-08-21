@@ -1,8 +1,6 @@
-using System;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ViewModels.Composition;
 
@@ -31,6 +29,8 @@ namespace ViewModels.ViewModels.Commands
       _applicationEvents = applicationEvents;
     }
 
+    private int id = 1;
+
     public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
     {
       var testComponentInstance = _componentInstanceFactory.Create();
@@ -43,15 +43,21 @@ namespace ViewModels.ViewModels.Commands
 
       var componentInstanceViewModel 
         = new ComponentInstanceViewModel(
-          testComponentViewModel.Name, 
+          GenerateInstanceName(testComponentViewModel), 
           _outputFactory, 
           new OperationEntries(_backgroundTasks),
-          testComponentInstance, _backgroundTasks, 
+          testComponentInstance, 
+          _backgroundTasks, 
           _operationMachinesByControlObject, customGuiCapability);
 
       componentInstanceViewModel.Initialize(_operationViewModelFactory);
 
       return componentInstanceViewModel;
+    }
+
+    private string GenerateInstanceName(TestComponentViewModel testComponentViewModel)
+    {
+      return testComponentViewModel.Name + id++;
     }
   }
 }

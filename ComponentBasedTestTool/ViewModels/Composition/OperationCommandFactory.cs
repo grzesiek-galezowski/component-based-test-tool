@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels;
@@ -36,6 +37,11 @@ namespace ViewModels.Composition
     public AddToScriptViewCommand CreateAddToScriptViewCommand(OperationViewModel operationViewModel)
     {
       return new AddToScriptViewCommand(_scriptOperationsViewModel, operationViewModel);
+    }
+
+    public ICommand CreateRemoveOperationFromScriptCommand(OperationViewModel operationViewModel)
+    {
+      return new RemoveOperationFromScriptCommand(operationViewModel, _scriptOperationsViewModel);
     }
   }
 }

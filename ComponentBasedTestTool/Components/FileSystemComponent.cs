@@ -39,7 +39,6 @@ namespace Components
       _cat = ctx.CreateOperation(new CatOperation(ctx.CreateOutFor(CatName)));
       _wait = ctx.CreateOperation(new WaitOperation(ctx.CreateOutFor(SleepName)));
       _configure = ctx.CreateOperation(new ConfigureOperation(ctx.CreateOutFor(_configureName)));
-
     }
 
     public void ShowCustomUi()

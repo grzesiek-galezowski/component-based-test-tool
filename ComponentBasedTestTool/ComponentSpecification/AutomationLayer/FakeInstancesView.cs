@@ -17,7 +17,7 @@ namespace ComponentSpecification.AutomationLayer
     public void AssertShowsExactlyTheFollowingInstances(string componentName, int expectedCount)
     {
       var count = _componentInstancesViewModel.ComponentInstances
-        .Count(c => c.InstanceName == componentName);
+        .Count(c => c.InstanceName.StartsWith(componentName));
       
       expectedCount.Should().Be(count, $"Instances count of component {componentName} is not as expected");
     }
@@ -29,7 +29,7 @@ namespace ComponentSpecification.AutomationLayer
 
     private ComponentInstanceViewModel InstanceWith(string name)
     {
-      return _componentInstancesViewModel.ComponentInstances.First(i => i.InstanceName == name);
+      return _componentInstancesViewModel.ComponentInstances.First(i => i.InstanceName.StartsWith(name));
     }
 
     public void ShowCustomGui(string name)

@@ -44,7 +44,6 @@ namespace ViewModels.ViewModels
       _customUi = customUi;
       _backgroundTasks = backgroundTasks;
       _operationMachinesByControlObject = operationMachinesByControlObject;
-
     }
 
     public void Initialize(OperationViewModelFactory operationViewModelFactory)
@@ -79,12 +78,12 @@ namespace ViewModels.ViewModels
 
     public void AddOperation(string name, OperationControl operation, string dependencyName)
     {
-      _operationEntries.Add(name, _operationMachinesByControlObject.For(operation), Maybe.From(dependencyName));
+      _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe.From(dependencyName));
     }
 
     public void AddOperation(string name, OperationControl operation)
     {
-      _operationEntries.Add(name, _operationMachinesByControlObject.For(operation), Maybe.Not);
+      _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe.Not);
     }
 
     public OperationsOutput CreateOutFor(string operationName)

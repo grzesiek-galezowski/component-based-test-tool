@@ -83,6 +83,7 @@
     <Compile Include="Composition\OutputFactory.cs" />
     <Compile Include="ViewModels\Commands\RestoreWorkspaceCommand.cs" />
     <Compile Include="ViewModels\Commands\RestartOperationCommand.cs" />
+    <Compile Include="ViewModels\Commands\RemoveOperationFromScriptCommand.cs" />
     <Compile Include="ViewModels\RestoringOfSavedComponentsObserver.cs" />
     <Compile Include="ViewModels\Commands\SaveWorkspaceCommand.cs" />
     <Compile Include="ViewModels\Commands\ShowCustomUiForComponentInstanceCommand.cs" />

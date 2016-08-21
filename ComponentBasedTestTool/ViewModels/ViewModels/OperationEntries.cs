@@ -23,9 +23,9 @@ namespace ViewModels.ViewModels
       _operations = new List<OperationEntry>();
     }
 
-    public void Add(string name, OperationStateMachine operation, Maybe<string> dependencyName)
+    public void Add(string componentInstanceName, string name, OperationStateMachine operation, Maybe<string> dependencyName)
     {
-      _operations.Add(OperationEntry.With(name, operation, dependencyName, operation));
+      _operations.Add(OperationEntry.With(componentInstanceName, name, operation, dependencyName, operation));
     }
 
     public OperationViewModels ConvertUsing(OperationViewModelFactory operationViewModelFactory)

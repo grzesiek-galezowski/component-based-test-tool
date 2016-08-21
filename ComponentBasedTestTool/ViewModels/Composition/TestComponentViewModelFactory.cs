@@ -31,6 +31,7 @@ namespace ViewModels.Composition
       _applicationEvents = applicationEvents;
     }
 
+
     public TestComponentViewModel Create(string name, string description, TestComponentInstanceFactory instanceFactory)
     {
       return new TestComponentViewModel(

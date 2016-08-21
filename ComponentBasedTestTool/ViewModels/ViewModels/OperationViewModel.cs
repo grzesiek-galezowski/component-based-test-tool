@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows.Input;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
@@ -28,14 +29,12 @@ namespace ViewModels.ViewModels
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly OperationStateMachine _operationStateMachine;
+    private ICommand _removeOperationFromScriptCommand;
 
-    public OperationViewModel(string name, 
-      Maybe<string> maybeDependencyName, 
-      OperationCommandFactory operationCommandFactory, 
-      OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
-      OperationStateMachine operationStateMachine)
+    public OperationViewModel(string name, Maybe<string> maybeDependencyName, string operationEntryParentComponentInstanceName, OperationCommandFactory operationCommandFactory, OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, OperationStateMachine operationStateMachine)
     {
       Name = name;
+      ComponentInstanceName = operationEntryParentComponentInstanceName;
       _propertyListBuilder = operationPropertiesViewModelBuilder;
       _maybeDependencyName = maybeDependencyName;
       _operationCommandFactory = operationCommandFactory;
@@ -69,9 +68,17 @@ namespace ViewModels.ViewModels
     public AddToScriptViewCommand AddToScriptViewCommand
       => _addToScriptViewCommand ?? (_addToScriptViewCommand = _operationCommandFactory.CreateAddToScriptViewCommand(this));
 
+    public ICommand RemoveOperationFromScriptCommand
+      =>
+      _removeOperationFromScriptCommand ??
+      (_removeOperationFromScriptCommand = _operationCommandFactory.CreateRemoveOperationFromScriptCommand(this));
 
     public string Name { get; }
 
+    [UsedImplicitly]
+    public string ComponentInstanceName { get; }
+
+    [UsedImplicitly]
     public string LastError
     {
       get { return _lastError; }

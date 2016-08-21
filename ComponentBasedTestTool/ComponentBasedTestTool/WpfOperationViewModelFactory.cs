@@ -44,6 +44,7 @@ namespace ComponentBasedTestTool
       var operationViewModelFor = new OperationViewModel(
         operationEntry.Name,
         operationEntry.DependencyName,
+        operationEntry.ParentComponentInstanceName,
         AllowingCommandExecution(),
         operationPropertiesViewModelBuilder,
         defaultOperationStateMachine);

@@ -56,7 +56,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public bool HasName(string instanceName)
     {
-      return Name == instanceName;
+      return instanceName.StartsWith(Name);
     }
 
     public FakeOperation Get(string operationName)

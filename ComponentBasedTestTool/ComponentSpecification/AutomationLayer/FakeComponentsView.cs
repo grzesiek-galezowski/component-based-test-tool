@@ -18,7 +18,7 @@ namespace ComponentSpecification.AutomationLayer
       Assert.Equal(names.Count(), _componentsViewModel.TestComponents.Count);
       foreach (var name in names)
       {
-        Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name == name),
+        Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name.StartsWith(name)),
           "could not find any component by the name " + name);
       }
     }

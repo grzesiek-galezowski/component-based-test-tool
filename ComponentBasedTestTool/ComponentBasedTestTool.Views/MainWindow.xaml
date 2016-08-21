@@ -46,7 +46,7 @@
           <views1:OperationsView x:Name="OperationsView" />
         </TabItem>
         <TabItem Header="Script View">
-          <views1:OperationsView x:Name="ScriptOperationsView" />
+          <views1:OperationScriptView x:Name="ScriptOperationsView" />
         </TabItem>
       </TabControl>
       <GridSplitter Style="{StaticResource VerticalGridSplitter}"  Grid.Column="3" />
