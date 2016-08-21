@@ -20,16 +20,16 @@ namespace ViewModels.ViewModels
     private string _stateString;
     private OperationCommand _runCommand;
     private OperationCommand _stopCommand;
+    private RestartOperationCommand _restartCommand;
+    private AddToScriptViewCommand _addToScriptViewCommand;
     private string _lastError = string.Empty;
     private string _lastErrorFullText = "lolokimono";
     private readonly Maybe<string> _maybeDependencyName;
     private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
     private readonly OperationCommandFactory _operationCommandFactory;
     private readonly OperationStateMachine _operationStateMachine;
-    private RestartOperationCommand _restartCommand;
 
-    public OperationViewModel(
-      string name, 
+    public OperationViewModel(string name, 
       Maybe<string> maybeDependencyName, 
       OperationCommandFactory operationCommandFactory, 
       OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
@@ -52,16 +52,22 @@ namespace ViewModels.ViewModels
     }
 
 
+    [UsedImplicitly]
     public OperationCommand RunOperationCommand 
       => _runCommand ?? (_runCommand = _operationCommandFactory.CreateRunCommand(this));
 
+    [UsedImplicitly]
     public OperationCommand StopOperationCommand
       => _stopCommand ?? (_stopCommand = 
       _operationCommandFactory.CreateStopCommand(_operationStateMachine));
 
+    [UsedImplicitly]
     public RestartOperationCommand RestartOperationCommand
       => _restartCommand ?? (_restartCommand = 
       _operationCommandFactory.CreateRestartCommand(_operationStateMachine));
+
+    public AddToScriptViewCommand AddToScriptViewCommand
+      => _addToScriptViewCommand ?? (_addToScriptViewCommand = _operationCommandFactory.CreateAddToScriptViewCommand(this));
 
 
     public string Name { get; }
@@ -112,6 +118,7 @@ namespace ViewModels.ViewModels
         RestartOperationCommand.CanExecuteValue = value;
       }
     }
+
 
     public void Start()
     {

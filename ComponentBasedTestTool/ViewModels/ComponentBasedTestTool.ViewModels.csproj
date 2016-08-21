@@ -55,6 +55,7 @@
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
+    <Compile Include="ViewModels\Commands\AddToScriptViewCommand.cs" />
     <Compile Include="ViewModels\Commands\AddAllSelectedCommand.cs" />
     <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
     <Compile Include="ViewModels\Commands\InterfaceCasts.cs" />

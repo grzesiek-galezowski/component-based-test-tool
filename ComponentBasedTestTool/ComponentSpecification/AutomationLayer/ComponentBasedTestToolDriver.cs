@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ComponentBasedTestTool;
 using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
@@ -139,6 +140,13 @@ namespace ComponentSpecification.AutomationLayer
     {
       EnvironmentClosing.Invoke();
     }
+
+    public void AddToScriptView(string componentName, string operationName)
+    {
+      InstancesView.Select(componentName);
+      OperationsView.Select(operationName);
+      OperationsView.AddSelectedOperationToScriptView();
+    }
   }
 
   public class FakeScriptView
@@ -154,5 +162,13 @@ namespace ComponentSpecification.AutomationLayer
     {
       Assert.Empty(_scriptOperationsViewModel.Operations);
     }
+
+    public void AssertShowsExactly(params string[] operationNames)
+    {
+      Assert.Equal(
+        operationNames,
+        _scriptOperationsViewModel.Operations.Select(o => o.Name).ToArray());
+    }
+
   }
 }

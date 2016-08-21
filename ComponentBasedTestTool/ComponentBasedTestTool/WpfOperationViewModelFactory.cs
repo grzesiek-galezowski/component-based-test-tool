@@ -12,10 +12,14 @@ namespace ComponentBasedTestTool
   public class WpfOperationViewModelFactory : OperationViewModelFactory
   {
     private readonly ApplicationContext _applicationContext;
+    private readonly OperationsViewModel _scriptOperationsViewModel;
 
-    public WpfOperationViewModelFactory(ApplicationContext applicationContext)
+    public WpfOperationViewModelFactory(
+      ApplicationContext applicationContext, 
+      OperationsViewModel scriptOperationsViewModel)
     {
       _applicationContext = applicationContext;
+      _scriptOperationsViewModel = scriptOperationsViewModel;
     }
 
     public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine)
@@ -47,7 +51,7 @@ namespace ComponentBasedTestTool
     }
 
     private OperationCommandFactory AllowingCommandExecution() => 
-      new OperationCommandFactory(_applicationContext);
+      new OperationCommandFactory(_applicationContext, _scriptOperationsViewModel);
 
   }
 }

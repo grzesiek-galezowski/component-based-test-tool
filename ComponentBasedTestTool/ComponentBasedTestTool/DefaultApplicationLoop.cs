@@ -43,7 +43,7 @@ namespace ComponentBasedTestTool
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext), 
+          new WpfOperationViewModelFactory(applicationContext, scriptOperationsViewModel), 
           backgroundTasks, 
           operationMachinesByControlObject,
           bootstrap);

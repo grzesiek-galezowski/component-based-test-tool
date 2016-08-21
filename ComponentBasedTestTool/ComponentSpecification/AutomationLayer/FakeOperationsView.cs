@@ -62,5 +62,10 @@ namespace ComponentSpecification.AutomationLayer
       XAssert.Equal("Failure", _operationsViewModel.SelectedOperation.State);
       XAssert.Equal(exception.ToString(), _operationsViewModel.SelectedOperation.LastErrorFullText);
     }
+
+    public void AddSelectedOperationToScriptView()
+    {
+      _operationsViewModel.SelectedOperation.AddToScriptViewCommand.Execute(null);
+    }
   }
 }
