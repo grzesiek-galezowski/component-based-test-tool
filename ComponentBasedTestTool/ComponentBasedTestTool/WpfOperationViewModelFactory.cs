@@ -12,11 +12,11 @@ namespace ComponentBasedTestTool
   public class WpfOperationViewModelFactory : OperationViewModelFactory
   {
     private readonly ApplicationContext _applicationContext;
-    private readonly OperationsViewModel _scriptOperationsViewModel;
+    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
 
     public WpfOperationViewModelFactory(
       ApplicationContext applicationContext, 
-      OperationsViewModel scriptOperationsViewModel)
+      ScriptOperationsViewModel scriptOperationsViewModel)
     {
       _applicationContext = applicationContext;
       _scriptOperationsViewModel = scriptOperationsViewModel;

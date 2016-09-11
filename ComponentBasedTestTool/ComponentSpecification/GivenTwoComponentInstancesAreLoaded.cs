@@ -61,12 +61,28 @@ namespace ComponentSpecification
     }
 
     [Scenario]
+    public void ShouldDisplayOperationPropertiesOnScriptView()
+    {
+      "When I add operation from the first component instance to script view"
+        .x(() => _context.AddToScriptView(_componentName1, _operationName11));
+      "And I select the operation on script view"
+        .x(() => _context.ScriptView.Select(_componentName1, _operationName11));
+      "Then the properties view should display properties of this operation"
+        .x(() => _context.PropertiesView.AssertShowsExactly(
+          Property(_parameterName1, _parameterValue1),
+          Property(_parameterName2, _parameterValue2)));
+    }
+
+
+    [Scenario]
     public void ShouldKeepDisplayingPropertiesOfLastSelectedOperationEvenAfterAnotherComponentIsSelected()
     {
       $"And I selected instance {_componentName1}"
         .x(() => _context.InstancesView.Select(_componentName1));
       $"And I selected its operation {_operationName11}"
         .x(() => _context.OperationsView.Select(_operationName11));
+      $"And I added the operation {_operationName11} to script view"
+        .x(() => _context.AddToScriptView(_componentName1, _operationName11));
       $"When I selected instance {_componentName2}"
         .x(() => _context.InstancesView.Select(_componentName2));
       $"Then the properties view should still show properties of {_operationName11}"

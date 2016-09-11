@@ -9,10 +9,10 @@ namespace ViewModels.Composition
   public class OperationCommandFactory
   {
     private readonly ApplicationContext _applicationContext;
-    private readonly OperationsViewModel _scriptOperationsViewModel;
+    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
 
     public OperationCommandFactory(ApplicationContext applicationContext, 
-      OperationsViewModel scriptOperationsViewModel)
+      ScriptOperationsViewModel scriptOperationsViewModel)
     {
       _applicationContext = applicationContext;
       _scriptOperationsViewModel = scriptOperationsViewModel;

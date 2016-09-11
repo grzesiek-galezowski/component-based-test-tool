@@ -27,7 +27,7 @@ namespace ComponentSpecification.AutomationLayer
     private OperationsOutputViewModel _operationsOutputViewModel;
     private OperationsViewModel _operationsViewModel;
     private Maybe<OperationContext> _runningOperationContext = Maybe.Nothing<OperationContext>();
-    private OperationsViewModel _scriptOperationsViewModel;
+    private ScriptOperationsViewModel _scriptOperationsViewModel;
 
     public ComponentBasedTestToolDriver()
     {
@@ -113,7 +113,7 @@ namespace ComponentSpecification.AutomationLayer
 
     public void SetScriptOperationsViewDataContext(object scriptOperationsViewModel)
     {
-      _scriptOperationsViewModel = (OperationsViewModel)scriptOperationsViewModel;
+      _scriptOperationsViewModel = (ScriptOperationsViewModel)scriptOperationsViewModel;
     }
 
     public void SetOperationsViewsViewDataContext(object operationViewsViewModel)
@@ -156,9 +156,9 @@ namespace ComponentSpecification.AutomationLayer
 
   public class FakeScriptView
   {
-    private readonly OperationsViewModel _scriptOperationsViewModel;
+    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
 
-    public FakeScriptView(OperationsViewModel scriptOperationsViewModel)
+    public FakeScriptView(ScriptOperationsViewModel scriptOperationsViewModel)
     {
       _scriptOperationsViewModel = scriptOperationsViewModel;
     }
@@ -175,5 +175,15 @@ namespace ComponentSpecification.AutomationLayer
         _scriptOperationsViewModel.Operations.Select(o => o.Name).ToArray());
     }
 
+    public void Select(string componentInstanceName, string operationName)
+    {
+      _scriptOperationsViewModel.SelectedOperation = OperationViewByName(componentInstanceName, operationName);
+    }
+
+    private OperationViewModel OperationViewByName(string componentInstanceName, string operationName)
+    {
+      return _scriptOperationsViewModel.Operations.First(o => o.Name == operationName && o.ComponentInstanceName.StartsWith(componentInstanceName));
+    }
   }
+  
 }

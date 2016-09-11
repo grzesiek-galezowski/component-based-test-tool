@@ -6,9 +6,9 @@ namespace ViewModels.ViewModels.Commands
   public class RemoveOperationFromScriptCommand : ICommand
   {
     private readonly OperationViewModel _operationViewModel;
-    private readonly OperationsViewModel _scriptOperationsViewModel;
+    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
 
-    public RemoveOperationFromScriptCommand(OperationViewModel operationViewModel, OperationsViewModel scriptOperationsViewModel)
+    public RemoveOperationFromScriptCommand(OperationViewModel operationViewModel, ScriptOperationsViewModel scriptOperationsViewModel)
     {
       _operationViewModel = operationViewModel;
       _scriptOperationsViewModel = scriptOperationsViewModel;

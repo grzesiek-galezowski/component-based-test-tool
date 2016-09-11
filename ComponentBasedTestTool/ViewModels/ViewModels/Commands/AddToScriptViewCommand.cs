@@ -5,10 +5,10 @@ namespace ViewModels.ViewModels.Commands
 {
   public class AddToScriptViewCommand : ICommand
   {
-    private readonly OperationsViewModel _scriptOperationsViewModel;
+    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
     private readonly OperationViewModel _operationViewModel;
 
-    public AddToScriptViewCommand(OperationsViewModel scriptOperationsViewModel, OperationViewModel operationViewModel)
+    public AddToScriptViewCommand(ScriptOperationsViewModel scriptOperationsViewModel, OperationViewModel operationViewModel)
     {
       _scriptOperationsViewModel = scriptOperationsViewModel;
       _operationViewModel = operationViewModel;

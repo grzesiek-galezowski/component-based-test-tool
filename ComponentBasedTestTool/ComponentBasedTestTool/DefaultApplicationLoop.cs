@@ -34,7 +34,7 @@ namespace ComponentBasedTestTool
     {
       var operationsOutputViewModel = new OperationsOutputViewModel();
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
-      var scriptOperationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
+      var scriptOperationsViewModel = new ScriptOperationsViewModel(operationPropertiesViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
       var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel);
       var operationMachinesByControlObject = new OperationMachinesByControlObject();
@@ -52,6 +52,7 @@ namespace ComponentBasedTestTool
       var topMenuBarViewModel = new TopMenuBarViewModel(
         componentInstancesViewModel,
         operationsOutputViewModel, new PersistentModelContentBuilderFactory(operationsOutputViewModel, operationMachinesByControlObject));
+      OperationViewsViewModel operationViewsViewModel = new OperationViewsViewModel();
 
       var factoryRepositories = componentLocation.LoadComponentRoots();
       
@@ -64,7 +65,6 @@ namespace ComponentBasedTestTool
       bootstrap.SetOperationsOutputViewDataContext(operationsOutputViewModel);
       bootstrap.SetComponentsViewDataContext(componentsViewModel);
       bootstrap.SetComponentInstancesViewDataContext(componentInstancesViewModel);
-      OperationViewsViewModel operationViewsViewModel = new OperationViewsViewModel();
       bootstrap.SetOperationsViewsViewDataContext(operationViewsViewModel);
       return;
     }
