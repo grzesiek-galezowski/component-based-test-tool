@@ -24,6 +24,8 @@ namespace ViewModels.ViewModels
       set
       {
         _selectedInstance = value;
+        //bug on select tab, one needs to update properties view and change strategy of 
+        //changing this view based on selected component
         _selectedInstance.AddOperationsTo(_operationsViewModel);
       }
     }

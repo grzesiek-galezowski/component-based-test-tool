@@ -50,9 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormattingOperationOutput.cs" />
+    <Compile Include="GlueCode\CreatedPropertySetObjectContainer.cs" />
     <Compile Include="GlueCode\PropertyObjectBuilderScope.cs" />
+    <Compile Include="GlueCode\PropertyValuesBuilder.cs" />
+    <Compile Include="GlueCode\PropertyValueSource.cs" />
     <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
     <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
+    <Compile Include="GlueCode\TypeNotCompletedYetException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\Commands\AddToScriptViewCommand.cs" />

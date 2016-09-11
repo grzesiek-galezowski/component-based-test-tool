@@ -1,6 +1,4 @@
-﻿using System;
-using ExtensionPoints;
-using ExtensionPoints.ImplementedByContext;
+﻿using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.GlueCode
 {
