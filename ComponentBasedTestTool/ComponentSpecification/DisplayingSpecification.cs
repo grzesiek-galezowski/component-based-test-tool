@@ -112,42 +112,6 @@ namespace ComponentSpecification
     }
 
 
-    [Fact]
-    public void ShouldShowPropertiesOfLastSelectedOperations()
-    {
-      //GIVEN
-      var context = new ComponentBasedTestToolDriver();
-
-      var componentName1 = AnyComponentName();
-      var operationName11 = AnyOperationName();
-      var operationName12 = AnyOperationName();
-      var parameterName1 = AnyParameterName();
-      var parameterValue1 = AnyParameterValue();
-      var parameterName2 = AnyParameterName();
-      var parameterValue2 = AnyParameterValue();
-
-      context.ComponentsSetup.Add(componentName1)
-        .WithOperation(operationName11)
-        .WithParameter(Any.String(), Any.String())
-        .WithParameter(Any.String(), Any.String())
-        .WithOperation(operationName12)
-        .WithParameter(parameterName1, parameterValue1)
-        .WithParameter(parameterName2, parameterValue2);
-
-      context.StartApplication();
-      context.ComponentsView.AddInstanceOf(componentName1);
-      context.InstancesView.Select(componentName1);
-      context.OperationsView.Select(operationName11);
-
-      //WHEN
-      context.OperationsView.Select(operationName12);
-
-      //THEN
-      context.PropertiesView.AssertShowsExactly(Property(parameterName1, parameterValue1),
-        Property(parameterName2, parameterValue2)
-        );
-    }
-
 
   }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using ComponentSpecification.AutomationLayer;
+using TddEbook.TddToolkit;
 using Xbehave;
 using Xunit;
 using static ComponentSpecification.ComponentAny;
@@ -45,7 +46,7 @@ namespace ComponentSpecification
     }
 
     [Scenario]
-    public void ShouldShowPropertiesOfInitialSelectedOperations()
+    public void ShouldShowPropertiesOfInitialSelectedOperation()
     {
       "And I selected the instance"
         .x(() => _context.InstancesView.Select(_componentName1));
@@ -59,6 +60,27 @@ namespace ComponentSpecification
             Property(_parameterName2, _parameterValue2)
         ));
     }
+
+    [Scenario]
+    public void ShouldShowPropertiesOfLastSelectedOperation()
+    {
+      "And I selected the component and its operation".x(() =>
+      {
+        _context.InstancesView.Select(_componentName1);
+        _context.OperationsView.Select(_operationName11);
+      });
+
+      "When I select another operation of the same component"
+        .x(() => _context.OperationsView.Select(_operationName12));
+
+      "Then the properties view should show the properties of the last selected operation"
+        .x(() => 
+        _context.PropertiesView.AssertShowsExactly(
+          Property(_parameterName3, _parameterValue3),
+          Property(_parameterName4, _parameterValue4)
+        ));
+    }
+
 
     [Scenario]
     public void ShouldAllowExecutingPreviouslyStoppedOperation()
@@ -104,62 +126,6 @@ namespace ComponentSpecification
     }
 
 
-  }
 
-
-  public class GivenTwoComponentInstancesAreLoaded
-  {
-    private readonly ComponentBasedTestToolDriver _context = new ComponentBasedTestToolDriver();
-    private readonly string _componentName1 = AnyComponentName();
-    private readonly string _componentName2 = AnyComponentName();
-    private readonly string _operationName11 = AnyOperationName();
-    private readonly string _parameterName1 = AnyParameterName();
-    private readonly string _parameterValue1 = AnyParameterValue();
-    private readonly string _parameterName2 = AnyParameterName();
-    private readonly string _parameterValue2 = AnyParameterValue();
-    private readonly string _operationName21 = AnyOperationName();
-    private readonly string _parameterName3 = AnyParameterName();
-    private readonly string _parameterName4 = AnyParameterName();
-    private readonly string _parameterValue3 = AnyParameterValue();
-    private readonly string _parameterValue4 = AnyParameterValue();
-
-    [Background]
-    public void Bg()
-    {
-      "Given two components are loaded".x(() =>
-      {
-        _context.ComponentsSetup.Add(_componentName1)
-          .WithOperation(_operationName11)
-            .WithParameter(_parameterName1, _parameterValue1)
-            .WithParameter(_parameterName2, _parameterValue2);
-        _context.ComponentsSetup.Add(_componentName2)
-          .WithOperation(_operationName21)
-            .WithParameter(_parameterName3, _parameterValue3)
-            .WithParameter(_parameterName4, _parameterValue4);
-
-        _context.StartApplication();
-      });
-
-      "And I added one instance of each component"
-        .x(() =>
-        {
-          _context.ComponentsView.AddInstanceOf(_componentName1);
-          _context.ComponentsView.AddInstanceOf(_componentName2);
-        });
-
-    }
-
-    [Scenario]
-    public void ShouldXXXXXXXXXXXXX() //TODO make better name
-    {
-      "When I add operation from the first component instance to script view"
-        .x(() => _context.AddToScriptView(_componentName1, _operationName11));
-      "And I add this operation again"
-        .x(() => _context.AddToScriptView(_componentName1, _operationName11));
-      "And I add an operation from the second component instance to script view"
-        .x(() => _context.AddToScriptView(_componentName2, _operationName21));
-      "Then the script view should display the three operations in order"
-        .x(() => _context.ScriptView.AssertShowsExactly(_operationName11, _operationName11, _operationName21));
-    }
   }
 }

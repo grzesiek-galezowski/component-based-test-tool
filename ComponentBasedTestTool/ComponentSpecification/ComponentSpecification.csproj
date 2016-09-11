@@ -101,6 +101,7 @@
     <Compile Include="GivenAnApplicationIsStartedWithNoComponentsAvailable.cs" />
     <Compile Include="GivenAnOperationIsStarted.cs" />
     <Compile Include="GivenComponentWithSeveralOperationsIsLoaded.cs" />
+    <Compile Include="GivenTwoComponentInstancesAreLoaded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

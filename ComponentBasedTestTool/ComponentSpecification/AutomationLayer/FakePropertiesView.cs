@@ -18,7 +18,7 @@ namespace ComponentSpecification.AutomationLayer
       var propertiesSetOnViewModel = _operationPropertiesViewModel.Properties;
       Assert.NotNull(propertiesSetOnViewModel);
       foreach (var expectedProperty in expectedProperties)
-      {
+      { 
         AssertIsSet(expectedProperty, propertiesSetOnViewModel);
       }
     }
