@@ -71,6 +71,7 @@
     <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
     <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
     <Compile Include="ViewModels\ComponentsViewModel.cs" />
+    <Compile Include="ViewModels\OperationViewsViewModel.cs" />
     <Compile Include="ViewModels\PersistentModelFileContentBuilder.cs" />
     <Compile Include="Composition\OperationCommandFactory.cs" />
     <Compile Include="ViewModels\OperationEntries.cs" />

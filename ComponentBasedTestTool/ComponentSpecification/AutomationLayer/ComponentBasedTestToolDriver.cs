@@ -116,6 +116,11 @@ namespace ComponentSpecification.AutomationLayer
       _scriptOperationsViewModel = (OperationsViewModel)scriptOperationsViewModel;
     }
 
+    public void SetOperationsViewsViewDataContext(object operationViewsViewModel)
+    {
+      
+    }
+
     void ApplicationBootstrap.Start()
     {
       // Method intentionally left empty.

@@ -18,5 +18,6 @@ namespace ComponentBasedTestTool.Views.Ports
     void Start();
     void SetTopMenuBarContext(object topMenuBarContextViewModel);
     void SetScriptOperationsViewDataContext(object scriptOperationsViewModel);
+    void SetOperationsViewsViewDataContext(object operationViewsViewModel);
   }
 }

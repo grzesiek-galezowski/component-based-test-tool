@@ -64,6 +64,8 @@ namespace ComponentBasedTestTool
       bootstrap.SetOperationsOutputViewDataContext(operationsOutputViewModel);
       bootstrap.SetComponentsViewDataContext(componentsViewModel);
       bootstrap.SetComponentInstancesViewDataContext(componentInstancesViewModel);
+      OperationViewsViewModel operationViewsViewModel = new OperationViewsViewModel();
+      bootstrap.SetOperationsViewsViewDataContext(operationViewsViewModel);
       return;
     }
 

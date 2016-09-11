@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:ComponentBasedTestTool.Views"
         xmlns:views1="clr-namespace:ComponentBasedTestTool.Views.Views"
+        xmlns:attachedCommandBehavior="clr-namespace:AttachedCommandBehavior;assembly=AttachedCommandBehavior"
         x:Class="ComponentBasedTestTool.Views.MainWindow"
         mc:Ignorable="d"
         Title="Component Based Test Tool" Height="550" Width="825"
@@ -41,7 +42,10 @@
       </Grid.ColumnDefinitions>
       <views1:ComponentsView x:Name="ComponentsView" Grid.Column="0" />
       <GridSplitter Style="{StaticResource VerticalGridSplitter}" Grid.Column="1" />
-      <TabControl Grid.Column="2">
+      <TabControl Grid.Column="2" 
+                  x:Name="OperationViewsView" 
+                  attachedCommandBehavior:CommandBehavior.Event="SelectionChanged" 
+                  attachedCommandBehavior:CommandBehavior.Command="{Binding (OperationViewsViewModel.ViewChangedCommand)}">
         <TabItem Header="Instance Operations">
           <views1:OperationsView x:Name="OperationsView" />
         </TabItem>
