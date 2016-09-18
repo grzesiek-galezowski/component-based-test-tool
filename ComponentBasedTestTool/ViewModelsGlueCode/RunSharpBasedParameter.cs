@@ -1,6 +1,7 @@
 ﻿using ExtensionPoints.ImplementedByContext;
+using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
   public class RunSharpBasedParameter<T> : OperationParameter<T>
   {

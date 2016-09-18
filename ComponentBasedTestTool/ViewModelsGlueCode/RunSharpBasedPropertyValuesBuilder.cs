@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using TriAxis.RunSharp;
+using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
-  public class PropertyValuesBuilder<T>
+  public class RunSharpBasedPropertyValuesBuilder<T> : PropertyValuesBuilder<T>
   {
     private readonly string _propertyName;
     private readonly TypeGen _typeGen;
@@ -16,7 +17,7 @@ namespace ViewModels.GlueCode
 
     private Operand _initialValue = Operand.FromObject(null);
 
-    public PropertyValuesBuilder(string propertyName, TypeGen typeGen, CreatedPropertySetObjectContainer container)
+    public RunSharpBasedPropertyValuesBuilder(string propertyName, TypeGen typeGen, CreatedPropertySetObjectContainer container)
     {
       _propertyName = propertyName;
       _typeGen = typeGen;
@@ -25,7 +26,7 @@ namespace ViewModels.GlueCode
       _fieldName = propertyName.ToLowerInvariant();
     }
 
-    public PropertyValueSource<T> End()
+    public RunSharpBasedPropertyValueSource<T> End()
     {
       var field = _typeGen.Private.Field(_type, _fieldName, Operand.FromObject(_initialValue));
       var property = _typeGen.Public.SimpleProperty(field, _propertyName);
@@ -35,9 +36,10 @@ namespace ViewModels.GlueCode
         property.Attribute(attribute.Key, attribute.Value);
       }
 
-      return new PropertyValueSource<T>(_typeGen, _propertyName, _container);
+      return new RunSharpBasedPropertyValueSource<T>(_typeGen, _propertyName, _container);
     }
 
+    //bug the problem is in operand argument
     public PropertyValuesBuilder<T> InitialValue(Operand initialValue)
     {
       _initialValue = initialValue;

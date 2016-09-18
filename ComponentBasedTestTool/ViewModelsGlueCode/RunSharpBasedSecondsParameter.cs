@@ -1,7 +1,8 @@
 ﻿using System;
 using ExtensionPoints.ImplementedByContext;
+using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
   public class RunSharpBasedSecondsParameter : OperationParameter<TimeSpan>
   {

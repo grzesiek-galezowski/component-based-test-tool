@@ -1,4 +1,4 @@
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
   public interface CreatedPropertySetObjectContainer
   {

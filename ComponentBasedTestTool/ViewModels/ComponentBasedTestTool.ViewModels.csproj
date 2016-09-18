@@ -50,15 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FormattingOperationOutput.cs" />
-    <Compile Include="GlueCode\CreatedPropertySetObjectContainer.cs" />
-    <Compile Include="GlueCode\PropertyObjectBuilderScope.cs" />
-    <Compile Include="GlueCode\PropertyValuesBuilder.cs" />
-    <Compile Include="GlueCode\PropertyValueSource.cs" />
-    <Compile Include="GlueCode\RunSharpBasedParameter.cs" />
-    <Compile Include="GlueCode\RunSharpBasedSecondsParameter.cs" />
-    <Compile Include="GlueCode\TypeNotCompletedYetException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GlueCode\PropertySetBuilder.cs" />
     <Compile Include="ViewModels\Commands\AddToScriptViewCommand.cs" />
     <Compile Include="ViewModels\Commands\AddAllSelectedCommand.cs" />
     <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
@@ -114,6 +106,10 @@
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
       <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
       <Name>ExtensionPoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj">
+      <Project>{fb8869d0-a976-4a71-8559-b44221f1edf4}</Project>
+      <Name>ViewModelsGlueCode</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

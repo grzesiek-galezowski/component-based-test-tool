@@ -6,6 +6,7 @@ using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.Composition;
 using ViewModels.ViewModels;
+using ViewModelsGlueCode.Interfaces;
 
 namespace ComponentBasedTestTool
 {
@@ -13,19 +14,24 @@ namespace ComponentBasedTestTool
   {
     private readonly ApplicationContext _applicationContext;
     private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
+    private readonly PropertySetBuilderFactory _propertySetBuilderFactory;
 
     public WpfOperationViewModelFactory(
       ApplicationContext applicationContext, 
-      ScriptOperationsViewModel scriptOperationsViewModel)
+      ScriptOperationsViewModel scriptOperationsViewModel, 
+      PropertySetBuilderFactory propertySetBuilderFactory)
     {
       _applicationContext = applicationContext;
       _scriptOperationsViewModel = scriptOperationsViewModel;
+      _propertySetBuilderFactory = propertySetBuilderFactory;
     }
 
     public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine)
     {
+      //bug move it elsewhere
+      var propertySetBuilder = _propertySetBuilderFactory.CreateNewPropertySet(operationEntry.Name);
       var operationPropertiesViewModelBuilder = 
-        new OperationPropertiesViewModelBuilder(operationEntry.Name);
+        new OperationPropertiesViewModelBuilder(propertySetBuilder);
 
       operationEntry.AddParametersTo(operationPropertiesViewModelBuilder);
       operationPropertiesViewModelBuilder.RetrieveList();

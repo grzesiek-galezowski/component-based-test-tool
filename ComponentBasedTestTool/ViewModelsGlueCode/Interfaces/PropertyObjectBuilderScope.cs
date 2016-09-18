@@ -1,7 +1,7 @@
 using System;
 using TriAxis.RunSharp;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode.Interfaces
 {
   public class PropertyObjectBuilderScope
   {
@@ -12,9 +12,9 @@ namespace ViewModels.GlueCode
       _assembly = new AssemblyGen("Whatever", new CompilerOptions());
     }
 
-    public PropertySetBuilder NewPropertySet(string name)
+    public RunSharpBasedPropertySetBuilder NewPropertySet(string name)
     {
-      return new PropertySetBuilder(
+      return new RunSharpBasedPropertySetBuilder(
         _assembly.Public.Class(DebugName(name))
       );
     }

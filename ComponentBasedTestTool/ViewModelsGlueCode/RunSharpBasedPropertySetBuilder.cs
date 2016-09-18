@@ -1,21 +1,22 @@
 using System;
 using TriAxis.RunSharp;
+using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
-  public class PropertySetBuilder : CreatedPropertySetObjectContainer
+  public class RunSharpBasedPropertySetBuilder : CreatedPropertySetObjectContainer, PropertySetBuilder
   {
     private readonly TypeGen _typeGen;
     private object _object;
 
-    public PropertySetBuilder(TypeGen typeGen)
+    public RunSharpBasedPropertySetBuilder(TypeGen typeGen)
     {
       _typeGen = typeGen;
     }
 
     public PropertyValuesBuilder<T> Property<T>(string name)
     {
-      return new PropertyValuesBuilder<T>(name, _typeGen, this);
+      return new RunSharpBasedPropertyValuesBuilder<T>(name, _typeGen, this);
     }
 
     public object Retrieve()

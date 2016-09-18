@@ -1,6 +1,6 @@
 using System;
 
-namespace ViewModels.GlueCode
+namespace ViewModelsGlueCode
 {
   public class TypeNotCompletedYetException : Exception
   {

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
-using ViewModels.GlueCode;
+using ViewModelsGlueCode;
+using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModels.ViewModels
 {
@@ -12,10 +13,9 @@ namespace ViewModels.ViewModels
     private const string GenericProperties = "Generic properties";
     readonly PropertySetBuilder _propertySetBuilder;
 
-    public OperationPropertiesViewModelBuilder(string name)
+    public OperationPropertiesViewModelBuilder(PropertySetBuilder propertySetBuilder)
     {
-      var scope = new PropertyObjectBuilderScope();
-      _propertySetBuilder = scope.NewPropertySet(name);
+      _propertySetBuilder = propertySetBuilder;
     }
 
     public OperationParameter<string> Path(string name, string defaultValue)
@@ -62,7 +62,6 @@ namespace ViewModels.ViewModels
 
     public object RetrieveList()
     {
-      //bug add persistence here?
       return _propertySetBuilder.Retrieve();
     }
 

@@ -11,6 +11,7 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.Composition;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
+using ViewModelsGlueCode.Interfaces;
 
 namespace ComponentBasedTestTool
 {
@@ -44,7 +45,7 @@ namespace ComponentBasedTestTool
         new TestComponentViewModelFactory(
           componentInstancesViewModel,
           outputFactory,
-          new WpfOperationViewModelFactory(applicationContext, scriptOperationsViewModel), 
+          new WpfOperationViewModelFactory(applicationContext, scriptOperationsViewModel, new PropertySetBuilderFactory()), 
           backgroundTasks, 
           operationMachinesByControlObject,
           bootstrap);

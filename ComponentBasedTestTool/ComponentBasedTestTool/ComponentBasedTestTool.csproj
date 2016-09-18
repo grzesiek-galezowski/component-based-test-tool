@@ -178,6 +178,10 @@
       <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
       <Name>ExtensionPoints</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj">
+      <Project>{fb8869d0-a976-4a71-8559-b44221f1edf4}</Project>
+      <Name>ViewModelsGlueCode</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj">
       <Project>{622f36f8-6cb1-466e-abf1-4705fc3afe9f}</Project>
       <Name>ComponentBasedTestTool.ViewModels</Name>
