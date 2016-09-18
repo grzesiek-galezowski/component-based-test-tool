@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CallMeMaybe;
@@ -7,14 +6,13 @@ using ComponentBasedTestTool.Annotations;
 
 namespace ViewModels.ViewModels
 {
-  
-  public class OperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
+  public class ScriptOperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
   {
     private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
     private ObservableCollection<OperationViewModel> _operationViewModels;
     private Maybe<OperationViewModel> _selectedOperation = Maybe<OperationViewModel>.Not;
 
-    public OperationsViewModel(
+    public ScriptOperationsViewModel(
       OperationPropertiesViewModel operationPropertiesViewModel)
     {
       _operationPropertiesViewModel = operationPropertiesViewModel;
@@ -31,19 +29,14 @@ namespace ViewModels.ViewModels
       }
     }
 
-    public OperationViewModel SelectedOperation {
+    public OperationViewModel SelectedOperation
+    {
       get { return _selectedOperation.Single(); }
       set
       {
         _selectedOperation = value;
-        _selectedOperation.Do(vm => vm.SetPropertiesOn(_operationPropertiesViewModel));
+        _selectedOperation.Do(o => o.SetPropertiesOn(_operationPropertiesViewModel));
       }
-    }
-
-    public void AddOperations(List<OperationViewModel> operationViewModels)
-    {
-      _operationPropertiesViewModel.ClearPropertiesList();
-      Operations = new ObservableCollection<OperationViewModel>(operationViewModels);
     }
 
     #region boilerplate
@@ -58,13 +51,7 @@ namespace ViewModels.ViewModels
 
     public void Update()
     {
-      _operationPropertiesViewModel.ClearPropertiesList();
-      _selectedOperation.Do(vm => vm.SetPropertiesOn(_operationPropertiesViewModel));
+      _selectedOperation.Do(o => o.SetPropertiesOn(_operationPropertiesViewModel));
     }
-  }
-
-  public interface OperationsViewInitialization
-  {
-    void Update();
   }
 }

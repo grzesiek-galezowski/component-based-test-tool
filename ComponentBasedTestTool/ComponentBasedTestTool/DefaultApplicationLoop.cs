@@ -36,7 +36,8 @@ namespace ComponentBasedTestTool
       var operationPropertiesViewModel = new OperationPropertiesViewModel();
       var scriptOperationsViewModel = new ScriptOperationsViewModel(operationPropertiesViewModel);
       var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
-      var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel);
+      var operationViewsViewModel = new OperationViewsViewModel(new OperationsViewInitialization[] {operationsViewModel, scriptOperationsViewModel});
+      var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel, operationViewsViewModel);
       var operationMachinesByControlObject = new OperationMachinesByControlObject();
       var outputFactory = new OutputFactory(operationsOutputViewModel);
       var testComponentViewModelFactory =
@@ -52,7 +53,6 @@ namespace ComponentBasedTestTool
       var topMenuBarViewModel = new TopMenuBarViewModel(
         componentInstancesViewModel,
         operationsOutputViewModel, new PersistentModelContentBuilderFactory(operationsOutputViewModel, operationMachinesByControlObject));
-      OperationViewsViewModel operationViewsViewModel = new OperationViewsViewModel();
 
       var factoryRepositories = componentLocation.LoadComponentRoots();
       

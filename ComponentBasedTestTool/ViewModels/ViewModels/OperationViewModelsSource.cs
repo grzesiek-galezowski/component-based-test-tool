@@ -4,20 +4,20 @@ using ViewModels.Composition;
 
 namespace ViewModels.ViewModels
 {
-  public class OperationViewModels
+  public class OperationViewModelsSource
   {
     private readonly List<OperationViewModel> _viewModels;
 
-    public OperationViewModels(List<OperationViewModel> viewModels)
+    public OperationViewModelsSource(List<OperationViewModel> viewModels)
     {
       this._viewModels = viewModels;
     }
 
-    public static OperationViewModels CreateOperationViewModels(
+    public static OperationViewModelsSource CreateOperationViewModels(
       OperationViewModelFactory operationViewModelFactory, 
       IEnumerable<OperationEntry> operationEntries)
     {
-      var operationViewModels = new OperationViewModels(
+      var operationViewModels = new OperationViewModelsSource(
         operationEntries.Select(
           operationEntry => operationEntry.ToOperationViewModel(operationViewModelFactory)).ToList());
       operationViewModels.Register();

@@ -7,12 +7,16 @@ namespace ViewModels.ViewModels
   public class ComponentInstancesViewModel
   {
     private readonly OperationsViewModel _operationsViewModel;
+    private readonly OperationViewsViewModel _operationViewsViewModel;
 
-    private ComponentInstanceViewModel _selectedInstance;
+    private ComponentInstanceViewModel _selectedComponentInstance;
 
-    public ComponentInstancesViewModel(OperationsViewModel operationsViewModel)
+    public ComponentInstancesViewModel(
+      OperationsViewModel operationsViewModel, 
+      OperationViewsViewModel operationViewsViewModel)
     {
       _operationsViewModel = operationsViewModel;
+      _operationViewsViewModel = operationViewsViewModel;
     }
 
     public ObservableCollection<ComponentInstanceViewModel> ComponentInstances { get; } 
@@ -20,13 +24,14 @@ namespace ViewModels.ViewModels
 
     public ComponentInstanceViewModel SelectedInstance
     {
-      get { return _selectedInstance; }
+      get { return _selectedComponentInstance; }
       set
       {
-        _selectedInstance = value;
+        _selectedComponentInstance = value;
         //bug on select tab, one needs to update properties view and change strategy of 
         //changing this view based on selected component
-        _selectedInstance.AddOperationsTo(_operationsViewModel);
+        _selectedComponentInstance.UpdateOperationsOn(_operationsViewModel);
+        _operationViewsViewModel.UpdateForNewComponent(); //? good name?
       }
     }
 

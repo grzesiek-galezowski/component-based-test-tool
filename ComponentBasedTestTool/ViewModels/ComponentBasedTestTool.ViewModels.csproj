@@ -84,7 +84,7 @@
     <Compile Include="ViewModels\OperationsViewModel.cs" />
     <Compile Include="ViewModels\OperationViewModel.cs" />
     <Compile Include="Composition\OperationViewModelFactory.cs" />
-    <Compile Include="ViewModels\OperationViewModels.cs" />
+    <Compile Include="ViewModels\OperationViewModelsSource.cs" />
     <Compile Include="Composition\OutputFactory.cs" />
     <Compile Include="ViewModels\Commands\RestoreWorkspaceCommand.cs" />
     <Compile Include="ViewModels\Commands\RestartOperationCommand.cs" />
@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\RestoringOfSavedComponentsObserver.cs" />
     <Compile Include="ViewModels\Commands\SaveWorkspaceCommand.cs" />
     <Compile Include="ViewModels\Commands\ShowCustomUiForComponentInstanceCommand.cs" />
+    <Compile Include="ViewModels\ScriptOperationsViewModel.cs" />
     <Compile Include="ViewModels\TestComponentViewModel.cs" />
     <Compile Include="Composition\TestComponentViewModelFactory.cs" />
     <Compile Include="ViewModels\TopMenuBarViewModel.cs" />

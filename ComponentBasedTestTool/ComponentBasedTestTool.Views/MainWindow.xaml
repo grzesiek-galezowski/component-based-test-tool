@@ -41,7 +41,7 @@
       </Grid.ColumnDefinitions>
       <views1:ComponentsView x:Name="ComponentsView" Grid.Column="0" />
       <GridSplitter Style="{StaticResource VerticalGridSplitter}" Grid.Column="1" />
-      <TabControl Grid.Column="2" x:Name="OperationViewsView" SelectedItem="{Binding SelectedView, Mode=OneWayToSource}">
+      <TabControl Grid.Column="2" x:Name="OperationViewsView" SelectedIndex="{Binding SelectedIndex, Mode=OneWayToSource}">
         
         <TabItem Header="Instance Operations">
           <views1:OperationsView x:Name="OperationsView"/>

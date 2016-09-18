@@ -28,9 +28,9 @@ namespace ViewModels.ViewModels
       _operations.Add(OperationEntry.With(componentInstanceName, name, operation, dependencyName, operation));
     }
 
-    public OperationViewModels ConvertUsing(OperationViewModelFactory operationViewModelFactory)
+    public OperationViewModelsSource ConvertUsing(OperationViewModelFactory operationViewModelFactory)
     {
-      var operationViewModels = OperationViewModels
+      var operationViewModels = OperationViewModelsSource
         .CreateOperationViewModels(operationViewModelFactory, _operations);
 
       return operationViewModels;

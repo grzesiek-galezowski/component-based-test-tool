@@ -21,7 +21,7 @@ namespace ViewModels.ViewModels
   {
     private string _instanceName;
     private readonly OutputFactory _outputFactory;
-    private OperationViewModels _operationViewModels;
+    private OperationViewModelsSource _operationViewModelsSource;
     private readonly OperationEntries _operationEntries;
     private readonly CoreTestComponent _testComponentInstance;
     private readonly Capabilities.CustomGui _customUi;
@@ -50,7 +50,7 @@ namespace ViewModels.ViewModels
     {
       _testComponentInstance.CreateOperations(this);
       _testComponentInstance.PopulateOperations(this);
-      _operationViewModels = _operationEntries.ConvertUsing(operationViewModelFactory);
+      _operationViewModelsSource = _operationEntries.ConvertUsing(operationViewModelFactory);
     }
 
     public string InstanceName
@@ -71,9 +71,9 @@ namespace ViewModels.ViewModels
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    public void AddOperationsTo(OperationsViewModel operationsViewModel)
+    public void UpdateOperationsOn(OperationsViewModel operationsViewModel)
     {
-      _operationViewModels.AddTo(operationsViewModel);
+      _operationViewModelsSource.AddTo(operationsViewModel);
     }
 
     public void AddOperation(string name, OperationControl operation, string dependencyName)
