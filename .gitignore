@@ -194,3 +194,7 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+ComponentBasedTestTool/.cr/personal/FavoritesList/List.xml
+ComponentBasedTestTool/.cr/personal/Editor/Painting/Structural Highlighting.xml
+ComponentBasedTestTool/.cr/personal/Editor/Painting/Member Icons.xml
+ComponentBasedTestTool/.cr/personal/Editor/Painting/Code Metrics.xml
