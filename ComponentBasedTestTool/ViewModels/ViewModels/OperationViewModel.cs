@@ -8,7 +8,6 @@ using System.Windows.Input;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.Composition;

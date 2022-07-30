@@ -1,4 +1,3 @@
-using System.Linq;
 using ExtensionPoints.ImplementedByContext;
 
 namespace ComponentSpecification.AutomationLayer;

@@ -22,11 +22,7 @@
     <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="aqla.runsharp" Version="1.0.23" />
     <PackageReference Include="CallMeMaybe" Version="0.7.1" />
-    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
-    <PackageReference Include="Jal.AssemblyFinder" Version="1.1.0.0" />
     <PackageReference Include="Microsoft.Composition" Version="1.0.31" />
     <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
     <PackageReference Include="System.Composition" Version="6.0.0" />

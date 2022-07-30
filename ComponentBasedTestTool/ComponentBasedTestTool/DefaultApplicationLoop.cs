@@ -1,13 +1,9 @@
 using System.Collections.Generic;
-using System.Windows;
-using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
-using ComponentBasedTestTool.Views;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.Composition;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;

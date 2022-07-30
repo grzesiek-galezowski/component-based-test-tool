@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using ComponentBasedTestTool;
-using ComponentBasedTestTool.ViewModels.Ports;
 using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading.Ports;
 using ExtensionPoints.ImplementedByComponents;

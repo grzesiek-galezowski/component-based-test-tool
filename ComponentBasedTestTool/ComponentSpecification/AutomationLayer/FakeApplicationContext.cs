@@ -1,4 +1,3 @@
-using System;
 using ComponentBasedTestTool.Views.Ports;
 
 namespace ComponentSpecification.AutomationLayer;

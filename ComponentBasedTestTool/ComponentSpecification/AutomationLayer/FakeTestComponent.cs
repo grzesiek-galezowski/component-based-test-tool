@@ -1,4 +1,3 @@
-using System.Linq;
 using ViewModels.ViewModels;
 
 namespace ComponentSpecification.AutomationLayer;

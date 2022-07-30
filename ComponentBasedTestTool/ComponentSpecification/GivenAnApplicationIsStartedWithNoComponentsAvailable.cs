@@ -1,6 +1,5 @@
 ﻿using ComponentSpecification.AutomationLayer;
 using Xbehave;
-using Xunit;
 
 namespace ComponentSpecification;
 

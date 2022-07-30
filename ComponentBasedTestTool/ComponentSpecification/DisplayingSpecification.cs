@@ -1,8 +1,5 @@
-﻿using System;
-using System.Threading;
-using ComponentSpecification.AutomationLayer;
+﻿using ComponentSpecification.AutomationLayer;
 using Xunit;
-using static ComponentSpecification.ComponentAny;
 
 // ReSharper disable ArgumentsStyleLiteral
 

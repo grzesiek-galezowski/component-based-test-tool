@@ -1,4 +1,3 @@
-using System;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using NSubstitute.Core;
 

@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace ComponentSpecification.AutomationLayer;
 
 public class FakeComponentInstances

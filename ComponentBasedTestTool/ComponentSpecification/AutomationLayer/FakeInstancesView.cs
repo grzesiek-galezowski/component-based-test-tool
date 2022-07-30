@@ -1,7 +1,5 @@
-using System.Linq;
 using FluentAssertions;
 using ViewModels.ViewModels;
-using Xunit;
 
 namespace ComponentSpecification.AutomationLayer;
 

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.Views;
-using ComponentBasedTestTool.Views.Ports;
 using ComponentLoading;
-using ExtensionPoints.ImplementedByComponents;
-using ViewModels.ViewModels;
 
 namespace ComponentBasedTestTool;
 
@@ -22,7 +17,7 @@ public partial class App : Application
 
     var applicationBootstrap = new MainWindow();
     var defaultApplicationLoop = new DefaultApplicationLoop();
-    applicationBootstrap.Closing += (sender, args) => defaultApplicationLoop.Stop();
+    applicationBootstrap.Closing += (_, _) => defaultApplicationLoop.Stop();
     defaultApplicationLoop.Start(
       applicationBootstrap, 
       new ExecutingAssemblyFolder(), 

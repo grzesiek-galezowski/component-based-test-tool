@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ComponentBasedTestTool.Annotations;
-using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels;

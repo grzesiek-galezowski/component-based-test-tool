@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using ComponentBasedTestTool.Views.Ports;
-using ComponentBasedTestTool.Views.Views;
 
 namespace ComponentBasedTestTool.Views;
 
@@ -14,7 +12,7 @@ public partial class MainWindow : Window, ApplicationBootstrap
   public MainWindow()
   {
     InitializeComponent();
-    base.Closing += (sender, args) => OnEnvironmentClosing();
+    base.Closing += (_, _) => OnEnvironmentClosing();
   }
 
   public void SetComponentInstancesViewDataContext(object componentInstancesViewModel)

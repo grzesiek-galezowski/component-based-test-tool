@@ -14,10 +14,8 @@ public class ExecutingAssemblyFolder : ComponentLocation
   {
     var configuration = LoadPluginAssemblies();
 
-    using (var container = configuration.CreateContainer())
-    {
-      return container.GetExports<TestComponentSourceRoot>();
-    }
+    using var container = configuration.CreateContainer();
+    return container.GetExports<TestComponentSourceRoot>();
   }
 
   private static ContainerConfiguration LoadPluginAssemblies()
