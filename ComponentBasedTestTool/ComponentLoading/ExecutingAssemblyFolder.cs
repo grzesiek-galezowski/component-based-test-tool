@@ -29,7 +29,7 @@ public class ExecutingAssemblyFolder : ComponentLocation
 
     if (!assemblies.Any())
     {
-      throw new Exception("No plugins found, exiting");
+      throw new Exception($"No plugins found in {directory}, exiting");
     }
 
     var configuration =
