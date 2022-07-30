@@ -18,7 +18,6 @@
   <ItemGroup>
     <PackageReference Include="Jal.Bootstrapper" Version="2.0.0" />
     <PackageReference Include="Jal.Bootstrapper.AssemblyFinder" Version="1.1.0.0" />
-    <PackageReference Include="Microsoft.Composition" Version="1.0.31" />
     <PackageReference Include="System.Composition" Version="6.0.0" />
   </ItemGroup>
 </Project>
