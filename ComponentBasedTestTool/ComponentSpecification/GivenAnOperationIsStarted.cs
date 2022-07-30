@@ -1,75 +1,115 @@
 ﻿using ComponentSpecification.AutomationLayer;
 using TddXt.AnyRoot;
-using Xbehave;
+using Xunit;
 
 namespace ComponentSpecification;
 
 public class GivenAnOperationIsStarted
 {
-  private readonly ComponentBasedTestToolDriver _context = new();
-  private readonly string _componentName1 = Any.ComponentName();
-  private readonly string _operationName11 = Any.OperationName();
 
-  [Background]
-  public void Bg()
-  {
-    //GIVEN
-    "Given an operation is started"
-      .x(() =>
-      {
-        _context.ComponentsSetup.Add(_componentName1)
-          .WithOperation(_operationName11);
-
-        _context.StartApplication();
-        _context.ComponentsView.AddInstanceOf(_componentName1);
-        _context.StartOperation(_componentName1, _operationName11);
-      });
-  }
-
-  [Scenario]
+  [Fact]
   public void ShouldStartPluginOperation()
   {
-    "Then the plugin operation should be started"
-      .x(() => _context.Operations.AssertWasRun(_operationName11));
+    var context = new ComponentBasedTestToolDriver();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
+
+    //GIVEN
+    context.ComponentsSetup.Add(componentName1)
+      .WithOperation(operationName11);
+
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(componentName1);
+    context.StartOperation(componentName1, operationName11);
+
+    //THEN
+    context.Operations.AssertWasRun(operationName11);
   }
 
 
-  [Scenario]
+  [Fact]
   public void ShouldDisplayStartedOperationAsInProgress()
   {
-    "Then it should be displayed as in progress"
-      .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress());
+    //GIVEN
+    var context = new ComponentBasedTestToolDriver();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
+
+    context.ComponentsSetup.Add(componentName1)
+      .WithOperation(operationName11);
+
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(componentName1);
+
+    //WHEN
+    context.StartOperation(componentName1, operationName11);
+
+    //THEN
+    context.OperationsView.AssertSelectedOperationIsDisplayedAsInProgress();
   }
 
-  [Scenario]
+  [Fact]
   public void ShouldDisplayStoppedOperationAsStopped()
   {
-    "When I stop it".x(() => _context.Operations.MakeRunningOperationStop());
+    //GIVEN
+    var context = new ComponentBasedTestToolDriver();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
 
-    "Then it should be displayed as stopped"
-      .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped());
+    context.ComponentsSetup.Add(componentName1)
+      .WithOperation(operationName11);
+
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(componentName1);
+    context.StartOperation(componentName1, operationName11);
+
+    //WHEN
+    context.Operations.MakeRunningOperationStop();
+
+    context.OperationsView.AssertSelectedOperationIsDisplayedAsStopped();
   }
 
-  [Scenario]
+  [Fact]
   public void ShouldDisplaySuccessfulOperationAsSuccessful()
   {
-    "When it finishes successfully"
-      .x(() => _context.Operations.MakeRunningOperationSucceed());
+    //GIVEN
+    var context = new ComponentBasedTestToolDriver();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
 
-    "Then the operations should be displayed as successful"
-      .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful());
+    context.ComponentsSetup.Add(componentName1)
+      .WithOperation(operationName11);
+
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(componentName1);
+    context.StartOperation(componentName1, operationName11);
+
+    context.Operations.MakeRunningOperationSucceed();
+
+    context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
   }
 
-  [Scenario]
+  [Fact]
   public void ShouldDisplayFailedOperationAsFailed()
   {
+    //GIVEN
+    var context = new ComponentBasedTestToolDriver();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
     var exception = Any.Exception();
 
-    "When it fails"
-      .x(() => _context.Operations.MakeRunningOperationFailWith(exception));
+    context.ComponentsSetup.Add(componentName1)
+      .WithOperation(operationName11);
 
-    "Then the operations should be displayed as failed"
-      .x(() => _context.OperationsView.AssertSelectedOperationIsDisplayedAsFailedWith(exception));
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(componentName1);
+    context.StartOperation(componentName1, operationName11);
+
+    //WHEN
+    context.Operations.MakeRunningOperationFailWith(exception);
+
+    //THEN
+    context.OperationsView.AssertSelectedOperationIsDisplayedAsFailedWith(exception);
   }
 
 }

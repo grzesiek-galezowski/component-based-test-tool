@@ -5,9 +5,9 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Input;
-using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
+using Core.Maybe;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using ViewModels.Composition;
@@ -195,7 +195,7 @@ public class OperationViewModel  : INotifyPropertyChanged, OperationContext, Ope
   {
     if (_maybeDependencyName.HasValue)
     {
-      var dependencyName = _maybeDependencyName.Single();
+      var dependencyName = _maybeDependencyName.Value();
       var observedOperation = FindOperationWith(dependencyName, operationViewModel);
       observedOperation._operationStateMachine.FromNowOnReportSuccessfulExecutionTo(this);
     }

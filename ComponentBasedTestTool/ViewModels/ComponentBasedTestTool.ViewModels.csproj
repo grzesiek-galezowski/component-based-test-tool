@@ -17,7 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="aqla.runsharp" Version="1.0.23" />
-    <PackageReference Include="CallMeMaybe" Version="0.7.1" />
+    <PackageReference Include="Core.Maybe" Version="4.0.0" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

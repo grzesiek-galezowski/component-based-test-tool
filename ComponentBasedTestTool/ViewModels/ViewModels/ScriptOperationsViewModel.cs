@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
+using Core.Maybe;
 
 namespace ViewModels.ViewModels;
 
@@ -10,7 +10,7 @@ public class ScriptOperationsViewModel : INotifyPropertyChanged, OperationsViewI
 {
   private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
   private ObservableCollection<OperationViewModel> _operationViewModels;
-  private Maybe<OperationViewModel> _selectedOperation = Maybe<OperationViewModel>.Not;
+  private Maybe<OperationViewModel> _selectedOperation = Maybe<OperationViewModel>.Nothing;
 
   public ScriptOperationsViewModel(
     OperationPropertiesViewModel operationPropertiesViewModel)
@@ -31,10 +31,10 @@ public class ScriptOperationsViewModel : INotifyPropertyChanged, OperationsViewI
 
   public OperationViewModel SelectedOperation
   {
-    get { return _selectedOperation.Single(); }
+    get { return _selectedOperation.Value(); }
     set
     {
-      _selectedOperation = value;
+      _selectedOperation = value.ToMaybe();
       _selectedOperation.Do(o => o.SetPropertiesOn(_operationPropertiesViewModel));
     }
   }

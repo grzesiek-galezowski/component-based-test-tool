@@ -1,39 +1,32 @@
 ﻿using ComponentSpecification.AutomationLayer;
-using Xbehave;
+using Xunit;
 
 namespace ComponentSpecification;
 
 public class GivenAnApplicationIsStartedWithNoComponentsAvailable
 {
-  private readonly ComponentBasedTestToolDriver _context = new();
-
-  [Background]
-  public void Bg()
-  {
-    "Given the application is started"
-      .x(() => _context.StartApplication());
-  }
-  
-
-  [Scenario]
+  [Fact]
   public void ItShouldContainNoComponentsAvailableToSelect()
   {
-    "Then the loaded components list should be blank"
-      .x(() => _context.AssertNoComponentsAreLoaded());
+    var context = new ComponentBasedTestToolDriver();
+    context.StartApplication();
+    context.AssertNoComponentsAreLoaded();
   }
 
-  [Scenario]
+  [Fact]
   public void ItShouldContainNoOperationsInTheOperationView()
   {
-    "Then the loaded components list should be blank"
-      .x(() => _context.AssertNoComponentsAreLoaded());
+    var context = new ComponentBasedTestToolDriver();
+    context.StartApplication();
+
+    context.AssertNoComponentsAreLoaded();
   }
 
-
-  [Scenario]
+  [Fact]
   public void ItShouldContainNoComponentsInTheScriptView()
   {
-    "Then the script view should be blank"
-      .x(() => _context.ScriptView.AssertContainsNoOperations());
+    var context = new ComponentBasedTestToolDriver();
+    context.StartApplication();
+    context.ScriptView.AssertContainsNoOperations();
   }
 }

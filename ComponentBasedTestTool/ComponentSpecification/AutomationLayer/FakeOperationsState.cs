@@ -1,5 +1,5 @@
+using Core.Maybe;
 using ExtensionPoints.ImplementedByContext.StateMachine;
-using NSubstitute.Core;
 
 namespace ComponentSpecification.AutomationLayer;
 
@@ -27,9 +27,9 @@ public class FakeOperationsState
 
   public void MakeRunningOperationStop()
   {
-    if (_runningOperationContext.HasValue())
+    if (_runningOperationContext.HasValue)
     {
-      _runningOperationContext.ValueOrDefault().Stopped();
+      _runningOperationContext.Value().Stopped();
     }
     else
     {
@@ -40,9 +40,9 @@ public class FakeOperationsState
 
   public void MakeRunningOperationSucceed()
   {
-    if (_runningOperationContext.HasValue())
+    if (_runningOperationContext.HasValue)
     {
-      _runningOperationContext.ValueOrDefault().Success();
+      _runningOperationContext.Value().Success();
     }
     else
     {
@@ -52,9 +52,9 @@ public class FakeOperationsState
 
   public void MakeRunningOperationFailWith(Exception exception)
   {
-    if (_runningOperationContext.HasValue())
+    if (_runningOperationContext.HasValue)
     {
-      _runningOperationContext.ValueOrDefault().Failure(exception);
+      _runningOperationContext.Value().Failure(exception);
     }
     else
     {

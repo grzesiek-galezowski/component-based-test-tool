@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Domain;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
+using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
@@ -78,12 +78,12 @@ public class ComponentInstanceViewModel :
 
   public void AddOperation(string name, OperationControl operation, string dependencyName)
   {
-    _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe.From(dependencyName));
+    _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), dependencyName.ToMaybe());
   }
 
   public void AddOperation(string name, OperationControl operation)
   {
-    _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe.Not);
+    _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe<string>.Nothing);
   }
 
   public OperationsOutput CreateOutFor(string operationName)
