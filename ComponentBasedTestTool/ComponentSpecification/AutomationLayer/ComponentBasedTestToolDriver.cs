@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ComponentBasedTestTool;
 using ComponentBasedTestTool.ViewModels.Ports;
@@ -10,7 +9,6 @@ using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using NSubstitute;
 using NSubstitute.Core;
-using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
 using Xunit;
 

@@ -1,183 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D0C948F-D021-4BB3-8A00-64494AA85D39}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ComponentBasedTestTool</RootNamespace>
-    <AssemblyName>ComponentBasedTestTool</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CallMeMaybe, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CallMeMaybe.0.7.1\lib\netstandard1.4\CallMeMaybe.dll</HintPath>
-    </Reference>
-    <Reference Include="Jal.AssemblyFinder, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jal.AssemblyFinder.1.1.0.0\lib\net40\Jal.AssemblyFinder.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="RunSharp, Version=1.0.23.0, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.1.0.23\lib\net35\RunSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Composition.AttributedModel, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Composition.AttributedModel.6.0.0\lib\net461\System.Composition.AttributedModel.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Convention, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Composition.Convention.6.0.0\lib\net461\System.Composition.Convention.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Hosting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Composition.Hosting.6.0.0\lib\net461\System.Composition.Hosting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.Runtime, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Composition.Runtime.6.0.0\lib\net461\System.Composition.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Composition.TypedParts, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Composition.TypedParts.6.0.0\lib\net461\System.Composition.TypedParts.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Expression.Blend.Sdk.1.0.2\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DefaultApplicationLoop.cs" />
-    <Compile Include="WpfOperationViewModelFactory.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj" />
+    <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj" />
+    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj" />
+    <ProjectReference Include="..\ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj" />
+    <ProjectReference Include="..\ComponentLoading.Ports\ComponentLoading.Ports.csproj" />
+    <ProjectReference Include="..\ComponentLoading\ComponentLoading.csproj" />
+    <ProjectReference Include="..\Components\Components.csproj" />
+    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj" />
+    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj" />
+    <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj">
-      <Project>{6083d4ff-e00c-4b2d-b090-63183a46d371}</Project>
-      <Name>ComponentBasedTestTool.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">
-      <Project>{ef47f4e3-07b5-44a8-9d69-2d83013716b7}</Project>
-      <Name>ComponentBasedTestTool.ViewModels.Ports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj">
-      <Project>{a3d624ea-bc40-4b42-bc65-0d4bde154901}</Project>
-      <Name>ComponentBasedTestTool.Views.Ports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj">
-      <Project>{6b163f9d-4ec0-4f1c-9bb1-d028645e196b}</Project>
-      <Name>ComponentBasedTestTool.Views</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentLoading.Ports\ComponentLoading.Ports.csproj">
-      <Project>{1dc811ee-84df-4bf9-8393-9dfdaf4dc489}</Project>
-      <Name>ComponentLoading.Ports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentLoading\ComponentLoading.csproj">
-      <Project>{f98235ea-8e2f-471b-82aa-3edf29c25e52}</Project>
-      <Name>ComponentLoading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Components\Components.csproj">
-      <Project>{900b3434-fa01-4cf2-b78e-cfa8944989d1}</Project>
-      <Name>Components</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
-      <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
-      <Name>ExtensionPoints</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj">
-      <Project>{fb8869d0-a976-4a71-8559-b44221f1edf4}</Project>
-      <Name>ViewModelsGlueCode</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModels\ComponentBasedTestTool.ViewModels.csproj">
-      <Project>{622f36f8-6cb1-466e-abf1-4705fc3afe9f}</Project>
-      <Name>ComponentBasedTestTool.ViewModels</Name>
-    </ProjectReference>
+    <PackageReference Include="aqla.runsharp" Version="1.0.23" />
+    <PackageReference Include="CallMeMaybe" Version="0.7.1" />
+    <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+    <PackageReference Include="Jal.AssemblyFinder" Version="1.1.0.0" />
+    <PackageReference Include="Microsoft.Composition" Version="1.0.31" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="6.0.0" />
+    <PackageReference Include="System.Composition" Version="6.0.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

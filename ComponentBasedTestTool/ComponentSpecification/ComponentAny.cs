@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using TddEbook.TddToolkit;
-
 namespace ComponentSpecification
 {
   public class ComponentAny

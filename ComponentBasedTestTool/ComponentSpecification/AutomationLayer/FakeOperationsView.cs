@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using TddEbook.TddToolkit;
 using ViewModels.ViewModels;
 using Xunit;
 
@@ -44,23 +43,23 @@ namespace ComponentSpecification.AutomationLayer
 
     public void AssertSelectedOperationIsDisplayedAsStopped()
     {
-      XAssert.Equal("Stopped", _operationsViewModel.SelectedOperation.State);
+      Assert.Equal("Stopped", _operationsViewModel.SelectedOperation.State);
     }
 
     public void AssertSelectedOperationIsDisplayedAsSuccessful()
     {
-      XAssert.Equal("Success", _operationsViewModel.SelectedOperation.State);
+      Assert.Equal("Success", _operationsViewModel.SelectedOperation.State);
     }
 
     public void AssertSelectedOperationIsDisplayedAsInProgress()
     {
-      XAssert.Equal("In Progress", _operationsViewModel.SelectedOperation.State);
+      Assert.Equal("In Progress", _operationsViewModel.SelectedOperation.State);
     }
 
     public void AssertSelectedOperationIsDisplayedAsFailedWith(Exception exception)
     {
-      XAssert.Equal("Failure", _operationsViewModel.SelectedOperation.State);
-      XAssert.Equal(exception.ToString(), _operationsViewModel.SelectedOperation.LastErrorFullText);
+      Assert.Equal("Failure", _operationsViewModel.SelectedOperation.State);
+      Assert.Equal(exception.ToString(), _operationsViewModel.SelectedOperation.LastErrorFullText);
     }
 
     public void AddSelectedOperationToScriptView()

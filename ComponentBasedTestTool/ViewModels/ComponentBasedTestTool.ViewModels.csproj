@@ -1,125 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{622F36F8-6CB1-466E-ABF1-4705FC3AFE9F}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ViewModels</RootNamespace>
     <AssemblyName>ViewModels</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CallMeMaybe, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CallMeMaybe.0.7.1\lib\netstandard1.4\CallMeMaybe.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="RunSharp, Version=1.0.23.0, Culture=neutral, PublicKeyToken=be9f22c3116c2290, processorArchitecture=MSIL">
-      <HintPath>..\packages\aqla.runsharp.1.0.23\lib\net35\RunSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WindowsBase" />
+    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj" />
+    <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj" />
+    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj" />
+    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj" />
+    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormattingOperationOutput.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Commands\AddToScriptViewCommand.cs" />
-    <Compile Include="ViewModels\Commands\AddAllSelectedCommand.cs" />
-    <Compile Include="ViewModels\Commands\AddComponentInstanceCommand.cs" />
-    <Compile Include="ViewModels\Commands\InterfaceCasts.cs" />
-    <Compile Include="ViewModels\Commands\StopOperationCommand.cs" />
-    <Compile Include="ViewModels\Commands\ComponentInstanceViewModelFactory.cs" />
-    <Compile Include="ViewModels\Commands\OperationCommand.cs" />
-    <Compile Include="ViewModels\Commands\RunOperationCommand.cs" />
-    <Compile Include="ViewModels\Commands\TestComponentInstanceFactory.cs" />
-    <Compile Include="ViewModels\ComponentInstancesViewModel.cs" />
-    <Compile Include="ViewModels\ComponentInstanceViewModel.cs" />
-    <Compile Include="ViewModels\ComponentsViewModel.cs" />
-    <Compile Include="ViewModels\OperationViewsViewModel.cs" />
-    <Compile Include="ViewModels\PersistentModelFileContentBuilder.cs" />
-    <Compile Include="Composition\OperationCommandFactory.cs" />
-    <Compile Include="ViewModels\OperationEntries.cs" />
-    <Compile Include="ViewModels\OperationEntry.cs" />
-    <Compile Include="ViewModels\OperationMachinesByControlObject.cs" />
-    <Compile Include="ViewModels\OperationParameterViewModel.cs" />
-    <Compile Include="ViewModels\OperationPropertiesViewModel.cs" />
-    <Compile Include="ViewModels\OperationPropertiesViewModelBuilder.cs" />
-    <Compile Include="ViewModels\OperationsOutputViewModel.cs" />
-    <Compile Include="ViewModels\OperationsViewModel.cs" />
-    <Compile Include="ViewModels\OperationViewModel.cs" />
-    <Compile Include="Composition\OperationViewModelFactory.cs" />
-    <Compile Include="ViewModels\OperationViewModelsSource.cs" />
-    <Compile Include="Composition\OutputFactory.cs" />
-    <Compile Include="ViewModels\Commands\RestoreWorkspaceCommand.cs" />
-    <Compile Include="ViewModels\Commands\RestartOperationCommand.cs" />
-    <Compile Include="ViewModels\Commands\RemoveOperationFromScriptCommand.cs" />
-    <Compile Include="ViewModels\RestoringOfSavedComponentsObserver.cs" />
-    <Compile Include="ViewModels\Commands\SaveWorkspaceCommand.cs" />
-    <Compile Include="ViewModels\Commands\ShowCustomUiForComponentInstanceCommand.cs" />
-    <Compile Include="ViewModels\ScriptOperationsViewModel.cs" />
-    <Compile Include="ViewModels\TestComponentViewModel.cs" />
-    <Compile Include="Composition\TestComponentViewModelFactory.cs" />
-    <Compile Include="ViewModels\TopMenuBarViewModel.cs" />
-    <Compile Include="ViewModels\XmlConfigurationOutputBuilder.cs" />
+    <PackageReference Include="aqla.runsharp" Version="1.0.23" />
+    <PackageReference Include="CallMeMaybe" Version="0.7.1" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj">
-      <Project>{6083D4FF-E00C-4B2D-B090-63183A46D371}</Project>
-      <Name>ComponentBasedTestTool.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj">
-      <Project>{ef47f4e3-07b5-44a8-9d69-2d83013716b7}</Project>
-      <Name>ComponentBasedTestTool.ViewModels.Ports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj">
-      <Project>{a3d624ea-bc40-4b42-bc65-0d4bde154901}</Project>
-      <Name>ComponentBasedTestTool.Views.Ports</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj">
-      <Project>{fed701d5-6b0e-4997-af97-b84d00ca222c}</Project>
-      <Name>ExtensionPoints</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModelsGlueCode\ViewModelsGlueCode.csproj">
-      <Project>{fb8869d0-a976-4a71-8559-b44221f1edf4}</Project>
-      <Name>ViewModelsGlueCode</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

@@ -1,67 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FED701D5-6B0E-4997-AF97-B84D00CA222C}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExtensionPoints</RootNamespace>
-    <AssemblyName>ExtensionPoints</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ImplementedByComponents\Capabilities.cs" />
-    <Compile Include="ImplementedByComponents\TestComponent.cs" />
-    <Compile Include="ImplementedByComponents\TestComponentSourceRoot.cs" />
-    <Compile Include="ImplementedByContext\ComponentsList.cs" />
-    <Compile Include="ImplementedByComponents\ComponentOperation.cs" />
-    <Compile Include="ImplementedByContext\ErrorInfo.cs" />
-    <Compile Include="ImplementedByContext\PersistentStorage.cs" />
-    <Compile Include="ImplementedByContext\StateMachine\OperationContext.cs" />
-    <Compile Include="ImplementedByContext\OperationParametersListBuilder.cs" />
-    <Compile Include="ImplementedByContext\OperationsOutput.cs" />
-    <Compile Include="ImplementedByContext\StateMachine\OperationControl.cs" />
-    <Compile Include="ImplementedByContext\Runnability.cs" />
-    <Compile Include="ImplementedByContext\StateMachine\OperationStateObserver.cs" />
-    <Compile Include="ImplementedByContext\TestComponentOperationDestination.cs" />
-    <Compile Include="ImplementedByContext\Persistable.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImplementedByComponents\CoreTestComponent.cs" />
-    <Compile Include="ImplementedByContext\TestComponentContext.cs" />
-    <Compile Include="ImplementedByComponents\TestComponentInstanceFactory.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

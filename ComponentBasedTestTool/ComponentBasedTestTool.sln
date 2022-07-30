@@ -1,35 +1,35 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool", "ComponentBasedTestTool\ComponentBasedTestTool.csproj", "{4D0C948F-D021-4BB3-8A00-64494AA85D39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool", "ComponentBasedTestTool\ComponentBasedTestTool.csproj", "{4D0C948F-D021-4BB3-8A00-64494AA85D39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionPoints", "ExtensionPoints\ExtensionPoints.csproj", "{FED701D5-6B0E-4997-AF97-B84D00CA222C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionPoints", "ExtensionPoints\ExtensionPoints.csproj", "{FED701D5-6B0E-4997-AF97-B84D00CA222C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Components", "Components\Components.csproj", "{900B3434-FA01-4CF2-B78E-CFA8944989D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Components", "Components\Components.csproj", "{900B3434-FA01-4CF2-B78E-CFA8944989D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.ViewModels", "ViewModels\ComponentBasedTestTool.ViewModels.csproj", "{622F36F8-6CB1-466E-ABF1-4705FC3AFE9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool.ViewModels", "ViewModels\ComponentBasedTestTool.ViewModels.csproj", "{622F36F8-6CB1-466E-ABF1-4705FC3AFE9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.Domain", "ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj", "{6083D4FF-E00C-4B2D-B090-63183A46D371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool.Domain", "ComponentBasedTestTool.Domain\ComponentBasedTestTool.Domain.csproj", "{6083D4FF-E00C-4B2D-B090-63183A46D371}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.ViewModels.Ports", "ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj", "{EF47F4E3-07B5-44A8-9D69-2D83013716B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool.ViewModels.Ports", "ComponentBasedTestTool.ViewModels.Ports\ComponentBasedTestTool.ViewModels.Ports.csproj", "{EF47F4E3-07B5-44A8-9D69-2D83013716B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.Views.Ports", "ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj", "{A3D624EA-BC40-4B42-BC65-0D4BDE154901}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool.Views.Ports", "ComponentBasedTestTool.Views.Ports\ComponentBasedTestTool.Views.Ports.csproj", "{A3D624EA-BC40-4B42-BC65-0D4BDE154901}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentBasedTestTool.Views", "ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj", "{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBasedTestTool.Views", "ComponentBasedTestTool.Views\ComponentBasedTestTool.Views.csproj", "{6B163F9D-4EC0-4F1C-9BB1-D028645E196B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentSpecification", "ComponentSpecification\ComponentSpecification.csproj", "{166B7720-BD43-4F56-A486-3939CF723BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentLoading.Ports", "ComponentLoading.Ports\ComponentLoading.Ports.csproj", "{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentLoading.Ports", "ComponentLoading.Ports\ComponentLoading.Ports.csproj", "{1DC811EE-84DF-4BF9-8393-9DFDAF4DC489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentLoading", "ComponentLoading\ComponentLoading.csproj", "{F98235EA-8E2F-471B-82AA-3EDF29C25E52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentLoading", "ComponentLoading\ComponentLoading.csproj", "{F98235EA-8E2F-471B-82AA-3EDF29C25E52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB802F83-E581-4C4B-9B16-7D00D66C9329}"
 	ProjectSection(SolutionItems) = preProject
 		GCop.json = GCop.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelsGlueCode", "ViewModelsGlueCode\ViewModelsGlueCode.csproj", "{FB8869D0-A976-4A71-8559-B44221F1EDF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModelsGlueCode", "ViewModelsGlueCode\ViewModelsGlueCode.csproj", "{FB8869D0-A976-4A71-8559-B44221F1EDF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,5 +88,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8E8B7E91-B25C-45B4-82BE-C2E43438ABBB}
 	EndGlobalSection
 EndGlobal

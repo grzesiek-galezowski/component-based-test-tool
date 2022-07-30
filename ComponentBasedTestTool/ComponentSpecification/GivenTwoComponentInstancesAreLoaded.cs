@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ComponentSpecification.AutomationLayer;
 using Xbehave;
 using static ComponentSpecification.ComponentAny;
