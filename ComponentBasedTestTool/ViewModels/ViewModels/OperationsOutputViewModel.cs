@@ -5,35 +5,34 @@ using ComponentBasedTestTool.Annotations;
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.ViewModels;
+
+public class OperationsOutputViewModel : INotifyPropertyChanged, OperationsOutput
 {
-  public class OperationsOutputViewModel : INotifyPropertyChanged, OperationsOutput
+  private string _content = string.Empty;
+
+  public string Content
   {
-    private string _content = string.Empty;
-
-    public string Content
+    get { return _content; }
+    set
     {
-      get { return _content; }
-      set
-      {
-        _content = value;
-        OnPropertyChanged();
-      }
+      _content = value;
+      OnPropertyChanged();
     }
+  }
 
-    #region boilerplate
-    public event PropertyChangedEventHandler PropertyChanged;
+  #region boilerplate
+  public event PropertyChangedEventHandler PropertyChanged;
 
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    #endregion
+  [NotifyPropertyChangedInvocator]
+  protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+  {
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+  }
+  #endregion
 
-    public void WriteLine(string text)
-    {
-      Content += text + Environment.NewLine;
-    }
+  public void WriteLine(string text)
+  {
+    Content += text + Environment.NewLine;
   }
 }

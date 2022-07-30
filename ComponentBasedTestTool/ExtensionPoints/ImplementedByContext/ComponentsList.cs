@@ -1,9 +1,8 @@
 ﻿using ExtensionPoints.ImplementedByComponents;
 
-namespace ExtensionPoints.ImplementedByContext
+namespace ExtensionPoints.ImplementedByContext;
+
+public interface ComponentsList
 {
-  public interface ComponentsList
-  {
-    void Add(string name, string description, TestComponentInstanceFactory factory);
-  }
+  void Add(string name, string description, TestComponentInstanceFactory factory);
 }

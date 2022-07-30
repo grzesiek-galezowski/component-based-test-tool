@@ -1,7 +1,6 @@
-﻿namespace ExtensionPoints.ImplementedByContext
+﻿namespace ExtensionPoints.ImplementedByContext;
+
+public interface OperationsOutput
 {
-  public interface OperationsOutput
-  {
-    void WriteLine(string text);
-  }
+  void WriteLine(string text);
 }

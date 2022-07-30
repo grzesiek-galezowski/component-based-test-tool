@@ -1,7 +1,6 @@
-﻿namespace ExtensionPoints.ImplementedByComponents
+﻿namespace ExtensionPoints.ImplementedByComponents;
+
+public interface TestComponent : CoreTestComponent, Capabilities.All
 {
-  public interface TestComponent : CoreTestComponent, Capabilities.All
-  {
     
-  }
 }

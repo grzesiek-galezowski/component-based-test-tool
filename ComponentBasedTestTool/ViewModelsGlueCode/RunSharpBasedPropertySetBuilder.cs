@@ -2,47 +2,46 @@ using System;
 using TriAxis.RunSharp;
 using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModelsGlueCode
+namespace ViewModelsGlueCode;
+
+public class RunSharpBasedPropertySetBuilder : CreatedPropertySetObjectContainer, PropertySetBuilder
 {
-  public class RunSharpBasedPropertySetBuilder : CreatedPropertySetObjectContainer, PropertySetBuilder
+  private readonly TypeGen _typeGen;
+  private object _object;
+
+  public RunSharpBasedPropertySetBuilder(TypeGen typeGen)
   {
-    private readonly TypeGen _typeGen;
-    private object _object;
+    _typeGen = typeGen;
+  }
 
-    public RunSharpBasedPropertySetBuilder(TypeGen typeGen)
+  public PropertyValuesBuilder<T> Property<T>(string name)
+  {
+    return new RunSharpBasedPropertyValuesBuilder<T>(name, _typeGen, this);
+  }
+
+  public object Retrieve()
+  {
+    if (_typeGen.IsCompleted)
     {
-      _typeGen = typeGen;
+      return _object;
     }
-
-    public PropertyValuesBuilder<T> Property<T>(string name)
+    else
     {
-      return new RunSharpBasedPropertyValuesBuilder<T>(name, _typeGen, this);
+      _typeGen.Complete();
+      var type = _typeGen.GetCompletedType();
+      return _object = Activator.CreateInstance(type);
     }
+  }
 
-    public object Retrieve()
+  public object Object
+  {
+    get
     {
-      if (_typeGen.IsCompleted)
+      if (_object == null)
       {
-        return _object;
+        throw new TypeNotCompletedYetException();
       }
-      else
-      {
-        _typeGen.Complete();
-        var type = _typeGen.GetCompletedType();
-        return _object = Activator.CreateInstance(type);
-      }
-    }
-
-    public object Object
-    {
-      get
-      {
-        if (_object == null)
-        {
-          throw new TypeNotCompletedYetException();
-        }
-        return _object;
-      }
+      return _object;
     }
   }
 }

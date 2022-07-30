@@ -2,49 +2,48 @@ using System.Collections.Generic;
 using System.Linq;
 using ViewModels.Composition;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.ViewModels;
+
+public class OperationViewModelsSource
 {
-  public class OperationViewModelsSource
+  private readonly List<OperationViewModel> _viewModels;
+
+  public OperationViewModelsSource(List<OperationViewModel> viewModels)
   {
-    private readonly List<OperationViewModel> _viewModels;
+    this._viewModels = viewModels;
+  }
 
-    public OperationViewModelsSource(List<OperationViewModel> viewModels)
+  public static OperationViewModelsSource CreateOperationViewModels(
+    OperationViewModelFactory operationViewModelFactory, 
+    IEnumerable<OperationEntry> operationEntries)
+  {
+    var operationViewModels = new OperationViewModelsSource(
+      operationEntries.Select(
+        operationEntry => operationEntry.ToOperationViewModel(operationViewModelFactory)).ToList());
+    operationViewModels.Register();
+    operationViewModels.ResolveDependencies();
+
+    return operationViewModels;
+  }
+
+  private void Register()
+  {
+    foreach (var operationViewModel in _viewModels)
     {
-      this._viewModels = viewModels;
+      operationViewModel.ObserveOperationState();
     }
+  }
 
-    public static OperationViewModelsSource CreateOperationViewModels(
-      OperationViewModelFactory operationViewModelFactory, 
-      IEnumerable<OperationEntry> operationEntries)
+  private void ResolveDependencies()
+  {
+    foreach (var operationViewModel in _viewModels)
     {
-      var operationViewModels = new OperationViewModelsSource(
-        operationEntries.Select(
-          operationEntry => operationEntry.ToOperationViewModel(operationViewModelFactory)).ToList());
-      operationViewModels.Register();
-      operationViewModels.ResolveDependencies();
-
-      return operationViewModels;
+      operationViewModel.ObserveDependencies(_viewModels);
     }
+  }
 
-    private void Register()
-    {
-      foreach (var operationViewModel in _viewModels)
-      {
-        operationViewModel.ObserveOperationState();
-      }
-    }
-
-    private void ResolveDependencies()
-    {
-      foreach (var operationViewModel in _viewModels)
-      {
-        operationViewModel.ObserveDependencies(_viewModels);
-      }
-    }
-
-    public void AddTo(OperationsViewModel operationsViewModel)
-    {
-      operationsViewModel.AddOperations(_viewModels);
-    }
+  public void AddTo(OperationsViewModel operationsViewModel)
+  {
+    operationsViewModel.AddOperations(_viewModels);
   }
 }

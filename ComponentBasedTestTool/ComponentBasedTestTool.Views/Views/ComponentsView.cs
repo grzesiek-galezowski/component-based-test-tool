@@ -1,20 +1,19 @@
 ﻿using System.Windows.Controls;
 
-namespace ComponentBasedTestTool.Views.Views
-{
-  /// <summary>
-  /// Interaction logic for ComponentsView.xaml
-  /// </summary>
-  public partial class ComponentsView : UserControl
-  {
-    public ComponentsView()
-    {
-      InitializeComponent();
-    }
+namespace ComponentBasedTestTool.Views.Views;
 
-    public void SetComponentInstancesViewDataContext(object dataContext)
-    {
-      ComponentInstancesView.DataContext = dataContext;
-    }
+/// <summary>
+/// Interaction logic for ComponentsView.xaml
+/// </summary>
+public partial class ComponentsView : UserControl
+{
+  public ComponentsView()
+  {
+    InitializeComponent();
+  }
+
+  public void SetComponentInstancesViewDataContext(object dataContext)
+  {
+    ComponentInstancesView.DataContext = dataContext;
   }
 }

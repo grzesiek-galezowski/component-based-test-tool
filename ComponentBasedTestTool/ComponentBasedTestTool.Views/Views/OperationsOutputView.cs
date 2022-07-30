@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace ComponentBasedTestTool.Views.Views
+namespace ComponentBasedTestTool.Views.Views;
+
+/// <summary>
+/// Interaction logic for OperationsOutputView.xaml
+/// </summary>
+public partial class OperationsOutputView : UserControl
 {
-  /// <summary>
-  /// Interaction logic for OperationsOutputView.xaml
-  /// </summary>
-  public partial class OperationsOutputView : UserControl
+  public OperationsOutputView()
   {
-    public OperationsOutputView()
-    {
-      InitializeComponent();
-    }
+    InitializeComponent();
   }
 }

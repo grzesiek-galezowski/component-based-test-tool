@@ -1,9 +1,8 @@
 ﻿using ExtensionPoints.ImplementedByContext;
 
-namespace ExtensionPoints.ImplementedByComponents
+namespace ExtensionPoints.ImplementedByComponents;
+
+public interface TestComponentSourceRoot
 {
-  public interface TestComponentSourceRoot
-  {
-    void AddTo(ComponentsList components);
-  }
+  void AddTo(ComponentsList components);
 }

@@ -3,30 +3,29 @@ using System.Threading.Tasks;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components
+namespace Components;
+
+public class ConfigureOperation : ComponentOperation
 {
-  public class ConfigureOperation : ComponentOperation
+  private readonly OperationsOutput _output;
+
+  public ConfigureOperation(OperationsOutput output)
   {
-    private readonly OperationsOutput _output;
+    _output = output;
+  }
 
-    public ConfigureOperation(OperationsOutput output)
-    {
-      _output = output;
-    }
+  public Task RunAsync(CancellationToken token)
+  {
+    return Task.CompletedTask;
+  }
 
-    public Task RunAsync(CancellationToken token)
-    {
-      return Task.CompletedTask;
-    }
-
-    public void InitializeParameters(OperationParametersListBuilder parameters)
-    {
+  public void InitializeParameters(OperationParametersListBuilder parameters)
+  {
       
-    }
+  }
 
-    public void StoreParameters(PersistentStorage destination)
-    {
+  public void StoreParameters(PersistentStorage destination)
+  {
 
-    }
   }
 }

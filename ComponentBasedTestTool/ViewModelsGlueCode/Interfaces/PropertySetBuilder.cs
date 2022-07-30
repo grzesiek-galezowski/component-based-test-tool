@@ -1,9 +1,8 @@
-namespace ViewModelsGlueCode.Interfaces
+namespace ViewModelsGlueCode.Interfaces;
+
+public interface PropertySetBuilder
 {
-  public interface PropertySetBuilder
-  {
-    PropertyValuesBuilder<T> Property<T>(string name);
-    object Retrieve();
-    object Object { get; }
-  }
+  PropertyValuesBuilder<T> Property<T>(string name);
+  object Retrieve();
+  object Object { get; }
 }

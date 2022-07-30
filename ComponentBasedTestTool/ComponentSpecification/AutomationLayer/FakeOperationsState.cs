@@ -2,65 +2,64 @@ using System;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 using NSubstitute.Core;
 
-namespace ComponentSpecification.AutomationLayer
+namespace ComponentSpecification.AutomationLayer;
+
+public class FakeOperationsState
 {
-  public class FakeOperationsState
+  private readonly string _instanceName;
+  private readonly string _operationName;
+  private readonly FakeTestComponents _componentsSetup;
+  private readonly Maybe<OperationContext> _runningOperationContext;
+
+  public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<OperationContext> runningOperationContext)
   {
-    private readonly string _instanceName;
-    private readonly string _operationName;
-    private readonly FakeTestComponents _componentsSetup;
-    private readonly Maybe<OperationContext> _runningOperationContext;
+    _instanceName = instanceName;
+    _operationName = operationName;
+    _componentsSetup = componentsSetup;
+    _runningOperationContext = runningOperationContext;
+  }
 
-    public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<OperationContext> runningOperationContext)
+  public void AssertWasRun(string operationName, int times = 1)
+  {
+    _componentsSetup
+      .RetrieveOperation(_instanceName, operationName)
+      .AssertWasRun(times);
+  }
+
+  public void MakeRunningOperationStop()
+  {
+    if (_runningOperationContext.HasValue())
     {
-      _instanceName = instanceName;
-      _operationName = operationName;
-      _componentsSetup = componentsSetup;
-      _runningOperationContext = runningOperationContext;
+      _runningOperationContext.ValueOrDefault().Stopped();
+    }
+    else
+    {
+      throw new NoOperationRunningException();
     }
 
-    public void AssertWasRun(string operationName, int times = 1)
+  }
+
+  public void MakeRunningOperationSucceed()
+  {
+    if (_runningOperationContext.HasValue())
     {
-      _componentsSetup
-        .RetrieveOperation(_instanceName, operationName)
-        .AssertWasRun(times);
+      _runningOperationContext.ValueOrDefault().Success();
     }
-
-    public void MakeRunningOperationStop()
+    else
     {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Stopped();
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
-
+      throw new NoOperationRunningException();
     }
+  }
 
-    public void MakeRunningOperationSucceed()
+  public void MakeRunningOperationFailWith(Exception exception)
+  {
+    if (_runningOperationContext.HasValue())
     {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Success();
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
+      _runningOperationContext.ValueOrDefault().Failure(exception);
     }
-
-    public void MakeRunningOperationFailWith(Exception exception)
+    else
     {
-      if (_runningOperationContext.HasValue())
-      {
-        _runningOperationContext.ValueOrDefault().Failure(exception);
-      }
-      else
-      {
-        throw new NoOperationRunningException();
-      }
+      throw new NoOperationRunningException();
     }
   }
 }

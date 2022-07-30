@@ -1,8 +1,7 @@
-namespace ViewModelsGlueCode.Interfaces
+namespace ViewModelsGlueCode.Interfaces;
+
+public interface PropertyValueSource<T>
 {
-  public interface PropertyValueSource<T>
-  {
-    T Value { get; }
-    string Name { get; }
-  }
+  T Value { get; }
+  string Name { get; }
 }

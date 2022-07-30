@@ -1,10 +1,9 @@
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ComponentBasedTestTool.Domain
+namespace ComponentBasedTestTool.Domain;
+
+public interface OperationSignals : OperationControl
 {
-  public interface OperationSignals : OperationControl
-  {
-    void DependencyFulfilled(OperationContext context);
-    void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer);
-  }
+  void DependencyFulfilled(OperationContext context);
+  void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer);
 }

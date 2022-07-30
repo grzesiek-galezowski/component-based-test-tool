@@ -7,25 +7,24 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ComponentSpecification.AutomationLayer
+namespace ComponentSpecification.AutomationLayer;
+
+public class SynchronousTasks : BackgroundTasks
 {
-  public class SynchronousTasks : BackgroundTasks
+  private readonly Action<OperationContext> _setRunningOperationContext;
+
+  public SynchronousTasks(Action<OperationContext> setRunningOperationContext)
   {
-    private readonly Action<OperationContext> _setRunningOperationContext;
+    _setRunningOperationContext = setRunningOperationContext;
+  }
 
-    public SynchronousTasks(Action<OperationContext> setRunningOperationContext)
+  public void Run(Runnable operation, OperationContext context)
+  {
+    _setRunningOperationContext(context);
+    using (var token = new CancellationTokenSource())
     {
-      _setRunningOperationContext = setRunningOperationContext;
-    }
-
-    public void Run(Runnable operation, OperationContext context)
-    {
-      _setRunningOperationContext(context);
-      using (var token = new CancellationTokenSource())
-      {
-        context.InProgress(token);
-        operation.RunAsync(token.Token);
-      }
+      context.InProgress(token);
+      operation.RunAsync(token.Token);
     }
   }
 }

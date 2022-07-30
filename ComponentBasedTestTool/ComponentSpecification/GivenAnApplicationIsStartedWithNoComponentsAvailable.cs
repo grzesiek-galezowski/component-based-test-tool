@@ -2,40 +2,39 @@
 using Xbehave;
 using Xunit;
 
-namespace ComponentSpecification
-{
-  public class GivenAnApplicationIsStartedWithNoComponentsAvailable
-  {
-    private readonly ComponentBasedTestToolDriver _context = new ComponentBasedTestToolDriver();
+namespace ComponentSpecification;
 
-    [Background]
-    public void Bg()
-    {
-      "Given the application is started"
-        .x(() => _context.StartApplication());
-    }
+public class GivenAnApplicationIsStartedWithNoComponentsAvailable
+{
+  private readonly ComponentBasedTestToolDriver _context = new();
+
+  [Background]
+  public void Bg()
+  {
+    "Given the application is started"
+      .x(() => _context.StartApplication());
+  }
   
 
-    [Scenario]
-    public void ItShouldContainNoComponentsAvailableToSelect()
-    {
-      "Then the loaded components list should be blank"
-        .x(() => _context.AssertNoComponentsAreLoaded());
-    }
+  [Scenario]
+  public void ItShouldContainNoComponentsAvailableToSelect()
+  {
+    "Then the loaded components list should be blank"
+      .x(() => _context.AssertNoComponentsAreLoaded());
+  }
 
-    [Scenario]
-    public void ItShouldContainNoOperationsInTheOperationView()
-    {
-      "Then the loaded components list should be blank"
-        .x(() => _context.AssertNoComponentsAreLoaded());
-    }
+  [Scenario]
+  public void ItShouldContainNoOperationsInTheOperationView()
+  {
+    "Then the loaded components list should be blank"
+      .x(() => _context.AssertNoComponentsAreLoaded());
+  }
 
 
-    [Scenario]
-    public void ItShouldContainNoComponentsInTheScriptView()
-    {
-      "Then the script view should be blank"
-        .x(() => _context.ScriptView.AssertContainsNoOperations());
-    }
+  [Scenario]
+  public void ItShouldContainNoComponentsInTheScriptView()
+  {
+    "Then the script view should be blank"
+      .x(() => _context.ScriptView.AssertContainsNoOperations());
   }
 }

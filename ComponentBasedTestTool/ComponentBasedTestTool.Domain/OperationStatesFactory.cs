@@ -2,30 +2,29 @@ using System.Threading;
 using ComponentBasedTestTool.Domain.OperationStates;
 using ComponentBasedTestTool.ViewModels.Ports;
 
-namespace ComponentBasedTestTool.Domain
+namespace ComponentBasedTestTool.Domain;
+
+public class OperationStatesFactory
 {
-  public class OperationStatesFactory
+  private readonly BackgroundTasks _backgroundTasks;
+
+  public OperationStatesFactory(BackgroundTasks backgroundTasks)
   {
-    private readonly BackgroundTasks _backgroundTasks;
+    _backgroundTasks = backgroundTasks;
+  }
 
-    public OperationStatesFactory(BackgroundTasks backgroundTasks)
-    {
-      _backgroundTasks = backgroundTasks;
-    }
+  public OperationState Unavailable()
+  {
+    return new UnavailableOperationState();
+  }
 
-    public OperationState Unavailable()
-    {
-      return new UnavailableOperationState();
-    }
+  public OperationState InProgress(CancellationTokenSource cancellationTokenSource)
+  {
+    return new InProgressOperationState(cancellationTokenSource);
+  }
 
-    public OperationState InProgress(CancellationTokenSource cancellationTokenSource)
-    {
-      return new InProgressOperationState(cancellationTokenSource);
-    }
-
-    public OperationState RunnableState()
-    {
-      return new RunnableOperationState(_backgroundTasks);
-    }
+  public OperationState RunnableState()
+  {
+    return new RunnableOperationState(_backgroundTasks);
   }
 }

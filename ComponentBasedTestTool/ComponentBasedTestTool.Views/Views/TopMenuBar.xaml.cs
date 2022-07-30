@@ -12,16 +12,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ComponentBasedTestTool.Views.Views
+namespace ComponentBasedTestTool.Views.Views;
+
+/// <summary>
+/// Interaction logic for TopMenuBar.xaml
+/// </summary>
+public partial class TopMenuBar : UserControl
 {
-  /// <summary>
-  /// Interaction logic for TopMenuBar.xaml
-  /// </summary>
-  public partial class TopMenuBar : UserControl
+  public TopMenuBar()
   {
-    public TopMenuBar()
-    {
-      InitializeComponent();
-    }
+    InitializeComponent();
   }
 }

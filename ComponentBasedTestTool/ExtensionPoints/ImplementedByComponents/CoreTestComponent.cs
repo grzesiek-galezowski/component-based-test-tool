@@ -1,10 +1,9 @@
 ﻿using ExtensionPoints.ImplementedByContext;
 
-namespace ExtensionPoints.ImplementedByComponents
+namespace ExtensionPoints.ImplementedByComponents;
+
+public interface CoreTestComponent
 {
-  public interface CoreTestComponent
-  {
-    void PopulateOperations(TestComponentOperationDestination ctx);
-    void CreateOperations(TestComponentContext ctx);
-  }
+  void PopulateOperations(TestComponentOperationDestination ctx);
+  void CreateOperations(TestComponentContext ctx);
 }

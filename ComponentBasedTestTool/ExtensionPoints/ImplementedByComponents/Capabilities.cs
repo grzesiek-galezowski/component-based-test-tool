@@ -1,21 +1,20 @@
-namespace ExtensionPoints.ImplementedByComponents
+namespace ExtensionPoints.ImplementedByComponents;
+
+public static class Capabilities
 {
-  public static class Capabilities
+  public interface CustomGui
   {
-    public interface CustomGui
-    {
-      void ShowCustomUi();
-    }
+    void ShowCustomUi();
+  }
 
-    public interface CleanupOnEnvironmentClosing
-    {
-      void CleanupOnClosing();
-    }
+  public interface CleanupOnEnvironmentClosing
+  {
+    void CleanupOnClosing();
+  }
 
 
-    public interface All : CustomGui, CleanupOnEnvironmentClosing
-    {
+  public interface All : CustomGui, CleanupOnEnvironmentClosing
+  {
       
-    }
   }
 }

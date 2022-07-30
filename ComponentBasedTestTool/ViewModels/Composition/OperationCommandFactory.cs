@@ -4,44 +4,43 @@ using ComponentBasedTestTool.Views.Ports;
 using ViewModels.ViewModels;
 using ViewModels.ViewModels.Commands;
 
-namespace ViewModels.Composition
+namespace ViewModels.Composition;
+
+public class OperationCommandFactory
 {
-  public class OperationCommandFactory
+  private readonly ApplicationContext _applicationContext;
+  private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
+
+  public OperationCommandFactory(ApplicationContext applicationContext, 
+    ScriptOperationsViewModel scriptOperationsViewModel)
   {
-    private readonly ApplicationContext _applicationContext;
-    private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
+    _applicationContext = applicationContext;
+    _scriptOperationsViewModel = scriptOperationsViewModel;
+  }
 
-    public OperationCommandFactory(ApplicationContext applicationContext, 
-      ScriptOperationsViewModel scriptOperationsViewModel)
-    {
-      _applicationContext = applicationContext;
-      _scriptOperationsViewModel = scriptOperationsViewModel;
-    }
+  public RunOperationCommand CreateRunCommand(OperationViewModel operationViewModel)
+  {
+    return new RunOperationCommand(operationViewModel, _applicationContext);
+  }
 
-    public RunOperationCommand CreateRunCommand(OperationViewModel operationViewModel)
-    {
-      return new RunOperationCommand(operationViewModel, _applicationContext);
-    }
+  public StopOperationCommand CreateStopCommand(
+    OperationSignals operation)
+  {
+    return new StopOperationCommand(_applicationContext, operation);
+  }
 
-    public StopOperationCommand CreateStopCommand(
-      OperationSignals operation)
-    {
-      return new StopOperationCommand(_applicationContext, operation);
-    }
+  public RestartOperationCommand CreateRestartCommand(OperationSignals operation)
+  {
+    return new RestartOperationCommand(_applicationContext, operation);
+  }
 
-    public RestartOperationCommand CreateRestartCommand(OperationSignals operation)
-    {
-      return new RestartOperationCommand(_applicationContext, operation);
-    }
+  public AddToScriptViewCommand CreateAddToScriptViewCommand(OperationViewModel operationViewModel)
+  {
+    return new AddToScriptViewCommand(_scriptOperationsViewModel, operationViewModel);
+  }
 
-    public AddToScriptViewCommand CreateAddToScriptViewCommand(OperationViewModel operationViewModel)
-    {
-      return new AddToScriptViewCommand(_scriptOperationsViewModel, operationViewModel);
-    }
-
-    public ICommand CreateRemoveOperationFromScriptCommand(OperationViewModel operationViewModel)
-    {
-      return new RemoveOperationFromScriptCommand(operationViewModel, _scriptOperationsViewModel);
-    }
+  public ICommand CreateRemoveOperationFromScriptCommand(OperationViewModel operationViewModel)
+  {
+    return new RemoveOperationFromScriptCommand(operationViewModel, _scriptOperationsViewModel);
   }
 }

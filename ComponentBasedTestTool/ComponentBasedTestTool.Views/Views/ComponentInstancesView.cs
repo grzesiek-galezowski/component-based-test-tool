@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace ComponentBasedTestTool.Views.Views
+namespace ComponentBasedTestTool.Views.Views;
+
+/// <summary>
+/// Interaction logic for ComponentInstancesView.xaml
+/// </summary>
+public partial class ComponentInstancesView : UserControl
 {
-  /// <summary>
-  /// Interaction logic for ComponentInstancesView.xaml
-  /// </summary>
-  public partial class ComponentInstancesView : UserControl
+  public ComponentInstancesView()
   {
-    public ComponentInstancesView()
-    {
-      InitializeComponent();
-    }
+    InitializeComponent();
   }
 }

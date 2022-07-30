@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using ExtensionPoints.ImplementedByComponents;
 
-namespace ComponentLoading.Ports
+namespace ComponentLoading.Ports;
+
+public interface ComponentLocation
 {
-  public interface ComponentLocation
-  {
-    IEnumerable<TestComponentSourceRoot> LoadComponentRoots();
-  }
+  IEnumerable<TestComponentSourceRoot> LoadComponentRoots();
 }

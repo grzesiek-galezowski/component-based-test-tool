@@ -1,10 +1,9 @@
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ExtensionPoints.ImplementedByContext
+namespace ExtensionPoints.ImplementedByContext;
+
+public interface TestComponentOperationDestination
 {
-  public interface TestComponentOperationDestination
-  {
-    void AddOperation(string name, OperationControl operation, string dependencyName);
-    void AddOperation(string name, OperationControl operation);
-  }
+  void AddOperation(string name, OperationControl operation, string dependencyName);
+  void AddOperation(string name, OperationControl operation);
 }

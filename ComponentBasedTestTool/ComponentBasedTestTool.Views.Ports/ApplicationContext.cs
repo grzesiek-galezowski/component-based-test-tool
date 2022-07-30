@@ -1,9 +1,8 @@
 using System;
 
-namespace ComponentBasedTestTool.Views.Ports
+namespace ComponentBasedTestTool.Views.Ports;
+
+public interface ApplicationContext
 {
-  public interface ApplicationContext
-  {
-    void Invoke(EventHandler eventHandler, object sender);
-  }
+  void Invoke(EventHandler eventHandler, object sender);
 }

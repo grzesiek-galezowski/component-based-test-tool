@@ -1,8 +1,7 @@
 using System;
 
-namespace ComponentSpecification.AutomationLayer
+namespace ComponentSpecification.AutomationLayer;
+
+public class NoOperationRunningException : Exception
 {
-  public class NoOperationRunningException : Exception
-  {
-  }
 }

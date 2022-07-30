@@ -1,13 +1,12 @@
 using System;
 using ComponentBasedTestTool.Views.Ports;
 
-namespace ComponentSpecification.AutomationLayer
+namespace ComponentSpecification.AutomationLayer;
+
+public class FakeApplicationContext : ApplicationContext
 {
-  public class FakeApplicationContext : ApplicationContext
+  public void Invoke(EventHandler eventHandler, object sender)
   {
-    public void Invoke(EventHandler eventHandler, object sender)
-    {
-      //for now left blank
-    }
+    //for now left blank
   }
 }

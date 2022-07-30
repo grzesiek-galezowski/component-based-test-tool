@@ -2,31 +2,30 @@ using System.Linq;
 using ViewModels.ViewModels;
 using Xunit;
 
-namespace ComponentSpecification.AutomationLayer
+namespace ComponentSpecification.AutomationLayer;
+
+public class FakeComponentsView
 {
-  public class FakeComponentsView
+  private readonly ComponentsViewModel _componentsViewModel;
+
+  public FakeComponentsView(ComponentsViewModel componentsViewModel)
   {
-    private readonly ComponentsViewModel _componentsViewModel;
+    _componentsViewModel = componentsViewModel;
+  }
 
-    public FakeComponentsView(ComponentsViewModel componentsViewModel)
+  public void AssertExactlyTheFollowingAreLoaded(params string[] names)
+  {
+    Assert.Equal(names.Count(), _componentsViewModel.TestComponents.Count);
+    foreach (var name in names)
     {
-      _componentsViewModel = componentsViewModel;
+      Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name.StartsWith(name)),
+        "could not find any component by the name " + name);
     }
+  }
 
-    public void AssertExactlyTheFollowingAreLoaded(params string[] names)
-    {
-      Assert.Equal(names.Count(), _componentsViewModel.TestComponents.Count);
-      foreach (var name in names)
-      {
-        Assert.True(_componentsViewModel.TestComponents.Any(c => c.Name.StartsWith(name)),
-          "could not find any component by the name " + name);
-      }
-    }
-
-    public void AddInstanceOf(string componentName)
-    {
-      var fakeTestComponent = FakeTestComponent.GetByName(componentName, _componentsViewModel);
-      fakeTestComponent.AddInstance();
-    }
+  public void AddInstanceOf(string componentName)
+  {
+    var fakeTestComponent = FakeTestComponent.GetByName(componentName, _componentsViewModel);
+    fakeTestComponent.AddInstance();
   }
 }

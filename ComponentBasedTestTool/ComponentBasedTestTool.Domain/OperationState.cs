@@ -3,13 +3,12 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ComponentBasedTestTool.Domain
+namespace ComponentBasedTestTool.Domain;
+
+public interface OperationState
 {
-  public interface OperationState
-  {
-    void Start(OperationContext context, Runnable operation);
-    void DependencyFulfilled(OperationContext operationViewModel);
-    void Stop();
-    void Notify(OperationContext context);
-  }
+  void Start(OperationContext context, Runnable operation);
+  void DependencyFulfilled(OperationContext operationViewModel);
+  void Stop();
+  void Notify(OperationContext context);
 }

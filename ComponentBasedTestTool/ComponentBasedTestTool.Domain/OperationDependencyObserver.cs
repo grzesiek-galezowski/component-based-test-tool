@@ -1,7 +1,6 @@
-﻿namespace ComponentBasedTestTool.Domain
+﻿namespace ComponentBasedTestTool.Domain;
+
+public interface OperationDependencyObserver
 {
-  public interface OperationDependencyObserver
-  {
-    void DependencyFulfilled();
-  }
+  void DependencyFulfilled();
 }

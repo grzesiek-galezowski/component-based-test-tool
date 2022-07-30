@@ -1,8 +1,7 @@
 using System;
 
-namespace ViewModelsGlueCode
+namespace ViewModelsGlueCode;
+
+public class TypeNotCompletedYetException : Exception
 {
-  public class TypeNotCompletedYetException : Exception
-  {
-  }
 }

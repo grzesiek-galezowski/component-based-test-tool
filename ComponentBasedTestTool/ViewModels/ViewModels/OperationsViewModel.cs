@@ -5,66 +5,64 @@ using System.Runtime.CompilerServices;
 using CallMeMaybe;
 using ComponentBasedTestTool.Annotations;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.ViewModels;
+
+public class OperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
 {
-  
-  public class OperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
+  private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
+  private ObservableCollection<OperationViewModel> _operationViewModels;
+  private Maybe<OperationViewModel> _selectedOperation = Maybe<OperationViewModel>.Not;
+
+  public OperationsViewModel(
+    OperationPropertiesViewModel operationPropertiesViewModel)
   {
-    private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
-    private ObservableCollection<OperationViewModel> _operationViewModels;
-    private Maybe<OperationViewModel> _selectedOperation = Maybe<OperationViewModel>.Not;
+    _operationPropertiesViewModel = operationPropertiesViewModel;
+    _operationViewModels = new ObservableCollection<OperationViewModel>();
+  }
 
-    public OperationsViewModel(
-      OperationPropertiesViewModel operationPropertiesViewModel)
+  public ObservableCollection<OperationViewModel> Operations
+  {
+    get { return _operationViewModels; }
+    set
     {
-      _operationPropertiesViewModel = operationPropertiesViewModel;
-      _operationViewModels = new ObservableCollection<OperationViewModel>();
+      _operationViewModels = value;
+      OnPropertyChanged();
     }
+  }
 
-    public ObservableCollection<OperationViewModel> Operations
+  public OperationViewModel SelectedOperation {
+    get { return _selectedOperation.Single(); }
+    set
     {
-      get { return _operationViewModels; }
-      set
-      {
-        _operationViewModels = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public OperationViewModel SelectedOperation {
-      get { return _selectedOperation.Single(); }
-      set
-      {
-        _selectedOperation = value;
-        _selectedOperation.Do(vm => vm.SetPropertiesOn(_operationPropertiesViewModel));
-      }
-    }
-
-    public void AddOperations(List<OperationViewModel> operationViewModels)
-    {
-      _operationPropertiesViewModel.ClearPropertiesList();
-      Operations = new ObservableCollection<OperationViewModel>(operationViewModels);
-    }
-
-    #region boilerplate
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    #endregion
-
-    public void Update()
-    {
-      _operationPropertiesViewModel.ClearPropertiesList();
+      _selectedOperation = value;
       _selectedOperation.Do(vm => vm.SetPropertiesOn(_operationPropertiesViewModel));
     }
   }
 
-  public interface OperationsViewInitialization
+  public void AddOperations(List<OperationViewModel> operationViewModels)
   {
-    void Update();
+    _operationPropertiesViewModel.ClearPropertiesList();
+    Operations = new ObservableCollection<OperationViewModel>(operationViewModels);
   }
+
+  #region boilerplate
+  public event PropertyChangedEventHandler PropertyChanged;
+
+  [NotifyPropertyChangedInvocator]
+  protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+  {
+    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+  }
+  #endregion
+
+  public void Update()
+  {
+    _operationPropertiesViewModel.ClearPropertiesList();
+    _selectedOperation.Do(vm => vm.SetPropertiesOn(_operationPropertiesViewModel));
+  }
+}
+
+public interface OperationsViewInitialization
+{
+  void Update();
 }

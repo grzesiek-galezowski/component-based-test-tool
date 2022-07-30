@@ -1,22 +1,21 @@
 using ExtensionPoints;
 using ExtensionPoints.ImplementedByContext;
 
-namespace ViewModels
+namespace ViewModels;
+
+public class FormattingOperationOutput : OperationsOutput
 {
-  public class FormattingOperationOutput : OperationsOutput
+  private readonly string _operationName;
+  private readonly OperationsOutput _output;
+
+  public FormattingOperationOutput(string operationName, OperationsOutput output)
   {
-    private readonly string _operationName;
-    private readonly OperationsOutput _output;
+    _operationName = operationName;
+    _output = output;
+  }
 
-    public FormattingOperationOutput(string operationName, OperationsOutput output)
-    {
-      _operationName = operationName;
-      _output = output;
-    }
-
-    public void WriteLine(string text)
-    {
-      _output.WriteLine($"[{_operationName}]" + ": " + text);
-    }
+  public void WriteLine(string text)
+  {
+    _output.WriteLine($"[{_operationName}]" + ": " + text);
   }
 }

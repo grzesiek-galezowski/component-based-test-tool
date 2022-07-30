@@ -5,41 +5,40 @@ using ExtensionPoints;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components
+namespace Components;
+
+public class LsOperation : ComponentOperation
 {
-  public class LsOperation : ComponentOperation
+  private readonly OperationsOutput _out;
+  private OperationParameter<string> _directory;
+  private OperationParameter<bool> _displayAll;
+  private OperationParameter<bool> _recursive;
+
+  public LsOperation(OperationsOutput @out)
   {
-    private readonly OperationsOutput _out;
-    private OperationParameter<string> _directory;
-    private OperationParameter<bool> _displayAll;
-    private OperationParameter<bool> _recursive;
+    _out = @out;
+  }
 
-    public LsOperation(OperationsOutput @out)
-    {
-      _out = @out;
-    }
+  public async Task RunAsync(CancellationToken token)
+  {
+    _out.WriteLine("ls" + 
+                   (_displayAll.Value ? " -l" : "") + 
+                   (_recursive.Value ? " -R" : "") +
+                   " " + _directory.Value);
+  }
 
-    public async Task RunAsync(CancellationToken token)
-    {
-      _out.WriteLine("ls" + 
-        (_displayAll.Value ? " -l" : "") + 
-        (_recursive.Value ? " -R" : "") +
-         " " + _directory.Value);
-    }
+  public void InitializeParameters(OperationParametersListBuilder parameters)
+  {
+    _directory = parameters.Path("Directory", @"C:\");
+    _displayAll = parameters.Flag("Display all", true);
+    _recursive = parameters.Flag("Recursive", true);
+  }
 
-    public void InitializeParameters(OperationParametersListBuilder parameters)
-    {
-      _directory = parameters.Path("Directory", @"C:\");
-      _displayAll = parameters.Flag("Display all", true);
-      _recursive = parameters.Flag("Recursive", true);
-    }
-
-    public void StoreParameters(PersistentStorage destination)
-    {
-      destination.Store(
-        _directory, 
-        _displayAll, 
-        _recursive);
-    }
+  public void StoreParameters(PersistentStorage destination)
+  {
+    destination.Store(
+      _directory, 
+      _displayAll, 
+      _recursive);
   }
 }

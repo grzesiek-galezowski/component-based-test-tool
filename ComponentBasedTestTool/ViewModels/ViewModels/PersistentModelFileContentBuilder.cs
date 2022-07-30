@@ -3,56 +3,55 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ViewModels.ViewModels
+namespace ViewModels.ViewModels;
+
+public class PersistentModelFileContentBuilder : TestComponentOperationDestination, PersistentStorage
 {
-  public class PersistentModelFileContentBuilder : TestComponentOperationDestination, PersistentStorage
+  private readonly OperationsOutputViewModel _operationsOutputViewModel;
+  private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
+  private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
+
+  public PersistentModelFileContentBuilder(OperationsOutputViewModel operationsOutputViewModel, OperationMachinesByControlObject operationMachinesByControlObject)
   {
-    private readonly OperationsOutputViewModel _operationsOutputViewModel;
-    private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
-    private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
+    _operationsOutputViewModel = operationsOutputViewModel;
+    _operationMachinesByControlObject = operationMachinesByControlObject;
+    _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
+  }
 
-    public PersistentModelFileContentBuilder(OperationsOutputViewModel operationsOutputViewModel, OperationMachinesByControlObject operationMachinesByControlObject)
+  public void AddOperation(string name, OperationControl operation, string dependencyName)
+  {
+    var stateMachine = _operationMachinesByControlObject.For(operation);
+    stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
+  }
+
+  public void AddOperation(string name, OperationControl operation)
+  {
+    var stateMachine = _operationMachinesByControlObject.For(operation);
+    stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
+  }
+
+  public void Store(params Persistable[] persistables)
+  {
+    foreach (var persistable in persistables)
     {
-      _operationsOutputViewModel = operationsOutputViewModel;
-      _operationMachinesByControlObject = operationMachinesByControlObject;
-      _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
+      persistable.StoreIn(this);
     }
-
-    public void AddOperation(string name, OperationControl operation, string dependencyName)
-    {
-      var stateMachine = _operationMachinesByControlObject.For(operation);
-      stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
-    }
-
-    public void AddOperation(string name, OperationControl operation)
-    {
-      var stateMachine = _operationMachinesByControlObject.For(operation);
-      stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
-    }
-
-    public void Store(params Persistable[] persistables)
-    {
-      foreach (var persistable in persistables)
-      {
-        persistable.StoreIn(this);
-      }
       
-    }
+  }
 
-    public void StoreValue<T>(string name, T value)
-    {
-      _xmlConfigurationOutputBuilder.AppendProperty(name, value);
-    }
+  public void StoreValue<T>(string name, T value)
+  {
+    _xmlConfigurationOutputBuilder.AppendProperty(name, value);
+  }
 
-    public void NewComponentInstance(string instanceName, CoreTestComponent testComponentInstance)
-    {
-      _xmlConfigurationOutputBuilder.AppendComponentInstanceNode(instanceName, testComponentInstance);
-    }
+  public void NewComponentInstance(string instanceName, CoreTestComponent testComponentInstance)
+  {
+    _xmlConfigurationOutputBuilder.AppendComponentInstanceNode(instanceName, testComponentInstance);
+  }
 
-    public void Save()
-    {
-      _operationsOutputViewModel.WriteLine("Saving XML: " + _xmlConfigurationOutputBuilder.ToString());
-      _xmlConfigurationOutputBuilder.Save();
-    }
+  public void Save()
+  {
+    _operationsOutputViewModel.WriteLine("Saving XML: " + _xmlConfigurationOutputBuilder.ToString());
+    _xmlConfigurationOutputBuilder.Save();
   }
 }

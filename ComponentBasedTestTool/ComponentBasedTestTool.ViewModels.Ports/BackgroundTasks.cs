@@ -2,10 +2,9 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace ComponentBasedTestTool.ViewModels.Ports
+namespace ComponentBasedTestTool.ViewModels.Ports;
+
+public interface BackgroundTasks
 {
-  public interface BackgroundTasks
-  {
-    void Run(Runnable operation, OperationContext context);
-  }
+  void Run(Runnable operation, OperationContext context);
 }

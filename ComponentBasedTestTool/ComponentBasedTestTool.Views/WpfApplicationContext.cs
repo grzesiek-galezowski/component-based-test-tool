@@ -3,13 +3,12 @@ using System.Windows;
 using ComponentBasedTestTool.Annotations;
 using ComponentBasedTestTool.Views.Ports;
 
-namespace ComponentBasedTestTool.Views
+namespace ComponentBasedTestTool.Views;
+
+public class WpfApplicationContext : ApplicationContext
 {
-  public class WpfApplicationContext : ApplicationContext
+  public void Invoke([CanBeNull] EventHandler eventHandler, object sender)
   {
-    public void Invoke([CanBeNull] EventHandler eventHandler, object sender)
-    {
-      Application.Current.Dispatcher.Invoke(() => eventHandler?.Invoke(sender, EventArgs.Empty));
-    }
+    Application.Current.Dispatcher.Invoke(() => eventHandler?.Invoke(sender, EventArgs.Empty));
   }
 }

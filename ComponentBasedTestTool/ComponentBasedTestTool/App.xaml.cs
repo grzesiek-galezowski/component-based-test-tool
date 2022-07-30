@@ -9,25 +9,24 @@ using ComponentLoading;
 using ExtensionPoints.ImplementedByComponents;
 using ViewModels.ViewModels;
 
-namespace ComponentBasedTestTool
-{
-  /// <summary>
-  /// Interaction logic for App.xaml
-  /// </summary>
-  public partial class App : Application
-  {
-    protected override void OnStartup([CanBeNull] StartupEventArgs e)
-    {
-      base.OnStartup(e);
+namespace ComponentBasedTestTool;
 
-      var applicationBootstrap = new MainWindow();
-      var defaultApplicationLoop = new DefaultApplicationLoop();
-      applicationBootstrap.Closing += (sender, args) => defaultApplicationLoop.Stop();
-      defaultApplicationLoop.Start(
-        applicationBootstrap, 
-        new ExecutingAssemblyFolder(), 
-        new WpfApplicationContext(), 
-        new AsyncBasedBackgroundTasks());
-    }
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
+{
+  protected override void OnStartup([CanBeNull] StartupEventArgs e)
+  {
+    base.OnStartup(e);
+
+    var applicationBootstrap = new MainWindow();
+    var defaultApplicationLoop = new DefaultApplicationLoop();
+    applicationBootstrap.Closing += (sender, args) => defaultApplicationLoop.Stop();
+    defaultApplicationLoop.Start(
+      applicationBootstrap, 
+      new ExecutingAssemblyFolder(), 
+      new WpfApplicationContext(), 
+      new AsyncBasedBackgroundTasks());
   }
 }

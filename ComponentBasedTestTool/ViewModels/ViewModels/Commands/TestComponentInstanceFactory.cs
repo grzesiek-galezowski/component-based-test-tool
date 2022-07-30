@@ -1,9 +1,8 @@
 using ComponentBasedTestTool.Domain;
 using ExtensionPoints.ImplementedByComponents;
 
-namespace ViewModels.ViewModels.Commands
+namespace ViewModels.ViewModels.Commands;
+
+public static class TestComponentWithAllCapabilitiesFactory
 {
-  public static class TestComponentWithAllCapabilitiesFactory
-  {
-  }
 }

@@ -1,12 +1,9 @@
 ﻿using ComponentBasedTestTool.Domain;
 using ViewModels.ViewModels;
 
-namespace ViewModels.Composition
+namespace ViewModels.Composition;
+
+public interface OperationViewModelFactory
 {
-  public interface OperationViewModelFactory
-  {
-    OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine);
-  }
-
-
+  OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine);
 }

@@ -1,7 +1,6 @@
-namespace ViewModelsGlueCode
+namespace ViewModelsGlueCode;
+
+public interface CreatedPropertySetObjectContainer
 {
-  public interface CreatedPropertySetObjectContainer
-  {
-    object Object { get; }
-  }
+  object Object { get; }
 }

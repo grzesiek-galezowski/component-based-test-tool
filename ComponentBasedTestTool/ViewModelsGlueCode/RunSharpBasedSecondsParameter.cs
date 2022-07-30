@@ -2,21 +2,20 @@
 using ExtensionPoints.ImplementedByContext;
 using ViewModelsGlueCode.Interfaces;
 
-namespace ViewModelsGlueCode
+namespace ViewModelsGlueCode;
+
+public class RunSharpBasedSecondsParameter : OperationParameter<TimeSpan>
 {
-  public class RunSharpBasedSecondsParameter : OperationParameter<TimeSpan>
+  private readonly PropertyValueSource<int> _prop;
+
+  public RunSharpBasedSecondsParameter(PropertyValueSource<int> prop)
   {
-    private readonly PropertyValueSource<int> _prop;
+    _prop = prop;
+  }
 
-    public RunSharpBasedSecondsParameter(PropertyValueSource<int> prop)
-    {
-      _prop = prop;
-    }
-
-    public TimeSpan Value => TimeSpan.FromSeconds(_prop.Value);
-    public void StoreIn(PersistentStorage persistentStorage)
-    {
-      persistentStorage.StoreValue(_prop.Name, _prop.Value);
-    }
+  public TimeSpan Value => TimeSpan.FromSeconds(_prop.Value);
+  public void StoreIn(PersistentStorage persistentStorage)
+  {
+    persistentStorage.StoreValue(_prop.Name, _prop.Value);
   }
 }
