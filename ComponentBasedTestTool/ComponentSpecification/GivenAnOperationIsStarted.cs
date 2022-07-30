@@ -6,7 +6,6 @@ namespace ComponentSpecification;
 
 public class GivenAnOperationIsStarted
 {
-
   [Fact]
   public void ShouldStartPluginOperation()
   {
@@ -25,7 +24,6 @@ public class GivenAnOperationIsStarted
     //THEN
     context.Operations.AssertWasRun(operationName11);
   }
-
 
   [Fact]
   public void ShouldDisplayStartedOperationAsInProgress()
@@ -111,5 +109,4 @@ public class GivenAnOperationIsStarted
     //THEN
     context.OperationsView.AssertSelectedOperationIsDisplayedAsFailedWith(exception);
   }
-
 }
