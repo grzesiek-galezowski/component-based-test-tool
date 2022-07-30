@@ -8,8 +8,8 @@ namespace ComponentSpecification;
 public class GivenAnOperationIsStarted
 {
   private readonly ComponentBasedTestToolDriver _context = new();
-  private readonly string _componentName1 = AnyComponentName();
-  private readonly string _operationName11 = AnyOperationName();
+  private readonly string _componentName1 = Any.ComponentName();
+  private readonly string _operationName11 = Any.OperationName();
 
   [Background]
   public void Bg()

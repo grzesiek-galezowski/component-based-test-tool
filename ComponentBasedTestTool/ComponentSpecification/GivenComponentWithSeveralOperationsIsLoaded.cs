@@ -9,17 +9,17 @@ namespace ComponentSpecification;
 public class GivenComponentWithSeveralOperationsIsLoaded
 {
   private readonly ComponentBasedTestToolDriver _context = new();
-  private readonly string _componentName1 = AnyComponentName();
-  private readonly string _operationName11 = AnyOperationName();
-  private readonly string _parameterName1 = AnyParameterName();
-  private readonly string _parameterValue1 = AnyParameterValue();
-  private readonly string _parameterName2 = AnyParameterName();
-  private readonly string _parameterValue2 = AnyParameterValue();
-  private readonly string _operationName12 = AnyComponentName();
-  private readonly string _parameterName3 = AnyParameterName();
-  private readonly string _parameterName4 = AnyParameterName();
-  private readonly string _parameterValue3 = AnyParameterValue();
-  private readonly string _parameterValue4 = AnyParameterValue();
+  private readonly string _componentName1 = Any.ComponentName();
+  private readonly string _operationName11 = Any.OperationName();
+  private readonly string _parameterName1 = Any.ParameterName();
+  private readonly string _parameterValue1 = Any.ParameterValue();
+  private readonly string _parameterName2 = Any.ParameterName();
+  private readonly string _parameterValue2 = Any.ParameterValue();
+  private readonly string _operationName12 = Any.ComponentName();
+  private readonly string _parameterName3 = Any.ParameterName();
+  private readonly string _parameterName4 = Any.ParameterName();
+  private readonly string _parameterValue3 = Any.ParameterValue();
+  private readonly string _parameterValue4 = Any.ParameterValue();
 
   [Background]
   public void Bg()

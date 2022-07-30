@@ -16,9 +16,9 @@ public class DisplayingSpecification
     //GIVEN
     var context = new ComponentBasedTestToolDriver();
 
-    var componentName1 = AnyComponentName();
-    var componentName2 = AnyComponentName();
-    var componentName3 = AnyComponentName();
+    var componentName1 = Any.ComponentName();
+    var componentName2 = Any.ComponentName();
+    var componentName3 = Any.ComponentName();
     context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
     //WHEN
@@ -35,9 +35,9 @@ public class DisplayingSpecification
     //GIVEN
     var context = new ComponentBasedTestToolDriver();
 
-    var componentName1 = AnyComponentName();
-    var componentName2 = AnyComponentName();
-    var componentName3 = AnyComponentName();
+    var componentName1 = Any.ComponentName();
+    var componentName2 = Any.ComponentName();
+    var componentName3 = Any.ComponentName();
     context.ComponentsSetup.AddWithNames(componentName1, componentName2, componentName3);
 
     context.StartApplication();
@@ -59,9 +59,9 @@ public class DisplayingSpecification
     //GIVEN
     var context = new ComponentBasedTestToolDriver();
 
-    var componentName1 = AnyComponentName();
-    var operationName11 = AnyOperationName();
-    var operationName12 = AnyOperationName();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
+    var operationName12 = Any.OperationName();
 
     context.ComponentsSetup.Add(componentName1)
       .WithOperation(operationName11)
@@ -83,12 +83,12 @@ public class DisplayingSpecification
     //GIVEN
     var context = new ComponentBasedTestToolDriver();
 
-    var componentName1 = AnyComponentName();
-    var operationName11 = AnyOperationName();
-    var operationName12 = AnyOperationName();
-    var componentName2 = AnyComponentName();
-    var component2Operation1 = AnyOperationName();
-    var component2Operation2 = AnyOperationName();
+    var componentName1 = Any.ComponentName();
+    var operationName11 = Any.OperationName();
+    var operationName12 = Any.OperationName();
+    var componentName2 = Any.ComponentName();
+    var component2Operation1 = Any.OperationName();
+    var component2Operation2 = Any.OperationName();
 
     context.ComponentsSetup.Add(componentName1)
       .WithOperation(operationName11)

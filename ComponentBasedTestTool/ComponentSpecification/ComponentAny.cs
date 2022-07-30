@@ -1,30 +1,32 @@
+using TddXt.AnyExtensibility;
+
 namespace ComponentSpecification;
 
-public class ComponentAny
+public static class ComponentAny
 {
   public const string ComponentNameSeed = "Component";
   private const string OperationNameSeed = "Operation";
   private const string ParameterNameSeed = "ParameterName";
   private const string ParameterValueSeed = "ParameterValue";
 
-  public static string AnyParameterValue()
+  public static string ParameterValue(this BasicGenerator basicGenerator)
   {
-    return Any.String(ParameterValueSeed);
+    return basicGenerator.String(ParameterValueSeed);
   }
 
-  public static string AnyParameterName()
+  public static string ParameterName(this BasicGenerator basicGenerator)
   {
-    return Any.String(ParameterNameSeed);
+    return basicGenerator.String(ParameterNameSeed);
   }
 
-  public static string AnyOperationName()
+  public static string OperationName(this BasicGenerator basicGenerator)
   {
-    return Any.String(OperationNameSeed);
+    return basicGenerator.String(OperationNameSeed);
   }
 
-  public static string AnyComponentName()
+  public static string ComponentName(this BasicGenerator basicGenerator)
   {
-    return Any.String(ComponentNameSeed);
+    return basicGenerator.String(ComponentNameSeed);
   }
 
   public static KeyValuePair<string, string> Property(string parameterName1, string parameterValue1)
