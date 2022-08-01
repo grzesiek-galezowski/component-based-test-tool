@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace ComponentBasedTestTool.Views.Views;
+﻿namespace ComponentBasedTestTool.Views.Views;
 
 /// <summary>
 /// Interaction logic for ComponentsView.xaml
