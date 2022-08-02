@@ -41,7 +41,7 @@ var runPipelineJson = await $"https://dev.azure.com/{organization}/{project}/_ap
 var runPipelineResult = await runPipelineJson.GetJsonAsync<Run>();
 Console.WriteLine(runPipelineResult);
 
-Run runInfo = null;
+Run? runInfo;
 do
 {
 // GET run status
