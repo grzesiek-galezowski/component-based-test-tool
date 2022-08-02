@@ -43,7 +43,7 @@ public class FileSystemComponent :
 
   public void ShowCustomUi()
   {
-    if (_customGui == null || !_customGui.IsLoaded)
+    if (_customGui is not { IsLoaded: true })
     {
       _customGui = new CustomGui(_wait, _configure)
       {
