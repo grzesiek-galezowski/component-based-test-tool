@@ -5,7 +5,7 @@ using ComponentBasedTestTool.Views.Ports;
 
 namespace ComponentBasedTestTool.Views;
 
-public class WpfApplicationContext : ApplicationContext
+public class WpfApplicationContext : IApplicationContext
 {
   public void Invoke([CanBeNull] EventHandler eventHandler, object sender)
   {

@@ -2,7 +2,7 @@
 
 namespace ExtensionPoints.ImplementedByContext;
 
-public interface ComponentsList
+public interface IComponentsList
 {
-  void Add(string name, string description, TestComponentInstanceFactory factory);
+  void Add(string name, string description, ITestComponentInstanceFactory factory);
 }

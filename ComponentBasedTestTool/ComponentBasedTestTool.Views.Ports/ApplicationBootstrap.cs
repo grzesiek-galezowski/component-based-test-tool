@@ -2,12 +2,12 @@ using System;
 
 namespace ComponentBasedTestTool.Views.Ports;
 
-public interface ApplicationEvents
+public interface IApplicationEvents
 {
   event Action EnvironmentClosing;
 }
 
-public interface ApplicationBootstrap : ApplicationEvents
+public interface IApplicationBootstrap : IApplicationEvents
 {
   //TODO convert to empty interfaces
   void SetComponentInstancesViewDataContext(object componentInstancesViewModel);

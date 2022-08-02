@@ -4,10 +4,10 @@ using NSubstitute;
 
 namespace ComponentSpecification.AutomationLayer;
 
-public class FakeOperation : ComponentOperation
+public class FakeOperation : IComponentOperation
 {
   private readonly List<Tuple<string, string>> _parameters = new();
-  private readonly Runnable _mock = Substitute.For<ComponentOperation>();
+  private readonly IRunnable _mock = Substitute.For<IComponentOperation>();
 
   public Task RunAsync(CancellationToken token)
   {
@@ -20,7 +20,7 @@ public class FakeOperation : ComponentOperation
     return this;
   }
 
-  public void InitializeParameters(OperationParametersListBuilder parameters)
+  public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
     foreach (var parameter in _parameters)
     {
@@ -28,12 +28,12 @@ public class FakeOperation : ComponentOperation
     }
   }
 
-  public void StoreParameters(PersistentStorage destination)
+  public void StoreParameters(IPersistentStorage destination)
   {
       
   }
 
-  public void StoreParameters(TestComponentOperationDestination destination)
+  public void StoreParameters(ITestComponentOperationDestination destination)
   {
       
   }

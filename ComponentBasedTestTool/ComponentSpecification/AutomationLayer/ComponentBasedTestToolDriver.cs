@@ -11,7 +11,7 @@ using Xunit;
 
 namespace ComponentSpecification.AutomationLayer;
 
-public class ComponentBasedTestToolDriver : ApplicationBootstrap
+public class ComponentBasedTestToolDriver : IApplicationBootstrap
 {
   private Maybe<ComponentInstancesViewModel> _componentInstancesViewModel;
 
@@ -19,7 +19,7 @@ public class ComponentBasedTestToolDriver : ApplicationBootstrap
   private Maybe<ComponentsViewModel> _componentsViewModel;
   private Maybe<OperationPropertiesViewModel> _operationPropertiesViewModel;
   private Maybe<OperationsViewModel> _operationsViewModel;
-  private Maybe<OperationContext> _runningOperationContext = Maybe<OperationContext>.Nothing;
+  private Maybe<IOperationContext> _runningOperationContext = Maybe<IOperationContext>.Nothing;
   private Maybe<ScriptOperationsViewModel> _scriptOperationsViewModel;
 
   public ComponentBasedTestToolDriver()
@@ -50,10 +50,10 @@ public class ComponentBasedTestToolDriver : ApplicationBootstrap
   public void StartApplication()
   {
     var bootstrap = this;
-    var pluginLocation = Substitute.For<ComponentLocation>();
-    var componentRoot = Substitute.For<TestComponentSourceRoot>();
+    var pluginLocation = Substitute.For<IComponentLocation>();
+    var componentRoot = Substitute.For<ITestComponentSourceRoot>();
 
-    componentRoot.When(m => m.AddTo(Arg.Any<ComponentsList>())).Do(AddConfiguredComponents());
+    componentRoot.When(m => m.AddTo(Arg.Any<IComponentsList>())).Do(AddConfiguredComponents());
 
     pluginLocation.LoadComponentRoots().Returns(new[] {componentRoot});
 
@@ -64,7 +64,7 @@ public class ComponentBasedTestToolDriver : ApplicationBootstrap
       new SynchronousTasks(SetRunningOperationContext));
   }
 
-  private void SetRunningOperationContext(OperationContext context)
+  private void SetRunningOperationContext(IOperationContext context)
   {
     _runningOperationContext = context.Just();
   }
@@ -73,31 +73,31 @@ public class ComponentBasedTestToolDriver : ApplicationBootstrap
   {
     return ci =>
     {
-      var componentsList = ((ComponentsList) ci[0]);
+      var componentsList = ((IComponentsList) ci[0]);
       ComponentsSetup.AddTo(componentsList);
     };
   }
 
-  void ApplicationBootstrap.SetComponentInstancesViewDataContext(object componentInstancesViewModel)
+  void IApplicationBootstrap.SetComponentInstancesViewDataContext(object componentInstancesViewModel)
   {
     _componentInstancesViewModel = ((ComponentInstancesViewModel) componentInstancesViewModel).Just();
   }
 
-  void ApplicationBootstrap.SetComponentsViewDataContext(object componentsViewModel)
+  void IApplicationBootstrap.SetComponentsViewDataContext(object componentsViewModel)
   {
     _componentsViewModel = ((ComponentsViewModel) componentsViewModel).Just();
   }
 
-  void ApplicationBootstrap.SetOperationPropertiesViewDataContext(object operationPropertiesViewModel)
+  void IApplicationBootstrap.SetOperationPropertiesViewDataContext(object operationPropertiesViewModel)
   {
     _operationPropertiesViewModel = ((OperationPropertiesViewModel) operationPropertiesViewModel).Just();
   }
 
-  void ApplicationBootstrap.SetOperationsOutputViewDataContext(object operationsOutputViewModel)
+  void IApplicationBootstrap.SetOperationsOutputViewDataContext(object operationsOutputViewModel)
   {
   }
 
-  void ApplicationBootstrap.SetOperationsViewDataContext(object operationsViewModel)
+  void IApplicationBootstrap.SetOperationsViewDataContext(object operationsViewModel)
   {
     _operationsViewModel = ((OperationsViewModel) operationsViewModel).Just();
   }
@@ -112,7 +112,7 @@ public class ComponentBasedTestToolDriver : ApplicationBootstrap
       
   }
 
-  void ApplicationBootstrap.Start()
+  void IApplicationBootstrap.Start()
   {
     // Method intentionally left empty.
   }

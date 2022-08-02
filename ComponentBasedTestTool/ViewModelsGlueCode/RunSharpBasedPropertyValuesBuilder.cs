@@ -5,18 +5,18 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModelsGlueCode;
 
-public class RunSharpBasedPropertyValuesBuilder<T> : PropertyValuesBuilder<T>
+public class RunSharpBasedPropertyValuesBuilder<T> : IPropertyValuesBuilder<T>
 {
   private readonly string _propertyName;
   private readonly TypeGen _typeGen;
-  private readonly CreatedPropertySetObjectContainer _container;
+  private readonly ICreatedPropertySetObjectContainer _container;
   private readonly Type _type;
   private readonly string _fieldName;
   private readonly Dictionary<AttributeType, object[]> _attributes = new();
 
   private Operand _initialValue = Operand.FromObject(null);
 
-  public RunSharpBasedPropertyValuesBuilder(string propertyName, TypeGen typeGen, CreatedPropertySetObjectContainer container)
+  public RunSharpBasedPropertyValuesBuilder(string propertyName, TypeGen typeGen, ICreatedPropertySetObjectContainer container)
   {
     _propertyName = propertyName;
     _typeGen = typeGen;
@@ -39,13 +39,13 @@ public class RunSharpBasedPropertyValuesBuilder<T> : PropertyValuesBuilder<T>
   }
 
   //bug the problem is in operand argument
-  public PropertyValuesBuilder<T> InitialValue(Operand initialValue)
+  public IPropertyValuesBuilder<T> InitialValue(Operand initialValue)
   {
     _initialValue = initialValue;
     return this;
   }
 
-  public PropertyValuesBuilder<T> With<TAttribute>(params object[] options)
+  public IPropertyValuesBuilder<T> With<TAttribute>(params object[] options)
   {
     _attributes.Add(typeof(TAttribute), options);
     return this;

@@ -3,18 +3,18 @@ using ComponentBasedTestTool.Annotations;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components;
+namespace Components.FileSystem;
 
-[Export(typeof(TestComponentSourceRoot))]
+[Export(typeof(ITestComponentSourceRoot))]
 [UsedImplicitly]
-public class FileSystemComponentInstanceFactory : TestComponentInstanceFactory, TestComponentSourceRoot
+public class FileSystemComponentInstanceFactory : ITestComponentInstanceFactory, ITestComponentSourceRoot
 {
-  public CoreTestComponent Create()
+  public ICoreTestComponent Create()
   {
     return new FileSystemComponent();
   }
 
-  public void AddTo(ComponentsList components)
+  public void AddTo(IComponentsList components)
   {
     components.Add("Filesystem", "Performs various filesystem operations", this);
   }

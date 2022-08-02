@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Components;
+namespace Components.FileSystem;
 
 /// <summary>
 /// Interaction logic for UserControl1.xaml

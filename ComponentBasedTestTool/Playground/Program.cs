@@ -1,4 +1,5 @@
 ﻿using Flurl.Http;
+using Playground;
 
 string AuthorizationHeaderValue()
 {
@@ -32,40 +33,43 @@ var runPipelineJson = await $"https://dev.azure.com/{organization}/{project}/_ap
 var runPipelineResult = await runPipelineJson.GetJsonAsync<RunPipelineResult>();
 Console.WriteLine(runPipelineResult);
 
-//List of pipelines DTO
-public record ListOfPipelines(int Count, Pipeline[] Value);
+namespace Playground
+{
+  //List of pipelines DTO
+  public record ListOfPipelines(int Count, Pipeline[] Value);
 
-public record Pipeline(
-  ReferenceLinks _Links,
-  string Url,
-  int Id,
-  int Revision,
-  string Name,
-  string Folder
-);
+  public record Pipeline(
+    ReferenceLinks Links,
+    string Url,
+    int Id,
+    int Revision,
+    string Name,
+    string Folder
+  );
 
-public record ReferenceLinks(Self Self, Web Web);
-public record Self(string Href);
-public record Web(string Href);
+  public record ReferenceLinks(Self Self, Web Web);
+  public record Self(string Href);
+  public record Web(string Href);
 
 // run pipeline response
 
 
-public class RunPipelineResult
-{
-  public RunPipelineLinks _links { get; set; }
-  public Pipeline pipeline { get; set; }
-  public string state { get; set; }
-  public string url { get; set; }
-  public string finalYaml { get; set; }
-  public int id { get; set; }
-  public object name { get; set; }
-}
+  public class RunPipelineResult
+  {
+    public RunPipelineLinks Links { get; set; }
+    public Pipeline Pipeline { get; set; }
+    public string State { get; set; }
+    public string Url { get; set; }
+    public string FinalYaml { get; set; }
+    public int Id { get; set; }
+    public object Name { get; set; }
+  }
 
-public class RunPipelineLinks
-{
-  public Self self { get; set; }
-  public Web web { get; set; }
-  public Web pipelineweb { get; set; }
-  public Web pipeline { get; set; }
+  public class RunPipelineLinks
+  {
+    public Self Self { get; set; }
+    public Web Web { get; set; }
+    public Web Pipelineweb { get; set; }
+    public Web Pipeline { get; set; }
+  }
 }

@@ -3,7 +3,7 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.ViewModels.Ports;
 
-public interface BackgroundTasks
+public interface IBackgroundTasks
 {
-  void Run(Runnable operation, OperationContext context);
+  void Run(IRunnable operation, IOperationContext context);
 }

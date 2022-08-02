@@ -6,24 +6,24 @@ namespace ComponentBasedTestTool.Domain;
 
 public class OperationStatesFactory
 {
-  private readonly BackgroundTasks _backgroundTasks;
+  private readonly IBackgroundTasks _backgroundTasks;
 
-  public OperationStatesFactory(BackgroundTasks backgroundTasks)
+  public OperationStatesFactory(IBackgroundTasks backgroundTasks)
   {
     _backgroundTasks = backgroundTasks;
   }
 
-  public OperationState Unavailable()
+  public IOperationState Unavailable()
   {
     return new UnavailableOperationState();
   }
 
-  public OperationState InProgress(CancellationTokenSource cancellationTokenSource)
+  public IOperationState InProgress(CancellationTokenSource cancellationTokenSource)
   {
     return new InProgressOperationState(cancellationTokenSource);
   }
 
-  public OperationState RunnableState()
+  public IOperationState RunnableState()
   {
     return new RunnableOperationState(_backgroundTasks);
   }

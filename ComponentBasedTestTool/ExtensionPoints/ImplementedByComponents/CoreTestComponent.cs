@@ -2,8 +2,8 @@
 
 namespace ExtensionPoints.ImplementedByComponents;
 
-public interface CoreTestComponent
+public interface ICoreTestComponent
 {
-  void PopulateOperations(TestComponentOperationDestination ctx);
-  void CreateOperations(TestComponentContext ctx);
+  void PopulateOperations(ITestComponentOperationDestination ctx);
+  void CreateOperations(ITestComponentContext ctx);
 }

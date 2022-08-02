@@ -1,9 +1,9 @@
 namespace ExtensionPoints.ImplementedByContext.StateMachine;
 
-public interface OperationControl
+public interface IOperationControl
 {
-  void RegisterContext(OperationContext context);
+  void RegisterContext(IOperationContext context);
   void Start();
   void Stop();
-  void DeregisterContext(OperationContext context);
+  void DeregisterContext(IOperationContext context);
 }

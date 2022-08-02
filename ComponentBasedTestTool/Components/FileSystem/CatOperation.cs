@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class CatOperation : ComponentOperation
+public class CatOperation : IComponentOperation
 {
-  private readonly OperationsOutput _out;
-  private OperationParameter<string> _filename;
+  private readonly IOperationsOutput _out;
+  private IOperationParameter<string> _filename;
 
-  public CatOperation(OperationsOutput @out)
+  public CatOperation(IOperationsOutput @out)
   {
     _out = @out;
   }
@@ -20,13 +20,13 @@ public class CatOperation : ComponentOperation
     _out.WriteLine("cat " + _filename.Value);
   }
 
-  public void InitializeParameters(OperationParametersListBuilder parameters)
+  public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
     _filename = parameters.Path("Filename", "File.txt");
   }
 
   public void StoreParameters(
-    PersistentStorage destination)
+    IPersistentStorage destination)
   {
     destination.Store(_filename);
   }

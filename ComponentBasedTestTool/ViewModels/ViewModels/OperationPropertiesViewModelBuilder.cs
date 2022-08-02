@@ -6,17 +6,17 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModels.ViewModels;
 
-public class OperationPropertiesViewModelBuilder : OperationParametersListBuilder
+public class OperationPropertiesViewModelBuilder : IOperationParametersListBuilder
 {
   private const string GenericProperties = "Generic properties";
-  readonly PropertySetBuilder _propertySetBuilder;
+  readonly IPropertySetBuilder _propertySetBuilder;
 
-  public OperationPropertiesViewModelBuilder(PropertySetBuilder propertySetBuilder)
+  public OperationPropertiesViewModelBuilder(IPropertySetBuilder propertySetBuilder)
   {
     _propertySetBuilder = propertySetBuilder;
   }
 
-  public OperationParameter<string> Path(string name, string defaultValue)
+  public IOperationParameter<string> Path(string name, string defaultValue)
   {
     var prop = _propertySetBuilder
       .Property<string>(name)
@@ -26,7 +26,7 @@ public class OperationPropertiesViewModelBuilder : OperationParametersListBuilde
     return new RunSharpBasedParameter<string>(prop);
   }
 
-  public OperationParameter<string> Text(string name, string defaultValue)
+  public IOperationParameter<string> Text(string name, string defaultValue)
   {
     var prop = _propertySetBuilder
       .Property<string>(name)
@@ -37,7 +37,7 @@ public class OperationPropertiesViewModelBuilder : OperationParametersListBuilde
   }
 
 
-  public OperationParameter<bool> Flag(string name, bool defaultValue)
+  public IOperationParameter<bool> Flag(string name, bool defaultValue)
   {
     var prop = _propertySetBuilder
       .Property<bool>(name)
@@ -47,7 +47,7 @@ public class OperationPropertiesViewModelBuilder : OperationParametersListBuilde
     return new RunSharpBasedParameter<bool>(prop);
   }
 
-  public OperationParameter<TimeSpan> Seconds(string name, int amount)
+  public IOperationParameter<TimeSpan> Seconds(string name, int amount)
   {
     var prop = _propertySetBuilder
       .Property<int>(name)

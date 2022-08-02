@@ -3,9 +3,9 @@ using System.Threading;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class ConfigurationControls : OperationContext
+public class ConfigurationControls : IOperationContext
 {
   private readonly CustomGui _customGui;
 
@@ -38,7 +38,7 @@ public class ConfigurationControls : OperationContext
 
   public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
   {
-      
+
   }
 
   public void InProgress(CancellationTokenSource cancellationTokenSource)

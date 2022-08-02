@@ -7,43 +7,43 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain;
 
-public class DefaultOperationStateMachine : OperationStateMachine
+public class DefaultOperationStateMachine : IOperationStateMachine
 {
-  private readonly List<OperationDependencyObserver> _observers;
-  private readonly ComponentOperation _operation;
-  private OperationState _operationState;
+  private readonly List<IOperationDependencyObserver> _observers;
+  private readonly IComponentOperation _operation;
+  private IOperationState _operationState;
   private readonly OperationStatesFactory _operationStatesFactory;
   private readonly BroadcastContext _context = new();
 
   public DefaultOperationStateMachine(
-    ComponentOperation operation, 
-    OperationState operationState, 
+    IComponentOperation operation, 
+    IOperationState operationState, 
     OperationStatesFactory operationStatesFactory)
   {
     _operation = operation;
     _operationState = operationState;
-    _observers = new List<OperationDependencyObserver>();
+    _observers = new List<IOperationDependencyObserver>();
     _operationStatesFactory = operationStatesFactory;
   }
 
-  void OperationSignals.DependencyFulfilled(OperationContext context)
+  void IOperationSignals.DependencyFulfilled(IOperationContext context)
   {
     _operationState.DependencyFulfilled(context);
   }
 
-  void OperationStateObserver.Failure(Exception exception, OperationContext context)
+  void IOperationStateObserver.Failure(Exception exception, IOperationContext context)
   {
     context.NotifyOnCurrentState("Failure", Runnability.Runnable(), ErrorInfo.From(exception));
 
     _operationState = _operationStatesFactory.RunnableState();
   }
 
-  public void FromNowOnReportSuccessfulExecutionTo(OperationDependencyObserver observer)
+  public void FromNowOnReportSuccessfulExecutionTo(IOperationDependencyObserver observer)
   {
     _observers.Add(observer);
   }
 
-  void OperationStateObserver.Initial(OperationContext context)
+  void IOperationStateObserver.Initial(IOperationContext context)
   {
     context.NotifyOnCurrentState(
       "Initial", 
@@ -53,7 +53,7 @@ public class DefaultOperationStateMachine : OperationStateMachine
     _operationState = _operationStatesFactory.Unavailable();
   }
 
-  void OperationStateObserver.InProgress(OperationContext context, CancellationTokenSource cancellationTokenSource)
+  void IOperationStateObserver.InProgress(IOperationContext context, CancellationTokenSource cancellationTokenSource)
   {
     context.NotifyOnCurrentState(
       "In Progress", 
@@ -63,40 +63,40 @@ public class DefaultOperationStateMachine : OperationStateMachine
     _operationState = _operationStatesFactory.InProgress(cancellationTokenSource);
   }
 
-  public void InitializeParametersIn(OperationParametersListBuilder operationParametersListBuilder)
+  public void InitializeParametersIn(IOperationParametersListBuilder operationParametersListBuilder)
   {
     _operation.InitializeParameters(operationParametersListBuilder);
   }
 
-  public void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder)
+  public void SaveUsing(IPersistentStorage persistentStorage, string name, IConfigurationOutputBuilder builder)
   {
     builder.AppendOperationNode(name, _operation);
     _operation.StoreParameters(persistentStorage);
   }
 
-  public void RegisterContext(OperationContext context)
+  public void RegisterContext(IOperationContext context)
   {
     _context.Register(context);
     _operationState.Notify(context);
   }
 
-  void OperationControl.Start()
+  void IOperationControl.Start()
   {
     _operationState.Start(_context, _operation);
   }
 
-  void OperationStateObserver.Ready(OperationContext context)
+  void IOperationStateObserver.Ready(IOperationContext context)
   {
     NormalRunnable(context, "Ready");
   }
 
 
-  void OperationStateObserver.Stopped(OperationContext context)
+  void IOperationStateObserver.Stopped(IOperationContext context)
   {
     NormalRunnable(context, "Stopped");
   }
 
-  void OperationStateObserver.Success(OperationContext context)
+  void IOperationStateObserver.Success(IOperationContext context)
   {
     NormalRunnable(context, "Success");
     foreach (var observer in _observers)
@@ -105,17 +105,17 @@ public class DefaultOperationStateMachine : OperationStateMachine
     }
   }
 
-  void OperationControl.Stop()
+  void IOperationControl.Stop()
   {
     _operationState.Stop();
   }
 
-  public void DeregisterContext(OperationContext context)
+  public void DeregisterContext(IOperationContext context)
   {
     _context.Deregister(context);
   }
 
-  private void NormalRunnable(OperationContext context, string statusText)
+  private void NormalRunnable(IOperationContext context, string statusText)
   {
     context.NotifyOnCurrentState(statusText, Runnability.Runnable(), ErrorInfo.None());
     _operationState = _operationStatesFactory.RunnableState();
@@ -123,16 +123,16 @@ public class DefaultOperationStateMachine : OperationStateMachine
 
 }
 
-public class BroadcastContext : OperationContext
+public class BroadcastContext : IOperationContext
 {
-  private readonly List<OperationContext> _contexts;
+  private readonly List<IOperationContext> _contexts;
 
-  public BroadcastContext(params OperationContext[] context)
+  public BroadcastContext(params IOperationContext[] context)
   {
-    _contexts = new List<OperationContext>(context);
+    _contexts = new List<IOperationContext>(context);
   }
 
-  public void Register(OperationContext context)
+  public void Register(IOperationContext context)
   {
     _contexts.Add(context);
   }
@@ -193,7 +193,7 @@ public class BroadcastContext : OperationContext
     }
   }
 
-  public void Deregister(OperationContext context)
+  public void Deregister(IOperationContext context)
   {
     _contexts.Remove(context);
   }

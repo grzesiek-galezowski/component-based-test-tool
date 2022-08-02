@@ -2,7 +2,7 @@
 
 namespace ExtensionPoints.ImplementedByComponents;
 
-public interface TestComponentSourceRoot
+public interface ITestComponentSourceRoot
 {
-  void AddTo(ComponentsList components);
+  void AddTo(IComponentsList components);
 }

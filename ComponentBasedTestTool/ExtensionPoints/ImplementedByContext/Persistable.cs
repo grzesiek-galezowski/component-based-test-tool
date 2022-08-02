@@ -1,6 +1,6 @@
 namespace ExtensionPoints.ImplementedByContext;
 
-public interface Persistable
+public interface IPersistable
 {
-  void StoreIn(PersistentStorage persistentStorage);
+  void StoreIn(IPersistentStorage persistentStorage);
 }

@@ -5,13 +5,13 @@ using Xunit;
 
 namespace ComponentSpecification.AutomationLayer;
 
-public class FakeComponentInstance : CoreTestComponent, Capabilities.All
+public class FakeComponentInstance : ICoreTestComponent, Capabilities.IAll
 {
   public string Name { get; }
   public string Description { get; }
 
   private readonly List<Tuple<string, FakeOperation>> _operations = new();
-  private readonly List<Tuple<string, OperationControl>> _realOperations = new();
+  private readonly List<Tuple<string, IOperationControl>> _realOperations = new();
   private int _customUiCallsCount = 0;
   private int _cleanupOnClosingCallCount = 0;
 
@@ -21,7 +21,7 @@ public class FakeComponentInstance : CoreTestComponent, Capabilities.All
     Description = description;
   }
 
-  public void PopulateOperations(TestComponentOperationDestination ctx)
+  public void PopulateOperations(ITestComponentOperationDestination ctx)
   {
     foreach (var operation in _realOperations)
     {
@@ -29,7 +29,7 @@ public class FakeComponentInstance : CoreTestComponent, Capabilities.All
     }
   }
 
-  public void CreateOperations(TestComponentContext ctx)
+  public void CreateOperations(ITestComponentContext ctx)
   {
     var operationStateMachines = 
       _operations.Select(o => Tuple.Create(o.Item1, ctx.CreateOperation(o.Item2))).ToList();

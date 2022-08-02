@@ -6,14 +6,14 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ComponentBasedTestTool;
 
-public class WpfOperationViewModelFactory : OperationViewModelFactory
+public class WpfOperationViewModelFactory : IOperationViewModelFactory
 {
-  private readonly ApplicationContext _applicationContext;
+  private readonly IApplicationContext _applicationContext;
   private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
   private readonly PropertySetBuilderFactory _propertySetBuilderFactory;
 
   public WpfOperationViewModelFactory(
-    ApplicationContext applicationContext, 
+    IApplicationContext applicationContext, 
     ScriptOperationsViewModel scriptOperationsViewModel, 
     PropertySetBuilderFactory propertySetBuilderFactory)
   {
@@ -22,7 +22,7 @@ public class WpfOperationViewModelFactory : OperationViewModelFactory
     _propertySetBuilderFactory = propertySetBuilderFactory;
   }
 
-  public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine)
+  public OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, IOperationStateMachine operationStateMachine)
   {
     //bug move it elsewhere
     var propertySetBuilder = _propertySetBuilderFactory.CreateNewPropertySet(operationEntry.Name);
@@ -41,7 +41,7 @@ public class WpfOperationViewModelFactory : OperationViewModelFactory
   private OperationViewModel OperationViewModelFor(
     OperationEntry operationEntry, 
     OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, 
-    OperationStateMachine defaultOperationStateMachine)
+    IOperationStateMachine defaultOperationStateMachine)
   {
     var operationViewModelFor = new OperationViewModel(
       operationEntry.Name,

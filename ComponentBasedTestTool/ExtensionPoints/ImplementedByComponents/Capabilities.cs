@@ -2,18 +2,18 @@ namespace ExtensionPoints.ImplementedByComponents;
 
 public static class Capabilities
 {
-  public interface CustomGui
+  public interface ICustomGui
   {
     void ShowCustomUi();
   }
 
-  public interface CleanupOnEnvironmentClosing
+  public interface ICleanupOnEnvironmentClosing
   {
     void CleanupOnClosing();
   }
 
 
-  public interface All : CustomGui, CleanupOnEnvironmentClosing
+  public interface IAll : ICustomGui, ICleanupOnEnvironmentClosing
   {
       
   }

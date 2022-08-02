@@ -16,26 +16,26 @@ namespace ViewModels.ViewModels;
 
 public class ComponentInstanceViewModel : 
   INotifyPropertyChanged, 
-  TestComponentContext, 
-  TestComponentOperationDestination
+  ITestComponentContext, 
+  ITestComponentOperationDestination
 {
   private string _instanceName;
   private readonly OutputFactory _outputFactory;
   private OperationViewModelsSource _operationViewModelsSource;
   private readonly OperationEntries _operationEntries;
-  private readonly CoreTestComponent _testComponentInstance;
-  private readonly Capabilities.CustomGui _customUi;
-  private readonly BackgroundTasks _backgroundTasks;
+  private readonly ICoreTestComponent _testComponentInstance;
+  private readonly Capabilities.ICustomGui _customUi;
+  private readonly IBackgroundTasks _backgroundTasks;
   private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
 
   public ComponentInstanceViewModel(
     string instanceName, 
     OutputFactory outputFactory, 
     OperationEntries operationEntries, 
-    CoreTestComponent testComponentInstance, 
-    BackgroundTasks backgroundTasks, 
+    ICoreTestComponent testComponentInstance, 
+    IBackgroundTasks backgroundTasks, 
     OperationMachinesByControlObject operationMachinesByControlObject, 
-    Capabilities.CustomGui customUi)
+    Capabilities.ICustomGui customUi)
   {
     _instanceName = instanceName;
     _outputFactory = outputFactory;
@@ -46,7 +46,7 @@ public class ComponentInstanceViewModel :
     _operationMachinesByControlObject = operationMachinesByControlObject;
   }
 
-  public void Initialize(OperationViewModelFactory operationViewModelFactory)
+  public void Initialize(IOperationViewModelFactory operationViewModelFactory)
   {
     _testComponentInstance.CreateOperations(this);
     _testComponentInstance.PopulateOperations(this);
@@ -76,22 +76,22 @@ public class ComponentInstanceViewModel :
     _operationViewModelsSource.AddTo(operationsViewModel);
   }
 
-  public void AddOperation(string name, OperationControl operation, string dependencyName)
+  public void AddOperation(string name, IOperationControl operation, string dependencyName)
   {
     _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), dependencyName.ToMaybe());
   }
 
-  public void AddOperation(string name, OperationControl operation)
+  public void AddOperation(string name, IOperationControl operation)
   {
     _operationEntries.Add(InstanceName, name, _operationMachinesByControlObject.For(operation), Maybe<string>.Nothing);
   }
 
-  public OperationsOutput CreateOutFor(string operationName)
+  public IOperationsOutput CreateOutFor(string operationName)
   {
     return _outputFactory.CreateOutFor(operationName);
   }
 
-  public OperationControl CreateOperation(ComponentOperation operation)
+  public IOperationControl CreateOperation(IComponentOperation operation)
   {
     var defaultOperationStateMachine = StateMachineFor(operation, _backgroundTasks);
     _operationMachinesByControlObject.Register(defaultOperationStateMachine);
@@ -99,7 +99,7 @@ public class ComponentInstanceViewModel :
   }
 
   //bug move to factory
-  private static DefaultOperationStateMachine StateMachineFor(ComponentOperation componentOperation, BackgroundTasks backgroundTasks)
+  private static DefaultOperationStateMachine StateMachineFor(IComponentOperation componentOperation, IBackgroundTasks backgroundTasks)
   {
     return new DefaultOperationStateMachine(
       componentOperation,

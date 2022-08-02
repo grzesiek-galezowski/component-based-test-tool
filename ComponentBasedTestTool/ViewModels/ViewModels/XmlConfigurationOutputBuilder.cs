@@ -4,7 +4,7 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ViewModels.ViewModels;
 
-public class XmlConfigurationOutputBuilder : ConfigurationOutputBuilder
+public class XmlConfigurationOutputBuilder : IConfigurationOutputBuilder
 {
   private XDocument _doc;
   private XElement _components;
@@ -23,7 +23,7 @@ public class XmlConfigurationOutputBuilder : ConfigurationOutputBuilder
     _doc.Add(_components);
   }
 
-  public void AppendOperationNode(string name, Runnable operation)
+  public void AppendOperationNode(string name, IRunnable operation)
   {
     _currentOperation = new XElement("Operation",
       new XAttribute("name", name),
@@ -43,7 +43,7 @@ public class XmlConfigurationOutputBuilder : ConfigurationOutputBuilder
     _doc.Save("Save.xml");
   }
 
-  public void AppendComponentInstanceNode(string instanceName, CoreTestComponent testComponentInstance)
+  public void AppendComponentInstanceNode(string instanceName, ICoreTestComponent testComponentInstance)
   {
     _currentComponentInstance = new XElement("Component",
       new XAttribute("name", instanceName),

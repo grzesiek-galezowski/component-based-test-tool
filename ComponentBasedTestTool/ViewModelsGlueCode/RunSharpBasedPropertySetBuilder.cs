@@ -4,7 +4,7 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModelsGlueCode;
 
-public class RunSharpBasedPropertySetBuilder : CreatedPropertySetObjectContainer, PropertySetBuilder
+public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContainer, IPropertySetBuilder
 {
   private readonly TypeGen _typeGen;
   private object _object;
@@ -14,7 +14,7 @@ public class RunSharpBasedPropertySetBuilder : CreatedPropertySetObjectContainer
     _typeGen = typeGen;
   }
 
-  public PropertyValuesBuilder<T> Property<T>(string name)
+  public IPropertyValuesBuilder<T> Property<T>(string name)
   {
     return new RunSharpBasedPropertyValuesBuilder<T>(name, _typeGen, this);
   }

@@ -22,7 +22,7 @@ public class FakeTestComponents
     return fakeTestComponentSource;
   }
 
-  public void AddTo(ComponentsList componentsList)
+  public void AddTo(IComponentsList componentsList)
   {
     foreach (var fakeTestComponent in _componentSources)
     {

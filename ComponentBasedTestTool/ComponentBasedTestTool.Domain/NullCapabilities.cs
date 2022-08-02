@@ -3,7 +3,7 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentBasedTestTool.Domain;
 
-public class NullCapabilities : Capabilities.All
+public class NullCapabilities : Capabilities.IAll
 {
   public void ShowCustomUi()
   {

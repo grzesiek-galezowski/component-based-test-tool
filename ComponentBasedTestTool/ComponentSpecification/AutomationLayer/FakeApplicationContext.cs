@@ -2,7 +2,7 @@ using ComponentBasedTestTool.Views.Ports;
 
 namespace ComponentSpecification.AutomationLayer;
 
-public class FakeApplicationContext : ApplicationContext
+public class FakeApplicationContext : IApplicationContext
 {
   public void Invoke(EventHandler eventHandler, object sender)
   {

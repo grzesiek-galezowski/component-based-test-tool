@@ -5,12 +5,12 @@ namespace ViewModels.ViewModels.Commands;
 
 public class RestartOperationCommand : OperationCommand
 {
-  private readonly OperationSignals _operation;
+  private readonly IOperationSignals _operation;
   private bool _waitingForStart;
 
   public RestartOperationCommand(
-    ApplicationContext applicationContext, 
-    OperationSignals operation) 
+    IApplicationContext applicationContext, 
+    IOperationSignals operation) 
     : base(false, applicationContext)
   {
     _operation = operation;

@@ -1,6 +1,6 @@
 namespace ViewModelsGlueCode;
 
-public interface CreatedPropertySetObjectContainer
+public interface ICreatedPropertySetObjectContainer
 {
   object Object { get; }
 }

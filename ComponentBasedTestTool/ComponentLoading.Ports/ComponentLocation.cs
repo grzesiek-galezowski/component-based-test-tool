@@ -3,7 +3,7 @@ using ExtensionPoints.ImplementedByComponents;
 
 namespace ComponentLoading.Ports;
 
-public interface ComponentLocation
+public interface IComponentLocation
 {
-  IEnumerable<TestComponentSourceRoot> LoadComponentRoots();
+  IEnumerable<ITestComponentSourceRoot> LoadComponentRoots();
 }

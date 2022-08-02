@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class WaitOperation : ComponentOperation
+public class WaitOperation : IComponentOperation
 {
-  private readonly OperationsOutput _out;
-  private OperationParameter<TimeSpan> _time;
+  private readonly IOperationsOutput _out;
+  private IOperationParameter<TimeSpan> _time;
 
-  public WaitOperation(OperationsOutput @out)
+  public WaitOperation(IOperationsOutput @out)
   {
     _out = @out;
   }
@@ -29,13 +29,13 @@ public class WaitOperation : ComponentOperation
     _out.WriteLine(seconds.ToString());
   }
 
-  public void InitializeParameters(OperationParametersListBuilder parameters)
+  public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
     _time = parameters.Seconds("Time (s)", 5);
-      
+
   }
 
-  public void StoreParameters(PersistentStorage destination)
+  public void StoreParameters(IPersistentStorage destination)
   {
     destination.Store(_time);
   }

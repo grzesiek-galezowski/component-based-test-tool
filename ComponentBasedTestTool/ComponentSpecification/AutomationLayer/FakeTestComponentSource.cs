@@ -7,7 +7,7 @@ namespace ComponentSpecification.AutomationLayer;
 public class FakeTestComponentSource
 {
   private readonly string _name;
-  private readonly TestComponentInstanceFactory _factory;
+  private readonly ITestComponentInstanceFactory _factory;
   private readonly FakeComponentInstance _componentInstance;
   private string _description;
 
@@ -15,12 +15,12 @@ public class FakeTestComponentSource
   {
     _name = fakeComponentInstance.Name;
     _description = fakeComponentInstance.Description;
-    _factory = Substitute.For<TestComponentInstanceFactory>();
+    _factory = Substitute.For<ITestComponentInstanceFactory>();
     _componentInstance = fakeComponentInstance;
     _factory.Create().Returns(_componentInstance);
   }
 
-  public void AddTo(ComponentsList components)
+  public void AddTo(IComponentsList components)
   {
     components.Add(_name, _description, _factory);
   }

@@ -10,18 +10,18 @@ public class TestComponentViewModelFactory
 {
   private readonly ComponentInstancesViewModel _componentInstancesViewModel;
   private readonly OutputFactory _outputFactory;
-  private readonly OperationViewModelFactory _operationViewModelFactory;
-  private readonly BackgroundTasks _backgroundTasks;
+  private readonly IOperationViewModelFactory _operationViewModelFactory;
+  private readonly IBackgroundTasks _backgroundTasks;
   private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
-  private readonly ApplicationEvents _applicationEvents;
+  private readonly IApplicationEvents _applicationEvents;
 
   public TestComponentViewModelFactory(
     ComponentInstancesViewModel componentInstancesViewModel, 
     OutputFactory outputFactory, 
-    OperationViewModelFactory operationViewModelFactory, 
-    BackgroundTasks backgroundTasks, 
+    IOperationViewModelFactory operationViewModelFactory, 
+    IBackgroundTasks backgroundTasks, 
     OperationMachinesByControlObject operationMachinesByControlObject, 
-    ApplicationEvents applicationEvents)
+    IApplicationEvents applicationEvents)
   {
     _componentInstancesViewModel = componentInstancesViewModel;
     _outputFactory = outputFactory;
@@ -32,7 +32,7 @@ public class TestComponentViewModelFactory
   }
 
 
-  public TestComponentViewModel Create(string name, string description, TestComponentInstanceFactory instanceFactory)
+  public TestComponentViewModel Create(string name, string description, ITestComponentInstanceFactory instanceFactory)
   {
     return new TestComponentViewModel(
       name, 

@@ -5,21 +5,21 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain.OperationStates;
 
-public sealed class RunnableOperationState : OperationState
+public sealed class RunnableOperationState : IOperationState
 {
-  private readonly BackgroundTasks _inBackground;
+  private readonly IBackgroundTasks _inBackground;
 
-  public RunnableOperationState(BackgroundTasks backgroundTasks)
+  public RunnableOperationState(IBackgroundTasks backgroundTasks)
   {
     _inBackground = backgroundTasks;
   }
 
-  public void Start(OperationContext context, Runnable operation)
+  public void Start(IOperationContext context, IRunnable operation)
   {
     _inBackground.Run(operation, context);
   }
 
-  public void DependencyFulfilled(OperationContext operationViewModel)
+  public void DependencyFulfilled(IOperationContext operationViewModel)
   {
       
   }
@@ -29,7 +29,7 @@ public sealed class RunnableOperationState : OperationState
     throw new NotImplementedException();
   }
 
-  public void Notify(OperationContext context)
+  public void Notify(IOperationContext context)
   {
     context.Ready();
   }

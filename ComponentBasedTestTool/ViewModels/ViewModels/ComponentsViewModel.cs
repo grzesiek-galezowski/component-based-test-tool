@@ -10,7 +10,7 @@ using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels;
 
-public class ComponentsViewModel : INotifyPropertyChanged, ComponentsList
+public class ComponentsViewModel : INotifyPropertyChanged, IComponentsList
 {
   private ObservableCollection<TestComponentViewModel> _testComponentViewModels;
   private readonly TestComponentViewModelFactory _testComponentViewModelFactory;
@@ -44,7 +44,7 @@ public class ComponentsViewModel : INotifyPropertyChanged, ComponentsList
     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
   }
 
-  public void Add(string name, string description, TestComponentInstanceFactory instanceFactory)
+  public void Add(string name, string description, ITestComponentInstanceFactory instanceFactory)
   {
     TestComponents.Add(
       _testComponentViewModelFactory.Create(name, description, instanceFactory)

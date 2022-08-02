@@ -4,7 +4,7 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain.OperationStates;
 
-public class InProgressOperationState : OperationState
+public class InProgressOperationState : IOperationState
 {
   private readonly CancellationTokenSource _cancellationTokenSource;
 
@@ -13,12 +13,12 @@ public class InProgressOperationState : OperationState
     _cancellationTokenSource = cancellationTokenSource;
   }
 
-  public void Start(OperationContext context, Runnable operation)
+  public void Start(IOperationContext context, IRunnable operation)
   {
     // Method intentionally left empty.
   }
 
-  public void DependencyFulfilled(OperationContext operationViewModel)
+  public void DependencyFulfilled(IOperationContext operationViewModel)
   {
     // Method intentionally left empty.
   }
@@ -28,7 +28,7 @@ public class InProgressOperationState : OperationState
     _cancellationTokenSource.Cancel();
   }
 
-  public void Notify(OperationContext context)
+  public void Notify(IOperationContext context)
   {
     context.InProgress(_cancellationTokenSource);
   }

@@ -8,14 +8,14 @@ using Jal.AssemblyFinder.Impl;
 
 namespace ComponentLoading;
 
-public class ExecutingAssemblyFolder : ComponentLocation
+public class ExecutingAssemblyFolder : IComponentLocation
 {
-  public IEnumerable<TestComponentSourceRoot> LoadComponentRoots()
+  public IEnumerable<ITestComponentSourceRoot> LoadComponentRoots()
   {
     var configuration = LoadPluginAssemblies();
 
     using var container = configuration.CreateContainer();
-    return container.GetExports<TestComponentSourceRoot>();
+    return container.GetExports<ITestComponentSourceRoot>();
   }
 
   private static ContainerConfiguration LoadPluginAssemblies()

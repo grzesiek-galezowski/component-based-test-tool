@@ -3,19 +3,19 @@ using System.ComponentModel;
 using System.Windows;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace Components;
+namespace Components.FileSystem;
 
 /// <summary>
 /// Interaction logic for CustomGui.xaml
 /// </summary>
 public partial class CustomGui : Window
 {
-  private readonly OperationControl _wait;
-  private readonly OperationControl _configure;
-  private readonly OperationContext _configureControls;
-  private readonly OperationContext _waitControls;
+  private readonly IOperationControl _wait;
+  private readonly IOperationControl _configure;
+  private readonly IOperationContext _configureControls;
+  private readonly IOperationContext _waitControls;
 
-  public CustomGui(OperationControl wait, OperationControl configure)
+  public CustomGui(IOperationControl wait, IOperationControl configure)
   {
     InitializeComponent();
     _wait = wait;

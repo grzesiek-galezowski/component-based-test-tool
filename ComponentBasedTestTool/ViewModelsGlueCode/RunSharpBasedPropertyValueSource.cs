@@ -3,12 +3,12 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModelsGlueCode;
 
-public class RunSharpBasedPropertyValueSource<T> : PropertyValueSource<T>
+public class RunSharpBasedPropertyValueSource<T> : IPropertyValueSource<T>
 {
   private readonly TypeGen _typeGen;
-  private readonly CreatedPropertySetObjectContainer _container;
+  private readonly ICreatedPropertySetObjectContainer _container;
 
-  public RunSharpBasedPropertyValueSource(TypeGen typeGen, string propertyName, CreatedPropertySetObjectContainer container)
+  public RunSharpBasedPropertyValueSource(TypeGen typeGen, string propertyName, ICreatedPropertySetObjectContainer container)
   {
     _typeGen = typeGen;
     Name = propertyName;

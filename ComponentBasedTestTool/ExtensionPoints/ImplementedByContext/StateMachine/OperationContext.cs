@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace ExtensionPoints.ImplementedByContext.StateMachine;
 
-public interface OperationContext
+public interface IOperationContext
 {
   void Ready();
   void Success();

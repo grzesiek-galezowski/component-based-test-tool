@@ -15,7 +15,7 @@ using ViewModels.ViewModels.Commands;
 
 namespace ViewModels.ViewModels;
 
-public class OperationViewModel  : INotifyPropertyChanged, OperationContext, OperationDependencyObserver
+public class OperationViewModel  : INotifyPropertyChanged, IOperationContext, IOperationDependencyObserver
 {
   private string _stateString;
   private OperationCommand _runCommand;
@@ -27,10 +27,10 @@ public class OperationViewModel  : INotifyPropertyChanged, OperationContext, Ope
   private readonly Maybe<string> _maybeDependencyName;
   private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
   private readonly OperationCommandFactory _operationCommandFactory;
-  private readonly OperationStateMachine _operationStateMachine;
+  private readonly IOperationStateMachine _operationStateMachine;
   private ICommand _removeOperationFromScriptCommand;
 
-  public OperationViewModel(string name, Maybe<string> maybeDependencyName, string operationEntryParentComponentInstanceName, OperationCommandFactory operationCommandFactory, OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, OperationStateMachine operationStateMachine)
+  public OperationViewModel(string name, Maybe<string> maybeDependencyName, string operationEntryParentComponentInstanceName, OperationCommandFactory operationCommandFactory, OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, IOperationStateMachine operationStateMachine)
   {
     Name = name;
     ComponentInstanceName = operationEntryParentComponentInstanceName;

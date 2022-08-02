@@ -3,9 +3,9 @@ using System.Threading;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class WaitControls : OperationContext
+public class WaitControls : IOperationContext
 {
   private readonly CustomGui _customGui;
 
@@ -58,6 +58,6 @@ public class WaitControls : OperationContext
 
   public void NotifyOnCurrentState(string stateName, Runnability runnability, ErrorInfo errorInfo)
   {
-      
+
   }
 }

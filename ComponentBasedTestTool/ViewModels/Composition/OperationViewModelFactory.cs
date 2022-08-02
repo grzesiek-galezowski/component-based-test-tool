@@ -3,7 +3,7 @@ using ViewModels.ViewModels;
 
 namespace ViewModels.Composition;
 
-public interface OperationViewModelFactory
+public interface IOperationViewModelFactory
 {
-  OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, OperationStateMachine operationStateMachine);
+  OperationViewModel CreateOperationViewModel(OperationEntry operationEntry, IOperationStateMachine operationStateMachine);
 }

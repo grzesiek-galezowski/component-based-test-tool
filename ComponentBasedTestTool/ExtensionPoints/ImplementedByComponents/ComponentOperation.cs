@@ -4,13 +4,13 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace ExtensionPoints.ImplementedByComponents;
 
-public interface Runnable
+public interface IRunnable
 {
   Task RunAsync(CancellationToken token);
 }
 
-public interface ComponentOperation : Runnable
+public interface IComponentOperation : IRunnable
 {
-  void InitializeParameters(OperationParametersListBuilder parameters);
-  void StoreParameters(PersistentStorage destination);
+  void InitializeParameters(IOperationParametersListBuilder parameters);
+  void StoreParameters(IPersistentStorage destination);
 }

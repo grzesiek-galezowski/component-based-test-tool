@@ -7,10 +7,10 @@ namespace ViewModels.ViewModels.Commands;
 
 public abstract class OperationCommand : ICommand
 {
-  protected bool _canExecute;
-  private readonly ApplicationContext _applicationContext;
+  private bool _canExecute;
+  private readonly IApplicationContext _applicationContext;
 
-  protected OperationCommand(bool defaultCanExecute, ApplicationContext applicationContext)
+  protected OperationCommand(bool defaultCanExecute, IApplicationContext applicationContext)
   {
     _canExecute = defaultCanExecute;
     _applicationContext = applicationContext;

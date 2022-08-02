@@ -7,7 +7,7 @@ public class RunOperationCommand : OperationCommand
   private readonly OperationViewModel _selectedOperation;
 
   public RunOperationCommand(OperationViewModel selectedOperation, 
-    ApplicationContext applicationContext) : base(true, applicationContext)
+    IApplicationContext applicationContext) : base(true, applicationContext)
   {
     _selectedOperation = selectedOperation;
   }

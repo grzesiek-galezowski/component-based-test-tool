@@ -12,7 +12,7 @@ public class OutputFactory
     _operationsOutputViewModel = operationsOutputViewModel;
   }
 
-  public OperationsOutput CreateOutFor(string operationName)
+  public IOperationsOutput CreateOutFor(string operationName)
   {
     return new FormattingOperationOutput(operationName, _operationsOutputViewModel);
   }

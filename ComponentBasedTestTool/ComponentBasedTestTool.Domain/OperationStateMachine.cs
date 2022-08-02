@@ -3,9 +3,9 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain;
 
-public interface OperationStateMachine : OperationSignals, OperationStateObserver
+public interface IOperationStateMachine : IOperationSignals, IOperationStateObserver
 {
-  void InitializeParametersIn(OperationParametersListBuilder operationParametersListBuilder);
-  void SaveUsing(PersistentStorage persistentStorage, string name, ConfigurationOutputBuilder builder);
-  void RegisterContext(OperationContext context);
+  void InitializeParametersIn(IOperationParametersListBuilder operationParametersListBuilder);
+  void SaveUsing(IPersistentStorage persistentStorage, string name, IConfigurationOutputBuilder builder);
+  void RegisterContext(IOperationContext context);
 }

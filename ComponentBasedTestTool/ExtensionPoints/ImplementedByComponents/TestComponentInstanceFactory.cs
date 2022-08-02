@@ -1,6 +1,6 @@
 ﻿namespace ExtensionPoints.ImplementedByComponents;
 
-public interface TestComponentInstanceFactory
+public interface ITestComponentInstanceFactory
 {
-  CoreTestComponent Create();
+  ICoreTestComponent Create();
 }

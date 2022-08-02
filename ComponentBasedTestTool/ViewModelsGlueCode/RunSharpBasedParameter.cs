@@ -3,17 +3,17 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModelsGlueCode;
 
-public class RunSharpBasedParameter<T> : OperationParameter<T>
+public class RunSharpBasedParameter<T> : IOperationParameter<T>
 {
-  private readonly PropertyValueSource<T> _prop;
+  private readonly IPropertyValueSource<T> _prop;
 
-  public RunSharpBasedParameter(PropertyValueSource<T> prop)
+  public RunSharpBasedParameter(IPropertyValueSource<T> prop)
   {
     _prop = prop;
   }
 
   public T Value => _prop.Value;
-  public void StoreIn(PersistentStorage persistentStorage)
+  public void StoreIn(IPersistentStorage persistentStorage)
   {
     persistentStorage.StoreValue(_prop.Name, Value.ToString());
   }

@@ -3,14 +3,14 @@ using System.Threading.Tasks;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class CdOperation : ComponentOperation
+public class CdOperation : IComponentOperation
 {
-  private readonly OperationsOutput _out;
-  private OperationParameter<string> _path;
+  private readonly IOperationsOutput _out;
+  private IOperationParameter<string> _path;
 
-  public CdOperation(OperationsOutput @out)
+  public CdOperation(IOperationsOutput @out)
   {
     _out = @out;
   }
@@ -21,12 +21,12 @@ public class CdOperation : ComponentOperation
 
   }
 
-  public void InitializeParameters(OperationParametersListBuilder parameters)
+  public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
     _path = parameters.Path("Path", @"C:\");
   }
 
-  public void StoreParameters(PersistentStorage destination)
+  public void StoreParameters(IPersistentStorage destination)
   {
     destination.Store(_path);
   }

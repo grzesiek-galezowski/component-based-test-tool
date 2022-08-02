@@ -1,6 +1,6 @@
 ﻿namespace ExtensionPoints.ImplementedByContext;
 
-public interface OperationsOutput
+public interface IOperationsOutput
 {
   void WriteLine(string text);
 }

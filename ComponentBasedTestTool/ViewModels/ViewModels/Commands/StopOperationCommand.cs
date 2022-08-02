@@ -5,11 +5,11 @@ namespace ViewModels.ViewModels.Commands;
 
 public class StopOperationCommand : OperationCommand
 {
-  private readonly OperationSignals _operation;
+  private readonly IOperationSignals _operation;
 
   public StopOperationCommand(
-    ApplicationContext applicationContext, 
-    OperationSignals operation) 
+    IApplicationContext applicationContext, 
+    IOperationSignals operation) 
     : base(false, applicationContext)
   {
     _operation = operation;

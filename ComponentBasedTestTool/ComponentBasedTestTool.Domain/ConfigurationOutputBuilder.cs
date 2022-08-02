@@ -2,10 +2,10 @@
 
 namespace ComponentBasedTestTool.Domain;
 
-public interface ConfigurationOutputBuilder
+public interface IConfigurationOutputBuilder
 {
-  void AppendOperationNode(string name, Runnable operation);
+  void AppendOperationNode(string name, IRunnable operation);
   void AppendProperty<T>(string name, T value);
   void Save();
-  void AppendComponentInstanceNode(string instanceName, CoreTestComponent testComponentInstance);
+  void AppendComponentInstanceNode(string instanceName, ICoreTestComponent testComponentInstance);
 }

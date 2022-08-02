@@ -8,18 +8,18 @@ namespace ViewModels.ViewModels.Commands;
 
 public class ComponentInstanceViewModelFactory
 {
-  private readonly TestComponentInstanceFactory _componentInstanceFactory;
+  private readonly ITestComponentInstanceFactory _componentInstanceFactory;
   private readonly OutputFactory _outputFactory;
-  private readonly OperationViewModelFactory _operationViewModelFactory;
-  private readonly BackgroundTasks _backgroundTasks;
+  private readonly IOperationViewModelFactory _operationViewModelFactory;
+  private readonly IBackgroundTasks _backgroundTasks;
   private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
-  private readonly ApplicationEvents _applicationEvents;
+  private readonly IApplicationEvents _applicationEvents;
 
   public ComponentInstanceViewModelFactory(
-    TestComponentInstanceFactory componentInstanceFactory, OutputFactory outputFactory, 
-    OperationViewModelFactory operationViewModelFactory, BackgroundTasks backgroundTasks, 
+    ITestComponentInstanceFactory componentInstanceFactory, OutputFactory outputFactory, 
+    IOperationViewModelFactory operationViewModelFactory, IBackgroundTasks backgroundTasks, 
     OperationMachinesByControlObject operationMachinesByControlObject, 
-    ApplicationEvents applicationEvents)
+    IApplicationEvents applicationEvents)
   {
     _componentInstanceFactory = componentInstanceFactory;
     _outputFactory = outputFactory;
@@ -29,15 +29,15 @@ public class ComponentInstanceViewModelFactory
     _applicationEvents = applicationEvents;
   }
 
-  private int id = 1;
+  private int _id = 1;
 
   public ComponentInstanceViewModel CreateComponentInstanceViewModel(TestComponentViewModel testComponentViewModel)
   {
     var testComponentInstance = _componentInstanceFactory.Create();
     var nullCapabilities = new NullCapabilities();
     var interfaceCasts = new InterfaceCasts(testComponentInstance);
-    var customGuiCapability = interfaceCasts.To<Capabilities.CustomGui>(nullCapabilities);
-    var customClosingCapability = interfaceCasts.To<Capabilities.CleanupOnEnvironmentClosing>(nullCapabilities);
+    var customGuiCapability = interfaceCasts.To<Capabilities.ICustomGui>(nullCapabilities);
+    var customClosingCapability = interfaceCasts.To<Capabilities.ICleanupOnEnvironmentClosing>(nullCapabilities);
 
     _applicationEvents.EnvironmentClosing += customClosingCapability.CleanupOnClosing;
 
@@ -57,6 +57,6 @@ public class ComponentInstanceViewModelFactory
 
   private string GenerateInstanceName(TestComponentViewModel testComponentViewModel)
   {
-    return testComponentViewModel.Name + id++;
+    return testComponentViewModel.Name + _id++;
   }
 }

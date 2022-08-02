@@ -4,17 +4,17 @@ using ViewModelsGlueCode.Interfaces;
 
 namespace ViewModelsGlueCode;
 
-public class RunSharpBasedSecondsParameter : OperationParameter<TimeSpan>
+public class RunSharpBasedSecondsParameter : IOperationParameter<TimeSpan>
 {
-  private readonly PropertyValueSource<int> _prop;
+  private readonly IPropertyValueSource<int> _prop;
 
-  public RunSharpBasedSecondsParameter(PropertyValueSource<int> prop)
+  public RunSharpBasedSecondsParameter(IPropertyValueSource<int> prop)
   {
     _prop = prop;
   }
 
   public TimeSpan Value => TimeSpan.FromSeconds(_prop.Value);
-  public void StoreIn(PersistentStorage persistentStorage)
+  public void StoreIn(IPersistentStorage persistentStorage)
   {
     persistentStorage.StoreValue(_prop.Name, _prop.Value);
   }

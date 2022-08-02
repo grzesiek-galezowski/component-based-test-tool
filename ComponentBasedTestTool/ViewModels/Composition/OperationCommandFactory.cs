@@ -8,10 +8,10 @@ namespace ViewModels.Composition;
 
 public class OperationCommandFactory
 {
-  private readonly ApplicationContext _applicationContext;
+  private readonly IApplicationContext _applicationContext;
   private readonly ScriptOperationsViewModel _scriptOperationsViewModel;
 
-  public OperationCommandFactory(ApplicationContext applicationContext, 
+  public OperationCommandFactory(IApplicationContext applicationContext, 
     ScriptOperationsViewModel scriptOperationsViewModel)
   {
     _applicationContext = applicationContext;
@@ -24,12 +24,12 @@ public class OperationCommandFactory
   }
 
   public StopOperationCommand CreateStopCommand(
-    OperationSignals operation)
+    IOperationSignals operation)
   {
     return new StopOperationCommand(_applicationContext, operation);
   }
 
-  public RestartOperationCommand CreateRestartCommand(OperationSignals operation)
+  public RestartOperationCommand CreateRestartCommand(IOperationSignals operation)
   {
     return new RestartOperationCommand(_applicationContext, operation);
   }

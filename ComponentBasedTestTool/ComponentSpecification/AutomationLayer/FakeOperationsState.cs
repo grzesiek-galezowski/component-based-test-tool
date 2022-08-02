@@ -8,9 +8,9 @@ public class FakeOperationsState
   private readonly string _instanceName;
   private readonly string _operationName;
   private readonly FakeTestComponents _componentsSetup;
-  private readonly Maybe<OperationContext> _runningOperationContext;
+  private readonly Maybe<IOperationContext> _runningOperationContext;
 
-  public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<OperationContext> runningOperationContext)
+  public FakeOperationsState(string instanceName, string operationName, FakeTestComponents componentsSetup, Maybe<IOperationContext> runningOperationContext)
   {
     _instanceName = instanceName;
     _operationName = operationName;

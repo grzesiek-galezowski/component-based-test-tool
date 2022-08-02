@@ -2,12 +2,12 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels;
 
-public class FormattingOperationOutput : OperationsOutput
+public class FormattingOperationOutput : IOperationsOutput
 {
   private readonly string _operationName;
-  private readonly OperationsOutput _output;
+  private readonly IOperationsOutput _output;
 
-  public FormattingOperationOutput(string operationName, OperationsOutput output)
+  public FormattingOperationOutput(string operationName, IOperationsOutput output)
   {
     _operationName = operationName;
     _output = output;

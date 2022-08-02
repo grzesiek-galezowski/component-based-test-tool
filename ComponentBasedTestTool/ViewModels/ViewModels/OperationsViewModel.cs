@@ -7,7 +7,7 @@ using Core.Maybe;
 
 namespace ViewModels.ViewModels;
 
-public class OperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
+public class OperationsViewModel : INotifyPropertyChanged, IOperationsViewInitialization
 {
   private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
   private ObservableCollection<OperationViewModel> _operationViewModels;
@@ -62,7 +62,7 @@ public class OperationsViewModel : INotifyPropertyChanged, OperationsViewInitial
   }
 }
 
-public interface OperationsViewInitialization
+public interface IOperationsViewInitialization
 {
   void Update();
 }

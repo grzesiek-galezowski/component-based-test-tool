@@ -14,7 +14,7 @@ public class OperationViewModelsSource
   }
 
   public static OperationViewModelsSource CreateOperationViewModels(
-    OperationViewModelFactory operationViewModelFactory, 
+    IOperationViewModelFactory operationViewModelFactory, 
     IEnumerable<OperationEntry> operationEntries)
   {
     var operationViewModels = new OperationViewModelsSource(

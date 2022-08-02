@@ -3,10 +3,10 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain;
 
-public interface OperationState
+public interface IOperationState
 {
-  void Start(OperationContext context, Runnable operation);
-  void DependencyFulfilled(OperationContext operationViewModel);
+  void Start(IOperationContext context, IRunnable operation);
+  void DependencyFulfilled(IOperationContext operationViewModel);
   void Stop();
-  void Notify(OperationContext context);
+  void Notify(IOperationContext context);
 }

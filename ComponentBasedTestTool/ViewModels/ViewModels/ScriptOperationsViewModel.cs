@@ -6,7 +6,7 @@ using Core.Maybe;
 
 namespace ViewModels.ViewModels;
 
-public class ScriptOperationsViewModel : INotifyPropertyChanged, OperationsViewInitialization
+public class ScriptOperationsViewModel : INotifyPropertyChanged, IOperationsViewInitialization
 {
   private readonly OperationPropertiesViewModel _operationPropertiesViewModel;
   private ObservableCollection<OperationViewModel> _operationViewModels;

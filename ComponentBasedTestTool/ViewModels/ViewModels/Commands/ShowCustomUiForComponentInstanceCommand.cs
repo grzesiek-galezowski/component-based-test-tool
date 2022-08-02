@@ -6,9 +6,9 @@ namespace ViewModels.ViewModels.Commands;
 
 public sealed class ShowCustomUiForComponentInstanceCommand : ICommand
 {
-  private readonly Capabilities.CustomGui _componentInstance;
+  private readonly Capabilities.ICustomGui _componentInstance;
 
-  public ShowCustomUiForComponentInstanceCommand(Capabilities.CustomGui componentInstance)
+  public ShowCustomUiForComponentInstanceCommand(Capabilities.ICustomGui componentInstance)
   {
     _componentInstance = componentInstance;
   }

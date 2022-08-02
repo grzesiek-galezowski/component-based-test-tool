@@ -14,26 +14,26 @@ namespace ComponentBasedTestTool;
 public class DefaultApplicationLoop
 {
   public void Start(
-    ApplicationBootstrap bootstrap, 
-    ComponentLocation componentLocation, 
-    ApplicationContext applicationContext, 
-    BackgroundTasks backgroundTasks)
+    IApplicationBootstrap bootstrap, 
+    IComponentLocation componentLocation, 
+    IApplicationContext applicationContext, 
+    IBackgroundTasks backgroundTasks)
   {
     Configure(componentLocation, bootstrap, applicationContext, backgroundTasks);
     bootstrap.Start();
   }
 
   private static void Configure(
-    ComponentLocation componentLocation, 
-    ApplicationBootstrap bootstrap, 
-    ApplicationContext applicationContext, 
-    BackgroundTasks backgroundTasks)
+    IComponentLocation componentLocation, 
+    IApplicationBootstrap bootstrap, 
+    IApplicationContext applicationContext, 
+    IBackgroundTasks backgroundTasks)
   {
     var operationsOutputViewModel = new OperationsOutputViewModel();
     var operationPropertiesViewModel = new OperationPropertiesViewModel();
     var scriptOperationsViewModel = new ScriptOperationsViewModel(operationPropertiesViewModel);
     var operationsViewModel = new OperationsViewModel(operationPropertiesViewModel);
-    var operationViewsViewModel = new OperationViewsViewModel(new OperationsViewInitialization[] {operationsViewModel, scriptOperationsViewModel});
+    var operationViewsViewModel = new OperationViewsViewModel(new IOperationsViewInitialization[] {operationsViewModel, scriptOperationsViewModel});
     var componentInstancesViewModel = new ComponentInstancesViewModel(operationsViewModel, operationViewsViewModel);
     var operationMachinesByControlObject = new OperationMachinesByControlObject();
     var outputFactory = new OutputFactory(operationsOutputViewModel);
@@ -67,8 +67,8 @@ public class DefaultApplicationLoop
   }
 
   private static void AddAllInstanceFactories(
-    IEnumerable<TestComponentSourceRoot> factoryRepositories, 
-    ComponentsList componentsViewModel)
+    IEnumerable<ITestComponentSourceRoot> factoryRepositories, 
+    IComponentsList componentsViewModel)
   {
     foreach (var testComponentInstanceFactoryRepository in factoryRepositories)
     {

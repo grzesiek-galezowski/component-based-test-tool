@@ -7,10 +7,10 @@ namespace ViewModels.ViewModels;
 
 public class OperationViewsViewModel : INotifyPropertyChanged
 {
-  private readonly OperationsViewInitialization[] _operationsViewInitializations;
-  private OperationsViewInitialization _selectedItem;
+  private readonly IOperationsViewInitialization[] _operationsViewInitializations;
+  private IOperationsViewInitialization _selectedItem;
 
-  public OperationViewsViewModel(OperationsViewInitialization[] operationsViewInitializations)
+  public OperationViewsViewModel(IOperationsViewInitialization[] operationsViewInitializations)
   {
     _operationsViewInitializations = operationsViewInitializations;
     _selectedItem = operationsViewInitializations.First();

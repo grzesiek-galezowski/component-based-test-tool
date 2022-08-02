@@ -5,11 +5,11 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ViewModels.ViewModels;
 
-public class PersistentModelFileContentBuilder : TestComponentOperationDestination, PersistentStorage
+public class PersistentModelFileContentBuilder : ITestComponentOperationDestination, IPersistentStorage
 {
   private readonly OperationsOutputViewModel _operationsOutputViewModel;
   private readonly OperationMachinesByControlObject _operationMachinesByControlObject;
-  private readonly ConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
+  private readonly IConfigurationOutputBuilder _xmlConfigurationOutputBuilder;
 
   public PersistentModelFileContentBuilder(OperationsOutputViewModel operationsOutputViewModel, OperationMachinesByControlObject operationMachinesByControlObject)
   {
@@ -18,19 +18,19 @@ public class PersistentModelFileContentBuilder : TestComponentOperationDestinati
     _xmlConfigurationOutputBuilder = new XmlConfigurationOutputBuilder();
   }
 
-  public void AddOperation(string name, OperationControl operation, string dependencyName)
+  public void AddOperation(string name, IOperationControl operation, string dependencyName)
   {
     var stateMachine = _operationMachinesByControlObject.For(operation);
     stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
   }
 
-  public void AddOperation(string name, OperationControl operation)
+  public void AddOperation(string name, IOperationControl operation)
   {
     var stateMachine = _operationMachinesByControlObject.For(operation);
     stateMachine.SaveUsing(this, name, _xmlConfigurationOutputBuilder); //bug remove name from here and pass through constructor
   }
 
-  public void Store(params Persistable[] persistables)
+  public void Store(params IPersistable[] persistables)
   {
     foreach (var persistable in persistables)
     {
@@ -44,7 +44,7 @@ public class PersistentModelFileContentBuilder : TestComponentOperationDestinati
     _xmlConfigurationOutputBuilder.AppendProperty(name, value);
   }
 
-  public void NewComponentInstance(string instanceName, CoreTestComponent testComponentInstance)
+  public void NewComponentInstance(string instanceName, ICoreTestComponent testComponentInstance)
   {
     _xmlConfigurationOutputBuilder.AppendComponentInstanceNode(instanceName, testComponentInstance);
   }

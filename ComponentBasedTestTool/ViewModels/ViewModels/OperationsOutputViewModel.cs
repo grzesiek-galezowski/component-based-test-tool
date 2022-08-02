@@ -6,7 +6,7 @@ using ExtensionPoints.ImplementedByContext;
 
 namespace ViewModels.ViewModels;
 
-public class OperationsOutputViewModel : INotifyPropertyChanged, OperationsOutput
+public class OperationsOutputViewModel : INotifyPropertyChanged, IOperationsOutput
 {
   private string _content = string.Empty;
 

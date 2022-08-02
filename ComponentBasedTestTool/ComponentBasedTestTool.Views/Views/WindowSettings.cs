@@ -14,15 +14,15 @@ public class WindowSettings
   /// </summary>
   public static readonly DependencyProperty SaveProperty = DependencyProperty.RegisterAttached("Save", typeof(bool), typeof(WindowSettings), new FrameworkPropertyMetadata(OnSaveInvalidated));
 
-  private readonly Window mWindow;
+  private readonly Window _mWindow;
 
-  private WindowApplicationSettings mWindowApplicationSettings;
+  private WindowApplicationSettings _mWindowApplicationSettings;
 
   #endregion Fields
 
   #region Constructors
 
-  public WindowSettings(Window pWindow) { mWindow = pWindow; }
+  public WindowSettings(Window pWindow) { _mWindow = pWindow; }
 
   #endregion Constructors
 
@@ -33,8 +33,8 @@ public class WindowSettings
   {
     get
     {
-      if (mWindowApplicationSettings == null) mWindowApplicationSettings = CreateWindowApplicationSettingsInstance();
-      return mWindowApplicationSettings;
+      if (_mWindowApplicationSettings == null) _mWindowApplicationSettings = CreateWindowApplicationSettingsInstance();
+      return _mWindowApplicationSettings;
     }
   }
 
@@ -54,12 +54,12 @@ public class WindowSettings
     Settings.Reload();
     if (Settings.Location != Rect.Empty)
     {
-      mWindow.Left = Settings.Location.Left;
-      mWindow.Top = Settings.Location.Top;
-      mWindow.Width = Settings.Location.Width;
-      mWindow.Height = Settings.Location.Height;
+      _mWindow.Left = Settings.Location.Left;
+      _mWindow.Top = Settings.Location.Top;
+      _mWindow.Width = Settings.Location.Width;
+      _mWindow.Height = Settings.Location.Height;
     }
-    if (Settings.WindowState != WindowState.Maximized) mWindow.WindowState = Settings.WindowState;
+    if (Settings.WindowState != WindowState.Maximized) _mWindow.WindowState = Settings.WindowState;
   }
 
   /// <summary>
@@ -67,8 +67,8 @@ public class WindowSettings
   /// </summary>
   protected virtual void SaveWindowState()
   {
-    Settings.WindowState = mWindow.WindowState;
-    Settings.Location = mWindow.RestoreBounds;
+    Settings.WindowState = _mWindow.WindowState;
+    Settings.Location = _mWindow.RestoreBounds;
     Settings.Save();
   }
 
@@ -88,11 +88,11 @@ public class WindowSettings
 
   private void Attach()
   {
-    if (mWindow != null)
+    if (_mWindow != null)
     {
-      mWindow.Closing += WindowClosing;
-      mWindow.Initialized += WindowInitialized;
-      mWindow.Loaded += WindowLoaded;
+      _mWindow.Closing += WindowClosing;
+      _mWindow.Initialized += WindowInitialized;
+      _mWindow.Loaded += WindowLoaded;
     }
   }
 
@@ -100,7 +100,7 @@ public class WindowSettings
 
   private void WindowInitialized(object pSender, EventArgs pEventArgs) { LoadWindowState(); }
 
-  private void WindowLoaded(object pSender, RoutedEventArgs pRoutedEventArgs) { if (Settings.WindowState == WindowState.Maximized) mWindow.WindowState = Settings.WindowState; }
+  private void WindowLoaded(object pSender, RoutedEventArgs pRoutedEventArgs) { if (Settings.WindowState == WindowState.Maximized) _mWindow.WindowState = Settings.WindowState; }
 
   #endregion Methods
 

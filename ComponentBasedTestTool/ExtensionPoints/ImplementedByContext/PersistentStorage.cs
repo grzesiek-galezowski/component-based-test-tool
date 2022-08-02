@@ -1,7 +1,7 @@
 namespace ExtensionPoints.ImplementedByContext;
 
-public interface PersistentStorage
+public interface IPersistentStorage
 {
-  void Store(params Persistable[] persistables);
+  void Store(params IPersistable[] persistables);
   void StoreValue<T>(string name, T value);
 }

@@ -4,16 +4,16 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentSpecification.AutomationLayer;
 
-public class SynchronousTasks : BackgroundTasks
+public class SynchronousTasks : IBackgroundTasks
 {
-  private readonly Action<OperationContext> _setRunningOperationContext;
+  private readonly Action<IOperationContext> _setRunningOperationContext;
 
-  public SynchronousTasks(Action<OperationContext> setRunningOperationContext)
+  public SynchronousTasks(Action<IOperationContext> setRunningOperationContext)
   {
     _setRunningOperationContext = setRunningOperationContext;
   }
 
-  public void Run(Runnable operation, OperationContext context)
+  public void Run(IRunnable operation, IOperationContext context)
   {
     _setRunningOperationContext(context);
     using var token = new CancellationTokenSource();

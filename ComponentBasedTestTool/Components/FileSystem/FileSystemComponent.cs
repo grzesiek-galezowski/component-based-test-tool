@@ -3,18 +3,18 @@ using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 
-namespace Components;
+namespace Components.FileSystem;
 
-public class FileSystemComponent : 
-  CoreTestComponent, 
-  Capabilities.CustomGui,
-  Capabilities.CleanupOnEnvironmentClosing
+public class FileSystemComponent :
+  ICoreTestComponent,
+  Capabilities.ICustomGui,
+  Capabilities.ICleanupOnEnvironmentClosing
 {
-  private OperationControl _ls;
-  private OperationControl _cs;
-  private OperationControl _cat;
-  private OperationControl _wait;
-  private OperationControl _configure;
+  private IOperationControl _ls;
+  private IOperationControl _cs;
+  private IOperationControl _cat;
+  private IOperationControl _wait;
+  private IOperationControl _configure;
   private readonly string _configureName = "configure";
   private CustomGui _customGui;
 
@@ -23,7 +23,7 @@ public class FileSystemComponent :
   private const string CdName = "cd";
   private const string LsName = "ls";
 
-  public void PopulateOperations(TestComponentOperationDestination ctx)
+  public void PopulateOperations(ITestComponentOperationDestination ctx)
   {
     ctx.AddOperation(_configureName, _configure);
     ctx.AddOperation(LsName, _ls, _configureName);
@@ -32,7 +32,7 @@ public class FileSystemComponent :
     ctx.AddOperation(SleepName, _wait, _configureName);
   }
 
-  public void CreateOperations(TestComponentContext ctx)
+  public void CreateOperations(ITestComponentContext ctx)
   {
     _ls = ctx.CreateOperation(new LsOperation(ctx.CreateOutFor(LsName)));
     _cs = ctx.CreateOperation(new CdOperation(ctx.CreateOutFor(CdName)));

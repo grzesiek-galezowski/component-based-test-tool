@@ -7,9 +7,9 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ComponentBasedTestTool.Domain.OperationStates;
 
-public class AsyncBasedBackgroundTasks : BackgroundTasks
+public class AsyncBasedBackgroundTasks : IBackgroundTasks
 {
-  public void Run(Runnable operation, OperationContext context)
+  public void Run(IRunnable operation, IOperationContext context)
   {
     FireAndForget(PerformRun, context, operation);
   }
@@ -27,8 +27,8 @@ public class AsyncBasedBackgroundTasks : BackgroundTasks
 
   private static async Task PerformRun(
     CancellationTokenSource cancellationTokenSource, 
-    OperationContext context,
-    Runnable operation)
+    IOperationContext context,
+    IRunnable operation)
   {
     context.InProgress(cancellationTokenSource);
     try

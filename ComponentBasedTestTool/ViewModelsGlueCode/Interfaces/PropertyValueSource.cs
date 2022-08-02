@@ -1,6 +1,6 @@
 namespace ViewModelsGlueCode.Interfaces;
 
-public interface PropertyValueSource<T>
+public interface IPropertyValueSource<T>
 {
   T Value { get; }
   string Name { get; }

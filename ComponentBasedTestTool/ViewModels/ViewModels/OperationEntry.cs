@@ -9,14 +9,14 @@ public class OperationEntry
   public string ParentComponentInstanceName { get; }
   public Maybe<string> DependencyName { get; }
   public string Name { get; }
-  private OperationStateMachine InnerOperation { get; }
+  private IOperationStateMachine InnerOperation { get; }
 
   public OperationEntry(
     string parentComponentInstanceName, 
     string name, 
-    OperationStateMachine innerOperation, 
+    IOperationStateMachine innerOperation, 
     Maybe<string> dependencyName,
-    OperationStateMachine operationStateMachine)
+    IOperationStateMachine operationStateMachine)
   {
     ParentComponentInstanceName = parentComponentInstanceName;
     Name = name;
@@ -25,7 +25,7 @@ public class OperationEntry
     OperationStateMachine = operationStateMachine;
   }
 
-  public static OperationEntry With(string componentInstanceName, string name, OperationStateMachine operation, Maybe<string> dependencyName, OperationStateMachine operationStateMachine)
+  public static OperationEntry With(string componentInstanceName, string name, IOperationStateMachine operation, Maybe<string> dependencyName, IOperationStateMachine operationStateMachine)
   {
     return new OperationEntry(componentInstanceName, name, operation, dependencyName, operationStateMachine);
   }
@@ -36,9 +36,9 @@ public class OperationEntry
   }
 
   //ugly: unclear role of this class
-  public OperationStateMachine OperationStateMachine { get; }
+  public IOperationStateMachine OperationStateMachine { get; }
 
-  public OperationViewModel ToOperationViewModel(OperationViewModelFactory operationViewModelFactory)
+  public OperationViewModel ToOperationViewModel(IOperationViewModelFactory operationViewModelFactory)
   {
     var operationViewModel = 
       operationViewModelFactory.CreateOperationViewModel(this, OperationStateMachine);

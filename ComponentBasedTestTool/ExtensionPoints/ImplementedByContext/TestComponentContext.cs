@@ -3,8 +3,8 @@ using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace ExtensionPoints.ImplementedByContext;
 
-public interface TestComponentContext
+public interface ITestComponentContext
 {
-  OperationsOutput CreateOutFor(string operationName);
-  OperationControl CreateOperation(ComponentOperation operation);
+  IOperationsOutput CreateOutFor(string operationName);
+  IOperationControl CreateOperation(IComponentOperation operation);
 }
