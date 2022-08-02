@@ -19,19 +19,71 @@ var jsonAsync = await $"https://dev.azure.com/{organization}/{project}/_apis/pip
 
 var pipelineIds = jsonAsync.Value.Select(p => p.Id);
 Console.WriteLine(string.Join(',', pipelineIds));
+var pipelineId = pipelineIds.First();
+
+//GET pipeline info
+
+var str = await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}?api-version=6.0-preview.1"
+  .WithHeader("Authorization", AuthorizationHeaderValue())
+  .GetStringAsync();
+
+Console.WriteLine(str);
 
 //RUN pipeline
 // requires sign in
-var pipelineId = pipelineIds.First();
 var runPipelineJson = await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}/runs?api-version=7.1-preview.1"
   .WithHeader("Authorization", AuthorizationHeaderValue())
   .PostJsonAsync(new
   {
-    previewRun = true
+    previewRun = false
   });
 
-var runPipelineResult = await runPipelineJson.GetJsonAsync<RunPipelineResult>();
+var runPipelineResult = await runPipelineJson.GetJsonAsync<Run>();
 Console.WriteLine(runPipelineResult);
+
+Run runInfo = null;
+do
+{
+// GET run status
+  runInfo = await
+    $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}/runs/{runPipelineResult.Id}?api-version=6.0-preview.1"
+      .WithHeader("Authorization", AuthorizationHeaderValue())
+      .GetJsonAsync<Run>();
+
+
+  Console.WriteLine(runInfo.State);
+  await Task.Delay(TimeSpan.FromSeconds(20));
+
+} while (runInfo.State != "completed");
+
+public class Resources
+{
+  public Repositories repositories { get; set; }
+}
+
+public class Repositories
+{
+  public Self1 self { get; set; }
+}
+
+public class Self1
+{
+  public Repository repository { get; set; }
+  public string refName { get; set; }
+  public string version { get; set; }
+}
+
+public class Repository
+{
+  public string fullName { get; set; }
+  public Connection connection { get; set; }
+  public string type { get; set; }
+}
+
+public class Connection
+{
+  public string id { get; set; }
+}
 
 namespace Playground
 {
@@ -47,29 +99,28 @@ namespace Playground
     string Folder
   );
 
-  public record ReferenceLinks(Self Self, Web Web);
   public record Self(string Href);
   public record Web(string Href);
 
-// run pipeline response
+  // run pipeline response
 
+  public record Run
+  (
+    ReferenceLinks Links,
+    Pipeline Pipeline,
+    string State,
+    DateTime CreatedDate,
+    string Url,
+    Resources Resources,
+    string FinalYaml,
+    int Id,
+    object Name
+  );
 
-  public class RunPipelineResult
-  {
-    public RunPipelineLinks Links { get; set; }
-    public Pipeline Pipeline { get; set; }
-    public string State { get; set; }
-    public string Url { get; set; }
-    public string FinalYaml { get; set; }
-    public int Id { get; set; }
-    public object Name { get; set; }
-  }
-
-  public class RunPipelineLinks
-  {
-    public Self Self { get; set; }
-    public Web Web { get; set; }
-    public Web Pipelineweb { get; set; }
-    public Web Pipeline { get; set; }
-  }
+  public record ReferenceLinks(
+    Self Self,
+    Web Web,
+    Web Pipelineweb,
+    Web Pipeline
+  );
 }
