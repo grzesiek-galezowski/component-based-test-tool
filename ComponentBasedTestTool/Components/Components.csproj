@@ -11,6 +11,8 @@
     <ProjectReference Include="..\ExtensionPoints\ExtensionPoints.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Core.Maybe" Version="4.0.0" />
+    <PackageReference Include="Flurl.Http" Version="3.2.4" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.336902">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
