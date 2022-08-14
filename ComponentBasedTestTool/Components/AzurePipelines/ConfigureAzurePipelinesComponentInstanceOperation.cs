@@ -10,6 +10,7 @@ namespace Components.AzurePipelines;
 
 public class ConfigureAzurePipelinesComponentInstanceOperation : IComponentOperation
 {
+  
   private Maybe<IOperationParameter<string>> _tokenLocation;
   private Maybe<IOperationParameter<string>> _organization;
   private Maybe<IOperationParameter<string>> _project;

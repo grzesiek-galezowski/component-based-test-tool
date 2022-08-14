@@ -1,4 +1,6 @@
 using System;
+using Core.Maybe;
+using Core.NullableReferenceTypesExtensions;
 using TriAxis.RunSharp;
 using ViewModelsGlueCode.Interfaces;
 
@@ -7,7 +9,7 @@ namespace ViewModelsGlueCode;
 public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContainer, IPropertySetBuilder
 {
   private readonly TypeGen _typeGen;
-  private object _object;
+  private Maybe<object> _object;
 
   public RunSharpBasedPropertySetBuilder(TypeGen typeGen)
   {
@@ -29,7 +31,9 @@ public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContaine
     {
       _typeGen.Complete();
       var type = _typeGen.GetCompletedType();
-      return _object = Activator.CreateInstance(type);
+      var instance = Activator.CreateInstance(type).OrThrow();
+      _object = instance.Just();
+      return instance;
     }
   }
 
@@ -37,7 +41,7 @@ public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContaine
   {
     get
     {
-      if (_object == null)
+      if (_object.IsNothing())
       {
         throw new TypeNotCompletedYetException();
       }
