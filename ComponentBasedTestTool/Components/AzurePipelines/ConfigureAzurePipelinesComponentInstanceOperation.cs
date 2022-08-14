@@ -10,14 +10,22 @@ namespace Components.AzurePipelines;
 
 public class ConfigureAzurePipelinesComponentInstanceOperation : IComponentOperation
 {
-  
+  private readonly AzurePipelinesComponentConfiguration _config;
   private Maybe<IOperationParameter<string>> _tokenLocation;
   private Maybe<IOperationParameter<string>> _organization;
   private Maybe<IOperationParameter<string>> _project;
 
+  public ConfigureAzurePipelinesComponentInstanceOperation(
+    AzurePipelinesComponentConfiguration config)
+  {
+    _config = config;
+  }
+
   public async Task RunAsync(CancellationToken token)
   {
-    throw new NotImplementedException();
+    _config.TokenLocation = _tokenLocation.Value().Value.Just();
+    _config.Organization = _organization.Value().Value.Just();
+    _config.Project = _project.Value().Value.Just();
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)
