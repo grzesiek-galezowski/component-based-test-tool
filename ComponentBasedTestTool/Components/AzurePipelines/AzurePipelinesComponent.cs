@@ -1,4 +1,5 @@
-﻿using Core.Maybe;
+﻿using System;
+using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
@@ -30,24 +31,24 @@ public class AzurePipelinesComponent : ICoreTestComponent
 
   public void CreateOperations(ITestComponentContext ctx)
   {
-     _configureOperation = 
-       ctx.CreateOperation(new ConfigureAzurePipelinesComponentInstanceOperation(_config)).Just();
-     _listPipelinesOperation = 
-       ctx.CreateOperation(new ListPipelinesOperation(
-         ctx.CreateOutFor(ListPipelinesOpName),
-         _config)).Just();
-     _runPipelineOperation = 
-       ctx.CreateOperation(new RunPipelineOperation(
-         ctx.CreateOutFor(RunPipelineOpName),
-         _config)).Just();
-     _monitorPipelineOperation = 
-       ctx.CreateOperation(new MonitorPipelineOperation(
-         ctx.CreateOutFor(MonitorPipelineOpName),
-         _config)).Just();
-     _getLogsPipelineOperation = 
-       ctx.CreateOperation(new GetPipelineLogsOperation(
-         ctx.CreateOutFor(GetPipelineLogsOpName),
-         _config)).Just();
+    _configureOperation =
+      ctx.CreateOperation(new ConfigureAzurePipelinesComponentInstanceOperation(_config)).Just();
+    _listPipelinesOperation =
+      ctx.CreateOperation(new ListPipelinesOperation(
+        ctx.CreateOutFor(ListPipelinesOpName),
+        _config)).Just();
+    _runPipelineOperation =
+      ctx.CreateOperation(new RunPipelineOperation(
+        ctx.CreateOutFor(RunPipelineOpName),
+        _config)).Just();
+    _monitorPipelineOperation =
+      ctx.CreateOperation(new MonitorPipelineOperation(
+        ctx.CreateOutFor(MonitorPipelineOpName),
+        _config)).Just();
+    _getLogsPipelineOperation =
+      ctx.CreateOperation(new GetPipelineLogsOperation(
+        ctx.CreateOutFor(GetPipelineLogsOpName),
+        _config)).Just();
   }
 
 }
