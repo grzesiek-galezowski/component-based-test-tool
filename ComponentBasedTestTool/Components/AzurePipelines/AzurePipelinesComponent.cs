@@ -10,16 +10,19 @@ public class AzurePipelinesComponent : ICoreTestComponent
   private const string ConfigureOpName = "Configure";
   private const string ListPipelinesOpName = "List Pipelines";
   private const string RunPipelineOpName = "Run Pipeline";
+  private const string MonitorPipelineOpName = "Monitor Pipeline";
   private readonly AzurePipelinesComponentConfiguration _config = new();
   private Maybe<IOperationControl> _configureOperation;
   private Maybe<IOperationControl> _listPipelinesOperation;
   private Maybe<IOperationControl> _runPipelineOperation;
+  private Maybe<IOperationControl> _monitorPipelineOperation;
 
   public void PopulateOperations(ITestComponentOperationDestination ctx)
   {
     ctx.AddOperation(ConfigureOpName, _configureOperation.Value());
     ctx.AddOperation(ListPipelinesOpName, _listPipelinesOperation.Value(), ConfigureOpName);
     ctx.AddOperation(RunPipelineOpName, _runPipelineOperation.Value(), ConfigureOpName);
+    ctx.AddOperation(MonitorPipelineOpName, _monitorPipelineOperation.Value(), ConfigureOpName);
   }
 
   public void CreateOperations(ITestComponentContext ctx)
@@ -33,6 +36,10 @@ public class AzurePipelinesComponent : ICoreTestComponent
      _runPipelineOperation = 
        ctx.CreateOperation(new RunPipelineOperation(
          ctx.CreateOutFor(RunPipelineOpName),
+         _config)).Just();
+     _monitorPipelineOperation = 
+       ctx.CreateOperation(new MonitorPipelineOperation(
+         ctx.CreateOutFor(MonitorPipelineOpName),
          _config)).Just();
   }
 
