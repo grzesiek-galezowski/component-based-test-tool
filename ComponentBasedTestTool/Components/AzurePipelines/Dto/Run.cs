@@ -7,6 +7,7 @@ public record Run
   ReferenceLinks Links,
   Pipeline Pipeline,
   string State,
+  string Result,
   DateTime CreatedDate,
   string Url,
   Resources Resources,
