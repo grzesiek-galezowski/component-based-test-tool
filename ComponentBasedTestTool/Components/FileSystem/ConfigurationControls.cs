@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using ExtensionPoints.ImplementedByContext;
 using ExtensionPoints.ImplementedByContext.StateMachine;
 

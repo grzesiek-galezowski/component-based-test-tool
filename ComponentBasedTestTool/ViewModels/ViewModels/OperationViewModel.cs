@@ -17,18 +17,18 @@ namespace ViewModels.ViewModels;
 
 public class OperationViewModel  : INotifyPropertyChanged, IOperationContext, IOperationDependencyObserver
 {
-  private string _stateString;
-  private OperationCommand _runCommand;
-  private OperationCommand _stopCommand;
-  private RestartOperationCommand _restartCommand;
-  private AddToScriptViewCommand _addToScriptViewCommand;
+  private string? _stateString;
+  private OperationCommand? _runCommand;
+  private OperationCommand? _stopCommand;
+  private RestartOperationCommand? _restartCommand;
+  private AddToScriptViewCommand? _addToScriptViewCommand;
   private string _lastError = string.Empty;
   private string _lastErrorFullText = "lolokimono";
   private readonly Maybe<string> _maybeDependencyName;
   private readonly OperationPropertiesViewModelBuilder _propertyListBuilder;
   private readonly OperationCommandFactory _operationCommandFactory;
   private readonly IOperationStateMachine _operationStateMachine;
-  private ICommand _removeOperationFromScriptCommand;
+  private ICommand? _removeOperationFromScriptCommand;
 
   public OperationViewModel(string name, Maybe<string> maybeDependencyName, string operationEntryParentComponentInstanceName, OperationCommandFactory operationCommandFactory, OperationPropertiesViewModelBuilder operationPropertiesViewModelBuilder, IOperationStateMachine operationStateMachine)
   {
@@ -52,25 +52,21 @@ public class OperationViewModel  : INotifyPropertyChanged, IOperationContext, IO
 
   [UsedImplicitly]
   public OperationCommand RunOperationCommand 
-    => _runCommand ?? (_runCommand = _operationCommandFactory.CreateRunCommand(this));
+    => _runCommand ??= _operationCommandFactory.CreateRunCommand(this);
 
   [UsedImplicitly]
   public OperationCommand StopOperationCommand
-    => _stopCommand ?? (_stopCommand = 
-      _operationCommandFactory.CreateStopCommand(_operationStateMachine));
+    => _stopCommand ??= _operationCommandFactory.CreateStopCommand(_operationStateMachine);
 
   [UsedImplicitly]
   public RestartOperationCommand RestartOperationCommand
-    => _restartCommand ?? (_restartCommand = 
-      _operationCommandFactory.CreateRestartCommand(_operationStateMachine));
+    => _restartCommand ??= _operationCommandFactory.CreateRestartCommand(_operationStateMachine);
 
   public AddToScriptViewCommand AddToScriptViewCommand
-    => _addToScriptViewCommand ?? (_addToScriptViewCommand = _operationCommandFactory.CreateAddToScriptViewCommand(this));
+    => _addToScriptViewCommand ??= _operationCommandFactory.CreateAddToScriptViewCommand(this);
 
   public ICommand RemoveOperationFromScriptCommand
-    =>
-      _removeOperationFromScriptCommand ??
-      (_removeOperationFromScriptCommand = _operationCommandFactory.CreateRemoveOperationFromScriptCommand(this));
+    => _removeOperationFromScriptCommand ??= _operationCommandFactory.CreateRemoveOperationFromScriptCommand(this);
 
   public string Name { get; }
 
@@ -101,7 +97,7 @@ public class OperationViewModel  : INotifyPropertyChanged, IOperationContext, IO
 
   public string State
   {
-    get { return _stateString; }
+    get => _stateString;
     set
     {
       _stateString = value;

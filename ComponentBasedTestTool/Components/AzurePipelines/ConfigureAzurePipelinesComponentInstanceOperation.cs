@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Core.Maybe;
+﻿using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using ExtensionPoints.ImplementedByContext.StateMachine;
 
 namespace Components.AzurePipelines;
 
@@ -30,8 +26,9 @@ public class ConfigureAzurePipelinesComponentInstanceOperation : IComponentOpera
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
+    //bug validate that operation names do not contain spaces!!
     _tokenLocation 
-      = parameters.Path("Personal token location", "C:\\Users\\HYPERBOOK\\Documents\\__KEYS\\azure-pipelines.txt").Just();
+      = parameters.Path("PersonalTokenLocation", "C:\\Users\\HYPERBOOK\\Documents\\__KEYS\\azure-pipelines.txt").Just();
     _organization = parameters.Text("Organization", "grzesiekgalezowski").Just();
     _project = parameters.Text("Project", "grzesiekgalezowski").Just();
   }

@@ -1,0 +1,1 @@
+﻿public record Connection(string Id);

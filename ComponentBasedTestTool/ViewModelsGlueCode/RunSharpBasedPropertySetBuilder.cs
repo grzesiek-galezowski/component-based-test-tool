@@ -25,7 +25,7 @@ public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContaine
   {
     if (_typeGen.IsCompleted)
     {
-      return _object;
+      return _object.Value();
     }
     else
     {
@@ -45,7 +45,7 @@ public class RunSharpBasedPropertySetBuilder : ICreatedPropertySetObjectContaine
       {
         throw new TypeNotCompletedYetException();
       }
-      return _object;
+      return _object.Value();
     }
   }
 }

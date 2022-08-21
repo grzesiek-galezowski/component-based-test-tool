@@ -15,9 +15,10 @@ public class ExecutingAssemblyFolder : IComponentLocation
     var configuration = LoadPluginAssemblies();
 
     using var container = configuration.CreateContainer();
-    return container.GetExports<ITestComponentSourceRoot>();
+    var roots = container.GetExports<ITestComponentSourceRoot>();
+    return roots;
   }
-
+  
   private static ContainerConfiguration LoadPluginAssemblies()
   {
     var directory = AppDomain.CurrentDomain.BaseDirectory;

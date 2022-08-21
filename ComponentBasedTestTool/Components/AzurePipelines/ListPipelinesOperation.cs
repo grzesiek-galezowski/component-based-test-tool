@@ -1,37 +1,39 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Components.AzurePipelines.Dto;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using Flurl.Http;
-using Playground;
 
 namespace Components.AzurePipelines;
 
 public class ListPipelinesOperation : IComponentOperation
 {
+  private readonly IOperationsOutput _out;
+  private readonly AzurePipelinesComponentConfiguration _config;
+
+  public ListPipelinesOperation(IOperationsOutput @out,
+    AzurePipelinesComponentConfiguration config)
+  {
+    _out = @out;
+    _config = config;
+  }
+
   public async Task RunAsync(CancellationToken token)
   {
-    var organization = "grzesiekgalezowski";
-    var project = "grzesiekgalezowski";
+    var organization = _config.Organization;
+    var project = _config.Project;
 
-// LIST of pipelines request
     var jsonAsync = await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines?api-version=7.1-preview.1"
-      .GetJsonAsync<ListOfPipelines>();
+      .GetJsonAsync<ListOfPipelines>(cancellationToken: token);
 
-    var pipelineIds = jsonAsync.Value.Select(p => p.Id);
-    Console.WriteLine(string.Join(',', pipelineIds));
+    _out.WriteLine(string.Join(',', jsonAsync.Value.Select(v => v.ToString())));
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
-    throw new NotImplementedException();
   }
 
   public void StoreParameters(IPersistentStorage destination)
   {
-    throw new NotImplementedException();
+    //bug
   }
 }

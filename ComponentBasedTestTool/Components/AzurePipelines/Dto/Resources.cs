@@ -1,0 +1,1 @@
+﻿public record Resources(Repositories Repositories);

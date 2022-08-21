@@ -6,7 +6,6 @@ namespace ComponentSpecification;
 
 public class GivenComponentWithSeveralOperationsIsLoaded
 {
-  private readonly ComponentBasedTestToolDriver _context = new();
   private readonly string _componentName1 = Any.ComponentName();
   private readonly string _operationName11 = Any.OperationName();
   private readonly string _parameterName1 = Any.ParameterName();
@@ -23,7 +22,9 @@ public class GivenComponentWithSeveralOperationsIsLoaded
   public void ShouldShowPropertiesOfInitialSelectedOperation()
   {
     //GIVEN
-    _context.ComponentsSetup.Add(_componentName1)
+    var context = new ComponentBasedTestToolDriver();
+
+    context.ComponentsSetup.Add(_componentName1)
       .WithOperation(_operationName11)
       .WithParameter(_parameterName1, _parameterValue1)
       .WithParameter(_parameterName2, _parameterValue2)
@@ -31,16 +32,16 @@ public class GivenComponentWithSeveralOperationsIsLoaded
       .WithParameter(_parameterName3, _parameterValue3)
       .WithParameter(_parameterName4, _parameterValue4);
 
-    _context.StartApplication();
+    context.StartApplication();
 
-    _context.ComponentsView.AddInstanceOf(_componentName1);
+    context.ComponentsView.AddInstanceOf(_componentName1);
 
     //WHEN
-    _context.InstancesView.Select(_componentName1);
-    _context.OperationsView.Select(_operationName11);
+    context.InstancesView.Select(_componentName1);
+    context.OperationsView.Select(_operationName11);
 
     //THEN
-    _context.PropertiesView.AssertShowsExactly(
+    context.PropertiesView.AssertShowsExactly(
       Property(_parameterName1, _parameterValue1),
       Property(_parameterName2, _parameterValue2)
     );
@@ -50,7 +51,9 @@ public class GivenComponentWithSeveralOperationsIsLoaded
   public void ShouldShowPropertiesOfLastSelectedOperation()
   {
     //GIVEN
-    _context.ComponentsSetup.Add(_componentName1)
+    var context = new ComponentBasedTestToolDriver();
+    
+    context.ComponentsSetup.Add(_componentName1)
       .WithOperation(_operationName11)
       .WithParameter(_parameterName1, _parameterValue1)
       .WithParameter(_parameterName2, _parameterValue2)
@@ -58,18 +61,18 @@ public class GivenComponentWithSeveralOperationsIsLoaded
       .WithParameter(_parameterName3, _parameterValue3)
       .WithParameter(_parameterName4, _parameterValue4);
 
-    _context.StartApplication();
+    context.StartApplication();
 
-    _context.ComponentsView.AddInstanceOf(_componentName1);
+    context.ComponentsView.AddInstanceOf(_componentName1);
 
-    _context.InstancesView.Select(_componentName1);
-    _context.OperationsView.Select(_operationName11);
+    context.InstancesView.Select(_componentName1);
+    context.OperationsView.Select(_operationName11);
 
     //WHEN
-    _context.OperationsView.Select(_operationName12);
+    context.OperationsView.Select(_operationName12);
 
     //THEN
-    _context.PropertiesView.AssertShowsExactly(
+    context.PropertiesView.AssertShowsExactly(
       Property(_parameterName3, _parameterValue3),
       Property(_parameterName4, _parameterValue4)
     );
@@ -79,7 +82,8 @@ public class GivenComponentWithSeveralOperationsIsLoaded
   public void ShouldAllowExecutingPreviouslyStoppedOperation()
   {
     //GIVEN
-    _context.ComponentsSetup.Add(_componentName1)
+    var context = new ComponentBasedTestToolDriver();
+    context.ComponentsSetup.Add(_componentName1)
       .WithOperation(_operationName11)
       .WithParameter(_parameterName1, _parameterValue1)
       .WithParameter(_parameterName2, _parameterValue2)
@@ -87,27 +91,29 @@ public class GivenComponentWithSeveralOperationsIsLoaded
       .WithParameter(_parameterName3, _parameterValue3)
       .WithParameter(_parameterName4, _parameterValue4);
 
-    _context.StartApplication();
+    context.StartApplication();
 
-    _context.ComponentsView.AddInstanceOf(_componentName1);
+    context.ComponentsView.AddInstanceOf(_componentName1);
 
     //WHEN
-    _context.StartOperation(_componentName1, _operationName11);
-    _context.Operations.MakeRunningOperationStop();
-    _context.StartOperation(_componentName1, _operationName11);
-    _context.Operations.MakeRunningOperationSucceed();
+    context.StartOperation(_componentName1, _operationName11);
+    context.Operations.MakeRunningOperationStop();
+    context.StartOperation(_componentName1, _operationName11);
+    context.Operations.MakeRunningOperationSucceed();
 
     //THEN
-    _context.Operations.AssertWasRun(_operationName11, times: 2);
-    _context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
+    context.Operations.AssertWasRun(_operationName11, times: 2);
+    context.OperationsView.AssertSelectedOperationIsDisplayedAsSuccessful();
   }
 
 
   [Fact]
   public void ShouldPassCustomUiCallToPlugin()
   {
+   var context = new ComponentBasedTestToolDriver();
+
     //GIVEN
-    _context.ComponentsSetup.Add(_componentName1)
+    context.ComponentsSetup.Add(_componentName1)
       .WithOperation(_operationName11)
       .WithParameter(_parameterName1, _parameterValue1)
       .WithParameter(_parameterName2, _parameterValue2)
@@ -115,22 +121,24 @@ public class GivenComponentWithSeveralOperationsIsLoaded
       .WithParameter(_parameterName3, _parameterValue3)
       .WithParameter(_parameterName4, _parameterValue4);
 
-    _context.StartApplication();
+    context.StartApplication();
 
-    _context.ComponentsView.AddInstanceOf(_componentName1);
+    context.ComponentsView.AddInstanceOf(_componentName1);
 
     //WHEN
-    _context.InstancesView.ShowCustomGui(_componentName1);
+    context.InstancesView.ShowCustomGui(_componentName1);
 
     //THEN
-    _context.ComponentInstances.AssertCommandToShowCustomUiWasReceivedBy(_componentName1);
+    context.ComponentInstances.AssertCommandToShowCustomUiWasReceivedBy(_componentName1);
   } //TODO what about notification of state to the custom UI?
 
   [Fact]
   public void ShouldPassClosingNotificationToPlugin()
   {
     //GIVEN
-    _context.ComponentsSetup.Add(_componentName1)
+    var context = new ComponentBasedTestToolDriver();
+
+    context.ComponentsSetup.Add(_componentName1)
       .WithOperation(_operationName11)
       .WithParameter(_parameterName1, _parameterValue1)
       .WithParameter(_parameterName2, _parameterValue2)
@@ -138,13 +146,13 @@ public class GivenComponentWithSeveralOperationsIsLoaded
       .WithParameter(_parameterName3, _parameterValue3)
       .WithParameter(_parameterName4, _parameterValue4);
 
-    _context.StartApplication();
-    _context.ComponentsView.AddInstanceOf(_componentName1);
+    context.StartApplication();
+    context.ComponentsView.AddInstanceOf(_componentName1);
 
     //WHEN
-    _context.Close();
+    context.Close();
 
     //THEN
-    _context.ComponentInstances.AssertClosingEventWasReceivedBy(_componentName1);
+    context.ComponentInstances.AssertClosingEventWasReceivedBy(_componentName1);
   }
 }
