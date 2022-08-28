@@ -1,5 +1,4 @@
 ﻿using System;
-using Components.AzurePipelines.Client;
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -29,20 +28,11 @@ public class GetPipelineLogsOperation : IComponentOperation
     // GET run status
     var pipelineId = _idParam.Value().Value;
     var runId = _runIdParam.Value().Value;
-    var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
-    var logs = await azurePipelinesClient.GetLogChaptersAsync(token, pipelineId, runId);
-
-    _out.WriteLine(logs.ToString());
-
-    foreach (var logEntry in logs.Logs)
-    {
-      var logJson =
-        await azurePipelinesClient.GetLogChapterDetailsAsync(pipelineId, runId, logEntry, token);
-      _out.WriteLine(logJson);
-
-      var logContent = await azurePipelinesClient.GetLogChapterContentAsync(runId, logEntry.Id, token);
-      _out.WriteLine(logContent);
-    }
+    var azurePipelinesWorkflows = new AzurePipelinesWorkflows(
+      organization, 
+      project, 
+      tokenLocation);
+    await azurePipelinesWorkflows.PrintAllLogs(_out, pipelineId, runId, token);
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)

@@ -19,14 +19,14 @@ public class AzurePipelinesRestApiClient
     _apiVersion = "api-version=7.1-preview.1";
   }
 
-  public async Task<LogCollection> GetLogChaptersAsync(CancellationToken token, string pipelineId, string runId)
+  public async Task<LogCollection> GetLogAsync(CancellationToken token, string pipelineId, string runId)
   {
     return
       await AuthorizedPipelineApiRequest(pipelineId, $"/runs/{runId}/logs")
         .GetJsonAsync<LogCollection>(cancellationToken: token);
   }
 
-  public async Task<string> GetLogChapterDetailsAsync(
+  public async Task<string> GetLogPageDetailsAsync(
     string pipelineId,
     string runId,
     Log logEntry,
@@ -62,7 +62,7 @@ public class AzurePipelinesRestApiClient
     return await runPipelineJson.GetJsonAsync<Run>();
   }
 
-  public async Task<string> GetLogChapterContentAsync(string runId, int chapterId, CancellationToken token)
+  public async Task<string> GetLogPageContentAsync(string runId, int chapterId, CancellationToken token)
   {
     var url = $"{_apisPrefix}/build/builds/{runId}/logs/{chapterId}";
     return await url

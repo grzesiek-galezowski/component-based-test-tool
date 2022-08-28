@@ -27,20 +27,12 @@ public class MonitorPipelineOperation : IComponentOperation
     var project = _config.Project.Value();
     var tokenLocation = _config.TokenLocation.Value();
 
-    Run? runInfo;
-    do
-    {
-      // GET run status
-      var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
-      runInfo = await azurePipelinesClient.GetPipelineStatusAsync(
-        _idParam.Value().Value,
-        _runIdParam.Value().Value,
-        token);
-
-      _out.WriteLine(runInfo.ToString());
-      await Task.Delay(TimeSpan.FromSeconds(20), token);
-
-    } while (runInfo.State != "completed");
+    var azurePipelinesWorkflows = new AzurePipelinesWorkflows(organization, project, tokenLocation);
+    await azurePipelinesWorkflows.MonitorBuild(
+      _out,
+      _idParam.Value().Value,
+      _runIdParam.Value().Value,
+      token);
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)
