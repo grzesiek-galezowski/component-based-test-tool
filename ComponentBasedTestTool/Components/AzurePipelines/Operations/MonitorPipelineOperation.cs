@@ -27,7 +27,9 @@ public class MonitorPipelineOperation : IComponentOperation
     var project = _config.Project.Value();
     var tokenLocation = _config.TokenLocation.Value();
 
-    var azurePipelinesWorkflows = new AzurePipelinesWorkflows(organization, project, tokenLocation);
+    var azurePipelinesWorkflows = new AzurePipelinesWorkflows(organization,
+      project,
+      tokenLocation);
     await azurePipelinesWorkflows.MonitorBuild(
       _out,
       _idParam.Value().Value,
