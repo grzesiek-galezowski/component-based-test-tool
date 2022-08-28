@@ -1,7 +1,8 @@
 ﻿using System;
-using System.IO;using System.Speech.Recognition;
-using Components.AzurePipelines.Dto;
+using System.IO;
 using Flurl.Http;
+
+namespace Components.AzurePipelines.Client.Dto;
 
 public class Kike
 {

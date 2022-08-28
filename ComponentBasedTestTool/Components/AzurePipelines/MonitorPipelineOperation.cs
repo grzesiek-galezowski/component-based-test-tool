@@ -1,9 +1,10 @@
-﻿using Components.AzurePipelines.Dto;
-using Core.Maybe;
+﻿using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using Flurl.Http;
 using System;
+using Components.AzurePipelines.Client;
+using Components.AzurePipelines.Client.Dto;
 
 namespace Components.AzurePipelines;
 
@@ -31,7 +32,7 @@ public class MonitorPipelineOperation : IComponentOperation
     do
     {
       // GET run status
-      var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+      var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
       runInfo = await azurePipelinesClient.GetPipelineStatusAsync(
         _idParam.Value().Value,
         _runIdParam.Value().Value,

@@ -1,4 +1,4 @@
-﻿using Components.AzurePipelines.Dto;
+﻿using Components.AzurePipelines.Client;
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -26,7 +26,7 @@ public class RunPipelineOperation : IComponentOperation
     var project = _config.Project.Value();
     var tokenLocation = _config.TokenLocation.Value();
 
-    var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+    var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
     var runPipelineResult = await azurePipelinesClient.RunPipelineAsync(
       _idParam.Value().Value, 
       token);

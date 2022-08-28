@@ -1,4 +1,4 @@
-﻿using Components.AzurePipelines.Dto;
+﻿using Components.AzurePipelines.Client;
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -23,7 +23,7 @@ public class ListPipelinesOperation : IComponentOperation
     var organization = _config.Organization;
     var project = _config.Project;
 
-    var azurePipelinesClient = new AzurePipelinesClient(
+    var azurePipelinesClient = new AzurePipelinesRestApiClient(
       organization.Value(), 
       project.Value(), 
       _config.TokenLocation.Value());

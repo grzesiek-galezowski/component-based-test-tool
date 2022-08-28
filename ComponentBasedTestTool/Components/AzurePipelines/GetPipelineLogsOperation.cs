@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Components.AzurePipelines.Dto;
+using Components.AzurePipelines.Client;
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
@@ -31,7 +31,7 @@ public class GetPipelineLogsOperation : IComponentOperation
       // GET run status
       var pipelineId = _idParam.Value().Value;
       var runId = _runIdParam.Value().Value;
-      var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+      var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
       var logs = await azurePipelinesClient.GetLogChaptersAsync(token, pipelineId, runId);
 
       _out.WriteLine(logs.ToString());

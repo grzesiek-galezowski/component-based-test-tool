@@ -1,4 +1,4 @@
-﻿namespace Components.AzurePipelines.Dto;
+﻿namespace Components.AzurePipelines.Client.Dto;
 
 public record Pipeline(
   ReferenceLinks Links,

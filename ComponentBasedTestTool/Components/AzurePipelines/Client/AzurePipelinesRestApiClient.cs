@@ -1,17 +1,17 @@
-using Components.AzurePipelines.Dto;
+using Components.AzurePipelines.Client.Dto;
 using Flurl.Http;
 using static System.Net.WebRequestMethods;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Client;
 
-public class AzurePipelinesClient
+public class AzurePipelinesRestApiClient
 {
   private readonly string _tokenLocation;
   private readonly string _pipelinesApiPrefix;
   private readonly string _apiVersion;
   private string _apisPrefix;
 
-  public AzurePipelinesClient(string organization, string project, string tokenLocation)
+  public AzurePipelinesRestApiClient(string organization, string project, string tokenLocation)
   {
     _tokenLocation = tokenLocation;
     _apisPrefix = $"https://dev.azure.com/{organization}/{project}/_apis";
@@ -21,7 +21,7 @@ public class AzurePipelinesClient
 
   public async Task<LogCollection> GetLogChaptersAsync(CancellationToken token, string pipelineId, string runId)
   {
-    return 
+    return
       await AuthorizedPipelineApiRequest(pipelineId, $"/runs/{runId}/logs")
         .GetJsonAsync<LogCollection>(cancellationToken: token);
   }

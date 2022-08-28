@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Components.AzurePipelines.Dto;
+namespace Components.AzurePipelines.Client.Dto;
 
 public record Run
 (
