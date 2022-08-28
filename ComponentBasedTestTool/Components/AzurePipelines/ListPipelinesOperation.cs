@@ -1,4 +1,5 @@
 ﻿using Components.AzurePipelines.Dto;
+using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 using Flurl.Http;
@@ -22,8 +23,11 @@ public class ListPipelinesOperation : IComponentOperation
     var organization = _config.Organization;
     var project = _config.Project;
 
-    var jsonAsync = await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines?api-version=7.1-preview.1"
-      .GetJsonAsync<ListOfPipelines>(cancellationToken: token);
+    var azurePipelinesClient = new AzurePipelinesClient(
+      organization.Value(), 
+      project.Value(), 
+      _config.TokenLocation.Value());
+    var jsonAsync = await azurePipelinesClient.GetListOfPipelinesAsync(token);
 
     _out.WriteLine(string.Join(',', jsonAsync.Value.Select(v => v.ToString())));
   }

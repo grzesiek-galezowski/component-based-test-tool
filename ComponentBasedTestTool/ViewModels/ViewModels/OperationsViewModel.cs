@@ -30,8 +30,8 @@ public class OperationsViewModel : INotifyPropertyChanged, IOperationsViewInitia
     }
   }
 
-  public OperationViewModel SelectedOperation {
-    get { return _selectedOperation.Value(); }
+  public OperationViewModel? SelectedOperation {
+    get { return _selectedOperation.OrElseDefault(); } //read at app start
     set
     {
       _selectedOperation = value.ToMaybe();

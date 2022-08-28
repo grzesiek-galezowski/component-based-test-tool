@@ -29,9 +29,9 @@ public class ScriptOperationsViewModel : INotifyPropertyChanged, IOperationsView
     }
   }
 
-  public OperationViewModel SelectedOperation
+  public OperationViewModel? SelectedOperation
   {
-    get { return _selectedOperation.Value(); }
+    get { return _selectedOperation.OrElseDefault(); } //read at app start
     set
     {
       _selectedOperation = value.ToMaybe();

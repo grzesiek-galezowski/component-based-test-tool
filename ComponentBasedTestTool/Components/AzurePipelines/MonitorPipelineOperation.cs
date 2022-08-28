@@ -31,10 +31,11 @@ public class MonitorPipelineOperation : IComponentOperation
     do
     {
       // GET run status
-      runInfo = await
-        $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{_idParam.Value().Value}/runs/{_runIdParam.Value().Value}?api-version=6.0-preview.1"
-          .WithHeader("Authorization", AuthorizationHeader.Value(tokenLocation))
-          .GetJsonAsync<Run>(cancellationToken: token);
+      var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+      runInfo = await azurePipelinesClient.GetPipelineStatusAsync(
+        _idParam.Value().Value,
+        _runIdParam.Value().Value,
+        token);
 
       _out.WriteLine(runInfo.ToString());
       await Task.Delay(TimeSpan.FromSeconds(20), token);

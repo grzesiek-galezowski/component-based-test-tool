@@ -31,24 +31,18 @@ public class GetPipelineLogsOperation : IComponentOperation
       // GET run status
       var pipelineId = _idParam.Value().Value;
       var runId = _runIdParam.Value().Value;
-      var logs = await
-        $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}/runs/{runId}/logs?api-version=7.1-preview.1"
-          .WithHeader("Authorization", AuthorizationHeader.Value(tokenLocation))
-          .GetJsonAsync<LogCollection>(cancellationToken: token);
+      var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+      var logs = await azurePipelinesClient.GetLogChaptersAsync(token, pipelineId, runId);
 
       _out.WriteLine(logs.ToString());
 
       foreach (var logEntry in logs.Logs)
       {
         var logJson =
-          await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}/runs/{runId}/logs/{logEntry.Id}?api-version=7.1-preview.1"
-            .WithHeader("Authorization", AuthorizationHeader.Value(tokenLocation))
-            .GetStringAsync(cancellationToken: token);
+          await azurePipelinesClient.GetLogChapterDetailsAsync(pipelineId, runId, logEntry, token);
         _out.WriteLine(logJson);
 
-        var logContent = await $"https://dev.azure.com/{organization}/{project}/_apis/build/builds/{runId}/logs/{logEntry.Id}"
-          .WithHeader("Authorization", AuthorizationHeader.Value(tokenLocation))
-          .GetStringAsync(cancellationToken: token);
+        var logContent = await azurePipelinesClient.GetLogChapterContentAsync(runId, logEntry.Id, token);
         _out.WriteLine(logContent);
       }
   }
@@ -67,4 +61,6 @@ public class GetPipelineLogsOperation : IComponentOperation
 
 public record LogCollection(Log[] Logs, string Url);
 
-public record Log(DateTime CreatedOn, int Id, DateTime LastChangedOn, int LineCount, string Url);
+public record Log(DateTime CreatedOn, int Id, DateTime LastChangedOn, int LineCount, string Url)
+{
+}

@@ -12,7 +12,8 @@ public class RunPipelineOperation : IComponentOperation
   private readonly AzurePipelinesComponentConfiguration _config;
   private Maybe<IOperationParameter<string>> _idParam;
 
-  public RunPipelineOperation(IOperationsOutput @out,
+  public RunPipelineOperation(
+    IOperationsOutput @out,
     AzurePipelinesComponentConfiguration config)
   {
     _out = @out;
@@ -25,16 +26,10 @@ public class RunPipelineOperation : IComponentOperation
     var project = _config.Project.Value();
     var tokenLocation = _config.TokenLocation.Value();
 
-    var runPipelineJson =
-      await
-        $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{_idParam.Value().Value}/runs?api-version=7.1-preview.1"
-          .WithHeader("Authorization", AuthorizationHeader.Value(tokenLocation))
-          .PostJsonAsync(new
-          {
-            previewRun = false
-          }, cancellationToken: token);
-
-    var runPipelineResult = await runPipelineJson.GetJsonAsync<Run>();
+    var azurePipelinesClient = new AzurePipelinesClient(organization, project, tokenLocation);
+    var runPipelineResult = await azurePipelinesClient.RunPipelineAsync(
+      _idParam.Value().Value, 
+      token);
     _out.WriteLine(runPipelineResult.ToString());
   }
 
