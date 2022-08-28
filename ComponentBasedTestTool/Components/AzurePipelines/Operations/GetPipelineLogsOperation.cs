@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
 using Components.AzurePipelines.Client;
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using Flurl.Http;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Operations;
 
 public class GetPipelineLogsOperation : IComponentOperation
 {
@@ -28,23 +26,23 @@ public class GetPipelineLogsOperation : IComponentOperation
     var project = _config.Project.Value();
     var tokenLocation = _config.TokenLocation.Value();
 
-      // GET run status
-      var pipelineId = _idParam.Value().Value;
-      var runId = _runIdParam.Value().Value;
-      var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
-      var logs = await azurePipelinesClient.GetLogChaptersAsync(token, pipelineId, runId);
+    // GET run status
+    var pipelineId = _idParam.Value().Value;
+    var runId = _runIdParam.Value().Value;
+    var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
+    var logs = await azurePipelinesClient.GetLogChaptersAsync(token, pipelineId, runId);
 
-      _out.WriteLine(logs.ToString());
+    _out.WriteLine(logs.ToString());
 
-      foreach (var logEntry in logs.Logs)
-      {
-        var logJson =
-          await azurePipelinesClient.GetLogChapterDetailsAsync(pipelineId, runId, logEntry, token);
-        _out.WriteLine(logJson);
+    foreach (var logEntry in logs.Logs)
+    {
+      var logJson =
+        await azurePipelinesClient.GetLogChapterDetailsAsync(pipelineId, runId, logEntry, token);
+      _out.WriteLine(logJson);
 
-        var logContent = await azurePipelinesClient.GetLogChapterContentAsync(runId, logEntry.Id, token);
-        _out.WriteLine(logContent);
-      }
+      var logContent = await azurePipelinesClient.GetLogChapterContentAsync(runId, logEntry.Id, token);
+      _out.WriteLine(logContent);
+    }
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)

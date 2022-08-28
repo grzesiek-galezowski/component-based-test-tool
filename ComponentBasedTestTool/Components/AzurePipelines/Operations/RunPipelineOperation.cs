@@ -2,9 +2,8 @@
 using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using Flurl.Http;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Operations;
 
 public class RunPipelineOperation : IComponentOperation
 {
@@ -28,7 +27,7 @@ public class RunPipelineOperation : IComponentOperation
 
     var azurePipelinesClient = new AzurePipelinesRestApiClient(organization, project, tokenLocation);
     var runPipelineResult = await azurePipelinesClient.RunPipelineAsync(
-      _idParam.Value().Value, 
+      _idParam.Value().Value,
       token);
     _out.WriteLine(runPipelineResult.ToString());
   }

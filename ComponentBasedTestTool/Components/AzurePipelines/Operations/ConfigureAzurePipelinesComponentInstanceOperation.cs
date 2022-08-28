@@ -2,7 +2,7 @@
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Operations;
 
 public class ConfigureAzurePipelinesComponentInstanceOperation : IComponentOperation
 {
@@ -27,7 +27,7 @@ public class ConfigureAzurePipelinesComponentInstanceOperation : IComponentOpera
   public void InitializeParameters(IOperationParametersListBuilder parameters)
   {
     //bug validate that operation names do not contain spaces!!
-    _tokenLocation 
+    _tokenLocation
       = parameters.Path("PersonalTokenLocation", "C:\\Users\\HYPERBOOK\\Documents\\__KEYS\\azure-pipelines.txt").Just();
     _organization = parameters.Text("Organization", "grzesiekgalezowski").Just();
     _project = parameters.Text("Project", "grzesiekgalezowski").Just();

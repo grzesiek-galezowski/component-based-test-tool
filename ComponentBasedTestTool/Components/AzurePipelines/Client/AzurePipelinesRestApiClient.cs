@@ -1,6 +1,6 @@
 using Components.AzurePipelines.Client.Dto;
+using Components.AzurePipelines.Operations;
 using Flurl.Http;
-using static System.Net.WebRequestMethods;
 
 namespace Components.AzurePipelines.Client;
 

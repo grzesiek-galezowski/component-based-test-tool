@@ -1,12 +1,11 @@
 ﻿using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using Flurl.Http;
 using System;
 using Components.AzurePipelines.Client;
 using Components.AzurePipelines.Client.Dto;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Operations;
 
 public class MonitorPipelineOperation : IComponentOperation
 {

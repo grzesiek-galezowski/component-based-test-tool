@@ -1,10 +1,8 @@
 ﻿using Components.AzurePipelines.Client;
-using Core.Maybe;
 using ExtensionPoints.ImplementedByComponents;
 using ExtensionPoints.ImplementedByContext;
-using Flurl.Http;
 
-namespace Components.AzurePipelines;
+namespace Components.AzurePipelines.Operations;
 
 public class ListPipelinesOperation : IComponentOperation
 {
@@ -24,8 +22,8 @@ public class ListPipelinesOperation : IComponentOperation
     var project = _config.Project;
 
     var azurePipelinesClient = new AzurePipelinesRestApiClient(
-      organization.Value(), 
-      project.Value(), 
+      organization.Value(),
+      project.Value(),
       _config.TokenLocation.Value());
     var jsonAsync = await azurePipelinesClient.GetListOfPipelinesAsync(token);
 
