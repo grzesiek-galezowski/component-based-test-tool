@@ -19,7 +19,7 @@ public class AzurePipelinesRestApiClient
     _apiVersion = "api-version=7.1-preview.1";
   }
 
-  public async Task<LogCollection> GetLogAsync(CancellationToken token, string pipelineId, string runId)
+  public async Task<LogCollection> GetLogAsync(string pipelineId, string runId, CancellationToken token)
   {
     return
       await AuthorizedPipelineApiRequest(pipelineId, $"/runs/{runId}/logs")

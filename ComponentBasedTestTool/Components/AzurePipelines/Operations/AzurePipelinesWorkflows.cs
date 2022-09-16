@@ -1,9 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using Components.AzurePipelines.Client;
 using Components.AzurePipelines.Client.Dto;
 using ExtensionPoints.ImplementedByContext;
 
 namespace Components.AzurePipelines.Operations;
+
+public class PipelineLogsProgress
+{
+  public Dictionary<int, string> _returnValue;
+
+  public PipelineLogsProgress(Dictionary<int, string> returnValue)
+  {
+    _returnValue = returnValue;
+  }
+
+  public bool AlreadyHasSomeLogsFor(Log logPageInfo)
+  {
+    return !_returnValue.ContainsKey(logPageInfo.Id);
+  }
+
+  public void Set(int id, string logContent)
+  {
+    _returnValue[id] = logContent;
+  }
+
+  public bool HasLessEntriesThanIn(string logContent, Log logPageInfo)
+  {
+    return logContent.Length > _returnValue[logPageInfo.Id].Length;
+  }
+}
 
 public class AzurePipelinesWorkflows
 {
@@ -21,7 +47,7 @@ public class AzurePipelinesWorkflows
     string runId, 
     CancellationToken token)
   {
-    var log = await _azurePipelinesRestApiClient.GetLogAsync(token, pipelineId, runId);
+    var log = await _azurePipelinesRestApiClient.GetLogAsync(pipelineId, runId, token);
 
     operationsOutput.WriteLine("======== Log pages ====== ");
     operationsOutput.WriteLine(log.ToString());
@@ -39,13 +65,13 @@ public class AzurePipelinesWorkflows
     }
   }
 
-  public async Task MonitorBuild(
-    IOperationsOutput operationsOutput,
-    string pipelineId,
+  public async Task MonitorBuild(string pipelineId,
     string runId,
-    CancellationToken token)
+    CancellationToken token, 
+    IPipelineObserver pipelineObserver)
   {
     Run? runInfo;
+    var pipelineLogsProgress = new PipelineLogsProgress(new Dictionary<int, string>());
     do
     {
       runInfo = await _azurePipelinesRestApiClient.GetPipelineStatusAsync(
@@ -53,10 +79,45 @@ public class AzurePipelinesWorkflows
         runId,
         token);
 
-      //bug add logs
+      pipelineObserver.NotifyAboutNew(runInfo);
 
-      operationsOutput.WriteLine(runInfo.ToString());
+      var logCollection = await _azurePipelinesRestApiClient.GetLogAsync(pipelineId, runId, token);
+
+      foreach (var logPageInfo in logCollection.Logs)
+      {
+        //bug move this to log page and create a new type
+        await Process(runId, runInfo, logPageInfo, pipelineObserver, pipelineLogsProgress, token);
+      }
       await Task.Delay(TimeSpan.FromSeconds(20), token);
     } while (runInfo.State != "completed");
+  }
+
+  private async Task Process(string runId, Run runInfo, Log logPageInfo,
+    IPipelineObserver pipelineObserver,
+    PipelineLogsProgress pipelineLogsProgress, CancellationToken token)
+  {
+    var logContent = await _azurePipelinesRestApiClient.GetLogPageContentAsync(runId, logPageInfo.Id, token);
+
+    //bug there may be some races here...
+    if (pipelineLogsProgress.AlreadyHasSomeLogsFor(logPageInfo))
+    {
+      pipelineLogsProgress.Set(logPageInfo.Id, logContent);
+      pipelineObserver.NotifyAboutLogs(runInfo, logPageInfo, logContent);
+    }
+    else
+    {
+      if (pipelineLogsProgress.HasLessEntriesThanIn(logContent, logPageInfo))
+      {
+        pipelineObserver.NotifyAboutLogs(
+          runInfo,
+          logPageInfo,
+          OnlyNewEntriesIn(logContent, pipelineLogsProgress, logPageInfo));
+      }
+    }
+  }
+
+  private static string OnlyNewEntriesIn(string logContent, PipelineLogsProgress pipelineLogsProgress, Log logPageInfo)
+  {
+    return logContent[(pipelineLogsProgress._returnValue[logPageInfo.Id].Length-1)..];
   }
 }

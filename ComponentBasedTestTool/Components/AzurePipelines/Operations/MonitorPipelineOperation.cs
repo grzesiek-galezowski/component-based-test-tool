@@ -30,11 +30,9 @@ public class MonitorPipelineOperation : IComponentOperation
     var azurePipelinesWorkflows = new AzurePipelinesWorkflows(organization,
       project,
       tokenLocation);
-    await azurePipelinesWorkflows.MonitorBuild(
-      _out,
-      _idParam.Value().Value,
+    await azurePipelinesWorkflows.MonitorBuild(_idParam.Value().Value,
       _runIdParam.Value().Value,
-      token);
+      token, new PipelineObserver(_out));
   }
 
   public void InitializeParameters(IOperationParametersListBuilder parameters)
