@@ -1,3 +1,3 @@
 ﻿namespace Components.AzurePipelines.Client.Dto;
 
-public record Connection(string Id);
+public record ConnectionDto(string Id);

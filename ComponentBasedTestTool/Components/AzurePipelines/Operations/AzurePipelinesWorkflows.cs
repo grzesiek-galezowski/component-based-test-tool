@@ -70,54 +70,69 @@ public class AzurePipelinesWorkflows
     CancellationToken token, 
     IPipelineObserver pipelineObserver)
   {
-    Run? runInfo;
+    //bug unfinished. Finish refactoring and test this through the tool
+    bool isPipelineInProgress;
     var pipelineLogsProgress = new PipelineLogsProgress(new Dictionary<int, string>());
+    var pipelineApi = new PipelineApi(_azurePipelinesRestApiClient);
     do
     {
-      runInfo = await _azurePipelinesRestApiClient.GetPipelineStatusAsync(
-        pipelineId,
-        runId,
-        token);
+      var pipelineRunSnapshot = await pipelineApi.GetRunningPipelineAsync(pipelineId, runId, token);
+      pipelineRunSnapshot.SendTo(pipelineObserver);
 
-      pipelineObserver.NotifyAboutNew(runInfo);
+      var logPages = await pipelineRunSnapshot.DownloadLogs(token);
 
-      var logCollection = await _azurePipelinesRestApiClient.GetLogAsync(pipelineId, runId, token);
-
-      foreach (var logPageInfo in logCollection.Logs)
+      foreach (var logPage in logPages)
       {
-        //bug move this to log page and create a new type
-        await Process(runId, runInfo, logPageInfo, pipelineObserver, pipelineLogsProgress, token);
+        await logPage.Process(pipelineObserver, pipelineLogsProgress, token);
       }
       await Task.Delay(TimeSpan.FromSeconds(20), token);
-    } while (runInfo.State != "completed");
+
+      isPipelineInProgress = pipelineRunSnapshot.IsPipelineInProgress();
+    } while (isPipelineInProgress);
+  }
+}
+
+public class PipelineRunSnapshot
+{
+  private readonly RunDto _run;
+  private readonly AzurePipelinesRestApiClient _azurePipelinesRestApiClient;
+  private readonly string _pipelineId;
+  private readonly string _runId;
+
+  public PipelineRunSnapshot(
+    RunDto run,
+    AzurePipelinesRestApiClient azurePipelinesRestApiClient,
+    string pipelineId,
+    string runId)
+  {
+    _run = run;
+    _azurePipelinesRestApiClient = azurePipelinesRestApiClient;
+    _pipelineId = pipelineId;
+    _runId = runId;
   }
 
-  private async Task Process(string runId, Run runInfo, Log logPageInfo,
-    IPipelineObserver pipelineObserver,
-    PipelineLogsProgress pipelineLogsProgress, CancellationToken token)
+  public bool IsPipelineInProgress()
   {
-    var logContent = await _azurePipelinesRestApiClient.GetLogPageContentAsync(runId, logPageInfo.Id, token);
-
-    //bug there may be some races here...
-    if (pipelineLogsProgress.AlreadyHasSomeLogsFor(logPageInfo))
-    {
-      pipelineLogsProgress.Set(logPageInfo.Id, logContent);
-      pipelineObserver.NotifyAboutLogs(runInfo, logPageInfo, logContent);
-    }
-    else
-    {
-      if (pipelineLogsProgress.HasLessEntriesThanIn(logContent, logPageInfo))
-      {
-        pipelineObserver.NotifyAboutLogs(
-          runInfo,
-          logPageInfo,
-          OnlyNewEntriesIn(logContent, pipelineLogsProgress, logPageInfo));
-      }
-    }
+    return _run.State != "completed";
   }
 
-  private static string OnlyNewEntriesIn(string logContent, PipelineLogsProgress pipelineLogsProgress, Log logPageInfo)
+  public void SendTo(IPipelineObserver pipelineObserver)
   {
-    return logContent[(pipelineLogsProgress._returnValue[logPageInfo.Id].Length-1)..];
+    pipelineObserver.NotifyAboutNew(_run);
+  }
+
+  public async Task<IEnumerable<LogPage>> DownloadLogs(CancellationToken token)
+  {
+    var logCollection = await _azurePipelinesRestApiClient.GetLogAsync(
+      _pipelineId,
+      _runId,
+      token);
+    var logPages = logCollection.Logs.Select(lp =>
+      new LogPage(
+        _azurePipelinesRestApiClient,
+        _runId,
+        _run,
+        lp));
+    return logPages;
   }
 }

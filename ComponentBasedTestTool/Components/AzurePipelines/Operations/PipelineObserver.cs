@@ -5,8 +5,8 @@ namespace Components.AzurePipelines.Operations;
 
 public interface IPipelineObserver
 {
-  void NotifyAboutNew(Run runInfo);
-  void NotifyAboutLogs(Run runInfo, Log logPageInfo, string logContent);
+  void NotifyAboutNew(RunDto runInfo);
+  void NotifyAboutLogs(RunDto runInfo, Log logPageInfo, string logContent);
 }
 
 public class PipelineObserver : IPipelineObserver
@@ -18,12 +18,12 @@ public class PipelineObserver : IPipelineObserver
     _operationsOutput = operationsOutput;
   }
 
-  public void NotifyAboutNew(Run runInfo)
+  public void NotifyAboutNew(RunDto runInfo)
   {
     _operationsOutput.WriteLine(runInfo.ToString());
   }
 
-  public void NotifyAboutLogs(Run runInfo, Log logPageInfo, string logContent)
+  public void NotifyAboutLogs(RunDto runInfo, Log logPageInfo, string logContent)
   {
     _operationsOutput.WriteLine(logContent);
   }

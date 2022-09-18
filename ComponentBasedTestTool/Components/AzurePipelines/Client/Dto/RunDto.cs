@@ -2,15 +2,15 @@
 
 namespace Components.AzurePipelines.Client.Dto;
 
-public record Run
+public record RunDto
 (
-  ReferenceLinks Links,
-  Pipeline Pipeline,
+  ReferenceLinksDto Links,
+  PipelineDto Pipeline,
   string State,
   string Result,
   DateTime CreatedDate,
   string Url,
-  Resources Resources,
+  ResourcesDto Resources,
   string FinalYaml,
   int Id,
   object Name

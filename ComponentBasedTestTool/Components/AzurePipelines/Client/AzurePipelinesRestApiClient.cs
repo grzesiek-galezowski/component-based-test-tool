@@ -36,20 +36,20 @@ public class AzurePipelinesRestApiClient
       .GetStringAsync(cancellationToken: token);
   }
 
-  public async Task<ListOfPipelines> GetListOfPipelinesAsync(CancellationToken token)
+  public async Task<ListOfPipelinesDto> GetListOfPipelinesAsync(CancellationToken token)
   {
     return await ApiRequest("")
-      .GetJsonAsync<ListOfPipelines>(cancellationToken: token);
+      .GetJsonAsync<ListOfPipelinesDto>(cancellationToken: token);
   }
 
-  public async Task<Run> GetPipelineStatusAsync(string pipelineId, string runId, CancellationToken token)
+  public async Task<RunDto> GetPipelineStatusAsync(string pipelineId, string runId, CancellationToken token)
   {
     return await
       AuthorizedPipelineApiRequest(pipelineId, $"/runs/{runId}")
-        .GetJsonAsync<Run>(cancellationToken: token);
+        .GetJsonAsync<RunDto>(cancellationToken: token);
   }
 
-  public async Task<Run> RunPipelineAsync(string pipelineId, CancellationToken token)
+  public async Task<RunDto> RunPipelineAsync(string pipelineId, CancellationToken token)
   {
     var runPipelineJson =
       await
@@ -59,7 +59,7 @@ public class AzurePipelinesRestApiClient
             previewRun = false
           }, cancellationToken: token);
 
-    return await runPipelineJson.GetJsonAsync<Run>();
+    return await runPipelineJson.GetJsonAsync<RunDto>();
   }
 
   public async Task<string> GetLogPageContentAsync(string runId, int chapterId, CancellationToken token)

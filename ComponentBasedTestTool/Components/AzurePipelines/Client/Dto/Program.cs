@@ -22,7 +22,7 @@ public class Kike
 
     // LIST of pipelines request
     var jsonAsync = await $"https://dev.azure.com/{organization}/{project}/_apis/pipelines?api-version=7.1-preview.1"
-      .GetJsonAsync<ListOfPipelines>();
+      .GetJsonAsync<ListOfPipelinesDto>();
 
     var pipelineIds = jsonAsync.Value.Select(p => p.Id);
     Console.WriteLine(string.Join(',', pipelineIds));
@@ -48,17 +48,17 @@ public class Kike
             previewRun = false
           });
 
-    var runPipelineResult = await runPipelineJson.GetJsonAsync<Run>();
+    var runPipelineResult = await runPipelineJson.GetJsonAsync<RunDto>();
     Console.WriteLine(runPipelineResult);
 
-    Run? runInfo;
+    RunDto? runInfo;
     do
     {
       // GET run status
       runInfo = await
         $"https://dev.azure.com/{organization}/{project}/_apis/pipelines/{pipelineId}/runs/{runPipelineResult.Id}?api-version=6.0-preview.1"
           .WithHeader("Authorization", AuthorizationHeaderValue())
-          .GetJsonAsync<Run>();
+          .GetJsonAsync<RunDto>();
 
 
       Console.WriteLine(runInfo.State);

@@ -1,3 +1,3 @@
 ﻿namespace Components.AzurePipelines.Client.Dto;
 
-public record Web(string Href);
+public record WebDto(string Href);
