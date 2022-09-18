@@ -1,6 +1,6 @@
 ﻿using Components.AzurePipelines.Client;
 
-namespace Components.AzurePipelines.Operations;
+namespace Components.AzurePipelines.Operations.HigherLevelApi;
 
 public class PipelineApi
 {

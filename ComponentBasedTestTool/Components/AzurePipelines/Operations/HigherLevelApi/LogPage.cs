@@ -1,7 +1,7 @@
 ﻿using Components.AzurePipelines.Client;
 using Components.AzurePipelines.Client.Dto;
 
-namespace Components.AzurePipelines.Operations;
+namespace Components.AzurePipelines.Operations.HigherLevelApi;
 
 public class LogPage
 {
@@ -51,6 +51,6 @@ public class LogPage
 
   private static string OnlyNewEntriesIn(string logContent, PipelineLogsProgress pipelineLogsProgress, Log logPageInfo)
   {
-    return logContent[(pipelineLogsProgress._returnValue[logPageInfo.Id].Length-1)..];
+    return logContent[(pipelineLogsProgress._returnValue[logPageInfo.Id].Length - 1)..];
   }
 }

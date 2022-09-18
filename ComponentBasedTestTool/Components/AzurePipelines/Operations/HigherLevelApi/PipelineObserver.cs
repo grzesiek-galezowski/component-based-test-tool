@@ -1,7 +1,7 @@
 ﻿using Components.AzurePipelines.Client.Dto;
 using ExtensionPoints.ImplementedByContext;
 
-namespace Components.AzurePipelines.Operations;
+namespace Components.AzurePipelines.Operations.HigherLevelApi;
 
 public interface IPipelineObserver
 {
