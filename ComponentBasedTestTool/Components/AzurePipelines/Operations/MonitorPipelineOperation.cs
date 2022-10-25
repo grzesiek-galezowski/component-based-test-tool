@@ -4,6 +4,7 @@ using ExtensionPoints.ImplementedByContext;
 using System;
 using Components.AzurePipelines.Client;
 using Components.AzurePipelines.Client.Dto;
+using Components.AzurePipelines.Operations.HigherLevelApi;
 
 namespace Components.AzurePipelines.Operations;
 
