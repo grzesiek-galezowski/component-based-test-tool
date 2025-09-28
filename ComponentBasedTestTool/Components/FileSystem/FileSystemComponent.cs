@@ -59,6 +59,6 @@ public class FileSystemComponent :
 
   public void CleanupOnClosing()
   {
-    MessageBox.Show("Cleaning up!");
+    _customGui?.Close();
   }
 }
